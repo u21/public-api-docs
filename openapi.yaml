@@ -434,12 +434,9 @@ paths:
 
         ### You can also update Entities through the `/create` endpoint
 
-
-        Unit21's API also supports _upserting_ objects through the object's
-        `{object}/create endpoint. An _Upsert_ either inserts a new record, or,
-        if the record already exists, updates the record with the new
-        information.
-
+        The API also supports _upserting_ objects through the `/create`
+        endpoint. An upsert either updates records with new values, or, if the
+        record doesn't exist, inserts a new value.
 
         This means that, if you POST a request to `entity/create` using an
         `entity_id` that already exists, Unit21 can update the record. For more
@@ -940,11 +937,9 @@ paths:
         ### You can also update Events through the `/create` endpoint
 
 
-        Unit21's API also supports _upserting_ objects through the object's
-        `{object}/create endpoint. An _Upsert_ either inserts a new record, or,
-        if the record already exists, updates the record with the new
-        information.
-
+        Unit21's API also supports _upserting_ objects through the `/create`
+        endpoint. An _Upsert_ either inserts a new record, or, if the record
+        already exists, updates the record with the new information.
 
         This means that, if you POST a request to `events/create` using an
         `event_id` that already exists, Unit21 can update the record. For more
@@ -1243,11 +1238,9 @@ paths:
         ### You can also update instruments through the `/create` endpoint
 
 
-        Unit21's API also supports _upserting_ objects through the object's
-        `{object}/create endpoint. An _Upsert_ either inserts a new record, or,
-        if the record already exists, updates the record with the new
-        information.
-
+        Unit21's API also supports _upserting_ objects through the `/create`
+        endpoint. An _Upsert_ either inserts a new record, or, if the record
+        already exists, updates the record with the new information.
 
         This means that, if you POST a request to `instruments/create` using an
         `instrument_id` that already exists, Unit21 can update the record. For
@@ -1474,12 +1467,9 @@ paths:
 
         ### You can also update devices through the `/create` endpoint
 
-
-        Unit21's API also supports _upserting_ objects through the object's
-        `{object}/create endpoint. An _Upsert_ either inserts a new record, or,
-        if the record already exists, updates the record with the new
-        information.
-
+        The API also supports _upserting_ objects through the `/create`
+        endpoint. An upsert either updates records with new values, or, if the
+        record doesn't exist, inserts a new value.
 
         This means that, if you POST a request to `devices/create` using an
         `device_id` that already exists, Unit21 can update the record. For more
@@ -2540,7 +2530,9 @@ components:
       description: MUST be either `user` or `business`
     entitySubtype:
       type: string
-      description: A string that represents an internal type of user in your system
+      description: >
+        Extra information how your organization classifies the entity. You MAY
+        enter any value.
       example: contractor
     objectStatus:
       type: string
@@ -3249,9 +3241,10 @@ components:
             event_subtype:
               type: string
               description: >
-                A string that represents an internal type of event within your
-                system, if relevant. E.g. if you have two types of products and
-                a transaction can be associated with either.
+                Extra info about how your organization classifies the event. You
+                MAY enter any value. Useful for granular categories, e.g. if you
+                have two types of products and a transaction can be associated
+                with either.
               example: payment
             status:
               $ref: '#/components/schemas/objectStatus'
@@ -3382,7 +3375,7 @@ components:
               description: >
                 (Required when `receiver_source == internal`, ignored
                 otherwise). The entity type of the receiver as defined in
-                Entity's general_data section. Must be either `user` or
+                Entity's general_data section. MUST be either `user` or
                 `business`.
               example: business
             receiver_source:
