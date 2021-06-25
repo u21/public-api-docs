@@ -20,6 +20,8 @@ It's not guaranteed to be as up-to-date as the version found on https://guide.un
 
 ## Instructions for the Postman collection
 
+0. Download [the collection in this repo](Unit21_internal_API.postman_collection.json).
+
 1. In Postman, select **Import** to import the collection with the collection JSON file. The collection file is in v2.1 format.
 
 2. Configure [collection variables](https://learning.postman.com/docs/postman/variables-and-environments/variables/#defining-variables-in-scripts). Click on options for the imported collection and select "Edit".
