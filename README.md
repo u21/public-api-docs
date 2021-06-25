@@ -1,4 +1,4 @@
-# API-Documentation
+# Unit21's API description and Postman collection
 
 A public mirror of U21's API documentation, with a Postman collection.
 
