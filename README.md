@@ -1,6 +1,6 @@
 # API-Documentation
 
-A public mirror of U21's API documentation, with a Postman collection
+A public mirror of U21's API documentation, with a Postman collection.
 
 Unit21's API documentation uses the openAPI specification.
 The API reference is hosted on [an interactive website](https://guide.unit21.ai/reference),
@@ -24,7 +24,7 @@ It's not guaranteed to be as up-to-date as the version found on https://guide.un
 
 2. Configure [collection variables](https://learning.postman.com/docs/postman/variables-and-environments/variables/#defining-variables-in-scripts) need to be configured before the collection is ready for use. Click on options for the imported collection "Unit21 API (Public)" and select "Edit".
 
-    ![In the sidebar, click on edit](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/de57618e-d0a3-48d9-8947-c6598fab00ca/Screen_Shot_2020-04-27_at_3.04.33_PM.png)
+    ![In the sidebar, click on edit](edit-variables.png)
 
 3. Populate the collection variables:
   * `baseURL` with your sandbox environment (should end with `/v1`
