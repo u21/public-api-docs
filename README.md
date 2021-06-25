@@ -22,7 +22,7 @@ It's not guaranteed to be as up-to-date as the version found on https://guide.un
 
 0. Download [the collection in this repo](Unit21_internal_API.postman_collection.json).
 
-1. In Postman, select **Import** to import the collection with the collection JSON file. The collection file is in v2.1 format.
+1. In Postman, select **Import** and import the collection JSON file (in v2.1 format).
 
 2. Configure [collection variables](https://learning.postman.com/docs/postman/variables-and-environments/variables/#defining-variables-in-scripts). Click on options for the imported collection and select "Edit".
 
@@ -35,8 +35,8 @@ It's not guaranteed to be as up-to-date as the version found on https://guide.un
 
 ### Notes:
 
-- Change the `randId` collection variable to a new value to run a new test that avoids ID collisions.
-  For more convenience, you could create a collection-level   script that automatically sets `randId` to be a random string upon running the first request in the collection e.g.
+- To run a new test that avoids ID collisions, change the `randId` collection variable to a new value.
+  For more convenience, you could create a collection-level script that automatically sets `randId` to be a random string upon running the first request in the collection e.g.
 
 ```jsx
 if (pm.info.requestName == 'create userA') {
@@ -47,6 +47,6 @@ if (pm.info.requestName == 'create userA') {
 ```
 
 - If you encounter `423 LOCKED` responses from the API on **update** or **get** API requests,
-  it means that the requested object is still being processed. Retrying the request after a delay will result in a successful request.
-    - The `(OPTIONAL) Sleep 5 S` requests are included in the collection between sequences of **create**, **update**, and **get** requests
-      to avoid `424 LOCKED` responses when running the collection requests in quick succession i.e. using Postman Collection Runner
+  the requested object is still being processed. Retrying the request after a delay should result in a successful request.
+    - The `(OPTIONAL) Sleep 5 S` requests are included in the collection
+      to avoid `424 LOCKED` responses when running the collection requests in quick succession i.e. using Postman Collection Runner.
