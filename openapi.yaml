@@ -941,9 +941,7 @@ paths:
 
         This means that, if you POST a request to `events/create` using an
         `event_id` that already exists, Unit21 can update the record. For more
-        information, see the [update vs
-        upsert](https://dash.readme.com/project/unit21/v1.0/refs/update-vs-upsert)
-        page.
+        information, see the [update vs upsert](ref:update-vs-upsert) page.
 
 
         Upsert works only if `options.upsert_on_conflict` is `true`.
@@ -2591,7 +2589,8 @@ components:
               $ref: '#/components/schemas/Tags'
     workflowId:
       type: string
-      description: A unique identifier defined during workflow creation.
+      description: |
+        A unique identifier defined during workflow creation. **Default**: none
       example: sanctions_check_1
     synchronousResponse:
       type: boolean
@@ -2599,21 +2598,29 @@ components:
         Whether or not to immediately execute the workflow and receive a
         verification response as part of the API request response. If
         `synchronous_response` is `true` for a workflow that doesn't allow
-        synchronous responses, this throws an error.
+        synchronous responses, this throws an error. **Default**: `false`
       default: false
       example: false
+    includeFullResponse:
+      type: boolean
+      description: >-
+        Include the full, raw, verification results. Can be used only if
+        `synchronous_response` is `true`.
+         **Default**: `false`
+      default: false
     resolveGeoIp:
       type: boolean
       description: >-
         If `false`, does not resolve the geographic location from the provided
         IP. If `true` and `digital_data.ip_addresses` is empty, Unit21 ignores
-        the field.
+        the field. **Default**: `true`
+      default: true
       example: true
     merge_custom_data:
       type: boolean
       description: >-
         Only relevant for updates/upserts, ignored otherwise. Visit custom data
-        merge strategy for more details.
+        merge strategy for more details. **Default**: `false`
       default: false
     listMergeStrategy:
       type: string
@@ -2627,14 +2634,15 @@ components:
         new values. `difference` removes the values you send(provided they
         already existed on the system). See the [list-merge-strategy
         section](https://guide.unit21.ai/reference#data-merging-on-updates) for
-        more details.
+        more details. **Default**: `union`
       default: union
     upsertOnConflict:
       type: boolean
       description: >-
         If POST request includes an object that already exists when 
         `upsert_on_conflict` is `false`, API returns a 409 error code and the
-        object is not overwritten.
+        object is not overwritten. **Default**: `true`
+      default: true
       example: true
     entityOptions:
       title: Entity Options
@@ -2652,19 +2660,13 @@ components:
                   type: boolean
                   description: >-
                     Whether or not to execute a verification workflow for the
-                    uploaded entity/entities.
+                    uploaded entity/entities. **Default**: `false`
                   default: false
                   example: false
                 synchronous_response:
                   $ref: '#/components/schemas/synchronousResponse'
             include_full_response:
-              type: boolean
-              description: >-
-                Include the full, raw, verification results. This option can
-                only be used if `synchronous_response` is set to `true`, or a
-                `400 Bad Request` will be returned. This is an optional field
-                and defaults to false.
-              example: false
+              $ref: '#/components/schemas/includeFullResponse'
             resolve_geoip:
               $ref: '#/components/schemas/resolveGeoIp'
             merge_custom_data:
@@ -3108,11 +3110,6 @@ components:
             "source": "passport_app", "timestamp": 1572673229}'
 
             ```
-    includeFullResponse:
-      type: boolean
-      description: >-
-        Include the full, raw, verification results. Can be used only if
-        `synchronous_response` is `true`.
     entityVerification:
       title: Entity Verification
       description: Fields to verify an entity
