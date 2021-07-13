@@ -440,9 +440,7 @@ paths:
 
         This means that, if you POST a request to `entity/create` using an
         `entity_id` that already exists, Unit21 can update the record. For more
-        information, see the [update vs
-        upsert](https://dash.readme.com/project/unit21/v1.0/refs/update-vs-upsert)
-        page.
+        information, see the [update vs upsert](ref:update-vs-upsert) page.
 
 
         ### Batch entity requests
@@ -589,7 +587,7 @@ paths:
       description: >-
         Update an entity using the `entity_id` from your platform. Except for
         the path syntax, the request is exactly the same as the [Updating an
-        Entity by `unit21_id`](https://guide.unit21.ai/reference#update_entity)
+        Entity by `unit21_id`](ref:update_entity)
       operationId: update_entity_by_external
       parameters:
         - $ref: '#/components/parameters/entity_id'
@@ -667,7 +665,7 @@ paths:
         Run a verification workflow on an entity. Requires a `workflow_id`. You
         can create a verification workflow from the Unit21 dashboard. To see
         how, review [this help
-        article](https://guide.unit21.ai/docs/kyc-verification-workflow).
+        article](https://docs.unit21.ai/docs/kyc-verification-workflow).
       operationId: run_verification_workflow
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -1087,7 +1085,7 @@ paths:
       description: >-
         Update an event using the `event_id` from your platform. Except for the
         path syntax, the request is exactly the same as the [Updating an Entity
-        by `unit21_id`](https://guide.unit21.ai/reference#update_entity)
+        by `unit21_id`](ref:update_entity)
       operationId: update_event_by_external
       parameters:
         - $ref: '#/components/parameters/event_id'
@@ -1380,8 +1378,7 @@ paths:
       description: >-
         Updatemad an instrument using the `instrument_id` from your platform.
         Except for the path syntax, the request is exactly the same as the
-        [Updating an Entity by
-        `unit21_id`](https://guide.unit21.ai/reference#update_entity)
+        [Updating an Entity by `unit21_id`](ref:update_entity)
       operationId: update_instrument_by_external
       parameters:
         - $ref: '#/components/parameters/instrument_id'
@@ -1578,7 +1575,7 @@ paths:
       description: >-
         Update a device using the `device_id` from your platform. Except for the
         path syntax, the request is exactly the same as the [Updating an Entity
-        by `unit21_id`](https://guide.unit21.ai/reference#update_entity)
+        by `unit21_id`](ref:update_entity)
       operationId: update_device_by_external
       parameters:
         - $ref: '#/components/parameters/device_id'
@@ -1833,7 +1830,7 @@ paths:
         endpoint](ref:create_alert).
 
         To add an object to an alert, use the [`add-objects`
-        endpoint](ref:add_objects_to_alert)
+        endpoint](ref:add_objects_to_alerts)
       operationId: update_alert
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -2002,7 +1999,7 @@ paths:
         and associate other objects by adding arrays of entities and events.
 
 
-        ### Batch create alerts
+        ### Batch create cases
 
 
         If you want to create multiple cases, you can send an array of alerts
@@ -2022,7 +2019,7 @@ paths:
           "cases": [
             {
               "case_id": "case-1",
-              "title": "J.Snith Smurt Investigation",
+              "title": "J.Smith Smurf Investigation",
               "start_date": 1622058126
             },
             {
@@ -2464,7 +2461,7 @@ paths:
         Retrieve datafile mapping of objects uploaded with a datafile. Includes
         3 arrays: entities, events, instruments. Each list is limited to a
         maximum of 500 items. The total number of items can be retrieved from
-        the [GET endpoint](ref:get-datafile-by-unit21_id).
+        the [GET endpoint](ref:get_datafile_by_unit21_id).
       parameters:
         - $ref: '#/components/parameters/unit21_id'
       requestBody:
