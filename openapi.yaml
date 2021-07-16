@@ -18,16 +18,19 @@ security:
 tags:
   - name: Entities
     description: >
-      <p>_Entities_ are typically businesses or users that have transactions on
+      _Entities_ are typically businesses or users that have transactions on
       your platform. They also may be customers who you ran a KYC check on using
-      the Unit21 system.</p>
+      the Unit21 system.
 
-      <p>Entity data is uploaded in the request body. Although the only required
+      Entity data is uploaded in the request body. Although the only required
       entity data is `entity_id` and `entity_type`, an entity can contain many
       supplementary data objects. These objects include location, instrument
       data, media data, and any custom objects or key-value strings that you
       choose. To see what data objects an entity can contain, review the [Create
-      an Entity section](ref:create_entity).</p>
+      an Entity section](ref:create_entity).
+
+      ### Update entities through `unit21_id` or through
+      `<org-name>/entities/entity_id`
 
       Each entity has two IDs:
 
@@ -42,7 +45,17 @@ tags:
 
       * `v1/{org_name}/entities/{entity_id}`
 
-       Although the examples in this documentation use the `unit21_id`, one example of a request with `entity_id` is provided in [Update Entity Using external ID section](ref:update_entity_by_external).Entities are businesses or users that have transactions on your platform.
+       Although the examples in this documentation use the `unit21_id`, one example of a request with `entity_id` is provided in [Update Entity Using external ID section](ref:update_entity_by_external).
+
+      ### You can also update Entities through the `/create` endpoint
+
+      The API also supports _upserting_ objects through the `/create` endpoint.
+      An upsert either updates records with new values, or, if the record
+      doesn't exist, inserts a new value.
+
+      This means that, if you POST a request to `entity/create` using an
+      `entity_id` that already exists, Unit21 can update the record. For more
+      information, see the [update vs upsert](ref:update-vs-upsert) page.
   - name: Events
     description: >
       The `/events` endpoint sends and receives data about significant actions
@@ -68,6 +81,29 @@ tags:
       Although the examples in this documentation use the `unit21_id`, one
       example of a request with `event_id` is provided in [Update Event Using
       external ID section](ref:update_event_by_external).
+
+      ### Optional objects to associate with events
+
+      Besides `general_data` and `transaction_data`, the `events/create`
+      endpoint supports a number of other objects that you can send in the
+      request body, including:
+          * `location_data`─data about where transaction occurred (for brick and
+          mortar transactions)
+          * `digital_data`─information about associated digital devices (most
+          commonly, IPs)
+          * `custom_data`─any more objects your organization wishes to send
+          * `options`─instructions for the Unit21 API about how is should handle
+          incoming data
+
+      ### You can also update events through the `/create` endpoint
+
+      The API also supports _upserting_ objects through the `/create` endpoint.
+      An upsert either updates records with new values, or, if the record
+      doesn't exist, inserts a new value.
+
+      This means that, if you POST a request to `events/create` using an
+      `event_id` that already exists, Unit21 can update the record. For more
+      information, see the [update vs upsert](ref:update-vs-upsert) page.
   - name: Instruments
     description: >
       _Instruments_ represent any physical, digital, or logical intermediary
@@ -81,7 +117,7 @@ tags:
       <table style="width:100%">
         <tr>
           <th></th>
-          <th>`instrument_type` values</th> 
+          <th>`instrument_type` values</th>
         </tr>
         <tr>
           <td>Cash and card payments</td>
@@ -96,25 +132,49 @@ tags:
         <tr>
           <td>Intermediaries</td>
           <td><code>financing</code>, <code>third_party_processer</code></td>
-          
+
         </tr>
          <tr>
           <td>Other</td>
           <td><code>points</code>, <code>store_credit</code>, <code>voucher</code>, <code>invoice</code></td>
          </tr>
       </table>
+
+         ### Optional Instrument objects
+
+         Besides top level instrument data, the `instruments/create` endpoint can receive a number of other objects that you can send in the request body, including:
+         * `location_data`─data about where instrument was used occurred (for brick and mortar transactions)
+         * `digital_data`─information about associated digital devices (most commonly, IPs)
+         * `custom_data`─any more objects your organization wishes to send
+
+         ### You can also update Instruments through the `/create` endpoint
+
+         The API also supports _upserting_ objects through the `/create` endpoint. An upsert either updates records with new values, or, if the record doesn't exist, inserts a new value.
+
+         This means that, if you POST a request to `instruments/create` using an `instrument_id` that already exists, Unit21 can update the record. For more information, see the [update vs upsert](ref:update-vs-upsert)
+          page.
   - name: Devices
     description: >
       Devices representing any computer or physical device used to execute an
       event. Devices are most suitable when events can be traced back to a
       specific device fingerprint.
+
+      ### You can also update devices through the `/create` endpoint
+
+      The API also supports _upserting_ objects through the `/create` endpoint.
+      An upsert either updates records with new values, or, if the record
+      doesn't exist, inserts a new value.
+
+      This means that, if you POST a request to `devices/create` using an
+      `device_id` that already exists, Unit21 can update the record. For more
+      information, see the [update vs upsert](ref:update-vs-upsert) page.
   - name: Agents
     description: >
       Agents are your organization's members who use the Unit21 system to
       investigate suspicious objects and events.
   - name: Alerts
     description: >
-      Alerts have two origins. 
+      Alerts have two origins.
 
 
       Typically, alerts are generated whenever a Unit21 detection tool (like a
@@ -150,14 +210,14 @@ tags:
       certain objects (e.g. only alerts and entities).
 
 
-      Furthermore, as tags are key-value pairs, you can also filter by key, 
+      Furthermore, as tags are key-value pairs, you can also filter by key,
       broadening associations to a range of values that have that key.
   - name: Webhooks
     description: >
       Whenever an event happens on the Unit21 platform, Unit21 can send a
       webhook about the event to whatever URL you configure. Such events include
       entity verification results, generated alerts, case re-openings and
-      closings, etcetera. 
+      closings, etcetera.
 
 
       When an agent creates a webhook, it comes with a corresponding
@@ -179,8 +239,7 @@ tags:
 
 
       To review the types of blacklists in more detail, see the [corresponding
-      section of the UI
-      guide](https://guide.unit21.ai/docs/types-of-denylists). 
+      section of the UI guide](https://guide.unit21.ai/docs/types-of-denylists).
 
 
       Through POST requests to the `/blacklists` API, you can list, create, and
@@ -194,8 +253,8 @@ tags:
 
       However, you MAY upload datafiles in other formats, like CSV and TXT. If
       you do, the processing time could be considerable. You can check whether
-      the file has been processed through via API through 
-      `/datafiles/{unit21_id}` . 
+      the file has been processed through via API through
+      `/datafiles/{unit21_id}` .
 
 
       After the file is processed, you can retrieve its objects, organized by
@@ -421,28 +480,6 @@ paths:
         objects are required: `general_data` and EITHER `user_data` OR
         `business_data`.
 
-
-        The `general_data` object has two required fields: `entity_id` and
-        `entity_type`. If `general_data.entity_type` is `user`, you MUST send
-        the `user_data` field. If the `entity_type` is `business`, you MUST send
-        the `business_data` field.
-
-
-        You may test the `business_data` and `entity_type` objects by selecting
-        one from the dropdown at the end of this endpoint request.
-
-
-        ### You can also update Entities through the `/create` endpoint
-
-        The API also supports _upserting_ objects through the `/create`
-        endpoint. An upsert either updates records with new values, or, if the
-        record doesn't exist, inserts a new value.
-
-        This means that, if you POST a request to `entity/create` using an
-        `entity_id` that already exists, Unit21 can update the record. For more
-        information, see the [update vs upsert](ref:update-vs-upsert) page.
-
-
         ### Batch entity requests
 
 
@@ -450,53 +487,9 @@ paths:
         have a maximum entity number of 250 entities, and a maximum POST body
         size of 100mb.
 
-
-        In a batch request, the array of entities is contained in a top-level
-        `entities` object. With the exception of options, all entity objects
-        within the array can contain any of the data fields accepted for a
-        single entity POST.
-
-        Entity-level options are ignored. Instead, send the `options` as its own
-        second-level field (inside the `entities` object). These options are
-        applied globally.
-
-
-        The following snippet shows a valid request body to batch send two
-        entities:
-
-        ```json
-
-        {
-          "entities": [
-            {
-              "user_data": {
-                "first_name": "John",
-                "last_name": "Smith"
-              },
-              "general_data": {
-                "entity_id": "user-100",
-                "entity_type": "user"
-              }
-            },
-            {
-              "business_data": {
-                "business_name": "Acme Inc"
-              },
-              "general_data": {
-                "entity_id": "business-100",
-                "entity_type": "business"
-              }
-            }
-          ],
-          "options": {
-            "upsert_on_conflict": true,
-            "resolve_geoip": false,
-            "merge_custom_data": true,
-            "list_merge_strategy": "union"
-          }
-        }
-
-        ```
+        For batch requests, place entity objects as an array in a top-level
+        `entities` field. For an example, [see the batch
+        reference](https://docs.unit21.ai/page/api-batch-request-examples#batch-create-entities)
       operationId: create_entity
       requestBody:
         description: ''
@@ -504,13 +497,12 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/generalEntities'
-                - $ref: '#/components/schemas/entityOptions'
               oneOf:
                 - $ref: '#/components/schemas/userData'
                 - $ref: '#/components/schemas/businessData'
-              anyOf:
+              allOf:
+                - $ref: '#/components/schemas/generalEntities'
+                - $ref: '#/components/schemas/entityOptions'
                 - $ref: '#/components/schemas/documentDataArray'
                 - $ref: '#/components/schemas/communicationData'
                 - $ref: '#/components/schemas/digitalDataArray'
@@ -915,92 +907,15 @@ paths:
         `event_type`, and `event_time`. `transaction_data` requires only the
         field `amount`.
 
-
-        Besides `general_data` and `transaction_data`, the `events/create`
-        endpoint supports a number of other objects that you can send in the
-        request body, including:
-
-        * `location_data`─data about where transaction occurred (for brick and
-        mortar transactions)
-
-        * `digital_data`─information about associated digital devices (most
-        commonly, IPs)
-
-        * `custom_data`─any more objects your organization wishes to send
-
-        * `options`─instructions for the Unit21 API about how is should handle
-        incoming data
-
-
-        ### You can also update Events through the `/create` endpoint
-
-
-        Unit21's API also supports _upserting_ objects through the `/create`
-        endpoint. An _Upsert_ either inserts a new record, or, if the record
-        already exists, updates the record with the new information.
-
-        This means that, if you POST a request to `events/create` using an
-        `event_id` that already exists, Unit21 can update the record. For more
-        information, see the [update vs upsert](ref:update-vs-upsert) page.
-
-
-        Upsert works only if `options.upsert_on_conflict` is `true`.
-
-
         ### Batch event requests
 
         You can also batch upload entities to `events/create`. Batch requests
         have a maximum entity number of 250 events, and a maximum POST body size
         of 100mb.
 
-
-        When you create a batch of events, you MAY use all the objects available
-        when creating a single event. There are only two differences:
-          *  Each event batch object is sent in the `events` array.
-          *  The `options` object should be outside of the `events` array. This overrides all `options` contained in a single event objects.
-
-        The following snippet shows the request body to create a transaction
-        entity and an action entity in one batch. Except for the "options"
-        object, this example contains only necessary fields:
-
-
-        ```json
-          {
-          "events": [
-            {
-              "general_data": {
-                "event_id": "event100",
-                "event_type": "transaction",
-                "event_time": 1623346868
-              },
-              "transaction_data": {
-                "amount": 15000,
-                "sender_entity_id": "user100",
-                "sender_entity_type": "user",
-                "sender_source": "internal"
-              }
-            },
-            {
-              "general_data": {
-                "event_id": "event200",
-                "event_type": "action",
-                "event_time": 1623346861
-              },
-              "action_data": {
-                "entity_type": "business",
-                "entity_id": "business-200"
-              }
-            }
-          ],
-          "options": {
-            "monitor": true,
-            "linked_entity": "both",
-            "merge_custom_data": false,
-            "list_merge_strategy": "union"
-          }
-        }
-
-        ```
+        For a batch request, place event objects as an array in a top-level
+        `events` field. For an example, [see the batch
+        reference](https://docs.unit21.ai/page/api-batch-request-examples#batch-create-events)
       requestBody:
         required: true
         content:
@@ -1218,68 +1133,15 @@ paths:
         Creates a new instrument, sending instrument data in the request body.
 
 
-        Besides top level instrument data, the `instruments/create` endpoint can
-        receive a number of other objects that you can send in the request body,
-        including:
-
-        * `location_data`─data about where instrument was used occurred (for
-        brick and mortar transactions)
-
-        * `digital_data`─information about associated digital devices (most
-        commonly, IPs)
-
-        * `custom_data`─any more objects your organization wishes to send
-
-
-        ### You can also update instruments through the `/create` endpoint
-
-
-        Unit21's API also supports _upserting_ objects through the `/create`
-        endpoint. An _Upsert_ either inserts a new record, or, if the record
-        already exists, updates the record with the new information.
-
-        This means that, if you POST a request to `instruments/create` using an
-        `instrument_id` that already exists, Unit21 can update the record. For
-        more information, see the [update vs
-        upsert](https://dash.readme.com/project/unit21/v1.0/refs/update-vs-upsert)
-        page.
-
-
         ### Batch instrument requests
 
         You can also batch upload entities to `instruments/create`. Batch
         requests have a maximum entity number of 250 instruments, and a maximum
         POST body size of 100mb.
 
-
-        When you create a batch of instruments, you MAY use all the objects
-        available when creating a single instrument. There are only two
-        differences:
-          *  Each instrument batch object is sent in the `instruments` array.
-          *  The `options` object should be outside of the `instruments` array. This overrides all `options` contained in a single instrument objects.
-
-        Here's a minimal example of a batch request to create two instruments:
-
-        ```json
-
-        {
-          "options": {
-            "merge_custom_data": false,
-            "list_merge_strategy": "union"
-          },
-          "instruments": [
-            {
-              "instrument_id": "ins-101",
-              "instrument_type": "credit_card"
-            },
-            {
-              "instrument_id": "ins-102",
-              "instrument_type": "ach"
-            }
-          ]
-        }'
-
-        ```
+        For a batch request, place instrument objects as an array in a top-level
+        `instruments` field. For an example, [see the batch
+        reference](https://docs.unit21.ai/page/api-batch-request-examples#batch-create-instruments)
       requestBody:
         required: true
         content:
@@ -1459,56 +1321,15 @@ paths:
         a `custom_data` object, containing any more objects your organization
         wishes to send.
 
-
-        ### You can also update devices through the `/create` endpoint
-
-        The API also supports _upserting_ objects through the `/create`
-        endpoint. An upsert either updates records with new values, or, if the
-        record doesn't exist, inserts a new value.
-
-        This means that, if you POST a request to `devices/create` using an
-        `device_id` that already exists, Unit21 can update the record. For more
-        information, see the [update vs
-        upsert](https://dash.readme.com/project/unit21/v1.0/refs/update-vs-upsert)
-        page.
-
-
         ### Batch device requests
-
 
         You can also batch upload entities to `devices/create`. Batch requests
         have a maximum entity number of 250 devices, and a maximum POST body
         size of 100mb.
 
-
-        When you create a batch of devices, you MAY use all the objects
-        available when creating a single device. There are only two differences:
-          *  Each device batch object is sent in the `devices` array.
-          *  The `options` object should be outside of the `devices` array. This overrides all `options` contained in a single device objects.
-
-        Here's an example of a batch request:
-
-
-        ```json
-
-        {
-            "devices": [
-              {
-                "device_id": "dev-100",
-                "device_type": "PC"
-              },
-              {
-                "device_id": "dev-200",
-                "device_type": "Mobile"
-              }
-            ],
-            "options": {
-              "upsert_on_conflict": true,
-              "list_merge_strategy": "union"
-            }
-        }
-
-        ```
+        For batch requests, place device objects as an array in a top-level
+        `devices` field. For an example, [see the batch
+        reference](https://docs.unit21.ai/page/api-batch-request-examples#batch-create-devices)
       requestBody:
         required: true
         content:
@@ -2008,8 +1829,6 @@ paths:
         cases. For brevity, this example includes only the required fields. A
         case in a batch MAY contain any of the body params accepted by the
         `/cases/create` endpoint.
-
-
 
         ```json
 
@@ -2595,10 +2414,10 @@ components:
     synchronousResponse:
       type: boolean
       description: >-
-        Whether or not to immediately execute the workflow and receive a
-        verification response as part of the API request response. If
-        `synchronous_response` is `true` for a workflow that doesn't allow
-        synchronous responses, this throws an error. **Default**: `false`
+        Whether to immediately execute the workflow and receive the verification
+        result with the API request response. If `synchronous_response` is
+        `true` and the workflow doesn't allow synchronous responses, the API
+        returns an error. **Default**: `false`
       default: false
       example: false
     includeFullResponse:
@@ -2633,8 +2452,8 @@ components:
         values that did not exist. `replace` overwrites the old values with the
         new values. `difference` removes the values you send(provided they
         already existed on the system). See the [list-merge-strategy
-        section](https://guide.unit21.ai/reference#data-merging-on-updates) for
-        more details. **Default**: `union`
+        section](ref:data-merging-on-updates) for more details. **Default**:
+        `union`
       default: union
     upsertOnConflict:
       type: boolean
