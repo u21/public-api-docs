@@ -56,6 +56,12 @@ tags:
       This means that, if you POST a request to `entity/create` using an
       `entity_id` that already exists, Unit21 can update the record. For more
       information, see the [update vs upsert](ref:update-vs-upsert) page.
+  - name: Entity verification
+    description: >
+      Unit21 can execute entity verifications according to steps defined in
+      system workflows. They can run when a new entity is added to the system,
+      an update is made to an existing entity, or by directly triggering an API
+      endpoint.
   - name: Events
     description: >
       The `/events` endpoint sends and receives data about significant actions
@@ -186,12 +192,6 @@ tags:
       entities and documents.
 
       They can be directly escalated into a suspicious activity report.
-  - name: Entity verification
-    description: >
-      Unit21 can execute entity verifications according to steps defined in
-      system workflows. They can run when a new entity is added to the system,
-      an update is made to an existing entity, or by directly triggering an API
-      endpoint.
   - name: Verification forms
     description: >
       With verification forms, you can automate ID verification and user
@@ -743,6 +743,30 @@ paths:
                 full_response:
                   info: This response depends on the verification source
                   placeholderKey: placeholderValue
+  '/entities/{unit21_id}/continuous-monitoring':
+    post:
+      tags:
+        - Entity verification
+      summary: Update continuous monitoring
+      description: >
+        Add or disable Socure continuous monitoring for an entity.
+
+
+        To check whether an entity has continuous monitoring enabled, head to
+        the UI, then to **Entities > Verifications**. The [knowledge base
+        article on continuous monitoring](doc:continuous-monitoring) has more
+        detailed instructions.
+      operationId: update_continuous_monitoring
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/continuousMonitoring'
+      responses:
+        '200':
+          description: OK
   /events/list:
     post:
       tags:
@@ -3002,6 +3026,16 @@ components:
           description: >-
             Full response from the verification provider running the
             verification
+    continuousMonitoring:
+      type: object
+      properties:
+        continuous_monitoring:
+          type: boolean
+          description: >
+            Enable or disable continuous monitoring. Use `true` to turn on and
+            `false` to turn off.
+        synchronous_response:
+          $ref: '#/components/schemas/synchronousResponse'
     listResponse:
       type: object
       properties:
