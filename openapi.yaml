@@ -56,12 +56,6 @@ tags:
       This means that, if you POST a request to `entity/create` using an
       `entity_id` that already exists, Unit21 can update the record. For more
       information, see the [update vs upsert](ref:update-vs-upsert) page.
-  - name: Entity verification
-    description: >
-      Unit21 can execute entity verifications according to steps defined in
-      system workflows. They can run when a new entity is added to the system,
-      an update is made to an existing entity, or by directly triggering an API
-      endpoint.
   - name: Events
     description: >
       The `/events` endpoint sends and receives data about significant actions
@@ -192,6 +186,12 @@ tags:
       entities and documents.
 
       They can be directly escalated into a suspicious activity report.
+  - name: Entity verification
+    description: >
+      Unit21 can execute entity verifications according to steps defined in
+      system workflows. They can run when a new entity is added to the system,
+      an update is made to an existing entity, or by directly triggering an API
+      endpoint.
   - name: Verification forms
     description: >
       With verification forms, you can automate ID verification and user
@@ -3028,6 +3028,8 @@ components:
             verification
     continuousMonitoring:
       type: object
+      required:
+        - continuous_monitoring
       properties:
         continuous_monitoring:
           type: boolean
