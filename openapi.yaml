@@ -239,7 +239,7 @@ tags:
 
 
       To review the types of blacklists in more detail, see the [corresponding
-      section of the UI guide](https://guide.unit21.ai/docs/types-of-denylists).
+      section of the UI guide](https://docs.unit21.ai/docs/types-of-denylists).
 
 
       Through POST requests to the `/blacklists` API, you can list, create, and
@@ -489,7 +489,7 @@ paths:
 
         For batch requests, place entity objects as an array in a top-level
         `entities` field. For an example, [see the batch
-        reference](https://docs.unit21.ai/page/api-batch-request-examples#batch-create-entities)
+        reference](doc:api-batch-request-examples#batch-create-entities)
       operationId: create_entity
       requestBody:
         description: ''
@@ -657,7 +657,7 @@ paths:
         Run a verification workflow on an entity. Requires a `workflow_id`. You
         can create a verification workflow from the Unit21 dashboard. To see
         how, review [this help
-        article](https://docs.unit21.ai/docs/kyc-verification-workflow).
+        article](https://docs.unit21.ai/dashboard/docs/kyc-verification-workflow).
       operationId: run_verification_workflow
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -751,12 +751,11 @@ paths:
       description: >
         Add or disable Socure continuous monitoring for an entity.
 
-
         To check whether an entity has continuous monitoring enabled, head to
         the UI, then to **Entities > Verifications**. The [knowledge base
         article on continuous
-        monitoring](https://unit21.ai/dashboard/continuous-monitoring) has more
-        detailed instructions.
+        monitoring](https://unit21.ai/dashboard/docs/continuous-monitoring) has
+        more detailed instructions.
       operationId: update_continuous_monitoring
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -940,7 +939,7 @@ paths:
 
         For a batch request, place event objects as an array in a top-level
         `events` field. For an example, [see the batch
-        reference](https://docs.unit21.ai/page/api-batch-request-examples#batch-create-events)
+        reference](doc:api-batch-request-examples#batch-create-events)
       requestBody:
         required: true
         content:
@@ -1166,7 +1165,7 @@ paths:
 
         For a batch request, place instrument objects as an array in a top-level
         `instruments` field. For an example, [see the batch
-        reference](https://docs.unit21.ai/page/api-batch-request-examples#batch-create-instruments)
+        reference](doc:api-batch-request-examples#batch-create-instruments)
       requestBody:
         required: true
         content:
@@ -1354,7 +1353,7 @@ paths:
 
         For batch requests, place device objects as an array in a top-level
         `devices` field. For an example, [see the batch
-        reference](https://docs.unit21.ai/page/api-batch-request-examples#batch-create-devices)
+        reference](doc:api-batch-request-examples#batch-create-devices)
       requestBody:
         required: true
         content:
@@ -3555,8 +3554,8 @@ components:
       type: string
       description: >-
         Labels that describe the outcome of an alert or case investigation. More
-        info in [this guide
-        topic](https://guide.unit21.ai/docs/concept-dispositions).
+        info in [this knowledge base article about
+        dispositions](https://docs.unit21.ai/docs/concept-dispositions).
       example: TRUE_POSITIVE
     dispositionedBy:
       type: array
