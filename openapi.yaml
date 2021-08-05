@@ -754,8 +754,8 @@ paths:
         To check whether an entity has continuous monitoring enabled, head to
         the UI, then to **Entities > Verifications**. The [knowledge base
         article on continuous
-        monitoring](https://unit21.ai/dashboard/docs/continuous-monitoring) has
-        more detailed instructions.
+        monitoring](https://docs.unit21.ai/dashboard/docs/continuous-monitoring)
+        has more detailed instructions.
       operationId: update_continuous_monitoring
       parameters:
         - $ref: '#/components/parameters/unit21_id'
