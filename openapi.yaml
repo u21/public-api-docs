@@ -754,7 +754,8 @@ paths:
 
         To check whether an entity has continuous monitoring enabled, head to
         the UI, then to **Entities > Verifications**. The [knowledge base
-        article on continuous monitoring](doc:continuous-monitoring) has more
+        article on continuous
+        monitoring](https://unit21.ai/dashboard/continuous-monitoring) has more
         detailed instructions.
       operationId: update_continuous_monitoring
       parameters:
@@ -2462,8 +2463,9 @@ components:
     merge_custom_data:
       type: boolean
       description: >-
-        Only relevant for updates/upserts, ignored otherwise. Visit custom data
-        merge strategy for more details. **Default**: `false`
+        Only relevant for updates/upserts, ignored otherwise. See [custom data
+        merge strategy](doc:data-merging-on-updates#custom-data-merge-strategy)
+        for more details. **Default**: `false`
       default: false
     listMergeStrategy:
       type: string
@@ -2476,7 +2478,7 @@ components:
         values that did not exist. `replace` overwrites the old values with the
         new values. `difference` removes the values you send(provided they
         already existed on the system). See the [list-merge-strategy
-        section](ref:data-merging-on-updates) for more details. **Default**:
+        section](doc:data-merging-on-updates) for more details. **Default**:
         `union`
       default: union
     upsertOnConflict:
