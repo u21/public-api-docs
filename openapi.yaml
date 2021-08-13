@@ -497,11 +497,12 @@ paths:
         content:
           application/json:
             schema:
+              allOf:
+                - $ref: '#/components/schemas/generalEntities'
               oneOf:
                 - $ref: '#/components/schemas/userData'
                 - $ref: '#/components/schemas/businessData'
-              allOf:
-                - $ref: '#/components/schemas/generalEntities'
+              anyOf:
                 - $ref: '#/components/schemas/entityOptions'
                 - $ref: '#/components/schemas/documentDataArray'
                 - $ref: '#/components/schemas/communicationData'
@@ -3355,8 +3356,8 @@ components:
             monitor:
               type: boolean
               description: >-
-                Whether or not to monitor this event (defaults to true),
-                typically used to signal Unit21 to not flag such events or
+                Whether or not to monitor this event (defaults to `true`).
+                Typically used to signal Unit21 to not flag such events or
                 include them in calculations i.e. to prevent double counting, or
                 to ignore applying monitoring to unimportant events that you
                 still want to associate with users
@@ -3382,7 +3383,7 @@ components:
                 to `both`. If `link_digital_data_to_entity` is flagged on
                 transaction events, this specifies which entities to associate
                 the `digital_data` to. If there is no `digital_data` or
-                entities, no exeption is thrown.
+                entities, no exception is thrown.
               example: sender
             merge_custom_data:
               $ref: '#/components/schemas/merge_custom_data'
