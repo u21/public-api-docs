@@ -497,12 +497,11 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/generalEntities'
               oneOf:
                 - $ref: '#/components/schemas/userData'
                 - $ref: '#/components/schemas/businessData'
-              anyOf:
+              allOf:
+                - $ref: '#/components/schemas/generalEntities'
                 - $ref: '#/components/schemas/entityOptions'
                 - $ref: '#/components/schemas/documentDataArray'
                 - $ref: '#/components/schemas/communicationData'
@@ -2398,9 +2397,9 @@ components:
         general_data:
           type: object
           description: >-
-            General information about the entity. With this object, you can link
-            any entity on Unit21's system to a user or business on your
-            platform. Required for requests to `/entities/create`.
+            **Required** for requests to `/entities/create`. General information
+            about the entity. With this object, you can link any entity on
+            Unit21's system to a user or business on your platform.
           required:
             - entity_id
             - entity_type
@@ -2736,12 +2735,12 @@ components:
           additionalProperties: true
     userData:
       title: User Data
-      description: >
-        Personal data - name, birthday, SSN etc. If `general_data.entity_type`
-        is set to `user`, this field is required.
       properties:
         user_data:
           type: object
+          description: >
+            Personal data - name, birthday, SSN etc. If
+            `general_data.entity_type` is set to `user`, this field is required.
           properties:
             first_name:
               type: string
@@ -2793,14 +2792,14 @@ components:
       description: Operating name of the business.
       example: Global Liquids
     businessData:
-      description: >
-        Business data - business name, TIN/EIN etc.
-
-        If `general_data.entity_type` is set to `business`, this field is
-        required.
       title: Business Data
       properties:
         business_data:
+          description: >
+            Business data - business name, TIN/EIN etc.
+
+            If `general_data.entity_type` is set to `business`, this field is
+            required.
           type: object
           properties:
             business_name:
