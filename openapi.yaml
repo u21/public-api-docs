@@ -1188,38 +1188,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/createInstrumentResponse'
               example:
-                instrument_id: 3234-sdghfdf-3332
-                instrument_type: account
-                source: internal
-                status: active
-                registered_at: 1572672326
-                parent_instrument_id: 3234-sdghfdf-3331
-                tags:
-                  - 'account_type:market2'
-                  - 'sector:europe'
-                location_data:
-                  - building_number: '712'
-                    street_name: California Ave
-                    city: Redmond
-                    state: WA
-                    postal_code: '98008'
-                    country: US
-                digital_data:
-                  ip_addresses:
-                    - 164.22.53.244
-                    - 164.22.53.245
-                  client_fingerprints:
-                    - 4908hsdfknkd90432nj3k2kj2jk23kj2k3jk2j3
-                entities:
-                  - entity_id: user-123
-                    entity_type: user
-                custom_data:
-                  activated_at: 1572679326
-                options:
-                  upsert_on_conflict: true
-                  resolve_geoip: false
-                  merge_custom_data: true
-                  list_merge_strategy: union
+                instrument_id: inst-235-r431
+                previously_existed: false
+                unit21_id: '134755129'
   '/instruments/{unit21_id}/update':
     put:
       tags:
