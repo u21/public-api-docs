@@ -359,117 +359,6 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/entities/{unit21_id}':
-    get:
-      tags:
-        - Entities
-      summary: Get an entity
-      description: >-
-        Returns all data objects belonging to a single entity, including
-        `general_data`, `document_data`, etc.
-      operationId: get_entity_by_unit21_id
-      parameters:
-        - in: path
-          name: unit21_id
-          schema:
-            type: string
-          required: true
-          description: >-
-            A Unit21 internally-assigned unique identifier for an object within
-            the Unit21 system. Depending on the endpoint, `unit21_id` can refer
-            to an entity, an event, a case, an alert, a device, etc.
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                unit21_id: '1237466'
-                user_data:
-                  day_of_birth: 21
-                  first_name: Andrew
-                  gender: male
-                  last_name: Velazquez
-                  middle_name: Gerald
-                  month_of_birth: 1
-                  ssn: 197-64-6627
-                  year_of_birth: 1987
-                communication_data:
-                  email_addresses: []
-                  phone_numbers: []
-                custom_data: null
-                digital_data:
-                  client_fingerprints: []
-                  ip_addresses: []
-                document_data:
-                  - country: US
-                    document_id: G3352413F
-                    document_type: drivers_license
-                    expires_at: null
-                    issued_at: null
-                    state: CA
-                  - country: US
-                    document_id: E1234566798D
-                    document_type: passport
-                    expires_at: null
-                    issued_at: null
-                    state: FL
-                general_data:
-                  children: []
-                  entity_id: u-3593dece-6642-4cdc-8547-aafc1454e0a0
-                  entity_subtype: null
-                  entity_type: user
-                  is_spooled: false
-                  parents: []
-                  registered_at: 1591905045
-                  status: active
-                  tags: []
-                instrument_ids:
-                  - instrumentC-08c4af4f-2392-4808-afb5-335b166293b7
-                location_data: []
-                media_data:
-                  - created_at: 1620831331
-                    media_type: null
-                    name: mergeIT2
-                  - created_at: 1620831331
-                    media_type: IMAGE_PASSPORT_FRONT
-                    name: mergeIT22
-                risk_scores: []
-                options: []
-        '400':
-          $ref: '#/components/responses/400'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '405':
-          $ref: '#/components/responses/405'
-        '406':
-          $ref: '#/components/responses/406'
-        '409':
-          $ref: '#/components/responses/409'
-        '500':
-          $ref: '#/components/responses/500'
-        '503':
-          $ref: '#/components/responses/503'
-    delete:
-      tags:
-        - Entities
-      summary: Delete an entity
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      operationId: delete_entity
-      description: >
-        Completely deletes an entity from the database, along with all
-        associated linked media, alerts, transactions, transaction instruments,
-        etc. Before deleting an entity, please ensure the data for the entity
-        and associated data are no longer required in the database.
-
-
-        Requires the permission `delete:entities`.
-      responses:
-        '200':
-          description: OK
   /entities/create:
     post:
       tags:
@@ -599,6 +488,117 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
+  '/entities/{unit21_id}':
+    get:
+      tags:
+        - Entities
+      summary: Get an entity
+      description: >-
+        Returns all data objects belonging to a single entity, including
+        `general_data`, `document_data`, etc.
+      operationId: get_entity_by_unit21_id
+      parameters:
+        - in: path
+          name: unit21_id
+          schema:
+            type: string
+          required: true
+          description: >-
+            A Unit21 internally-assigned unique identifier for an object within
+            the Unit21 system. Depending on the endpoint, `unit21_id` can refer
+            to an entity, an event, a case, an alert, a device, etc.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                unit21_id: '1237466'
+                user_data:
+                  day_of_birth: 21
+                  first_name: Andrew
+                  gender: male
+                  last_name: Velazquez
+                  middle_name: Gerald
+                  month_of_birth: 1
+                  ssn: 197-64-6627
+                  year_of_birth: 1987
+                communication_data:
+                  email_addresses: []
+                  phone_numbers: []
+                custom_data: null
+                digital_data:
+                  client_fingerprints: []
+                  ip_addresses: []
+                document_data:
+                  - country: US
+                    document_id: G3352413F
+                    document_type: drivers_license
+                    expires_at: null
+                    issued_at: null
+                    state: CA
+                  - country: US
+                    document_id: E1234566798D
+                    document_type: passport
+                    expires_at: null
+                    issued_at: null
+                    state: FL
+                general_data:
+                  children: []
+                  entity_id: u-3593dece-6642-4cdc-8547-aafc1454e0a0
+                  entity_subtype: null
+                  entity_type: user
+                  is_spooled: false
+                  parents: []
+                  registered_at: 1591905045
+                  status: active
+                  tags: []
+                instrument_ids:
+                  - instrumentC-08c4af4f-2392-4808-afb5-335b166293b7
+                location_data: []
+                media_data:
+                  - created_at: 1620831331
+                    media_type: null
+                    name: mergeIT2
+                  - created_at: 1620831331
+                    media_type: IMAGE_PASSPORT_FRONT
+                    name: mergeIT22
+                risk_scores: []
+                options: []
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '406':
+          $ref: '#/components/responses/406'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+    delete:
+      tags:
+        - Entities
+      summary: Delete an entity
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      operationId: delete_entity
+      description: >
+        Completely deletes an entity from the database, along with all
+        associated linked media, alerts, transactions, transaction instruments,
+        etc. Before deleting an entity, please ensure the data for the entity
+        and associated data are no longer required in the database.
+
+
+        Requires the permission `delete:entities`.
+      responses:
+        '200':
+          description: OK
   '/entities/{unit21_id}/update':
     put:
       tags:
@@ -928,61 +928,6 @@ paths:
                     unit21_id: '2633543'
                     response_count: 2
                     total_count: 2000
-  '/events/{unit21_id}':
-    get:
-      tags:
-        - Events
-      summary: Get an event
-      description: Returns all data objects belonging to a single event
-      operationId: get_event_by_unit21_id
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                properties:
-                  is_cold_store:
-                    description: |
-                      `true` if the event has been migrated to coldstore
-                    type: boolean
-                    example: false
-              example:
-                general_data:
-                  event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
-                  event_subtype: credit_card
-                  event_time: 1586950374
-                  event_type: transaction
-                  is_spooled: false
-                  status: complete
-                  tags: []
-                transaction_data:
-                  amount: 4646.34
-                  exchange_rate: null
-                  external_fee: null
-                  internal_fee: null
-                  received_amount: 4646.34
-                  received_currency: usd
-                  receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
-                  receiver_entity_type: user
-                  receiver_instrument_id: '30504733005354'
-                  receiver_source: internal
-                  sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
-                  sender_entity_type: user
-                  sender_instrument_id: '3560510398609341'
-                  sender_source: internal
-                  sent_amount: 4646.34
-                  sent_currency: usd
-                  usd_conversion_notes: null
-                unit21_id: '2633544'
-                custom_data: {}
-                digital_data:
-                  client_fingerprint: null
-                  ip_address: null
-                is_cold_store: false
-                location_data: null
   /events/create:
     post:
       tags:
@@ -1040,6 +985,61 @@ paths:
               example:
                 event_id: 40df948s-0563-aab1-4685
                 unit21_id: '43245'
+  '/events/{unit21_id}':
+    get:
+      tags:
+        - Events
+      summary: Get an event
+      description: Returns all data objects belonging to a single event
+      operationId: get_event_by_unit21_id
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  is_cold_store:
+                    description: |
+                      `true` if the event has been migrated to coldstore
+                    type: boolean
+                    example: false
+              example:
+                general_data:
+                  event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
+                  event_subtype: credit_card
+                  event_time: 1586950374
+                  event_type: transaction
+                  is_spooled: false
+                  status: complete
+                  tags: []
+                transaction_data:
+                  amount: 4646.34
+                  exchange_rate: null
+                  external_fee: null
+                  internal_fee: null
+                  received_amount: 4646.34
+                  received_currency: usd
+                  receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
+                  receiver_entity_type: user
+                  receiver_instrument_id: '30504733005354'
+                  receiver_source: internal
+                  sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
+                  sender_entity_type: user
+                  sender_instrument_id: '3560510398609341'
+                  sender_source: internal
+                  sent_amount: 4646.34
+                  sent_currency: usd
+                  usd_conversion_notes: null
+                unit21_id: '2633544'
+                custom_data: {}
+                digital_data:
+                  client_fingerprint: null
+                  ip_address: null
+                is_cold_store: false
+                location_data: null
   '/events/{unit21_id}/update':
     put:
       tags:
@@ -1187,31 +1187,6 @@ paths:
                     unit21_id: '198371'
                 response_count: 4
                 total_count: 204
-  '/instruments/{unit21_id}':
-    get:
-      tags:
-        - Instruments
-      summary: Get an instrument
-      description: Returns all data objects belonging to a single instrument
-      operationId: get_instrument_by_unit21_id
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                custom_data: null
-                instrument_id: i-f8bc4f6b-b59a-4bd0-ba86-aff547a3a7ce
-                instrument_type: bank_account
-                is_spooled: false
-                parent_instrument_id: null
-                registered_at: null
-                source: null
-                status: inactive
-                tags: []
-                unit21_id: '198446'
   /instruments/create:
     post:
       tags:
@@ -1256,6 +1231,31 @@ paths:
                 instrument_id: inst-235-r431
                 previously_existed: false
                 unit21_id: '134755129'
+  '/instruments/{unit21_id}':
+    get:
+      tags:
+        - Instruments
+      summary: Get an instrument
+      description: Returns all data objects belonging to a single instrument
+      operationId: get_instrument_by_unit21_id
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                custom_data: null
+                instrument_id: i-f8bc4f6b-b59a-4bd0-ba86-aff547a3a7ce
+                instrument_type: bank_account
+                is_spooled: false
+                parent_instrument_id: null
+                registered_at: null
+                source: null
+                status: inactive
+                tags: []
+                unit21_id: '198446'
   '/instruments/{unit21_id}/update':
     put:
       tags:
@@ -1352,21 +1352,6 @@ paths:
                   - ...: null
                 response_count: 10
                 total_count: 100
-  '/devices/{unit21_id}':
-    get:
-      tags:
-        - Devices
-      summary: Get a device
-      description: Returns all data objects belonging to a single device
-      operationId: get_device_by_unit21_id
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example: ''
   /devices/create:
     post:
       tags:
@@ -1413,6 +1398,21 @@ paths:
                 device_id: device-3232
                 previously_existed: true
                 unit21_id: '403746'
+  '/devices/{unit21_id}':
+    get:
+      tags:
+        - Devices
+      summary: Get a device
+      description: Returns all data objects belonging to a single device
+      operationId: get_device_by_unit21_id
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example: ''
   '/devices/update/{unit21_id}':
     put:
       tags:
@@ -1553,78 +1553,6 @@ paths:
                         disposition_notes: free form agent text describing the action/resaons
                 response_count: 1
                 total_count: 10
-  '/alerts/{unit21_id}':
-    get:
-      tags:
-        - Alerts
-      summary: Get an alert
-      description: Returns all data objects belonging to a single alert.
-      operationId: get_alert_by_unit21_id
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                example:
-                  alert_id: null
-                  alert_type: tm
-                  assigned_to: null
-                  created_at: 1616433282
-                  custom_data: {}
-                  description: >-
-                    Period of no transaction activity for entity
-                    u-6833a351-ae5d-4911-a2ca-715294b8ef62 from on 03-25-2020
-                    09:47:54 to 04-24-2020 16:42:30
-                  disposition: UNRESOLVED
-                  dispositioned_at: null
-                  dispositioned_by: null
-                  entities:
-                    - entity_id: u-6833a351-ae5d-4911-a2ca-715294b8ef62
-                      entity_type: user
-                      resolution: UNRESOLVED
-                      unit21_id: 1237436
-                  events:
-                    - event_id: t-78a3561b-c9ed-4479-8e13-c8b536c44b6c
-                      event_type: transaction
-                      resolution: UNRESOLVED
-                      unit21_id: 2631941
-                    - event_id: t-67adf347-bb9d-4d5d-8086-231b9474250a
-                      event_type: transaction
-                      resolution: UNRESOLVED
-                      unit21_id: 2632821
-                    - event_id: t-c959cf38-195d-46e7-8f4c-8169de95c425
-                      event_type: transaction
-                      resolution: UNRESOLVED
-                      unit21_id: 2632874
-                    - event_id: t-699dd74d-0b5a-4471-ac18-1152a8c4aea4
-                      event_type: transaction
-                      resolution: UNRESOLVED
-                      unit21_id: 2633014
-                    - event_id: t-2d974efd-59e3-465b-a438-47a33443dbae
-                      event_type: transaction
-                      resolution: UNRESOLVED
-                      unit21_id: 2633205
-                    - event_id: t-82d9aa00-df0f-4999-b81c-84d3865eaf17
-                      event_type: transaction
-                      resolution: UNRESOLVED
-                      unit21_id: 2633222
-                  instruments: []
-                  rules:
-                    - rule_id: null
-                      unit21_id: 17517
-                  source: INTERNAL
-                  status: OPEN
-                  tags: []
-                  title: >-
-                    Rule #17517 (Account Takeover: Profile Deviation - Entities
-                    that have a significant period of inactivity and resume
-                    business activity with a large or high risk transaction)
-                    triggered for entities:
-                    u-6833a351-ae5d-4911-a2ca-715294b8ef62
-                  unit21_id: '17533'
   /alerts/create:
     post:
       tags:
@@ -1698,6 +1626,78 @@ paths:
                 alert_id: alertA-028eb01a-f8d3-42fb-b398-785b596ee4cs
                 previously_existed: false
                 unit21_id: '36857'
+  '/alerts/{unit21_id}':
+    get:
+      tags:
+        - Alerts
+      summary: Get an alert
+      description: Returns all data objects belonging to a single alert.
+      operationId: get_alert_by_unit21_id
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                example:
+                  alert_id: null
+                  alert_type: tm
+                  assigned_to: null
+                  created_at: 1616433282
+                  custom_data: {}
+                  description: >-
+                    Period of no transaction activity for entity
+                    u-6833a351-ae5d-4911-a2ca-715294b8ef62 from on 03-25-2020
+                    09:47:54 to 04-24-2020 16:42:30
+                  disposition: UNRESOLVED
+                  dispositioned_at: null
+                  dispositioned_by: null
+                  entities:
+                    - entity_id: u-6833a351-ae5d-4911-a2ca-715294b8ef62
+                      entity_type: user
+                      resolution: UNRESOLVED
+                      unit21_id: 1237436
+                  events:
+                    - event_id: t-78a3561b-c9ed-4479-8e13-c8b536c44b6c
+                      event_type: transaction
+                      resolution: UNRESOLVED
+                      unit21_id: 2631941
+                    - event_id: t-67adf347-bb9d-4d5d-8086-231b9474250a
+                      event_type: transaction
+                      resolution: UNRESOLVED
+                      unit21_id: 2632821
+                    - event_id: t-c959cf38-195d-46e7-8f4c-8169de95c425
+                      event_type: transaction
+                      resolution: UNRESOLVED
+                      unit21_id: 2632874
+                    - event_id: t-699dd74d-0b5a-4471-ac18-1152a8c4aea4
+                      event_type: transaction
+                      resolution: UNRESOLVED
+                      unit21_id: 2633014
+                    - event_id: t-2d974efd-59e3-465b-a438-47a33443dbae
+                      event_type: transaction
+                      resolution: UNRESOLVED
+                      unit21_id: 2633205
+                    - event_id: t-82d9aa00-df0f-4999-b81c-84d3865eaf17
+                      event_type: transaction
+                      resolution: UNRESOLVED
+                      unit21_id: 2633222
+                  instruments: []
+                  rules:
+                    - rule_id: null
+                      unit21_id: 17517
+                  source: INTERNAL
+                  status: OPEN
+                  tags: []
+                  title: >-
+                    Rule #17517 (Account Takeover: Profile Deviation - Entities
+                    that have a significant period of inactivity and resume
+                    business activity with a large or high risk transaction)
+                    triggered for entities:
+                    u-6833a351-ae5d-4911-a2ca-715294b8ef62
+                  unit21_id: '17533'
   '/alerts/{unit21_id}/update':
     put:
       tags:
@@ -1831,38 +1831,6 @@ paths:
                     unit21_id: '17529'
                 response_count: 1
                 total_count: 13
-  '/cases/{unit21_id}':
-    get:
-      tags:
-        - Cases
-      summary: Get a case
-      description: Returns all data objects belonging to a single case.
-      operationId: get_case_by_unit21_id
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                example:
-                  alerts: []
-                  assigned_to: Alf@example.com
-                  case_id: null
-                  created_at: 1616433161
-                  custom_data: {}
-                  description: Test Case Description
-                  disposition: UNRESOLVED
-                  dispositioned_at: null
-                  dispositioned_by: null
-                  entities: []
-                  events: []
-                  source: INTERNAL
-                  status: OPEN
-                  tags: []
-                  title: Test Case
-                  unit21_id: '17529'
   /cases/create:
     post:
       tags:
@@ -1930,6 +1898,38 @@ paths:
                 case_id: CaseA-1234
                 previously_existed: false
                 unit21_id: '36858'
+  '/cases/{unit21_id}':
+    get:
+      tags:
+        - Cases
+      summary: Get a case
+      description: Returns all data objects belonging to a single case.
+      operationId: get_case_by_unit21_id
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                example:
+                  alerts: []
+                  assigned_to: Alf@example.com
+                  case_id: null
+                  created_at: 1616433161
+                  custom_data: {}
+                  description: Test Case Description
+                  disposition: UNRESOLVED
+                  dispositioned_at: null
+                  dispositioned_by: null
+                  entities: []
+                  events: []
+                  source: INTERNAL
+                  status: OPEN
+                  tags: []
+                  title: Test Case
+                  unit21_id: '17529'
   '/cases/{unit21_id}/update':
     put:
       tags:
