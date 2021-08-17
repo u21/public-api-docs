@@ -966,17 +966,61 @@ paths:
               example:
                 general_data:
                   event_id: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
-                  event_time: 572672326
                   event_type: transaction
+                  event_time: 1623365011
+                  event_subtype: payment
+                  status: active
+                  device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                  parents:
+                    event_id: 123
+                    event_type: transaction
+                  tags:
+                    - 'Sector:Europe'
                 transaction_data:
                   amount: 13562.83
+                  sent_amount: 13562.83
+                  sent_currency: USD
                   sender_entity_id: u-371b5091-da30-48a8-936b-7600f9983e80
+                  sender_entity_type: user
+                  sender_source: internal
+                  sender_instrument_id: string
+                  received_amount: 13562.83
+                  received_currency: USD
+                  receiver_entity_id: u-d8e1d453-c205-4996-a935-ff08be01bcd1
+                  receiver_entity_type: business
+                  receiver_source: internal
                   receiver_instrument_id: t376839428256371
+                  exchange_rate: 1.0012
+                  usd_conversion_notes: N/A
+                  internal_fee: 5
+                  external_fee: 5
+                action_data:
+                  action_type: LOGIN
+                  action_details: Through mobile app v0.8.8
+                  entity_id: 371c4d7b-0563-4685-aab1
+                  entity_type: user
+                  instrument_id: 238938823-34347686-39405443
+                digital_data:
+                  ip_address: 255.255.255.255
+                location_data:
+                  type: SHIPPING
+                  building_number: 6c
+                  unit_number: 22a
+                  street_name: California Ave
+                  city: Redmond
+                  state: CA
+                  postal_code: 07710-0001
+                  country: US
+                custom_data:
+                  internal_notes: Reviewed by Mitchell on 31 June 2019
                 options:
                   monitor: true
-                  linked_entity: both
+                  resolve_geoip: true
+                  link_digital_data_to_entity: true
+                  linked_entity: sender
                   merge_custom_data: false
                   list_merge_strategy: union
+                  upsert_on_conflict: true
       responses:
         '200':
           description: OK
@@ -1387,6 +1431,32 @@ paths:
                 - $ref: '#/components/schemas/locationDataArray'
                 - $ref: '#/components/schemas/digitalData'
                 - $ref: '#/components/schemas/customData'
+              example:
+                device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                device_type: mobile
+                device_subtype: android
+                status: active
+                registered_at: 1623365011
+                os_name: Android
+                os_version: 10.1.x
+                app_version: 5.44.4
+                device_manufacturer: samsung
+                device_model: SM-N970U
+                timezone: UTC-7
+                network_carrier: T-Mobile
+                network_cellular: true
+                phone_numbers:
+                  - '+14159627132'
+                entities:
+                  - entity_id: u-3593dece-6642-4cdc-8547-aafc1454e0a0
+                    entity_type: user
+                tags:
+                  - 'Sector:Europe'
+                options:
+                  upsert_on_conflict: true
+                  resolve_geoip: true
+                  merge_custom_data: false
+                  list_merge_strategy: union
       responses:
         '200':
           description: OK
@@ -2768,12 +2838,12 @@ components:
           additionalProperties: true
     userData:
       title: User Data
+      description: >
+        Personal data - name, birthday, SSN etc. If `general_data.entity_type`
+        is set to `user`, this field is required.
       properties:
         user_data:
           type: object
-          description: >
-            Personal data - name, birthday, SSN etc. If
-            `general_data.entity_type` is set to `user`, this field is required.
           properties:
             first_name:
               type: string
@@ -2826,13 +2896,11 @@ components:
       example: Global Liquids
     businessData:
       title: Business Data
+      description: >
+        Business data - business name, TIN/EIN etc. If
+        `general_data.entity_type` is set to `business`, this field is required.
       properties:
         business_data:
-          description: >
-            Business data - business name, TIN/EIN etc.
-
-            If `general_data.entity_type` is set to `business`, this field is
-            required.
           type: object
           properties:
             business_name:
