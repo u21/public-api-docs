@@ -3172,7 +3172,7 @@ components:
               type: number
               description: >
                 The normalized monetary value of the transaction in customer's
-                home currency. This value must greater than or equal to zero.
+                home currency. This value MUST be greater than or equal to zero.
                 Direction of monetary flow should be entirely denoted by the
                 specifying sender/receiver entities and instruments
                 appropriately.
@@ -3206,7 +3206,7 @@ components:
               description: >
                 (Required when `sender_source` is `internal`, ignored otherwise)
                 The entity type of the sender as defined in Entity's
-                general_data section. Must be either a user or business.
+                `general_data` section. Must be either a user or business.
               example: user
             sender_source:
               type: string
@@ -3224,18 +3224,18 @@ components:
               type: string
               description: >
                 Identifier of the sender's transaction instrument on your
-                platform. if the sender_source is internal and the transaction
-                is facilitated by an instrument (it may not always be),
-                sender_instrument_id should correspond to the `instrument_id`
-                field in an entity's `instrument_data` section.
+                platform. if the `sender_source` is `internal`. and the
+                transaction is facilitated by an instrument (it may not always
+                be), `sender_instrument_id` should correspond to the
+                `instrument_id` field in an entity's `instrument_data` section.
             received_amount:
               type: number
               description: >-
                 The monetary value of the transaction, specified in terms of the
-                currency set in the received_currency field. This value must be
-                positive (greater or equal to zero). Direction of monetary flow
-                should be entirely denoted by the specifying sender/receiver
-                entities and instruments appropriately.
+                currency set in the `received_currency` field. This value must
+                be positive (greater or equal to zero). Direction of monetary
+                flow should be entirely denoted by the specifying
+                sender/receiver entities and instruments appropriately.
               example: 13562.83
             received_currency:
               type: string
@@ -3287,9 +3287,9 @@ components:
               description: >
                 If both sent_currency and received_currency are defined, and
                 neither of them are in the home currency, then this is defined
-                as sent_amount/received_amount. If either sent_currency or
-                received_currency are in the home currency (but not both), then
-                `exchange_rate` is defined as
+                as sent_amount/received_amount. If either `sent_currency` or
+                `received_currency` are in the home currency (but not both),
+                then `exchange_rate` is defined as
                 `home_currency_amount/non_home_currency_amount`. If both
                 sent_currency and received_currency are in the home currency,
                 not required.
