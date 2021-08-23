@@ -2544,10 +2544,15 @@ components:
     synchronousResponse:
       type: boolean
       description: >-
-        Whether to immediately execute the workflow and receive the verification
-        result with the API request response. If `synchronous_response` is
-        `true` and the workflow doesn't allow synchronous responses, the API
-        returns an error. **Default**: `false`
+        **Default**: `false`. Whether to immediately execute the workflow and
+        receive the verification result with the API request response. If
+        `synchronous_response` is `true` and the workflow doesn't allow
+        synchronous responses, the API returns an error([this can be configured
+        in the
+        UI](https://docs.unit21.ai/dashboard/docs/kyc-verification-workflow)).
+
+        **Note**: Using synchronous calls may cause the API to return a `423`
+        error. If that happens, try switching `synchronous_response` to `false`.
       default: false
       example: false
     includeFullResponse:
