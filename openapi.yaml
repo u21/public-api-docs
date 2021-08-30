@@ -609,15 +609,15 @@ paths:
           application/json:
             schema:
               anyOf:
-                - $ref: '#/components/schemas/generalEntities-2'
-                - $ref: '#/components/schemas/documentDataArray-2'
-                - $ref: '#/components/schemas/communicationData-2'
-                - $ref: '#/components/schemas/digitalDataArray-2'
-                - $ref: '#/components/schemas/locationDataArray-2'
-                - $ref: '#/components/schemas/riskScores-2'
-                - $ref: '#/components/schemas/entityOptions-2'
-                - $ref: '#/components/schemas/customData-2'
-                - $ref: '#/components/schemas/userData-2'
+                - $ref: '#/components/schemas/generalEntities'
+                - $ref: '#/components/schemas/documentDataArray'
+                - $ref: '#/components/schemas/communicationData'
+                - $ref: '#/components/schemas/digitalDataArray'
+                - $ref: '#/components/schemas/locationDataArray'
+                - $ref: '#/components/schemas/riskScores'
+                - $ref: '#/components/schemas/entityOptions'
+                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/userData'
                 - $ref: '#/components/schemas/businessData'
       responses:
         '200':
@@ -647,15 +647,15 @@ paths:
           application/json:
             schema:
               anyOf:
-                - $ref: '#/components/schemas/generalEntities-2'
-                - $ref: '#/components/schemas/documentDataArray-2'
-                - $ref: '#/components/schemas/communicationData-2'
-                - $ref: '#/components/schemas/digitalDataArray-2'
-                - $ref: '#/components/schemas/locationDataArray-2'
-                - $ref: '#/components/schemas/riskScores-2'
-                - $ref: '#/components/schemas/entityOptions-2'
-                - $ref: '#/components/schemas/customData-2'
-                - $ref: '#/components/schemas/userData-2'
+                - $ref: '#/components/schemas/generalEntities'
+                - $ref: '#/components/schemas/documentDataArray'
+                - $ref: '#/components/schemas/communicationData'
+                - $ref: '#/components/schemas/digitalDataArray'
+                - $ref: '#/components/schemas/locationDataArray'
+                - $ref: '#/components/schemas/riskScores'
+                - $ref: '#/components/schemas/entityOptions'
+                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/userData'
                 - $ref: '#/components/schemas/businessData'
       responses:
         '200':
@@ -952,7 +952,7 @@ paths:
                 - $ref: '#/components/schemas/actionData'
                 - $ref: '#/components/schemas/digitalData'
                 - $ref: '#/components/schemas/locationData'
-                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/customData'
                 - $ref: '#/components/schemas/eventOptions'
               example:
                 general_data:
@@ -1102,7 +1102,7 @@ paths:
                 - $ref: '#/components/schemas/actionData'
                 - $ref: '#/components/schemas/locationData'
                 - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/customData'
       responses:
         '200':
           description: OK
@@ -1252,9 +1252,9 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/Instruments'
                 - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/locationDataArray-2'
+                - $ref: '#/components/schemas/locationDataArray'
                 - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/customData'
       responses:
         '200':
           description: OK
@@ -1314,9 +1314,9 @@ paths:
               anyOf:
                 - $ref: '#/components/schemas/Instruments'
                 - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/locationDataArray-2'
+                - $ref: '#/components/schemas/locationDataArray'
                 - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/customData'
       responses:
         '200':
           description: OK
@@ -1345,9 +1345,9 @@ paths:
               anyOf:
                 - $ref: '#/components/schemas/Instruments'
                 - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/locationDataArray-2'
+                - $ref: '#/components/schemas/locationDataArray'
                 - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/customData'
       responses:
         '200':
           description: OK
@@ -1419,9 +1419,9 @@ paths:
                 - $ref: '#/components/schemas/Devices'
               anyOf:
                 - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/locationDataArray-2'
+                - $ref: '#/components/schemas/locationDataArray'
                 - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/customData'
               example:
                 device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
                 device_type: mobile
@@ -1496,8 +1496,8 @@ paths:
               anyOf:
                 - $ref: '#/components/schemas/Devices'
                 - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/customData-2'
-                - $ref: '#/components/schemas/locationDataArray-2'
+                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/locationDataArray'
                 - $ref: '#/components/schemas/digitalData'
       responses:
         '200':
@@ -1526,7 +1526,7 @@ paths:
             schema:
               anyOf:
                 - $ref: '#/components/schemas/Devices'
-                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/customData'
       responses:
         '200':
           description: OK
@@ -1673,7 +1673,7 @@ paths:
                 - $ref: '#/components/schemas/Alerts'
                 - $ref: '#/components/schemas/entityArray'
                 - $ref: '#/components/schemas/eventArray'
-                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/customData'
                 - $ref: '#/components/schemas/instrumentArray'
                 - $ref: '#/components/schemas/ruleArray'
       responses:
@@ -1780,7 +1780,7 @@ paths:
             schema:
               anyOf:
                 - $ref: '#/components/schemas/Alerts'
-                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/customData'
       responses:
         '200':
           description: OK
@@ -1947,7 +1947,7 @@ paths:
                 - $ref: '#/components/schemas/Cases'
                 - $ref: '#/components/schemas/entityArray'
                 - $ref: '#/components/schemas/eventArray'
-                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/customData'
       responses:
         '200':
           description: OK
@@ -2012,7 +2012,7 @@ paths:
             schema:
               anyOf:
                 - $ref: '#/components/schemas/Cases'
-                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/customData'
       responses:
         '200':
           description: OK
@@ -2488,7 +2488,7 @@ components:
         type: string
         format: key-value pair
         example: 'Sector:Europe'
-    generalEntities:
+    generalEntitiesProperties:
       title: General entity data
       type: object
       description: >-
@@ -2525,7 +2525,7 @@ components:
                 $ref: '#/components/schemas/entityType'
         tags:
           $ref: '#/components/schemas/Tags'
-    userData:
+    userDataProperties:
       title: User Data
       type: object
       description: >
@@ -2611,7 +2611,7 @@ components:
             Date when document was created, in seconds since 1 Jan 1970 00:00:00
             UTC (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
           example: 1572673227
-    documentDataArray:
+    documentDataArrayProperties:
       title: document data array
       description: array of document data objects
       type: array
@@ -2626,7 +2626,7 @@ components:
       items:
         type: string
         example: '+14159627132'
-    communicationData:
+    communicationDataProperties:
       title: Communication Data
       type: object
       description: >-
@@ -2655,7 +2655,7 @@ components:
           $ref: '#/components/schemas/registeredAt'
         last_seen:
           $ref: '#/components/schemas/registeredAt'
-    digitalDataArray:
+    digitalDataArrayProperties:
       title: Digital Data
       description: 'Associated digital properties - IP, device, browser, client info etc.'
       type: object
@@ -2727,13 +2727,13 @@ components:
           $ref: '#/components/schemas/zipCode'
         country:
           $ref: '#/components/schemas/Country'
-    locationDataArray:
+    locationDataArrayProperties:
       title: Location data array
       description: array of location data objects
       type: array
       items:
         $ref: '#/components/schemas/locationDataProperties'
-    riskScores:
+    riskScoresProperties:
       title: Risk Scores
       required:
         - name
@@ -2819,7 +2819,7 @@ components:
         object is not overwritten. **Default**: `true`
       default: true
       example: true
-    entityOptions:
+    entityOptionsProperties:
       title: Entity Options
       type: object
       description: Options for specifing workflows and list merge strategies.
@@ -2848,7 +2848,7 @@ components:
           $ref: '#/components/schemas/listMergeStrategy'
         upsert_on_conflict:
           $ref: '#/components/schemas/upsertOnConflict'
-    customData:
+    customDataProperties:
       title: Custom Data
       type: object
       description: >-
@@ -2864,23 +2864,23 @@ components:
         - user_data
       properties:
         general_data:
-          $ref: '#/components/schemas/generalEntities'
+          $ref: '#/components/schemas/generalEntitiesProperties'
         user_data:
-          $ref: '#/components/schemas/userData'
+          $ref: '#/components/schemas/userDataProperties'
         document_data:
-          $ref: '#/components/schemas/documentDataArray'
+          $ref: '#/components/schemas/documentDataArrayProperties'
         communication_data:
-          $ref: '#/components/schemas/communicationData'
+          $ref: '#/components/schemas/communicationDataProperties'
         digital_data:
-          $ref: '#/components/schemas/digitalDataArray'
+          $ref: '#/components/schemas/digitalDataArrayProperties'
         location_data:
-          $ref: '#/components/schemas/locationDataArray'
+          $ref: '#/components/schemas/locationDataArrayProperties'
         risk_scores:
-          $ref: '#/components/schemas/riskScores'
+          $ref: '#/components/schemas/riskScoresProperties'
         options:
-          $ref: '#/components/schemas/entityOptions'
+          $ref: '#/components/schemas/entityOptionsProperties'
         custom_data:
-          $ref: '#/components/schemas/customData'
+          $ref: '#/components/schemas/customDataProperties'
     createBusiness:
       Title: Create a business
       required:
@@ -2888,23 +2888,23 @@ components:
         - business_data
       properties:
         general_data:
-          $ref: '#/components/schemas/generalEntities'
+          $ref: '#/components/schemas/generalEntitiesProperties'
         business_data:
-          $ref: '#/components/schemas/userData'
+          $ref: '#/components/schemas/userDataProperties'
         document_data:
-          $ref: '#/components/schemas/documentDataArray'
+          $ref: '#/components/schemas/documentDataArrayProperties'
         communication_data:
-          $ref: '#/components/schemas/communicationData'
+          $ref: '#/components/schemas/communicationDataProperties'
         digital_data:
-          $ref: '#/components/schemas/digitalDataArray'
+          $ref: '#/components/schemas/digitalDataArrayProperties'
         location_data:
-          $ref: '#/components/schemas/locationDataArray'
+          $ref: '#/components/schemas/locationDataArrayProperties'
         risk_scores:
-          $ref: '#/components/schemas/riskScores'
+          $ref: '#/components/schemas/riskScoresProperties'
         options:
-          $ref: '#/components/schemas/entityOptions'
+          $ref: '#/components/schemas/entityOptionsProperties'
         custom_data:
-          $ref: '#/components/schemas/customData'
+          $ref: '#/components/schemas/customDataProperties'
     Ignored:
       type: boolean
       example: true
@@ -2935,214 +2935,54 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
-    generalEntities-2:
+    generalEntities:
       title: General entity data
       properties:
         general_data:
-          type: object
-          description: >-
-            **Required** for requests to `/entities/create`. General information
-            about the entity. With this object, you can link any entity on
-            Unit21's system to a user or business on your platform.
-          required:
-            - entity_id
-            - entity_type
-          properties:
-            entity_id:
-              $ref: '#/components/schemas/entityId'
-            entity_type:
-              $ref: '#/components/schemas/entityType'
-            entity_subtype:
-              $ref: '#/components/schemas/entitySubtype'
-            status:
-              $ref: '#/components/schemas/objectStatus'
-            registered_at:
-              $ref: '#/components/schemas/registeredAt'
-            parents:
-              type: array
-              description: >-
-                The parent object consists of two fields─`entity_id` for parent
-                unique identifier  and `entity_type`.
-              items:
-                type: object
-                properties:
-                  entity_id:
-                    type: string
-                    description: Parent unique identifier
-                    example: entity-5500
-                  entity_type:
-                    $ref: '#/components/schemas/entityType'
-            tags:
-              $ref: '#/components/schemas/Tags'
-    documentDataArray-2:
+          $ref: '#/components/schemas/generalEntitiesProperties'
+    documentDataArray:
       title: document data array
       properties:
         document_data:
-          description: array of document data objects
-          type: array
-          items:
-            $ref: '#/components/schemas/documentDataProperties'
-    communicationData-2:
+          $ref: '#/components/schemas/documentDataArrayProperties'
+    communicationData:
       title: Communication Data
       properties:
         communication_data:
-          type: object
-          description: >-
-            An entity's associated means of communication, like emails and phone
-            numbers.
-          properties:
-            email_addresses:
-              type: array
-              description: List of emails associated with an entity.
-              items:
-                type: string
-                example: JohnJay@example.com
-            phone_numbers:
-              $ref: '#/components/schemas/phoneNumbers'
-    digitalDataArray-2:
-      title: Digital Data
+          $ref: '#/components/schemas/communicationDataProperties'
+    digitalDataArray:
+      title: Digital_data array
       properties:
         digital_data:
-          description: >-
-            Associated digital properties - IP, device, browser, client info
-            etc.
-          type: object
-          properties:
-            ip_addresses:
-              type: array
-              description: List of IP addresses. MUST be in either IPv4 or IPv6 format.
-              items:
-                $ref: '#/components/schemas/ipAddressExtended'
-            client_fingerprints:
-              type: array
-              description: >-
-                Fingerprints associated with this entity. Equal to the
-                `device_id` sent to [the `/device` endpoint](ref:create_device)
-              items:
-                type: string
-                example: 4908hsdfknkd90432nj3k2kj2jk23kj2k3jk2j3
-    locationDataArray-2:
+          $ref: '#/components/schemas/digitalDataArrayProperties'
+    locationDataArray:
       title: Location data array
       properties:
         location_data:
-          description: array of location data objects
-          type: array
-          items:
-            $ref: '#/components/schemas/locationDataProperties'
-    riskScores-2:
+          $ref: '#/components/schemas/locationDataArrayProperties'
+    riskScores:
       title: Risk Scores
       properties:
         risk_scores:
-          required:
-            - name
-            - score
-          type: object
-          description: Third party risk score information
-          properties:
-            name:
-              type: string
-              description: Name of risk score
-              example: risk_score1
-            score:
-              type: integer
-              description: Risk Value assigned to entity
-              example: 65
-            denominator:
-              type: integer
-              description: >
-                Number by which `score`can be divided. If no value is given,
-                Unit21 sets the denominator as 10^n, where `n`is the number of
-                characters in the value. E.G. a value of 50 has a denominator of
-                10², a value of 501 has a denominator of 10³.
-              example: 100
-    entityOptions-2:
+          $ref: '#/components/schemas/riskScoresProperties'
+    entityOptions:
       title: Entity Options
       properties:
         options:
-          type: object
-          description: Options for specifing workflows and list merge strategies.
-          properties:
-            identity_verifications:
-              type: object
-              properties:
-                workflow_id:
-                  $ref: '#/components/schemas/workflowId'
-                run_verifications:
-                  type: boolean
-                  description: >-
-                    Whether or not to execute a verification workflow for the
-                    uploaded entity/entities. **Default**: `false`
-                  default: false
-                  example: false
-                synchronous_response:
-                  $ref: '#/components/schemas/synchronousResponse'
-            include_full_response:
-              $ref: '#/components/schemas/includeFullResponse'
-            resolve_geoip:
-              $ref: '#/components/schemas/resolveGeoIp'
-            merge_custom_data:
-              $ref: '#/components/schemas/merge_custom_data'
-            list_merge_strategy:
-              $ref: '#/components/schemas/listMergeStrategy'
-            upsert_on_conflict:
-              $ref: '#/components/schemas/upsertOnConflict'
-    customData-2:
+          $ref: '#/components/schemas/entityOptionsProperties'
+    customData:
       title: Custom Data
       properties:
         custom_data:
-          type: object
-          description: >-
-            Any custom information that you want the Unit21 system to associate
-            with this entity (accepts any valid JSON object)
-          example:
-            internal_notes: Reviewed by Mitchell on 31 June 2019
-          additionalProperties: true
-    userData-2:
+          $ref: '#/components/schemas/customDataProperties'
+    userData:
       title: User Data
       description: >
         Personal data - name, birthday, SSN etc. If `general_data.entity_type`
         is set to `user`, this field is required.
       properties:
         user_data:
-          type: object
-          properties:
-            first_name:
-              type: string
-              description: User's associated first name
-              example: John
-            middle_name:
-              type: string
-              description: User's associated middle name
-              example: Joseph
-            last_name:
-              type: string
-              description: User's associated last name
-              example: Smith
-            day_of_birth:
-              type: number
-              description: Day of user's date of birth (e.g. 23)
-              example: 23
-            month_of_birth:
-              type: number
-              description: Month of user's date of birth (e.g. 12 for December)
-              example: 12
-            year_of_birth:
-              type: integer
-              description: Year of the user's date of birth (e.g. 1990)
-              example: 1990
-            gender:
-              type: string
-              description: 'Male, female, or other'
-              enum:
-                - male
-                - female
-                - other
-              example: female
-            ssn:
-              type: string
-              pattern: '^\d{3}-\d{2}-\d{4}$'
-              description: 'Social security number of the user, in the format xxx-xx-xxxx'
-              example: 733-99-5921
+          $ref: '#/components/schemas/userDataProperties'
     businessName:
       type: string
       description: The registered name of the business
@@ -3155,6 +2995,33 @@ components:
       type: string
       description: Operating name of the business.
       example: Global Liquids
+    businessDataProperties:
+      title: Business Data
+      description: >
+        Business data - business name, TIN/EIN etc.
+
+        If `general_data.entity_type` is set to `business`, this field is
+        required.
+      type: object
+      properties:
+        business_name:
+          $ref: '#/components/schemas/businessName'
+        corporate_tax_id:
+          $ref: '#/components/schemas/corporateTaxId'
+        account_holder_name:
+          type: string
+          description: The name of the main person associated with the business
+          example: John Smith
+        registered_state:
+          $ref: '#/components/schemas/State'
+        registered_county:
+          type: string
+          description: >-
+            Country where the business is registered. Provided acording to the
+            ISO 3166-1 alpha-2 standard.
+          example: Fulton
+        doing_business_as:
+          $ref: '#/components/schemas/dbaName'
     businessData:
       title: Business Data
       description: >
@@ -3162,26 +3029,7 @@ components:
         `general_data.entity_type` is set to `business`, this field is required.
       properties:
         business_data:
-          type: object
-          properties:
-            business_name:
-              $ref: '#/components/schemas/businessName'
-            corporate_tax_id:
-              $ref: '#/components/schemas/corporateTaxId'
-            account_holder_name:
-              type: string
-              description: The name of the main person associated with the business
-              example: John Smith
-            registered_state:
-              $ref: '#/components/schemas/State'
-            registered_county:
-              type: string
-              description: >-
-                Country where the business is registered. Provided acording to
-                the ISO 3166-1 alpha-2 standard.
-              example: Fulton
-            doing_business_as:
-              $ref: '#/components/schemas/dbaName'
+          $ref: '#/components/schemas/businessDataProperties'
     linkInstrument:
       type: object
       description: 'Associate an instrument directly with an object, like an Entity or Case.'
@@ -3738,7 +3586,6 @@ components:
     instrumentId:
       type: string
       description: Unique identifier of the instrument on your platform.
-      minLenght: 1
       maxLength: 128
       pattern: '-\_:.@a-zA-Z0-9!#\$%&\''\*+/=?^`{'
       example: 3234-sdghfdf-3332
