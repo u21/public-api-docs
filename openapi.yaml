@@ -387,17 +387,8 @@ paths:
           application/json:
             schema:
               oneOf:
-                - $ref: '#/components/schemas/userData'
-                - $ref: '#/components/schemas/businessData'
-              allOf:
-                - $ref: '#/components/schemas/generalEntities'
-                - $ref: '#/components/schemas/entityOptions'
-                - $ref: '#/components/schemas/documentDataArray'
-                - $ref: '#/components/schemas/communicationData'
-                - $ref: '#/components/schemas/digitalDataArray'
-                - $ref: '#/components/schemas/locationDataArray'
-                - $ref: '#/components/schemas/riskScores'
-                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/createUser'
+                - $ref: '#/components/schemas/createBusiness'
             example:
               user_data:
                 first_name: John
@@ -618,15 +609,15 @@ paths:
           application/json:
             schema:
               anyOf:
-                - $ref: '#/components/schemas/generalEntities'
-                - $ref: '#/components/schemas/documentDataArray'
-                - $ref: '#/components/schemas/communicationData'
-                - $ref: '#/components/schemas/digitalDataArray'
-                - $ref: '#/components/schemas/locationDataArray'
-                - $ref: '#/components/schemas/riskScores'
-                - $ref: '#/components/schemas/entityOptions'
-                - $ref: '#/components/schemas/customData'
-                - $ref: '#/components/schemas/userData'
+                - $ref: '#/components/schemas/generalEntities-2'
+                - $ref: '#/components/schemas/documentDataArray-2'
+                - $ref: '#/components/schemas/communicationData-2'
+                - $ref: '#/components/schemas/digitalDataArray-2'
+                - $ref: '#/components/schemas/locationDataArray-2'
+                - $ref: '#/components/schemas/riskScores-2'
+                - $ref: '#/components/schemas/entityOptions-2'
+                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/userData-2'
                 - $ref: '#/components/schemas/businessData'
       responses:
         '200':
@@ -656,15 +647,15 @@ paths:
           application/json:
             schema:
               anyOf:
-                - $ref: '#/components/schemas/generalEntities'
-                - $ref: '#/components/schemas/documentDataArray'
-                - $ref: '#/components/schemas/communicationData'
-                - $ref: '#/components/schemas/digitalDataArray'
-                - $ref: '#/components/schemas/locationDataArray'
-                - $ref: '#/components/schemas/riskScores'
-                - $ref: '#/components/schemas/entityOptions'
-                - $ref: '#/components/schemas/customData'
-                - $ref: '#/components/schemas/userData'
+                - $ref: '#/components/schemas/generalEntities-2'
+                - $ref: '#/components/schemas/documentDataArray-2'
+                - $ref: '#/components/schemas/communicationData-2'
+                - $ref: '#/components/schemas/digitalDataArray-2'
+                - $ref: '#/components/schemas/locationDataArray-2'
+                - $ref: '#/components/schemas/riskScores-2'
+                - $ref: '#/components/schemas/entityOptions-2'
+                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/userData-2'
                 - $ref: '#/components/schemas/businessData'
       responses:
         '200':
@@ -961,7 +952,7 @@ paths:
                 - $ref: '#/components/schemas/actionData'
                 - $ref: '#/components/schemas/digitalData'
                 - $ref: '#/components/schemas/locationData'
-                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/customData-2'
                 - $ref: '#/components/schemas/eventOptions'
               example:
                 general_data:
@@ -1111,7 +1102,7 @@ paths:
                 - $ref: '#/components/schemas/actionData'
                 - $ref: '#/components/schemas/locationData'
                 - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/customData-2'
       responses:
         '200':
           description: OK
@@ -1261,9 +1252,9 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/Instruments'
                 - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/locationDataArray'
+                - $ref: '#/components/schemas/locationDataArray-2'
                 - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/customData-2'
       responses:
         '200':
           description: OK
@@ -1323,9 +1314,9 @@ paths:
               anyOf:
                 - $ref: '#/components/schemas/Instruments'
                 - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/locationDataArray'
+                - $ref: '#/components/schemas/locationDataArray-2'
                 - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/customData-2'
       responses:
         '200':
           description: OK
@@ -1354,9 +1345,9 @@ paths:
               anyOf:
                 - $ref: '#/components/schemas/Instruments'
                 - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/locationDataArray'
+                - $ref: '#/components/schemas/locationDataArray-2'
                 - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/customData-2'
       responses:
         '200':
           description: OK
@@ -1428,9 +1419,9 @@ paths:
                 - $ref: '#/components/schemas/Devices'
               anyOf:
                 - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/locationDataArray'
+                - $ref: '#/components/schemas/locationDataArray-2'
                 - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/customData-2'
               example:
                 device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
                 device_type: mobile
@@ -1505,8 +1496,8 @@ paths:
               anyOf:
                 - $ref: '#/components/schemas/Devices'
                 - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/customData'
-                - $ref: '#/components/schemas/locationDataArray'
+                - $ref: '#/components/schemas/customData-2'
+                - $ref: '#/components/schemas/locationDataArray-2'
                 - $ref: '#/components/schemas/digitalData'
       responses:
         '200':
@@ -1535,7 +1526,7 @@ paths:
             schema:
               anyOf:
                 - $ref: '#/components/schemas/Devices'
-                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/customData-2'
       responses:
         '200':
           description: OK
@@ -1682,7 +1673,7 @@ paths:
                 - $ref: '#/components/schemas/Alerts'
                 - $ref: '#/components/schemas/entityArray'
                 - $ref: '#/components/schemas/eventArray'
-                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/customData-2'
                 - $ref: '#/components/schemas/instrumentArray'
                 - $ref: '#/components/schemas/ruleArray'
       responses:
@@ -1789,7 +1780,7 @@ paths:
             schema:
               anyOf:
                 - $ref: '#/components/schemas/Alerts'
-                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/customData-2'
       responses:
         '200':
           description: OK
@@ -1956,7 +1947,7 @@ paths:
                 - $ref: '#/components/schemas/Cases'
                 - $ref: '#/components/schemas/entityArray'
                 - $ref: '#/components/schemas/eventArray'
-                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/customData-2'
       responses:
         '200':
           description: OK
@@ -2021,7 +2012,7 @@ paths:
             schema:
               anyOf:
                 - $ref: '#/components/schemas/Cases'
-                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/customData-2'
       responses:
         '200':
           description: OK
@@ -2499,43 +2490,273 @@ components:
         example: 'Sector:Europe'
     generalEntities:
       title: General entity data
+      type: object
+      description: >-
+        **Required** for requests to `/entities/create`. General information
+        about the entity. With this object, you can link any entity on Unit21's
+        system to a user or business on your platform.
+      required:
+        - entity_id
+        - entity_type
       properties:
-        general_data:
-          type: object
+        entity_id:
+          $ref: '#/components/schemas/entityId'
+        entity_type:
+          $ref: '#/components/schemas/entityType'
+        entity_subtype:
+          $ref: '#/components/schemas/entitySubtype'
+        status:
+          $ref: '#/components/schemas/objectStatus'
+        registered_at:
+          $ref: '#/components/schemas/registeredAt'
+        parents:
+          type: array
           description: >-
-            **Required** for requests to `/entities/create`. General information
-            about the entity. With this object, you can link any entity on
-            Unit21's system to a user or business on your platform.
-          required:
-            - entity_id
-            - entity_type
-          properties:
-            entity_id:
-              $ref: '#/components/schemas/entityId'
-            entity_type:
-              $ref: '#/components/schemas/entityType'
-            entity_subtype:
-              $ref: '#/components/schemas/entitySubtype'
-            status:
-              $ref: '#/components/schemas/objectStatus'
-            registered_at:
-              $ref: '#/components/schemas/registeredAt'
-            parents:
-              type: array
-              description: >-
-                The parent object consists of two fields─`entity_id` for parent
-                unique identifier  and `entity_type`.
-              items:
-                type: object
-                properties:
-                  entity_id:
-                    type: string
-                    description: Parent unique identifier
-                    example: entity-5500
-                  entity_type:
-                    $ref: '#/components/schemas/entityType'
-            tags:
-              $ref: '#/components/schemas/Tags'
+            The parent object consists of two fields─`entity_id` for parent
+            unique identifier  and `entity_type`.
+          items:
+            type: object
+            properties:
+              entity_id:
+                type: string
+                description: Parent unique identifier
+                example: entity-5500
+              entity_type:
+                $ref: '#/components/schemas/entityType'
+        tags:
+          $ref: '#/components/schemas/Tags'
+    userData:
+      title: User Data
+      type: object
+      description: >
+        Personal data - name, birthday, SSN etc. If `general_data.entity_type`
+        is set to `user`, this field is required.
+      properties:
+        first_name:
+          type: string
+          description: User's associated first name
+          example: John
+        middle_name:
+          type: string
+          description: User's associated middle name
+          example: Joseph
+        last_name:
+          type: string
+          description: User's associated last name
+          example: Smith
+        day_of_birth:
+          type: number
+          description: Day of user's date of birth (e.g. 23)
+          example: 23
+        month_of_birth:
+          type: number
+          description: Month of user's date of birth (e.g. 12 for December)
+          example: 12
+        year_of_birth:
+          type: integer
+          description: Year of the user's date of birth (e.g. 1990)
+          example: 1990
+        gender:
+          type: string
+          description: 'Male, female, or other'
+          enum:
+            - male
+            - female
+            - other
+          example: female
+        ssn:
+          type: string
+          pattern: '^\d{3}-\d{2}-\d{4}$'
+          description: 'Social security number of the user, in the format xxx-xx-xxxx'
+          example: 733-99-5921
+    State:
+      type: string
+      description: >-
+        For the US, use the two letter state codes. Otherwise, use the country
+        and regional subdivision codes. Codes are based on the [ISO 3166-1
+        alpha-2 standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+      example: CA
+    documentDataProperties:
+      type: object
+      description: document data properties
+      required:
+        - document_id
+        - document_type
+      properties:
+        document_id:
+          type: string
+          description: The id or number of the document
+          example: G3352403F
+        document_type:
+          type: string
+          description: The type of the document (i.e. drivers license)
+          example: drivers_license
+        state:
+          $ref: '#/components/schemas/State'
+        country:
+          type: string
+          description: >-
+            provided acording to the [ISO 3166-1 alpha-2
+            standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2].
+          example: US
+        issued_at:
+          type: integer
+          description: >-
+            Date when document was created, in seconds since 1 Jan 1970 00:00:00
+            UTC (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
+          example: 1572673226
+        expires_at:
+          type: integer
+          description: >-
+            Date when document was created, in seconds since 1 Jan 1970 00:00:00
+            UTC (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
+          example: 1572673227
+    documentDataArray:
+      title: document data array
+      description: array of document data objects
+      type: array
+      items:
+        $ref: '#/components/schemas/documentDataProperties'
+    phoneNumbers:
+      type: array
+      description: >-
+        List of phone numbers associated with the entity in [E.164
+        format](https://en.wikipedia.org/wiki/E.164)─e.g. +12125551395 (
+        '[+][country code][area code][local phone number]' )
+      items:
+        type: string
+        example: '+14159627132'
+    communicationData:
+      title: Communication Data
+      type: object
+      description: >-
+        An entity's associated means of communication, like emails and phone
+        numbers.
+      properties:
+        email_addresses:
+          type: array
+          description: List of emails associated with an entity.
+          items:
+            type: string
+            example: JohnJay@example.com
+        phone_numbers:
+          $ref: '#/components/schemas/phoneNumbers'
+    ipAddressSimple:
+      title: IP address
+      type: string
+      description: Either IPv4 or IPv6
+      example: 255.255.255.255
+    ipAddressExtended:
+      title: Extended IP address
+      properties:
+        ip_address:
+          $ref: '#/components/schemas/ipAddressSimple'
+        first_seen:
+          $ref: '#/components/schemas/registeredAt'
+        last_seen:
+          $ref: '#/components/schemas/registeredAt'
+    digitalDataArray:
+      title: Digital Data
+      description: 'Associated digital properties - IP, device, browser, client info etc.'
+      type: object
+      properties:
+        ip_addresses:
+          type: array
+          description: List of IP addresses. MUST be in either IPv4 or IPv6 format.
+          items:
+            $ref: '#/components/schemas/ipAddressExtended'
+        client_fingerprints:
+          type: array
+          description: >-
+            Fingerprints associated with this entity. Equal to the `device_id`
+            sent to [the `/device` endpoint](ref:create_device)
+          items:
+            type: string
+            example: 4908hsdfknkd90432nj3k2kj2jk23kj2k3jk2j3
+    City:
+      type: string
+      description: Associated city (max 128 characters)
+      maximum: 128
+      example: Redmond
+    zipCode:
+      type: string
+      description: >-
+        Associated ZIP code or postal code. For US addresses, can be either
+        5-digit ZIP Code (99999) or ZIP+4 Code (99999-9999) formats
+      example: 07710-0001
+    Country:
+      type: string
+      description: >-
+        Country of primary residence, provided acording to the [ISO 3166-1
+        alpha-2 standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2].
+      example: US
+    locationDataProperties:
+      title: location data properties
+      type: object
+      description: Address/location data
+      properties:
+        type:
+          type: string
+          description: >-
+            A string field indicating the type of address e.g. `SHIPPING`,
+            `BILLING` (max 24 characters)
+          maxLength: 24
+          example: SHIPPING
+        building_number:
+          type: string
+          description: Building number of the primary residence (max 24 characters)
+          maxLength: 24
+          example: 6c
+        unit_number:
+          type: string
+          description: >-
+            Flat/unit/apartment number of the location associated with the event
+            (max 24 characters)
+          maxLength: 24
+          example: 22a
+        street_name:
+          type: string
+          description: Street name of primary residence (max 128 characters)
+          maxLength: 128
+          example: California Ave
+        city:
+          $ref: '#/components/schemas/City'
+        state:
+          $ref: '#/components/schemas/State'
+        postal_code:
+          $ref: '#/components/schemas/zipCode'
+        country:
+          $ref: '#/components/schemas/Country'
+    locationDataArray:
+      title: Location data array
+      description: array of location data objects
+      type: array
+      items:
+        $ref: '#/components/schemas/locationDataProperties'
+    riskScores:
+      title: Risk Scores
+      required:
+        - name
+        - score
+      type: object
+      description: Third party risk score information
+      properties:
+        name:
+          type: string
+          description: Name of risk score
+          example: risk_score1
+        score:
+          type: integer
+          description: Risk Value assigned to entity
+          example: 65
+        denominator:
+          type: integer
+          description: >
+            Number by which `score`can be divided. If no value is given, Unit21
+            sets the denominator as 10^n, where `n`is the number of characters
+            in the value. E.G. a value of 50 has a denominator of 10², a value
+            of 501 has a denominator of 10³.
+          example: 100
     workflowId:
       type: string
       description: |
@@ -2600,6 +2821,242 @@ components:
       example: true
     entityOptions:
       title: Entity Options
+      type: object
+      description: Options for specifing workflows and list merge strategies.
+      properties:
+        identity_verifications:
+          type: object
+          properties:
+            workflow_id:
+              $ref: '#/components/schemas/workflowId'
+            run_verifications:
+              type: boolean
+              description: >-
+                Whether or not to execute a verification workflow for the
+                uploaded entity/entities. **Default**: `false`
+              default: false
+              example: false
+            synchronous_response:
+              $ref: '#/components/schemas/synchronousResponse'
+        include_full_response:
+          $ref: '#/components/schemas/includeFullResponse'
+        resolve_geoip:
+          $ref: '#/components/schemas/resolveGeoIp'
+        merge_custom_data:
+          $ref: '#/components/schemas/merge_custom_data'
+        list_merge_strategy:
+          $ref: '#/components/schemas/listMergeStrategy'
+        upsert_on_conflict:
+          $ref: '#/components/schemas/upsertOnConflict'
+    customData:
+      title: Custom Data
+      type: object
+      description: >-
+        Any custom information that you want the Unit21 system to associate with
+        this entity (accepts any valid JSON object)
+      example:
+        internal_notes: Reviewed by Mitchell on 31 June 2019
+      additionalProperties: true
+    createUser:
+      Title: Create a user
+      required:
+        - general_data
+        - user_data
+      properties:
+        general_data:
+          $ref: '#/components/schemas/generalEntities'
+        user_data:
+          $ref: '#/components/schemas/userData'
+        document_data:
+          $ref: '#/components/schemas/documentDataArray'
+        communication_data:
+          $ref: '#/components/schemas/communicationData'
+        digital_data:
+          $ref: '#/components/schemas/digitalDataArray'
+        location_data:
+          $ref: '#/components/schemas/locationDataArray'
+        risk_scores:
+          $ref: '#/components/schemas/riskScores'
+        options:
+          $ref: '#/components/schemas/entityOptions'
+        custom_data:
+          $ref: '#/components/schemas/customData'
+    createBusiness:
+      Title: Create a business
+      required:
+        - general_data
+        - business_data
+      properties:
+        general_data:
+          $ref: '#/components/schemas/generalEntities'
+        business_data:
+          $ref: '#/components/schemas/userData'
+        document_data:
+          $ref: '#/components/schemas/documentDataArray'
+        communication_data:
+          $ref: '#/components/schemas/communicationData'
+        digital_data:
+          $ref: '#/components/schemas/digitalDataArray'
+        location_data:
+          $ref: '#/components/schemas/locationDataArray'
+        risk_scores:
+          $ref: '#/components/schemas/riskScores'
+        options:
+          $ref: '#/components/schemas/entityOptions'
+        custom_data:
+          $ref: '#/components/schemas/customData'
+    Ignored:
+      type: boolean
+      example: true
+      description: >-
+        During upserts, `true` if all fields are identical to already existing
+        fields for that object
+    previouslyExisted:
+      type: boolean
+      description: >-
+        During upserts, `true` when object already existed at the ID field
+        specified in the POST.
+    unit21Id:
+      type: string
+      description: >-
+        A Unit21 internally-assigned unique identifier for an object within the
+        Unit21 system.
+      example: '1237466'
+    createEntityResponse:
+      title: entities/create Response
+      description: 200 response for `list_entities` operation
+      type: object
+      properties:
+        entity_id:
+          $ref: '#/components/schemas/entityId'
+        ignored:
+          $ref: '#/components/schemas/Ignored'
+        previously_existed:
+          $ref: '#/components/schemas/previouslyExisted'
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+    generalEntities-2:
+      title: General entity data
+      properties:
+        general_data:
+          type: object
+          description: >-
+            **Required** for requests to `/entities/create`. General information
+            about the entity. With this object, you can link any entity on
+            Unit21's system to a user or business on your platform.
+          required:
+            - entity_id
+            - entity_type
+          properties:
+            entity_id:
+              $ref: '#/components/schemas/entityId'
+            entity_type:
+              $ref: '#/components/schemas/entityType'
+            entity_subtype:
+              $ref: '#/components/schemas/entitySubtype'
+            status:
+              $ref: '#/components/schemas/objectStatus'
+            registered_at:
+              $ref: '#/components/schemas/registeredAt'
+            parents:
+              type: array
+              description: >-
+                The parent object consists of two fields─`entity_id` for parent
+                unique identifier  and `entity_type`.
+              items:
+                type: object
+                properties:
+                  entity_id:
+                    type: string
+                    description: Parent unique identifier
+                    example: entity-5500
+                  entity_type:
+                    $ref: '#/components/schemas/entityType'
+            tags:
+              $ref: '#/components/schemas/Tags'
+    documentDataArray-2:
+      title: document data array
+      properties:
+        document_data:
+          description: array of document data objects
+          type: array
+          items:
+            $ref: '#/components/schemas/documentDataProperties'
+    communicationData-2:
+      title: Communication Data
+      properties:
+        communication_data:
+          type: object
+          description: >-
+            An entity's associated means of communication, like emails and phone
+            numbers.
+          properties:
+            email_addresses:
+              type: array
+              description: List of emails associated with an entity.
+              items:
+                type: string
+                example: JohnJay@example.com
+            phone_numbers:
+              $ref: '#/components/schemas/phoneNumbers'
+    digitalDataArray-2:
+      title: Digital Data
+      properties:
+        digital_data:
+          description: >-
+            Associated digital properties - IP, device, browser, client info
+            etc.
+          type: object
+          properties:
+            ip_addresses:
+              type: array
+              description: List of IP addresses. MUST be in either IPv4 or IPv6 format.
+              items:
+                $ref: '#/components/schemas/ipAddressExtended'
+            client_fingerprints:
+              type: array
+              description: >-
+                Fingerprints associated with this entity. Equal to the
+                `device_id` sent to [the `/device` endpoint](ref:create_device)
+              items:
+                type: string
+                example: 4908hsdfknkd90432nj3k2kj2jk23kj2k3jk2j3
+    locationDataArray-2:
+      title: Location data array
+      properties:
+        location_data:
+          description: array of location data objects
+          type: array
+          items:
+            $ref: '#/components/schemas/locationDataProperties'
+    riskScores-2:
+      title: Risk Scores
+      properties:
+        risk_scores:
+          required:
+            - name
+            - score
+          type: object
+          description: Third party risk score information
+          properties:
+            name:
+              type: string
+              description: Name of risk score
+              example: risk_score1
+            score:
+              type: integer
+              description: Risk Value assigned to entity
+              example: 65
+            denominator:
+              type: integer
+              description: >
+                Number by which `score`can be divided. If no value is given,
+                Unit21 sets the denominator as 10^n, where `n`is the number of
+                characters in the value. E.G. a value of 50 has a denominator of
+                10², a value of 501 has a denominator of 10³.
+              example: 100
+    entityOptions-2:
+      title: Entity Options
       properties:
         options:
           type: object
@@ -2629,207 +3086,7 @@ components:
               $ref: '#/components/schemas/listMergeStrategy'
             upsert_on_conflict:
               $ref: '#/components/schemas/upsertOnConflict'
-    State:
-      type: string
-      description: >-
-        For the US, use the two letter state codes. Otherwise, use the country
-        and regional subdivision codes. Codes are based on the [ISO 3166-1
-        alpha-2 standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-      example: CA
-    documentDataProperties:
-      type: object
-      description: document data properties
-      required:
-        - document_id
-        - document_type
-      properties:
-        document_id:
-          type: string
-          description: The id or number of the document
-          example: G3352403F
-        document_type:
-          type: string
-          description: The type of the document (i.e. drivers license)
-          example: drivers_license
-        state:
-          $ref: '#/components/schemas/State'
-        country:
-          type: string
-          description: >-
-            provided acording to the [ISO 3166-1 alpha-2
-            standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2].
-          example: US
-        issued_at:
-          type: integer
-          description: >-
-            Date when document was created, in seconds since 1 Jan 1970 00:00:00
-            UTC (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
-          example: 1572673226
-        expires_at:
-          type: integer
-          description: >-
-            Date when document was created, in seconds since 1 Jan 1970 00:00:00
-            UTC (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
-          example: 1572673227
-    documentDataArray:
-      title: document data array
-      properties:
-        document_data:
-          description: array of document data objects
-          type: array
-          items:
-            $ref: '#/components/schemas/documentDataProperties'
-    phoneNumbers:
-      type: array
-      description: >-
-        List of phone numbers associated with the entity in [E.164
-        format](https://en.wikipedia.org/wiki/E.164)─e.g. +12125551395 (
-        '[+][country code][area code][local phone number]' )
-      items:
-        type: string
-        example: '+14159627132'
-    communicationData:
-      title: Communication Data
-      properties:
-        communication_data:
-          type: object
-          description: >-
-            An entity's associated means of communication, like emails and phone
-            numbers.
-          properties:
-            email_addresses:
-              type: array
-              description: List of emails associated with an entity.
-              items:
-                type: string
-                example: JohnJay@example.com
-            phone_numbers:
-              $ref: '#/components/schemas/phoneNumbers'
-    ipAddressSimple:
-      title: IP address
-      type: string
-      description: Either IPv4 or IPv6
-      example: 255.255.255.255
-    ipAddressExtended:
-      title: Extended IP address
-      properties:
-        ip_address:
-          $ref: '#/components/schemas/ipAddressSimple'
-        first_seen:
-          $ref: '#/components/schemas/registeredAt'
-        last_seen:
-          $ref: '#/components/schemas/registeredAt'
-    digitalDataArray:
-      title: Digital Data
-      properties:
-        digital_data:
-          description: >-
-            Associated digital properties - IP, device, browser, client info
-            etc.
-          type: object
-          properties:
-            ip_addresses:
-              type: array
-              description: List of IP addresses. MUST be in either IPv4 or IPv6 format.
-              items:
-                $ref: '#/components/schemas/ipAddressExtended'
-            client_fingerprints:
-              type: array
-              description: >-
-                Fingerprints associated with this entity. Equal to the
-                `device_id` sent to [the `/device` endpoint](ref:create_device)
-              items:
-                type: string
-                example: 4908hsdfknkd90432nj3k2kj2jk23kj2k3jk2j3
-    City:
-      type: string
-      description: Associated city (max 128 characters)
-      maximum: 128
-      example: Redmond
-    zipCode:
-      type: string
-      description: >-
-        Associated ZIP code or postal code. For US addresses, can be either
-        5-digit ZIP Code (99999) or ZIP+4 Code (99999-9999) formats
-      example: 07710-0001
-    Country:
-      type: string
-      description: >-
-        Country of primary residence, provided acording to the [ISO 3166-1
-        alpha-2 standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2].
-      example: US
-    locationDataProperties:
-      title: location data properties
-      type: object
-      description: Address/location data
-      properties:
-        type:
-          type: string
-          description: >-
-            A string field indicating the type of address e.g. `SHIPPING`,
-            `BILLING` (max 24 characters)
-          maximum: 24
-          example: SHIPPING
-        building_number:
-          type: string
-          description: Building number of the primary residence (max 24 characters)
-          maximum: 24
-          example: 6c
-        unit_number:
-          type: string
-          description: >-
-            Flat/unit/apartment number of the location associated with the event
-            (max 24 characters)
-          maximum: 21
-          example: 22a
-        street_name:
-          type: string
-          description: Street name of primary residence (max 128 characters)
-          maximum: 128
-          example: California Ave
-        city:
-          $ref: '#/components/schemas/City'
-        state:
-          $ref: '#/components/schemas/State'
-        postal_code:
-          $ref: '#/components/schemas/zipCode'
-        country:
-          $ref: '#/components/schemas/Country'
-    locationDataArray:
-      title: Location data array
-      properties:
-        location_data:
-          description: array of location data objects
-          type: array
-          items:
-            $ref: '#/components/schemas/locationDataProperties'
-    riskScores:
-      title: Risk Scores
-      properties:
-        risk_scores:
-          required:
-            - name
-            - score
-          type: object
-          description: Third party risk score information
-          properties:
-            name:
-              type: string
-              description: Name of risk score
-              example: risk_score1
-            score:
-              type: integer
-              description: Risk Value assigned to entity
-              example: 65
-            denominator:
-              type: integer
-              description: >
-                Number by which `score`can be divided. If no value is given,
-                Unit21 sets the denominator as 10^n, where `n`is the number of
-                characters in the value. E.G. a value of 50 has a denominator of
-                10², a value of 501 has a denominator of 10³.
-              example: 100
-    customData:
+    customData-2:
       title: Custom Data
       properties:
         custom_data:
@@ -2840,7 +3097,7 @@ components:
           example:
             internal_notes: Reviewed by Mitchell on 31 June 2019
           additionalProperties: true
-    userData:
+    userData-2:
       title: User Data
       description: >
         Personal data - name, birthday, SSN etc. If `general_data.entity_type`
@@ -2925,36 +3182,6 @@ components:
               example: Fulton
             doing_business_as:
               $ref: '#/components/schemas/dbaName'
-    Ignored:
-      type: boolean
-      example: true
-      description: >-
-        During upserts, `true` if all fields are identical to already existing
-        fields for that object
-    previouslyExisted:
-      type: boolean
-      description: >-
-        During upserts, `true` when object already existed at the ID field
-        specified in the POST.
-    unit21Id:
-      type: string
-      description: >-
-        A Unit21 internally-assigned unique identifier for an object within the
-        Unit21 system.
-      example: '1237466'
-    createEntityResponse:
-      title: entities/create Response
-      description: 200 response for `list_entities` operation
-      type: object
-      properties:
-        entity_id:
-          $ref: '#/components/schemas/entityId'
-        ignored:
-          $ref: '#/components/schemas/Ignored'
-        previously_existed:
-          $ref: '#/components/schemas/previouslyExisted'
-        unit21_id:
-          $ref: '#/components/schemas/unit21Id'
     linkInstrument:
       type: object
       description: 'Associate an instrument directly with an object, like an Entity or Case.'
@@ -3159,6 +3386,8 @@ components:
       type: string
       description: Unique identifier of the event on your platform
       example: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
+      minLength: 1
+      maxLength: 128
     eventType:
       type: string
       enum:
@@ -3172,6 +3401,8 @@ components:
       type: string
       description: Identifier of the device within your system
       example: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+      minLength: 1
+      maxLength: 128
     generalEvents:
       title: General Event Data
       properties:
@@ -3507,8 +3738,8 @@ components:
     instrumentId:
       type: string
       description: Unique identifier of the instrument on your platform.
-      minimum: 1
-      maximum: 128
+      minLenght: 1
+      maxLength: 128
       pattern: '-\_:.@a-zA-Z0-9!#\$%&\''\*+/=?^`{'
       example: 3234-sdghfdf-3332
     Options:
@@ -4030,14 +4261,14 @@ components:
         name:
           type: string
           description: A human-readable name for the blacklist.
-          maximum: 512
+          maxLength: 512
           example: New Blacklist
         description:
           type: string
           description: >-
             A descriptive text field for the blacklist, maximum 512 characters
             in length.
-          maximum: 512
+          maxLength: 512
           example: Unit21 rules will check against items in this list
         type:
           type: string
