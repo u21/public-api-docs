@@ -2858,7 +2858,7 @@ components:
         internal_notes: Reviewed by Mitchell on 31 June 2019
       additionalProperties: true
     createUser:
-      Title: Create a user
+      title: Create a user
       required:
         - general_data
         - user_data
@@ -2882,7 +2882,7 @@ components:
         custom_data:
           $ref: '#/components/schemas/customDataProperties'
     createBusiness:
-      Title: Create a business
+      title: Create a business
       required:
         - general_data
         - business_data
