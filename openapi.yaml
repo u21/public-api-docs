@@ -2881,6 +2881,45 @@ components:
           $ref: '#/components/schemas/entityOptionsProperties'
         custom_data:
           $ref: '#/components/schemas/customDataProperties'
+    businessName:
+      type: string
+      description: The registered name of the business
+      example: Acme
+    corporateTaxId:
+      type: string
+      description: The TIN/EIN of the business
+      example: 434-455-3166
+    dbaName:
+      type: string
+      description: Operating name of the business.
+      example: Global Liquids
+    businessDataProperties:
+      title: Business Data
+      description: >
+        Business data - business name, TIN/EIN etc.
+
+        If `general_data.entity_type` is set to `business`, this field is
+        required.
+      type: object
+      properties:
+        business_name:
+          $ref: '#/components/schemas/businessName'
+        corporate_tax_id:
+          $ref: '#/components/schemas/corporateTaxId'
+        account_holder_name:
+          type: string
+          description: The name of the main person associated with the business
+          example: John Smith
+        registered_state:
+          $ref: '#/components/schemas/State'
+        registered_county:
+          type: string
+          description: >-
+            Country where the business is registered. Provided acording to the
+            ISO 3166-1 alpha-2 standard.
+          example: Fulton
+        doing_business_as:
+          $ref: '#/components/schemas/dbaName'
     createBusiness:
       title: Create a business
       required:
@@ -2890,7 +2929,7 @@ components:
         general_data:
           $ref: '#/components/schemas/generalEntitiesProperties'
         business_data:
-          $ref: '#/components/schemas/userDataProperties'
+          $ref: '#/components/schemas/businessDataProperties'
         document_data:
           $ref: '#/components/schemas/documentDataArrayProperties'
         communication_data:
@@ -2983,45 +3022,6 @@ components:
       properties:
         user_data:
           $ref: '#/components/schemas/userDataProperties'
-    businessName:
-      type: string
-      description: The registered name of the business
-      example: Acme
-    corporateTaxId:
-      type: string
-      description: The TIN/EIN of the business
-      example: 434-455-3166
-    dbaName:
-      type: string
-      description: Operating name of the business.
-      example: Global Liquids
-    businessDataProperties:
-      title: Business Data
-      description: >
-        Business data - business name, TIN/EIN etc.
-
-        If `general_data.entity_type` is set to `business`, this field is
-        required.
-      type: object
-      properties:
-        business_name:
-          $ref: '#/components/schemas/businessName'
-        corporate_tax_id:
-          $ref: '#/components/schemas/corporateTaxId'
-        account_holder_name:
-          type: string
-          description: The name of the main person associated with the business
-          example: John Smith
-        registered_state:
-          $ref: '#/components/schemas/State'
-        registered_county:
-          type: string
-          description: >-
-            Country where the business is registered. Provided acording to the
-            ISO 3166-1 alpha-2 standard.
-          example: Fulton
-        doing_business_as:
-          $ref: '#/components/schemas/dbaName'
     businessData:
       title: Business Data
       description: >
