@@ -3,7 +3,7 @@
 A public mirror of U21's API documentation, with a Postman collection.
 
 Unit21's API documentation uses the openAPI specification.
-The API reference is hosted on [an interactive website](https://guide.unit21.ai/reference),
+The API reference is hosted on [an interactive website](https://docs.unit21.ai/developers/reference),
 where you can explore calls to different endpoints. 
 
 As the OAS spec is very portable, Unit21 has made a copy of it available in this repo.
@@ -15,20 +15,18 @@ Additionally, there's also a Postman collection available, which includes a few 
 ## Explore the API at openapi.yaml
 
 Just download the file at [openapi.yaml](openapi.yaml).
-Note that this is a copy of an internal version.
-It's not guaranteed to be as up-to-date as the version found on https://guide.unit21.ai/ .
 
 ## Instructions for the Postman collection
 
-0. Download [the collection in this repo](Unit21_internal_API.postman_collection.json).
+1. Download [the collection in this repo](Unit21_internal_API.postman_collection.json).
 
-1. In Postman, select **Import** and import the collection JSON file (in v2.1 format).
+2. In Postman, select **Import** and import the collection JSON file (in v2.1 format).
 
-2. Configure [collection variables](https://learning.postman.com/docs/postman/variables-and-environments/variables/#defining-variables-in-scripts). Click on options for the imported collection and select "Edit".
+3. Configure [collection variables](https://learning.postman.com/docs/postman/variables-and-environments/variables/#defining-variables-in-scripts). Click on options for the imported collection and select "Edit".
 
     ![In the sidebar, click on edit](edit-variables.png)
 
-3. Populate the collection variables:
+4. Populate the collection variables:
   * `baseURL` with your sandbox environment (should end with `/v1`
   * `u21-key` with the [API key that you generated from the Unit21 dashboard](https://guide.unit21.ai/reference#authentication).
   * `orgName` with your organization name configured (passed to you by a Unit21 team member)
