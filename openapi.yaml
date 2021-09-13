@@ -2912,12 +2912,12 @@ components:
           example: John Smith
         registered_state:
           $ref: '#/components/schemas/State'
-        registered_county:
+        registered_country:
           type: string
           description: >-
             Country where the business is registered. Provided acording to the
             ISO 3166-1 alpha-2 standard.
-          example: Fulton
+          example: US
         doing_business_as:
           $ref: '#/components/schemas/dbaName'
     createBusiness:
