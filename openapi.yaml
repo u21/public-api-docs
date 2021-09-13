@@ -2608,8 +2608,8 @@ components:
         expires_at:
           type: integer
           description: >-
-            Date when document was created, in seconds since 1 Jan 1970 00:00:00
-            UTC (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
+            Date when document expires, in seconds since 1 Jan 1970 00:00:00 UTC
+            (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
           example: 1572673227
     documentDataArrayProperties:
       title: document data array
