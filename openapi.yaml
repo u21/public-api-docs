@@ -2462,16 +2462,18 @@ components:
       enum:
         - user
         - business
-      description: MUST be either `user` or `business`
+      description: MUST be either `USER` or `BUSINESS`
     entitySubtype:
       type: string
       description: >
         Extra information how your organization classifies the entity. You MAY
         enter any value.
+      maxLength: 128
       example: contractor
     objectStatus:
       type: string
       description: Status of the object on your system. You MAY enter any string value.
+      maxLength: 128
       example: active
     registeredAt:
       type: integer
@@ -2520,6 +2522,7 @@ components:
               entity_id:
                 type: string
                 description: Parent unique identifier
+                maxLength: 128
                 example: entity-5500
               entity_type:
                 $ref: '#/components/schemas/entityType'
@@ -2535,21 +2538,24 @@ components:
         first_name:
           type: string
           description: User's associated first name
+          maxLength: 128
           example: John
         middle_name:
           type: string
           description: User's associated middle name
+          maxLength: 128
           example: Joseph
         last_name:
           type: string
           description: User's associated last name
+          maxLength: 128
           example: Smith
         day_of_birth:
-          type: number
+          type: integer
           description: Day of user's date of birth (e.g. 23)
           example: 23
         month_of_birth:
-          type: number
+          type: integer
           description: Month of user's date of birth (e.g. 12 for December)
           example: 12
         year_of_birth:
@@ -2558,7 +2564,7 @@ components:
           example: 1990
         gender:
           type: string
-          description: 'Male, female, or other'
+          description: 'MALE, FEMALE, or OTHER'
           enum:
             - male
             - female
@@ -2568,6 +2574,7 @@ components:
           type: string
           pattern: '^\d{3}-\d{2}-\d{4}$'
           description: 'Social security number of the user, in the format xxx-xx-xxxx'
+          maxLength: 64
           example: 733-99-5921
     State:
       type: string
@@ -2575,6 +2582,7 @@ components:
         For the US, use the two letter state codes. Otherwise, use the country
         and regional subdivision codes. Codes are based on the [ISO 3166-1
         alpha-2 standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+      maxLength: 128
       example: CA
     documentDataProperties:
       type: object
@@ -2586,10 +2594,12 @@ components:
         document_id:
           type: string
           description: The id or number of the document
+          maxLength: 128
           example: G3352403F
         document_type:
           type: string
           description: The type of the document (i.e. drivers license)
+          maxLength: 128
           example: drivers_license
         state:
           $ref: '#/components/schemas/State'
@@ -2598,6 +2608,7 @@ components:
           description: >-
             provided acording to the [ISO 3166-1 alpha-2
             standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2].
+          maxLength: 128
           example: US
         issued_at:
           type: integer
@@ -2612,7 +2623,7 @@ components:
             (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
           example: 1572673227
     documentDataArrayProperties:
-      title: document data array
+      title: Document data array
       description: array of document data objects
       type: array
       items:
@@ -2645,6 +2656,7 @@ components:
       title: IP address
       type: string
       description: Either IPv4 or IPv6
+      maxLength: 128
       example: 255.255.255.255
     ipAddressExtended:
       title: Extended IP address
@@ -2676,7 +2688,7 @@ components:
     City:
       type: string
       description: Associated city (max 128 characters)
-      maximum: 128
+      maxLength: 128
       example: Redmond
     zipCode:
       type: string
@@ -2689,6 +2701,7 @@ components:
       description: >-
         Country of primary residence, provided acording to the [ISO 3166-1
         alpha-2 standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2].
+      maxLength: 2
       example: US
     locationDataProperties:
       title: location data properties
@@ -2853,7 +2866,8 @@ components:
       type: object
       description: >-
         Any custom information that you want the Unit21 system to associate with
-        this entity (accepts any valid JSON object)
+        this entity (accepts any valid JSON object) in key:value format
+        (string:int, string:string)
       example:
         internal_notes: Reviewed by Mitchell on 31 June 2019
       additionalProperties: true
@@ -2884,14 +2898,17 @@ components:
     businessName:
       type: string
       description: The registered name of the business
+      maxLength: 128
       example: Acme
     corporateTaxId:
       type: string
       description: The TIN/EIN of the business
+      maxLength: 128
       example: 434-455-3166
     dbaName:
       type: string
       description: Operating name of the business.
+      maxLength: 512
       example: Global Liquids
     businessDataProperties:
       title: Business Data
@@ -2909,6 +2926,7 @@ components:
         account_holder_name:
           type: string
           description: The name of the main person associated with the business
+          maxLength: 128
           example: John Smith
         registered_state:
           $ref: '#/components/schemas/State'
@@ -2917,6 +2935,7 @@ components:
           description: >-
             Country where the business is registered. Provided acording to the
             ISO 3166-1 alpha-2 standard.
+          maxLength: 2
           example: US
         doing_business_as:
           $ref: '#/components/schemas/dbaName'
@@ -3279,6 +3298,7 @@ components:
                 MAY enter any value. Useful for granular categories, e.g. if you
                 have two types of products and a transaction can be associated
                 with either.
+              maxLength: 128
               example: payment
             status:
               $ref: '#/components/schemas/objectStatus'
@@ -3339,6 +3359,7 @@ components:
             sent_currency:
               type: string
               description: The currency that the sender sent
+              maxLength: 128
               example: USD
             sender_entity_id:
               type: string
@@ -3348,6 +3369,7 @@ components:
                 `general_data` section if the `sender_source` is `internal`. If
                 `sender_source` is `external`, this does not need to correspond
                 to anything in the Unit21 system.
+              maxLength: 128
               example: u-371b5091-da30-48a8-936b-7600f9983e80
             sender_entity_type:
               type: string
@@ -3370,6 +3392,7 @@ components:
                 to your ecosystem and do not exist on your platform. Internal
                 senders are matched with entities on Unit21's system; external
                 senders are not.
+              maxLength: 128
               example: internal
             sender_instrument_id:
               type: string
@@ -3379,6 +3402,8 @@ components:
                 transaction is facilitated by an instrument (it may not always
                 be), `sender_instrument_id` should correspond to the
                 `instrument_id` field in an entity's `instrument_data` section.
+              maxLength: 128
+              example: instrumentA-3967112
             received_amount:
               type: number
               description: >-
@@ -3391,6 +3416,7 @@ components:
             received_currency:
               type: string
               description: The currency that the receiver party received
+              maxLength: 128
               example: USD
             receiver_entity_id:
               type: string
@@ -3400,6 +3426,7 @@ components:
                 section if the receiver_source is internal. If receiver_source
                 is external, this does not need to correspond to anything in our
                 system
+              maxLength: 128
               example: u-d8e1d453-c205-4996-a935-ff08be01bcd1
             receiver_entity_type:
               type: string
@@ -3432,6 +3459,7 @@ components:
                 is facilitated by an instrument (it may not always be),
                 `receiver_instrument_id` should correspond to the
                 `instrument_id` field in an entity's `instrument_data` section.
+              maxLength: 128
               example: t376839428256371
             exchange_rate:
               type: number
@@ -3451,7 +3479,7 @@ components:
                 Readable information associated with the exchange rate(s) used,
                 e.g. when the exchange rate was pulled, from what source it was
                 obtained
-              example: N/A
+              example: pulled from forex.com at 1572672226
             internal_fee:
               type: number
               description: >
@@ -3491,10 +3519,12 @@ components:
               description: >
                 A keyword (of your choosing) that describes an action event,
                 e.g. `LOGIN`, `SIGNUP`, `PASSWORD_RESET`.
+              maxLength: 512
               example: LOGIN
             action_details:
               type: string
               description: Extra information that provides more context about the event.
+              maxLength: 4096
               example: Through mobile app v0.8.8
             entity_id:
               type: string
@@ -3503,6 +3533,7 @@ components:
                 with this action event─should correspond to the `entity_id`
                 field in an [entity's `general_data`
                 section](ref:create_entity).
+              maxLength: 128
               example: 371c4d7b-0563-4685-aab1
             entity_type:
               $ref: '#/components/schemas/entityType'
@@ -3513,6 +3544,7 @@ components:
                 is associated with this action event - should correspond to the
                 `instrument_id` field in an [entity's `instrument_data`
                 section](ref:create_entity)
+              maxLength: 128
               example: 238938823-34347686-39405443
     digitalData:
       title: Digital Data
@@ -3627,8 +3659,7 @@ components:
         parent_instrument_id:
           type: string
           description: Unique identifier of the instrument on your platform.
-          minimum: 1
-          maximum: 128
+          maxLength: 128
           example: 3234-sdghfdf-3331
         tags:
           $ref: '#/components/schemas/Tags'
@@ -3675,10 +3706,12 @@ components:
         device_type:
           type: string
           description: Type of device
+          maxLength: 128
           example: mobile
         device_subtype:
           type: string
           description: SubType of device
+          maxLength: 128
           example: android
         status:
           $ref: '#/components/schemas/objectStatus'
@@ -3687,30 +3720,37 @@ components:
         os_name:
           type: string
           description: Operating system used by the device
+          maxLength: 128
           example: Android
         os_version:
           type: string
           description: Operating system version used by the device
+          maxLength: 128
           example: 10.1.x
         app_version:
           type: string
           description: Application version used by the device
+          maxLength: 128
           example: 5.44.4
         device_manufacturer:
           type: string
           description: Manufacturer of the device value
+          maxLength: 128
           example: samsung
         device_model:
           type: string
           description: Specific device model number value
+          maxLength: 128
           example: SM-N970U
         timezone:
           type: string
           description: Timezone configured by the device's application/OS
+          maxLength: 128
           example: UTC-7
         network_carrier:
           type: string
           description: 'Network carrier used by the device (T-Mobile, Verizon etc.)'
+          maxLength: 128
           example: T-Mobile
         network_cellular:
           type: boolean
@@ -3739,6 +3779,7 @@ components:
         Labels that describe the outcome of an alert or case investigation. More
         info in [this knowledge base article about
         dispositions](https://docs.unit21.ai/docs/concept-dispositions).
+      maxLength: 128
       example: TRUE_POSITIVE
     dispositionedBy:
       type: array
@@ -3862,6 +3903,7 @@ components:
     alertId:
       type: string
       description: Unique identifier of the alert on the customer's platform.
+      maxLength: 128
       example: alertA-028eb01a-f8d3-42fb-b398-785b596ee4cb
     dispositionNotes:
       type: string
@@ -4015,6 +4057,7 @@ components:
     caseId:
       type: string
       description: Unique identifier of the case on the customer's platform
+      maxLength: 128
       example: CaseA-123
     Cases:
       description: Top-level case data
@@ -4030,12 +4073,14 @@ components:
         title:
           type: string
           description: Title of the case
+          maxLength: 256
           example: Active fraud investigation
         start_date:
           $ref: '#/components/schemas/registeredAt'
         description:
           type: string
           description: Description of the case
+          maxLength: 1024
           example: suspected money laundering example
         status:
           $ref: '#/components/schemas/investigationStatus'
@@ -4131,6 +4176,7 @@ components:
     streetAddress:
       type: string
       description: Street name and address number
+      maxLength: 128
       example: 2365 Peachtree
     blacklistUser:
       title: User blacklist
