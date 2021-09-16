@@ -517,7 +517,7 @@ paths:
                 communication_data:
                   email_addresses: []
                   phone_numbers: []
-                custom_data: null
+                custom_data: 'age:45'
                 digital_data:
                   client_fingerprints: []
                   ip_addresses: []
@@ -2865,9 +2865,9 @@ components:
       title: Custom Data
       type: object
       description: >-
-        Any custom information that you want the Unit21 system to associate with
-        this entity (accepts any valid JSON object) in key:value format
-        (string:int, string:string)
+        Any custom information that you want to associate with this entity 
+        (accepts any valid JSON object) in key:value format (string:int, 
+        string:string, string:array)
       example:
         internal_notes: Reviewed by Mitchell on 31 June 2019
       additionalProperties: true
