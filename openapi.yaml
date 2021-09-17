@@ -517,7 +517,7 @@ paths:
                 communication_data:
                   email_addresses: []
                   phone_numbers: []
-                custom_data: 'age:45'
+                custom_data: null
                 digital_data:
                   client_fingerprints: []
                   ip_addresses: []
@@ -2533,7 +2533,8 @@ components:
       type: object
       description: >
         Personal data - name, birthday, SSN etc. If `general_data.entity_type`
-        is set to `user`, this field is required.
+        is set to `user`, this field is required. However, none of the fields in
+        user_data are required. You may send in an empty array: "user_data": {}
       properties:
         first_name:
           type: string
