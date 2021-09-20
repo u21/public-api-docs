@@ -28,7 +28,7 @@ Just download the file at [openapi.yaml](openapi.yaml).
 
 4. Populate the collection variables:
   * `baseURL` with your sandbox environment (should end with `/v1`
-  * `u21-key` with the [API key that you generated from the Unit21 dashboard](https://guide.unit21.ai/reference#authentication).
+  * `u21-key` with the [API key that you generated from the Unit21 dashboard](https://docs.unit21.ai/developers/reference/working-with-the-u21-api#authentication).
   * `orgName` with your organization name configured (passed to you by a Unit21 team member)
 
 ### Notes:
