@@ -4117,7 +4117,7 @@
 		},
 		{
 			"key": "host",
-			"value": "demo.unit21.ai:5001/"
+			"value": "host"
 		},
 		{
 			"key": "u21-key",
