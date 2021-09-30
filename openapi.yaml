@@ -427,6 +427,9 @@ paths:
                   country: US
                   issued_at: 1572673226
                   expires_at: 1572673227
+              instrument_ids:
+                - 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                - 54gh2726-76j6-3900-lkbf-b4adf6d36hfa
               communication_data:
                 email_addresses:
                   - JohnJay@example.com
@@ -799,6 +802,36 @@ paths:
                 full_response:
                   info: This response depends on the verification source
                   placeholderKey: placeholderValue
+  '/entities/{unit21_id}/verification-result':
+    get:
+      tags:
+        - Entity verification
+      summary: Get verification results
+      description: >-
+        Returns all the information from the verification workflow execution for
+        a specific entity.
+      operationId: get_verification_result
+      parameters:
+        - in: path
+          name: verification_id
+          schema:
+            type: int
+          required: true
+          description: >-
+            A Unit21 internally-assigned unique identifier for the verification
+            workflow of the entity.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                created_at: 1591992745
+                entity_id: 856
+                source: IDOLOGY
+                type: DOC_VERIFICATION
+                verification_workflow_execution_id: 59
+                full_response: {}
   '/entities/{unit21_id}/continuous-monitoring':
     post:
       tags:
@@ -1422,27 +1455,27 @@ paths:
                 - $ref: '#/components/schemas/locationDataArray'
                 - $ref: '#/components/schemas/digitalData'
                 - $ref: '#/components/schemas/customData'
-              example:
-                device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
-                device_type: mobile
-                device_subtype: android
-                status: active
-                registered_at: 1623365011
-                os_name: Android
-                os_version: 10.1.x
-                app_version: 5.44.4
-                device_manufacturer: samsung
-                device_model: SM-N970U
-                timezone: UTC-7
-                network_carrier: T-Mobile
-                network_cellular: true
-                phone_numbers:
-                  - '+14159627132'
-                entities:
-                  - entity_id: u-3593dece-6642-4cdc-8547-aafc1454e0a0
-                    entity_type: user
-                tags:
-                  - 'Sector:Europe'
+            example:
+              device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+              device_type: mobile
+              device_subtype: android
+              status: active
+              registered_at: 1623365011
+              os_name: Android
+              os_version: 10.1.x
+              app_version: 5.44.4
+              device_manufacturer: samsung
+              device_model: SM-N970U
+              timezone: UTC-7
+              network_carrier: T-Mobile
+              network_cellular: true
+              phone_numbers:
+                - '+14159627132'
+              entities:
+                - entity_id: u-3593dece-6642-4cdc-8547-aafc1454e0a0
+                  entity_type: user
+              tags:
+                - 'Sector:Europe'
       responses:
         '200':
           description: OK
