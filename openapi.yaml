@@ -812,14 +812,7 @@ paths:
         a specific entity.
       operationId: get_verification_result
       parameters:
-        - in: path
-          name: verification_id
-          schema:
-            type: int
-          required: true
-          description: >-
-            A Unit21 internally-assigned unique identifier for the verification
-            workflow of the entity.
+        - $ref: '#/components/parameters/workflow_id'
       responses:
         '200':
           description: OK
@@ -4435,6 +4428,15 @@ components:
         type: string
       required: true
       description: name of organization in your environment
+    workflow_id:
+      in: path
+      name: workflow_id
+      schema:
+        type: string
+      required: true
+      description: >-
+        A Unit21 internally-assigned unique identifier for the verification
+        workflow of the entity.
     event_id:
       in: path
       name: event_id
