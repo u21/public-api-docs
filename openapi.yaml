@@ -802,7 +802,7 @@ paths:
                 full_response:
                   info: This response depends on the verification source
                   placeholderKey: placeholderValue
-  '/entities/{unit21_id}/verification-result':
+  '/verification/result/{workflow_id}':
     get:
       tags:
         - Entity verification
