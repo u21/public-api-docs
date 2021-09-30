@@ -1443,11 +1443,6 @@ paths:
                     entity_type: user
                 tags:
                   - 'Sector:Europe'
-                options:
-                  upsert_on_conflict: true
-                  resolve_geoip: true
-                  merge_custom_data: false
-                  list_merge_strategy: union
       responses:
         '200':
           description: OK
@@ -1499,6 +1494,24 @@ paths:
                 - $ref: '#/components/schemas/customData'
                 - $ref: '#/components/schemas/locationDataArray'
                 - $ref: '#/components/schemas/digitalData'
+              example:
+                device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                device_type: mobile
+                device_subtype: android
+                status: active
+                registered_at: 1623365011
+                os_name: Android
+                os_version: 10.1.x
+                app_version: 5.44.4
+                device_manufacturer: samsung
+                device_model: SM-N970U
+                timezone: UTC-7
+                network_carrier: T-Mobile
+                network_cellular: true
+                phone_numbers:
+                  - '+14159627132'
+                tags:
+                  - 'Sector:Europe'
       responses:
         '200':
           description: OK
@@ -2629,6 +2642,18 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/documentDataProperties'
+    deviceId:
+      type: string
+      description: Identifier of the device within your system
+      example: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+      minLength: 1
+      maxLength: 128
+    instrumentsArrayProperties:
+      title: Instruments array
+      description: array of instrument ids as string
+      type: array
+      items:
+        $ref: '#/components/schemas/deviceId'
     phoneNumbers:
       type: array
       description: >-
@@ -2680,9 +2705,7 @@ components:
             $ref: '#/components/schemas/ipAddressExtended'
         client_fingerprints:
           type: array
-          description: >-
-            Fingerprints associated with this entity. Equal to the `device_id`
-            sent to [the `/device` endpoint](ref:create_device)
+          description: Fingerprints associated with this entity.
           items:
             type: string
             example: 4908hsdfknkd90432nj3k2kj2jk23kj2k3jk2j3
@@ -2863,7 +2886,7 @@ components:
         upsert_on_conflict:
           $ref: '#/components/schemas/upsertOnConflict'
     customDataProperties:
-      title: Custom Data
+      title: custom_data
       type: object
       description: >-
         Any custom information that you want to associate with this entity 
@@ -2884,6 +2907,8 @@ components:
           $ref: '#/components/schemas/userDataProperties'
         document_data:
           $ref: '#/components/schemas/documentDataArrayProperties'
+        instrument_ids:
+          $ref: '#/components/schemas/instrumentsArrayProperties'
         communication_data:
           $ref: '#/components/schemas/communicationDataProperties'
         digital_data:
@@ -2952,6 +2977,8 @@ components:
           $ref: '#/components/schemas/businessDataProperties'
         document_data:
           $ref: '#/components/schemas/documentDataArrayProperties'
+        instrument_ids:
+          $ref: '#/components/schemas/instrumentsArrayProperties'
         communication_data:
           $ref: '#/components/schemas/communicationDataProperties'
         digital_data:
@@ -3265,12 +3292,6 @@ components:
         `transaction` for monetary flows, `action` for other state changes, like
         new logins.
       example: transaction
-    deviceId:
-      type: string
-      description: Identifier of the device within your system
-      example: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
-      minLength: 1
-      maxLength: 128
     generalEvents:
       title: General Event Data
       properties:
