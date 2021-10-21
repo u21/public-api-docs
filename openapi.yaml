@@ -1,9 +1,8 @@
-openapi: 3.0.3
+openapi: 3.0.4
 info:
-  title: Unit21 Customer Data Endpoints
-  description: >
-    Every endpoint available to consumers of the Unit21 API, including the
-    possible body params, and example responses.
+  title: Unit21 API Endpoints
+  description: |
+    Every endpoint available to consumers of the Unit21 API.
   version: '1.0'
   contact:
     name: Unit21
@@ -19,173 +18,48 @@ tags:
   - name: Entities
     description: >
       _Entities_ are typically businesses or users that have transactions on
-      your platform. They also may be customers who you ran a KYC check on using
-      the Unit21 system.
-
-      Entity data is uploaded in the request body. Although the only required
-      entity data is `entity_id` and `entity_type`, an entity can contain many
-      supplementary data objects. These objects include location, instrument
-      data, media data, and any custom objects or key-value strings that you
-      choose. To see what data objects an entity can contain, review the [Create
-      an Entity section](ref:create_entity).
-
-      ### Update entities through `unit21_id` or through
-      `<org-name>/entities/entity_id`
-
-      Each entity has two IDs:
-
-      * The `entity_id`, which you send from your external platform. It should
-      match the id your organization uses to identify the entity internally. *
-      The `unit21_id`, which Unit21 assigns to the entity when you POST it to
-      the Unit21 system.
-
-      When you list or update an entity via Unit21's API, you MAY use either ID.
-      To use your `entity_id`, specify your environment's organization name in
-      the requests, like this:
-
-      * `v1/{org_name}/entities/{entity_id}`
-
-       Although the examples in this documentation use the `unit21_id`, one example of a request with `entity_id` is provided in [Update Entity Using external ID section](ref:update_entity_by_external).
-
-      ### You can also update Entities through the `/create` endpoint
-
-      The API also supports _upserting_ objects through the `/create` endpoint.
-      An upsert either updates records with new values, or, if the record
-      doesn't exist, inserts a new value.
-
-      This means that, if you POST a request to `entity/create` using an
-      `entity_id` that already exists, Unit21 can update the record. For more
-      information, see the [update vs upsert](ref:update-vs-upsert) page.
+      your platform.  The `/entities` endpoint can create, list, and update
+      entities.
   - name: Events
     description: >
-      The `/events` endpoint sends and receives data about significant actions
-      that occur with an entity or instrument on your system.  Events have two
-      types, _transaction events_  and _action events_:
-
+      Events have two types, _transaction events_  and _action events_:
 
       * Transaction events are any monetary flow that is sent or received by an
       entity on your system.
 
       * Action events are non-monetary changes of state that occur on your
-      system, e.g. user logins.
-
-
-      When you list or update an event via Unit21's API, you MAY use either the
-      assigned `unit21_id` or your internal `event_id`. To use your `event_id`,
-      specify your environment's organization name in the requests, like this:
-
-
-      * `v1/{org_name}/events/{event_id}`
-
-
-      Although the examples in this documentation use the `unit21_id`, one
-      example of a request with `event_id` is provided in [Update Event Using
-      external ID section](ref:update_event_by_external).
-
-      ### Optional objects to associate with events
-
-      Besides `general_data` and `transaction_data`, the `events/create`
-      endpoint supports a number of other objects that you can send in the
-      request body, including:
-          * `location_data`─data about where transaction occurred (for brick and
-          mortar transactions)
-          * `digital_data`─information about associated digital devices (most
-          commonly, IPs)
-          * `custom_data`─any more objects your organization wishes to send
-          * `options`─instructions for the Unit21 API about how is should handle
-          incoming data
-
-      ### You can also update events through the `/create` endpoint
-
-      The API also supports _upserting_ objects through the `/create` endpoint.
-      An upsert either updates records with new values, or, if the record
-      doesn't exist, inserts a new value.
-
-      This means that, if you POST a request to `events/create` using an
-      `event_id` that already exists, Unit21 can update the record. For more
-      information, see the [update vs upsert](ref:update-vs-upsert) page.
+      system, e.g. user logins. The `/events` endpoint sends and receives data
+      about significant actions that occur with an entity or instrument on your
+      system.  
   - name: Instruments
     description: >
       _Instruments_ represent any physical, digital, or logical intermediary
-      between an entity and a transaction event.
-
-
-      The following table provides some common example values for different
-      categories. Of course, these are just examples, many other values for
-      `instrument_type` are possible
-
-      <table style="width:100%">
-        <tr>
-          <th></th>
-          <th>`instrument_type` values</th>
-        </tr>
-        <tr>
-          <td>Cash and card payments</td>
-          <td><code>cash</code>, <code>credit_card</code>, <code>debit_card</code>, <code>check</code></td>
-
-        </tr>
-        <tr>
-          <td>Transfers</td>
-          <td><code>ach</code>, <code>wire</code>, <code>crypto_address</code>, <code>account</code></td>
-
-        </tr>
-        <tr>
-          <td>Intermediaries</td>
-          <td><code>financing</code>, <code>third_party_processer</code></td>
-
-        </tr>
-         <tr>
-          <td>Other</td>
-          <td><code>points</code>, <code>store_credit</code>, <code>voucher</code>, <code>invoice</code></td>
-         </tr>
-      </table>
-
-         ### Optional Instrument objects
-
-         Besides top level instrument data, the `instruments/create` endpoint can receive a number of other objects that you can send in the request body, including:
-         * `location_data`─data about where instrument was used occurred (for brick and mortar transactions)
-         * `digital_data`─information about associated digital devices (most commonly, IPs)
-         * `custom_data`─any more objects your organization wishes to send
-
-         ### You can also update Instruments through the `/create` endpoint
-
-         The API also supports _upserting_ objects through the `/create` endpoint. An upsert either updates records with new values, or, if the record doesn't exist, inserts a new value.
-
-         This means that, if you POST a request to `instruments/create` using an `instrument_id` that already exists, Unit21 can update the record. For more information, see the [update vs upsert](ref:update-vs-upsert)
-          page.
+      between an entity and a transaction event. The `/instruments` endpoint can
+      create, list, and update instruments. 
   - name: Devices
     description: >
       Devices representing any computer or physical device used to execute an
       event. Devices are most suitable when events can be traced back to a
-      specific device fingerprint.
-
-      ### You can also update devices through the `/create` endpoint
-
-      The API also supports _upserting_ objects through the `/create` endpoint.
-      An upsert either updates records with new values, or, if the record
-      doesn't exist, inserts a new value.
-
-      This means that, if you POST a request to `devices/create` using an
-      `device_id` that already exists, Unit21 can update the record. For more
-      information, see the [update vs upsert](ref:update-vs-upsert) page.
+      specific device fingerprint. The `/devices` endpoint can create, list, and
+      update instruments. 
   - name: Agents
     description: >
       Agents are your organization's members who use the Unit21 system to
-      investigate suspicious objects and events.
+      investigate suspicious objects and events. The `/agents` endpoint can list
+      your agents. 
   - name: Alerts
     description: >
-      Alerts have two origins.
-
-
-      Typically, alerts are generated whenever a Unit21 detection tool (like a
-      rule) flags an object, like an entity. However, your organization can also
-      send alerts generated from your in-house detection systems.
+      Alerts have two origins. Typically, alerts are generated whenever a Unit21
+      detection tool (like a rule) flags an object, like an entity. However,
+      your organization can also send alerts generated from your in-house
+      detection systems. The `/alerts` endpoint can create, list, and update
+      alerts. 
   - name: Cases
     description: >
       Cases are usually active investigations, which may span multiple events,
-      entities and documents.
-
-      They can be directly escalated into a suspicious activity report.
+      entities and documents. They can be directly escalated into a suspicious
+      activity report. The `/cases` endpoint can create, list, and update
+      cases. 
   - name: Entity verification
     description: >
       Unit21 can execute entity verifications according to steps defined in
@@ -201,65 +75,22 @@ tags:
     description: >
       _Tags_ provide a flexible means of linking objects together in the Unit21
       system. You can use the `/tag-associations` endpoint to explore these
-      assoiciations.
-
-
-      You can use filters in the body params to refine responses from the
-      `tag-associations` endpoint. In addition to filtering by specific tags,
-      you can can also filter by params like object creation date, or a set of
-      certain objects (e.g. only alerts and entities).
-
-
-      Furthermore, as tags are key-value pairs, you can also filter by key,
-      broadening associations to a range of values that have that key.
+      associations.
   - name: Webhooks
     description: >
       Whenever an event happens on the Unit21 platform, Unit21 can send a
       webhook about the event to whatever URL you configure. Such events include
       entity verification results, generated alerts, case re-openings and
       closings, etcetera.
-
-
-      When an agent creates a webhook, it comes with a corresponding
-      `Unit21_ID`. With this ID, you can update the webhook's URL from the API.
-
-
-      Much more information about webhooks, including possible event triggers,
-      outgoing request bodies, and Unit21 IP values to whitelist, can be found
-      on the [Webhooks Technical Reference page](doc:webhooks-types)
   - name: Blacklists
     description: >
-      _Blacklists_ comprise one of the following categories:
-
-      * of entities (users or business)
-
-      * IPs (single or ranges)
-
-      * strings
-
-
-      To review the types of blacklists in more detail, see the [corresponding
-      section of the UI guide](https://docs.unit21.ai/docs/types-of-denylists).
-
-
-      Through POST requests to the `/blacklists` API, you can list, create, and
-      update blacklists.
+      _Blacklists_ comprise one of the following categories: * of entities
+      (users or business) * IPs (single or ranges) * strings
   - name: Datafiles
     description: >
       If you want to bulk upload multiple objects, you can send them via a POST
       to the `/datafiles` endpoint. For the fastest processing, the datafile
       SHOULD be a JSON file in the format of a typical POST request to this API.
-
-
-      However, you MAY upload datafiles in other formats, like CSV and TXT. If
-      you do, the processing time could be considerable. You can check whether
-      the file has been processed through via API through
-      `/datafiles/{unit21_id}` .
-
-
-      After the file is processed, you can retrieve its objects, organized by
-      arrays of object types, through the endpoint
-      `/datafiles/{unit21_id}/mappings`.
 paths:
   /entities/list:
     post:
@@ -345,16 +176,18 @@ paths:
                 total_count: 126
         '400':
           $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
         '403':
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
         '405':
           $ref: '#/components/responses/405'
-        '406':
-          $ref: '#/components/responses/406'
         '409':
           $ref: '#/components/responses/409'
+        '429':
+          $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
         '503':
@@ -369,16 +202,8 @@ paths:
         objects are required: `general_data` and EITHER `user_data` OR
         `business_data`.
 
-        ### Batch entity requests
 
-
-        You can also batch upload entities to `entities/create`. Batch requests
-        have a maximum entity number of 250 entities, and a maximum POST body
-        size of 100mb.
-
-        For batch requests, place entity objects as an array in a top-level
-        `entities` field. For an example, [see the batch
-        reference](doc:api-batch-request-examples#batch-create-entities)
+        You can also batch upload entities to `entities/create`. 
       operationId: create_entity
       requestBody:
         description: ''
@@ -474,10 +299,12 @@ paths:
           $ref: '#/components/responses/404'
         '405':
           $ref: '#/components/responses/405'
-        '406':
-          $ref: '#/components/responses/406'
         '409':
           $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
         '503':
@@ -567,32 +394,16 @@ paths:
           $ref: '#/components/responses/404'
         '405':
           $ref: '#/components/responses/405'
-        '406':
-          $ref: '#/components/responses/406'
         '409':
           $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-    delete:
-      tags:
-        - Entities
-      summary: Delete an entity
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      operationId: delete_entity
-      description: >
-        Completely deletes an entity from the database, along with all
-        associated linked media, alerts, transactions, transaction instruments,
-        etc. Before deleting an entity, please ensure the data for the entity
-        and associated data are no longer required in the database.
-
-
-        Requires the permission `delete:entities`.
-      responses:
-        '200':
-          description: OK
   '/entities/{unit21_id}/update':
     put:
       tags:
@@ -673,7 +484,7 @@ paths:
       tags:
         - Entities
       summary: Add instruments to entity
-      description: Associate an entity with an array of instruments
+      description: Associate an entity with an array of instruments.
       operationId: add_instruments_to_entity
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -849,102 +660,6 @@ paths:
       responses:
         '200':
           description: OK
-  /events/list:
-    post:
-      tags:
-        - Events
-      summary: List events
-      description: >
-        Returns an array of top-level information about events in your
-        environment. Because the response is paginated, the request body has a
-        `limit` and `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many events the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
-      operationId: list_events
-      requestBody:
-        $ref: '#/components/requestBodies/list'
-      responses:
-        '200':
-          description: Successfully returned events
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/listResponse'
-              example:
-                events:
-                  - custom_data: {}
-                    digital_data:
-                      client_fingerprint: null
-                      ip_address: null
-                    general_data:
-                      event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
-                      event_subtype: credit_card
-                      event_time: 1586950374
-                      event_type: transaction
-                      is_spooled: false
-                      status: complete
-                      tags: []
-                    is_cold_store: false
-                    location_data: null
-                    transaction_data:
-                      amount: 4646.34
-                      exchange_rate: null
-                      external_fee: null
-                      internal_fee: null
-                      received_amount: 4646.34
-                      received_currency: usd
-                      receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
-                      receiver_entity_type: user
-                      receiver_instrument_id: '30504733005354'
-                      receiver_source: internal
-                      sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
-                      sender_entity_type: user
-                      sender_instrument_id: '3560510398609341'
-                      sender_source: internal
-                      sent_amount: 4646.34
-                      sent_currency: usd
-                      usd_conversion_notes: null
-                    unit21_id: '2633544'
-                  - custom_data: {}
-                    digital_data:
-                      client_fingerprint: null
-                      ip_address: null
-                    general_data:
-                      event_id: t-9030cdce-2b43-40f1-832a-2ee264a41945
-                      event_subtype: credit_card
-                      event_time: 1586779444
-                      event_type: transaction
-                      is_spooled: false
-                      status: complete
-                      tags: []
-                    is_cold_store: false
-                    location_data: null
-                    transaction_data:
-                      amount: 14524.1
-                      exchange_rate: null
-                      external_fee: null
-                      internal_fee: null
-                      received_amount: 14524.1
-                      received_currency: usd
-                      receiver_entity_id: u-7b517e52-3324-4722-a2ff-60779d43ec6d
-                      receiver_entity_type: user
-                      receiver_instrument_id: i-4f88438d-1c4a-4a06-a1f0-d692c0bb4baa
-                      receiver_source: internal
-                      sender_entity_id: u-eca597f1-9e7f-45ca-b635-48723f60feb7
-                      sender_entity_type: user
-                      sender_instrument_id: i-7b977420-976f-4714-93bf-379c4dd5732f
-                      sender_source: internal
-                      sent_amount: 14524.1
-                      sent_currency: usd
-                      usd_conversion_notes: null
-                    unit21_id: '2633543'
-                    response_count: 2
-                    total_count: 2000
   /events/create:
     post:
       tags:
@@ -958,15 +673,7 @@ paths:
         `event_type`, and `event_time`. `transaction_data` requires only the
         field `amount`.
 
-        ### Batch event requests
-
-        You can also batch upload entities to `events/create`. Batch requests
-        have a maximum entity number of 250 events, and a maximum POST body size
-        of 100mb.
-
-        For a batch request, place event objects as an array in a top-level
-        `events` field. For an example, [see the batch
-        reference](doc:api-batch-request-examples#batch-create-events)
+        You can also batch upload entities to `events/create`.
       requestBody:
         required: true
         content:
@@ -1051,7 +758,7 @@ paths:
       tags:
         - Events
       summary: Get an event
-      description: Returns all data objects belonging to a single event
+      description: Returns all data objects belonging to a single event.
       operationId: get_event_by_unit21_id
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -1148,7 +855,7 @@ paths:
       description: >-
         Update an event using the `event_id` from your platform. Except for the
         path syntax, the request is exactly the same as the [Updating an Entity
-        by `unit21_id`](ref:update_entity)
+        by `unit21_id`](ref:update_entity).
       operationId: update_event_by_external
       parameters:
         - $ref: '#/components/parameters/event_id'
@@ -1183,12 +890,6 @@ paths:
         environment. Because the response is paginated, the request body has a
         `limit` and an `offset` field. The API requires a value for at least one
         of these fields.
-
-        * `limit`  indicates how many instruments the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
       operationId: list_instruments
       requestBody:
         $ref: '#/components/requestBodies/list'
@@ -1254,19 +955,10 @@ paths:
         - Instruments
       summary: Create an instrument
       operationId: create_instrument
-      description: >
+      description: |
         Creates a new instrument, sending instrument data in the request body.
 
-
-        ### Batch instrument requests
-
-        You can also batch upload entities to `instruments/create`. Batch
-        requests have a maximum entity number of 250 instruments, and a maximum
-        POST body size of 100mb.
-
-        For a batch request, place instrument objects as an array in a top-level
-        `instruments` field. For an example, [see the batch
-        reference](doc:api-batch-request-examples#batch-create-instruments)
+        You can also batch upload entities to `instruments/create`.
       requestBody:
         required: true
         content:
@@ -1297,7 +989,7 @@ paths:
       tags:
         - Instruments
       summary: Get an instrument
-      description: Returns all data objects belonging to a single instrument
+      description: Returns all data objects belonging to a single instrument.
       operationId: get_instrument_by_unit21_id
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -1357,9 +1049,9 @@ paths:
         - Instruments
       summary: Update instrument using external ID
       description: >-
-        Updatemad an instrument using the `instrument_id` from your platform.
+        Updates an instrument using the `instrument_id` from your platform.
         Except for the path syntax, the request is exactly the same as the
-        [Updating an Entity by `unit21_id`](ref:update_entity)
+        [Updating an Entity by `unit21_id`](ref:update_entity).
       operationId: update_instrument_by_external
       parameters:
         - $ref: '#/components/parameters/instrument_id'
@@ -1392,12 +1084,6 @@ paths:
         environment. Because the response is paginated, the request body has a
         `limit` and an `offset` field. The API requires a value for at least one
         of these fields.
-
-        * `limit`  indicates how many devices the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
       operationId: list_devices
       requestBody:
         $ref: '#/components/requestBodies/list'
@@ -1410,32 +1096,73 @@ paths:
                 $ref: '#/components/schemas/listResponse'
               example:
                 devices:
-                  - ...: null
-                response_count: 10
-                total_count: 100
+                  devices:
+                    - app_version: 5.44.5
+                      custom_data: null
+                      device_id: 11b72726-18d6-43b3-a0bf-b4adf6d576474
+                      device_manufacturer: samsung
+                      device_model: SM-N970U
+                      device_subtype: ios
+                      device_type: mobile
+                      entities:
+                        - entity_id: userA-11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                          entity_type: user
+                          unit21_id: 571485314
+                      is_spooled: false
+                      network_carrier: AT&T
+                      network_cellular: false
+                      os_name: Android
+                      os_version: '10'
+                      phone_numbers:
+                        - '+1234567890'
+                      registered_at: 1572672326
+                      status: active
+                      tags:
+                        - 'sector:europe'
+                      timezone: America/Los_Angeles
+                      unit21_id: '601'
+                    - app_version: 5.44.5
+                      custom_data:
+                        nft_asset_hash: 59790095
+                        nft_copies: 2250
+                        nft_creator: cryptocomnft
+                        nft_creator_id: '792843'
+                        nft_edition: 567
+                        nft_name: The 24/7 Trader
+                      device_id: 132926-18dewew6-43b3-a0bf-b1234
+                      device_manufacturer: samsung
+                      device_model: SM-N970U
+                      device_subtype: android
+                      device_type: mobile
+                      entities:
+                        - entity_id: userA-11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                          entity_type: user
+                          unit21_id: 571485314
+                      is_spooled: false
+                      network_carrier: KTV
+                      network_cellular: true
+                      os_name: Android
+                      os_version: '10'
+                      phone_numbers:
+                        - '+1234567890'
+                      registered_at: 1572672326
+                      status: active
+                      tags:
+                        - 'sector:korea'
+                      timezone: Seoul
+                      unit21_id: '436'
+                  response_count: 2
+                  total_count: 16
   /devices/create:
     post:
       tags:
         - Devices
       summary: Create a device
       operationId: create_device
-      description: >
+      description: |
         Creates a new device, sending device data in the request body.
 
-
-        Besides top level device data, the `devices/create` endpoint can receive
-        a `custom_data` object, containing any more objects your organization
-        wishes to send.
-
-        ### Batch device requests
-
-        You can also batch upload entities to `devices/create`. Batch requests
-        have a maximum entity number of 250 devices, and a maximum POST body
-        size of 100mb.
-
-        For batch requests, place device objects as an array in a top-level
-        `devices` field. For an example, [see the batch
-        reference](doc:api-batch-request-examples#batch-create-devices)
+        You can also batch upload entities to `devices/create`. 
       requestBody:
         required: true
         content:
@@ -1494,7 +1221,31 @@ paths:
           description: OK
           content:
             application/json:
-              example: ''
+              example:
+                app_version: 5.44.5
+                custom_data: null
+                device_id: 11b72726-18d6-43b3-a0bf-b4adf6d576474
+                device_manufacturer: samsung
+                device_model: SM-N970U
+                device_subtype: ios
+                device_type: mobile
+                entities:
+                  - entity_id: userA-11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                    entity_type: user
+                    unit21_id: 571485314
+                is_spooled: false
+                network_carrier: AT&T
+                network_cellular: false
+                os_name: Android
+                os_version: '10'
+                phone_numbers:
+                  - '+1234567890'
+                registered_at: 1572672326
+                status: active
+                tags:
+                  - 'sector:europe'
+                timezone: America/Los_Angeles
+                unit21_id: '601'
   '/devices/update/{unit21_id}':
     put:
       tags:
@@ -1584,12 +1335,6 @@ paths:
         environment. Because the response is paginated, the request body has a
         `limit` and an `offset` field. The API requires a value for at least one
         of these fields.
-
-        * `limit`  indicates how many alerts the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
       operationId: list_alerts
       requestBody:
         content:
@@ -1890,12 +1635,6 @@ paths:
         environment. Because the response is paginated, the request body has a
         `limit` and an `offset` field. The API requires a value for at least one
         of these fields.
-
-        * `limit`  indicates how many cases the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
       operationId: list_cases
       requestBody:
         content:
@@ -3292,17 +3031,6 @@ components:
             `false` to turn off.
         synchronous_response:
           $ref: '#/components/schemas/synchronousResponse'
-    listResponse:
-      type: object
-      properties:
-        response_count:
-          type: integer
-          example: 10
-          description: Number of objects in the response
-        total_count:
-          type: integer
-          example: 100
-          description: Total number of objects in the platform.
     eventId:
       type: string
       description: Unique identifier of the event on your platform
@@ -3663,6 +3391,17 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    listResponse:
+      type: object
+      properties:
+        response_count:
+          type: integer
+          example: 10
+          description: Number of objects in the response
+        total_count:
+          type: integer
+          example: 100
+          description: Total number of objects in the platform.
     instrumentId:
       type: string
       description: Unique identifier of the instrument on your platform.
@@ -4390,12 +4129,16 @@ components:
       description: >-
         Method Not Allowed. You tried to access a resource with an invalid
         method.
-    '406':
-      description: Not Acceptable. You requested a format that isn't JSON.
     '409':
       description: >-
         Conflict. You tried to insert or overwrite a system resource that cannot
-        be overwritten because it already exists in our system.
+        be overwritten.
+    '423':
+      description: Locked. Entity updates in progress. Please try again later.
+    '429':
+      description: >-
+        Rate Limit Reached. You have reached the request rate limit. Try your
+        request again later.
     '500':
       description: >-
         Internal Server Error. We had a problem with our server. Try again
@@ -4415,6 +4158,7 @@ components:
         A Unit21 internally-assigned unique identifier for an object within the
         Unit21 system. Depending on the endpoint, `unit21_id` can refer to an
         entity, an event, a case, an alert, a device, etc.
+      example: 571485314
     entity_id:
       in: path
       name: entity_id
