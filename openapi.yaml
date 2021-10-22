@@ -987,7 +987,7 @@ paths:
     put:
       tags:
         - Events
-      summary: Update Event using external ID
+      summary: Update event using external ID
       description: >-
         Update an event using the `event_id` from your platform. Except for the
         path syntax, the request is exactly the same as the [Updating an Entity
@@ -1749,7 +1749,7 @@ paths:
     put:
       tags:
         - Alerts
-      summary: Update Alert
+      summary: Update alert
       description: >-
         Update an alert through its `unit21_id`. In the request field, you MAY
         send any of the top level fields available to the [create alerts
@@ -1767,35 +1767,6 @@ paths:
               anyOf:
                 - $ref: '#/components/schemas/Alerts'
                 - $ref: '#/components/schemas/customData'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                example:
-                  unit21_id: '8483'
-                  alert_id: alertA-028eb01a-f8d3-42fb-b398-785b596ee4cb
-  '/alerts/{unit21_id}/add-objects':
-    put:
-      tags:
-        - Alerts
-      summary: Add object to alert
-      description: >-
-        Associate an existing alert with other objects, including entities,
-        events, instruments, and rules.
-      operationId: add_objects_to_alerts
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/eventArray'
-                - $ref: '#/components/schemas/instrumentArray'
-                - $ref: '#/components/schemas/ruleArray'
       responses:
         '200':
           description: OK
@@ -1876,7 +1847,7 @@ paths:
     post:
       tags:
         - Cases
-      summary: Create a Case
+      summary: Create a case
       description: >
         POST a case from your external system. To create an case, you MUST
         include the following fields: `case_id`, `title`, and `created_at`. The
@@ -1975,7 +1946,7 @@ paths:
     put:
       tags:
         - Cases
-      summary: Update Case
+      summary: Update case
       description: >-
         Update a case through its `unit21_id`. In the request field, you MAY
         send any of the top level fields available to the [`/cases/create`
@@ -2314,7 +2285,7 @@ paths:
       tags:
         - Datafiles
       operationId: create_datafiles
-      summary: Upload Datafiles
+      summary: Upload datafiles
       description: >
         Bulk upload multiple objects of the same type. Can be entities, events,
         or instruments.
@@ -2374,7 +2345,7 @@ paths:
       tags:
         - Datafiles
       operationId: get_datafile_mappings
-      summary: Retrieve Datafile Mappings
+      summary: Retrieve datafile mappings
       description: >
         Retrieve datafile mapping of objects uploaded with a datafile. Includes
         3 arrays: entities, events, instruments. Each list is limited to a
@@ -4367,7 +4338,7 @@ components:
       schema:
         $ref: '#/components/schemas/entityId'
       required: true
-      example: 460500201
+      example: userA-38f8e0Rwdf63nld71112345132UeUKFWE123
     org_name:
       in: path
       name: org_name
