@@ -2012,6 +2012,129 @@ paths:
                 example:
                   unit21_id: '1423'
                   case_id: caseA-123
+  /sars/list:
+    post:
+      tags:
+        - Sars
+      summary: List sars
+      description: >-
+        Returns paginated list of of top-level information about sars. Use
+        `limit` to configure sars per page (maximum is 50).
+      operationId: list_sars
+      requestBody:
+        $ref: '#/components/requestBodies/list'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                response_count: 2
+                sars:
+                  - amount_volume: 0
+                    created_at: 1578622336
+                    created_by: Clarence Chio
+                    description: ''
+                    entities: []
+                    events: []
+                    filing_type: Initial report
+                    lock: ''
+                    name: ''
+                    report_type: FINCEN_SAR
+                    status: PREFILING_VALIDATION_PENDING
+                    status_updated_at: 1597948038
+                    submitted: false
+                    submitted_at: N/A
+                    tags: []
+                    txn_count: 0
+                    unit21_id: 5
+                    updated_at: 1623283105
+                  - amount_volume: 0
+                    created_at: 1582233696
+                    created_by: Tyler Allen
+                    description: lkigkhjbjhbkjhbk
+                    entities:
+                      - entity_id: userA-c1e9dcca-e46a-42e9-bb9e-2208e30e49da
+                        entity_type: user
+                        unit21_id: 23518
+                    events:
+                      - event_id: txnBulk-11-9d67f84f-f232-41ec-bf77-f37fe8adfdb0
+                        event_type: transaction
+                        unit21_id: 14519
+                      - event_id: txnBulk-12-9d67f84f-f232-41ec-bf77-f37fe8adfdb0
+                        event_type: transaction
+                        unit21_id: 14520
+                      - event_id: txnBulk-11-3018aa2f-f91f-4dad-9a03-ac5b1b91fa11
+                        event_type: transaction
+                        unit21_id: 14581
+                      - event_id: txnBulk-12-3018aa2f-f91f-4dad-9a03-ac5b1b91fa11
+                        event_type: transaction
+                        unit21_id: 14582
+                    filing_type: Initial report
+                    lock: 'False'
+                    name: jghvkjhgkv
+                    report_type: FINCEN_SAR
+                    status: PREFILING_VALIDATION_PENDING
+                    status_updated_at: 1585937927
+                    submitted: false
+                    submitted_at: N/A
+                    tags: []
+                    txn_count: 0
+                    unit21_id: 93
+                    updated_at: 1623283105
+                total_count: 651
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+  '/sars/{unit21_id}':
+    get:
+      tags:
+        - Sars
+      summary: Get a sars
+      description: Returns all data objects belonging to a single SAR.
+      operationId: read_one_sar
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                example:
+                  amount_volume: 0
+                  created_at: 1583869433
+                  created_by: Zach Porteous
+                  description: case-2
+                  entities: []
+                  events: []
+                  filing_type: Initial report
+                  lock: 'False'
+                  name: case-2
+                  report_type: FINCEN_SAR
+                  status: PREFILING_VALIDATION_PENDING
+                  status_updated_at: 1583869435
+                  submitted: false
+                  submitted_at: N/A
+                  tags: []
+                  txn_count: 0
+                  unit21_id: 2966
+                  updated_at: 1623283105
   /verification-forms/create:
     post:
       tags:
