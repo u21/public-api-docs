@@ -47,6 +47,12 @@ tags:
       Agents are your organization's members who use the Unit21 system to
       investigate suspicious objects and events. The `/agents` endpoint can list
       your agents. 
+  - name: Rules
+    description: >
+      Rules are the model logic that will find fraudulent and suspicious
+      transactions and actions. Rules create alerts that can turn into cases
+      with flagged entities, transactions and instruments. The `/rules` endpoint
+      can get and list rules. 
   - name: Alerts
     description: >
       Alerts have two origins. Typically, alerts are generated whenever a Unit21
@@ -60,6 +66,11 @@ tags:
       entities and documents. They can be directly escalated into a suspicious
       activity report. The `/cases` endpoint can create, list, and update
       cases. 
+  - name: Sars
+    description: >
+      Sars are cases that have been investigated and turned into a Suspicious
+      Activity report with the intent to file it to FinCen. The `/sars` endpoint
+      can get and list sars. 
   - name: Entity verification
     description: >
       Unit21 can execute entity verifications according to steps defined in
@@ -182,10 +193,10 @@ paths:
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
-        '405':
-          $ref: '#/components/responses/405'
         '409':
           $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
         '429':
           $ref: '#/components/responses/429'
         '500':
@@ -297,8 +308,6 @@ paths:
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
-        '405':
-          $ref: '#/components/responses/405'
         '409':
           $ref: '#/components/responses/409'
         '423':
@@ -384,8 +393,6 @@ paths:
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
-        '405':
-          $ref: '#/components/responses/405'
         '409':
           $ref: '#/components/responses/409'
         '423':
@@ -472,8 +479,6 @@ paths:
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
-        '405':
-          $ref: '#/components/responses/405'
         '409':
           $ref: '#/components/responses/409'
         '423':
@@ -1527,6 +1532,97 @@ paths:
               example:
                 device_id: 3234-sdghfdf-3332
                 unit21_id: '49073'
+  /rules/list:
+    post:
+      tags:
+        - Rules
+      summary: List rules
+      description: >-
+        Returns paginated list of of top-level information about rules. Use
+        `limit` to configure entities per page (maximum is 50).
+      operationId: list_entities
+      requestBody:
+        $ref: '#/components/requestBodies/list'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                response_count: 2
+                rules:
+                  - created_at: 1634336166
+                    deploy_end_date: null
+                    deploy_start_date: 1626307200
+                    description: test
+                    frequency: 1m
+                    lookback_period: 365d
+                    rule_type: standard
+                    source: INTERNAL
+                    status: ACTIVE
+                    tags: []
+                    title: tessst
+                    unit21_id: '9097753'
+                  - created_at: 1634328286
+                    deploy_end_date: 1634328000
+                    deploy_start_date: 1631736000
+                    description: test
+                    frequency: 1m
+                    lookback_period: 365d
+                    rule_type: standard
+                    source: INTERNAL
+                    status: INACTIVE
+                    tags:
+                      - 'account_type:market2'
+                    title: test
+                    unit21_id: '9097723'
+                total_count: 132
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+  '/rules/{unit21_id}':
+    get:
+      tags:
+        - Rules
+      summary: Get a rule
+      description: Returns all data objects belonging to a single rule.
+      operationId: read_one_rule
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                example:
+                  created_at: 1634336166
+                  deploy_end_date: null
+                  deploy_start_date: 1626307200
+                  description: test
+                  frequency: 1m
+                  lookback_period: 365d
+                  rule_type: standard
+                  source: INTERNAL
+                  status: ACTIVE
+                  tags: []
+                  title: tessst
+                  unit21_id: '9097753'
   /alerts/list:
     post:
       tags:
@@ -1609,46 +1705,6 @@ paths:
         POST an alert from your external system. To create an Alert, you MUST
         include the following fields: `alert_id`, `alert_type`, `created_at`,
         `title`, and `status`. The other top-level fields are optional.
-
-
-        In addition to the top-level alert data, you can also attach custom
-        data, and associate other objects by adding arrays of entities, events,
-        instruments, and rules.
-
-
-        ### Batch create alerts
-
-
-        If you want to create multiple alerts, you can send an array of alerts
-        inside a top-level `alerts` object.
-
-
-        The following snippet provides an example request body to create two
-        alerts. For brevity, this example includes only the required fields. An
-        alert in a batch MAY contain any of the body params accepted by the
-        `/alerts/create` endpoint.
-
-
-        ```json
-          {
-          "alerts": [
-            {
-              "alert_id": "alert-1",
-              "alert_type": "tm",
-              "created_at": 1622037356,
-              "title": "Potential Smurfing",
-              "status": "OPEN"
-              },
-            {
-              "alert_id": "alert-2",
-              "created_at": 1622037521,
-              "title": "Failed document verification",
-              "status": "OPEN",
-              "alert_type": "kyc"
-            }
-           ]
-          }
-        ```
       operationId: create_alert
       requestBody:
         required: true
@@ -1750,13 +1806,7 @@ paths:
       tags:
         - Alerts
       summary: Update alert
-      description: >-
-        Update an alert through its `unit21_id`. In the request field, you MAY
-        send any of the top level fields available to the [create alerts
-        endpoint](ref:create_alert).
-
-        To add an object to an alert, use the [`add-objects`
-        endpoint](ref:add_objects_to_alerts)
+      description: 'Update an alert through its `unit21_id`. '
       operationId: update_alert
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -1852,42 +1902,6 @@ paths:
         POST a case from your external system. To create an case, you MUST
         include the following fields: `case_id`, `title`, and `created_at`. The
         other top-level fields are optional.
-
-
-        In addition to the top-level case data, you can also attach custom data,
-        and associate other objects by adding arrays of entities and events.
-
-
-        ### Batch create cases
-
-
-        If you want to create multiple cases, you can send an array of alerts
-        inside a top-level `cases` object.
-
-
-        The following snippet provides an example request body to create two
-        cases. For brevity, this example includes only the required fields. A
-        case in a batch MAY contain any of the body params accepted by the
-        `/cases/create` endpoint.
-
-        ```json
-
-        {
-          "cases": [
-            {
-              "case_id": "case-1",
-              "title": "J.Smith Smurf Investigation",
-              "start_date": 1622058126
-            },
-            {
-              "case_id": "case-2",
-              "title": "Suspected ID fraud",
-              "start_date": 1622058100
-            }
-          ]
-        }
-
-        ```
       operationId: create_case
       requestBody:
         required: true
@@ -1949,11 +1963,8 @@ paths:
       summary: Update case
       description: >-
         Update a case through its `unit21_id`. In the request field, you MAY
-        send any of the top level fields available to the [`/cases/create`
-        endpoint](ref:create_case).
-
-        To add an object to a case, use the [/cases/{unit_21}/add-objects
-        endpoint](ref:add_objects_to_case)
+        send any of the top level fields available to the `/cases/create`
+        endpoint
       operationId: update_case
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -1972,33 +1983,6 @@ paths:
               schema:
                 example:
                   unit21_id: '8483'
-                  case_id: caseA-123
-  '/cases/{unit21_id}/add-objects':
-    put:
-      tags:
-        - Cases
-      summary: Add object to case
-      description: >-
-        Associate an existing case with other objects, including entities and
-        events.
-      operationId: add_objects_to_case
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/eventArray'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                example:
-                  unit21_id: '1423'
                   case_id: caseA-123
   '/cases/{unit21_id}/link-media':
     put:
@@ -4298,16 +4282,12 @@ components:
         resource.
     '404':
       description: Not Found. The specified resource could not be found.
-    '405':
-      description: >-
-        Method Not Allowed. You tried to access a resource with an invalid
-        method.
     '409':
       description: >-
         Conflict. You tried to insert or overwrite a system resource that cannot
         be overwritten.
     '423':
-      description: Locked. Entity updates in progress. Please try again later.
+      description: Locked. Object updates in progress. Please try again later.
     '429':
       description: >-
         Rate Limit Reached. You have reached the request rate limit. Try your
