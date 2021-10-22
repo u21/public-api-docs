@@ -319,15 +319,95 @@ paths:
         `general_data`, `document_data`, etc.
       operationId: get_entity_by_unit21_id
       parameters:
-        - in: path
-          name: unit21_id
-          schema:
-            type: string
-          required: true
-          description: >-
-            A Unit21 internally-assigned unique identifier for an object within
-            the Unit21 system. Depending on the endpoint, `unit21_id` can refer
-            to an entity, an event, a case, an alert, a device, etc.
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                unit21_id: '1237466'
+                user_data:
+                  day_of_birth: 21
+                  first_name: Andrew
+                  gender: male
+                  last_name: Velazquez
+                  middle_name: Gerald
+                  month_of_birth: 1
+                  ssn: 197-64-6627
+                  year_of_birth: 1987
+                communication_data:
+                  email_addresses: []
+                  phone_numbers: []
+                custom_data: null
+                digital_data:
+                  client_fingerprints: []
+                  ip_addresses: []
+                document_data:
+                  - country: US
+                    document_id: G3352413F
+                    document_type: drivers_license
+                    expires_at: null
+                    issued_at: null
+                    state: CA
+                  - country: US
+                    document_id: E1234566798D
+                    document_type: passport
+                    expires_at: null
+                    issued_at: null
+                    state: FL
+                general_data:
+                  children: []
+                  entity_id: u-3593dece-6642-4cdc-8547-aafc1454e0a0
+                  entity_subtype: null
+                  entity_type: user
+                  is_spooled: false
+                  parents: []
+                  registered_at: 1591905045
+                  status: active
+                  tags: []
+                instrument_ids:
+                  - instrumentC-08c4af4f-2392-4808-afb5-335b166293b7
+                location_data: []
+                media_data:
+                  - created_at: 1620831331
+                    media_type: null
+                    name: mergeIT2
+                  - created_at: 1620831331
+                    media_type: IMAGE_PASSPORT_FRONT
+                    name: mergeIT22
+                risk_scores: []
+                options: []
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+  '/{org_name}/entities/{entity_id}':
+    get:
+      tags:
+        - Entities
+      summary: Get an entity using external ID
+      description: >-
+        Returns all data objects belonging to a single entity, including
+        `general_data`, `document_data`, etc.
+      operationId: get_entity_by_external
+      parameters:
+        - $ref: '#/components/parameters/entity_id'
+        - $ref: '#/components/parameters/org_name'
       responses:
         '200':
           description: OK
@@ -808,6 +888,62 @@ paths:
                   ip_address: null
                 is_cold_store: false
                 location_data: null
+  '/{org_name}/events/{event_id}':
+    get:
+      tags:
+        - Events
+      summary: Get an event using external ID
+      description: Returns all data objects belonging to a single event.
+      operationId: get_event_by_unit21_id
+      parameters:
+        - $ref: '#/components/parameters/event_id'
+        - $ref: '#/components/parameters/org_name'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  is_cold_store:
+                    description: |
+                      `true` if the event has been migrated to coldstore
+                    type: boolean
+                    example: false
+              example:
+                general_data:
+                  event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
+                  event_subtype: credit_card
+                  event_time: 1586950374
+                  event_type: transaction
+                  is_spooled: false
+                  status: complete
+                  tags: []
+                transaction_data:
+                  amount: 4646.34
+                  exchange_rate: null
+                  external_fee: null
+                  internal_fee: null
+                  received_amount: 4646.34
+                  received_currency: usd
+                  receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
+                  receiver_entity_type: user
+                  receiver_instrument_id: '30504733005354'
+                  receiver_source: internal
+                  sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
+                  sender_entity_type: user
+                  sender_instrument_id: '3560510398609341'
+                  sender_source: internal
+                  sent_amount: 4646.34
+                  sent_currency: usd
+                  usd_conversion_notes: null
+                unit21_id: '2633544'
+                custom_data: {}
+                digital_data:
+                  client_fingerprint: null
+                  ip_address: null
+                is_cold_store: false
+                location_data: null
   '/events/{unit21_id}/update':
     put:
       tags:
@@ -993,6 +1129,32 @@ paths:
       operationId: get_instrument_by_unit21_id
       parameters:
         - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                custom_data: null
+                instrument_id: i-f8bc4f6b-b59a-4bd0-ba86-aff547a3a7ce
+                instrument_type: bank_account
+                is_spooled: false
+                parent_instrument_id: null
+                registered_at: null
+                source: null
+                status: inactive
+                tags: []
+                unit21_id: '198446'
+  '/{org_name}/instruments/{entity_id}':
+    get:
+      tags:
+        - Instruments
+      summary: Get an instrument using external ID
+      description: Returns all data objects belonging to a single instrument.
+      operationId: get_instrument_by_unit21_id
+      parameters:
+        - $ref: '#/components/parameters/instrument_id'
+        - $ref: '#/components/parameters/org_name'
       responses:
         '200':
           description: OK
@@ -1216,6 +1378,46 @@ paths:
       operationId: get_device_by_unit21_id
       parameters:
         - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                app_version: 5.44.5
+                custom_data: null
+                device_id: 11b72726-18d6-43b3-a0bf-b4adf6d576474
+                device_manufacturer: samsung
+                device_model: SM-N970U
+                device_subtype: ios
+                device_type: mobile
+                entities:
+                  - entity_id: userA-11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                    entity_type: user
+                    unit21_id: 571485314
+                is_spooled: false
+                network_carrier: AT&T
+                network_cellular: false
+                os_name: Android
+                os_version: '10'
+                phone_numbers:
+                  - '+1234567890'
+                registered_at: 1572672326
+                status: active
+                tags:
+                  - 'sector:europe'
+                timezone: America/Los_Angeles
+                unit21_id: '601'
+  '/{org_name}/devices/{device_id}':
+    get:
+      tags:
+        - Devices
+      summary: Get a device using external ID
+      description: Returns all data objects belonging to a single device
+      operationId: get_device_by_external
+      parameters:
+        - $ref: '#/components/parameters/device_id'
+        - $ref: '#/components/parameters/org_name'
       responses:
         '200':
           description: OK
@@ -4165,6 +4367,7 @@ components:
       schema:
         $ref: '#/components/schemas/entityId'
       required: true
+      example: 460500201
     org_name:
       in: path
       name: org_name
@@ -4172,6 +4375,7 @@ components:
         type: string
       required: true
       description: name of organization in your environment
+      example: unit21
     workflow_id:
       in: path
       name: workflow_id
@@ -4181,6 +4385,7 @@ components:
       description: >-
         A Unit21 internally-assigned unique identifier for the verification
         workflow of the entity.
+      example: verified-customer-onboarding
     event_id:
       in: path
       name: event_id
@@ -4188,6 +4393,7 @@ components:
         type: string
       required: true
       description: Unique identifier of the event on your platform
+      example: 1560408033
     instrument_id:
       in: path
       name: instrument_id
@@ -4195,6 +4401,7 @@ components:
         type: string
       required: true
       description: Unique identifier of the instrument on your platform
+      example: 1036492444
     device_id:
       in: path
       name: device_id
@@ -4202,3 +4409,4 @@ components:
         type: string
       required: true
       description: Identifier of the device within your system
+      example: 601
