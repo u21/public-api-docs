@@ -121,70 +121,88 @@ paths:
             application/json:
               example:
                 entities:
-                  - communication_data:
-                      email_addresses: []
-                      phone_numbers: []
-                    custom_data: null
+                  - business_data:
+                      account_holder_name: Peter Savage
+                      business_name: Segavas Ltd
+                      corporate_tax_id: null
+                    communication_data:
+                      email_addresses:
+                        - peter@segavas.co.uk
+                      phone_numbers:
+                        - ''
+                    custom_data:
+                      AddressId: 1823116
+                      MarketplaceName: Kigo Intl
+                      VAT#: '7592753'
                     digital_data:
                       client_fingerprints: []
                       ip_addresses: []
                     document_data: []
                     general_data:
                       children: []
-                      entity_id: u-2720ca5f-3789-4a02-89d9-3693938da917
-                      entity_subtype: null
-                      entity_type: user
+                      continuous_monitoring: false
+                      entity_id: 587944-1823116.0
+                      entity_subtype: payments
+                      entity_type: business
                       is_spooled: false
                       parents: []
-                      registered_at: 1592350965
-                      status: active
+                      registered_at: null
+                      status: approved-escrow
                       tags: []
                     instrument_ids: []
-                    location_data: []
+                    location_data:
+                      - building_number: null
+                        city: Bristol
+                        country: GB
+                        postal_code: null
+                        state: null
+                        street_name: Freshford House
+                        type: null
+                        unit_number: null
                     media_data: []
-                    unit21_id: '1237516'
-                    user_data:
-                      day_of_birth: 30
-                      first_name: Shannon
-                      gender: female
-                      last_name: Obrien
-                      middle_name: Andrea
-                      month_of_birth: 5
-                      ssn: 844-62-3822
-                      year_of_birth: 2003
-                  - communication_data:
-                      email_addresses: []
-                      phone_numbers: []
-                    custom_data: null
+                    unit21_id: '162384277'
+                  - business_data:
+                      account_holder_name: Peter Savage
+                      business_name: Segavas Ltd
+                      corporate_tax_id: null
+                    communication_data:
+                      email_addresses:
+                        - peter@segavas.co.uk
+                      phone_numbers:
+                        - ''
+                    custom_data:
+                      AddressId: 1823113
+                      MarketplaceName: Kigo Intl
+                      VAT#: '7592753'
                     digital_data:
                       client_fingerprints: []
                       ip_addresses: []
                     document_data: []
                     general_data:
                       children: []
-                      entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
-                      entity_subtype: null
-                      entity_type: user
+                      continuous_monitoring: false
+                      entity_id: 587943-1823113.0
+                      entity_subtype: payments
+                      entity_type: business
                       is_spooled: false
                       parents: []
-                      registered_at: 1602347799
-                      status: active
+                      registered_at: null
+                      status: approved-escrow
                       tags: []
                     instrument_ids: []
-                    location_data: []
+                    location_data:
+                      - building_number: null
+                        city: Bristol
+                        country: GB
+                        postal_code: null
+                        state: null
+                        street_name: Freshford House
+                        type: null
+                        unit_number: null
                     media_data: []
-                    unit21_id: '1237515'
-                    user_data:
-                      day_of_birth: 10
-                      first_name: Michelle
-                      gender: female
-                      last_name: White
-                      middle_name: Amy
-                      month_of_birth: 11
-                      ssn: 005-12-8566
-                      year_of_birth: 2016
+                    unit21_id: '162384276'
                 response_count: 2
-                total_count: 126
+                total_count: 44237
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -2206,16 +2224,6 @@ paths:
         environment. Because the response is paginated, the request body has a
         `limit` and an `offset` field. The API requires a value for at least one
         of these fields.
-
-        * `limit`  indicates how many tags the request returns (the page maximum
-        is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
-
-
-        To help you refine your responses, this operation supports sending list
-        filters in the request body.
       operationId: list_tags
       requestBody:
         content:
@@ -2294,17 +2302,6 @@ paths:
         Returns an array of blacklist in your environment. Because the response
         is paginated, the request body has a`limit` and `offset` field. At least
         one must be filled.
-
-        * `limit`  indicates how many events the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
-
-
-        If `limit` has a value and `offset` does not, the response starts on the
-        first page. If `offset` has a value and `limit` does not, the page
-        returns 50 items (or all items, if the total is less than 50).
       operationId: list_blacklists
       requestBody:
         $ref: '#/components/requestBodies/list'
@@ -2330,19 +2327,8 @@ paths:
       tags:
         - Blacklists
       summary: Create a blacklist
-      description: >
-        Create a new blacklist via POST. A blacklist MUST have one of the
-        following `type` values:
-         * STRING─an array of any key-value pairs
-         * IP_INET─an array of single IP addresses
-         * IP_CIDR─an array of IP ranges
-         * USER─an array of objects containing data about a user entity
-         * BUSINESS─an array of objects containing data about a business entity
-
-        After creating an blacklist, you can add values to it via the
-        `blacklists/add-values` endpoint. The body params of [that endpoint's
-        documentation](ref:add_blacklist_values) contains examples of each
-        blacklist `type`.
+      description: |
+        Create a new blacklist via POST. 
       operationId: create_blacklist
       requestBody:
         required: true
@@ -2362,15 +2348,9 @@ paths:
     post:
       tags:
         - Blacklists
-      summary: Add items to a blacklist.
-      description: >
+      summary: Add items to a blacklist
+      description: |
         Add items to a blacklist, according to the blacklist's `type`.
-
-        Each request MUST specify at least 1 object to blacklist. You MAY add up
-        to 100 values to an existing blacklist in one request.
-
-        The endpoint ignores any provided entries that already exist in the
-        blacklist. INo error is thrown when this occurs.
       operationId: add_blacklist_values
       parameters:
         - $ref: '#/components/parameters/unit21_id'
