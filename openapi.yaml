@@ -763,6 +763,120 @@ paths:
       responses:
         '200':
           description: OK
+  /events/list:
+    post:
+      tags:
+        - Events
+      summary: List events
+      description: >
+        Returns an array of top-level information about events in your
+        environment. Because the response is paginated, the request body has a
+        `limit` and `offset` field. At least one must be filled.
+
+        * `limit`  indicates how many events the request returns (the page
+        maximum is 50)
+
+        * `offset` indicates the offset for pagination. An `offset` value of 1
+        starts with the environment's first record.
+      operationId: list_events
+      requestBody:
+        $ref: '#/components/requestBodies/list'
+      responses:
+        '200':
+          description: Successfully returned events
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/listResponse'
+              example:
+                events:
+                  - custom_data: {}
+                    digital_data:
+                      client_fingerprint: null
+                      ip_address: null
+                    general_data:
+                      event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
+                      event_subtype: credit_card
+                      event_time: 1586950374
+                      event_type: transaction
+                      is_spooled: false
+                      status: complete
+                      tags: []
+                    is_cold_store: false
+                    location_data: null
+                    transaction_data:
+                      amount: 4646.34
+                      exchange_rate: null
+                      external_fee: null
+                      internal_fee: null
+                      received_amount: 4646.34
+                      received_currency: usd
+                      receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
+                      receiver_entity_type: user
+                      receiver_instrument_id: '30504733005354'
+                      receiver_source: internal
+                      sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
+                      sender_entity_type: user
+                      sender_instrument_id: '3560510398609341'
+                      sender_source: internal
+                      sent_amount: 4646.34
+                      sent_currency: usd
+                      usd_conversion_notes: null
+                    unit21_id: '2633544'
+                  - custom_data: {}
+                    digital_data:
+                      client_fingerprint: null
+                      ip_address: null
+                    general_data:
+                      event_id: t-9030cdce-2b43-40f1-832a-2ee264a41945
+                      event_subtype: credit_card
+                      event_time: 1586779444
+                      event_type: transaction
+                      is_spooled: false
+                      status: complete
+                      tags: []
+                    is_cold_store: false
+                    location_data: null
+                    transaction_data:
+                      amount: 14524.1
+                      exchange_rate: null
+                      external_fee: null
+                      internal_fee: null
+                      received_amount: 14524.1
+                      received_currency: usd
+                      receiver_entity_id: u-7b517e52-3324-4722-a2ff-60779d43ec6d
+                      receiver_entity_type: user
+                      receiver_instrument_id: i-4f88438d-1c4a-4a06-a1f0-d692c0bb4baa
+                      receiver_source: internal
+                      sender_entity_id: u-eca597f1-9e7f-45ca-b635-48723f60feb7
+                      sender_entity_type: user
+                      sender_instrument_id: i-7b977420-976f-4714-93bf-379c4dd5732f
+                      sender_source: internal
+                      sent_amount: 14524.1
+                      sent_currency: usd
+                      usd_conversion_notes: null
+                    unit21_id: '2633543'
+                    response_count: 2
+                    total_count: 2000
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /events/create:
     post:
       tags:
@@ -3291,6 +3405,17 @@ components:
             `false` to turn off.
         synchronous_response:
           $ref: '#/components/schemas/synchronousResponse'
+    listResponse:
+      type: object
+      properties:
+        response_count:
+          type: integer
+          example: 10
+          description: Number of objects in the response
+        total_count:
+          type: integer
+          example: 100
+          description: Total number of objects in the platform.
     eventId:
       type: string
       description: Unique identifier of the event on your platform
@@ -3651,17 +3776,6 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
-    listResponse:
-      type: object
-      properties:
-        response_count:
-          type: integer
-          example: 10
-          description: Number of objects in the response
-        total_count:
-          type: integer
-          example: 100
-          description: Total number of objects in the platform.
     instrumentId:
       type: string
       description: Unique identifier of the instrument on your platform.
