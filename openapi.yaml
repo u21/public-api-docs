@@ -699,538 +699,6 @@ paths:
       responses:
         '200':
           description: OK
-  '/entities/{unit21_id}/verify':
-    post:
-      tags:
-        - Entity verification
-      summary: Verify an entity
-      description: >
-        Run a verification workflow on an entity. Requires a `workflow_id`. You
-        can create a verification workflow from the Unit21 dashboard. To see
-        how, review [this help
-        article](https://docs.unit21.ai/dashboard/docs/kyc-verification-workflow).
-      operationId: run_verification_workflow
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/entityVerification'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  end_action:
-                    type: string
-                    description: >-
-                      The end result of the workflow, one of a set of end
-                      results defined by the workflow
-                  is_success:
-                    type: boolean
-                    description: >-
-                      Whether or not the workflow successful completed.
-                      Workflows rely on external services, which may at times
-                      fail
-                  results:
-                    type: object
-                    description: >-
-                      Object mapping from the executed verifications (e.g.
-                      IDOLOGY:DOC_VERIFICATION)
-                  full_response:
-                    type: object
-                    description: >-
-                      The raw response from the verification provider. Contents
-                      depend on the verification source and type.
-              example:
-                end_action: $REJECT
-                is_success: true
-                results:
-                  'IDOLOGY:DOC_VERIFICATION':
-                    parsed_result: CAPTURE_NOT_APPROVED
-                    verification_result_id: 73
-                  'IDOLOGY:ID_VERIFICATION':
-                    parsed_result: ID_NON_MATCH
-                    verification_result_id: 71
-                  'IDOLOGY:WATCHLIST_SCREENING':
-                    parsed_result: NO_RESTRICTION
-                    verification_result_id: 72
-                full_response:
-                  info: This response depends on the verification source
-  '/entities/{unit21_id}/link-verification-result':
-    post:
-      tags:
-        - Entity verification
-      summary: Link external verification
-      description: >-
-        Add the verification result from an external ID provider to an entity on
-        the Unit21 system.
-      operationId: add_verification_result_to_entity
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/linkVerificationResult'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/linkVerificationResponse'
-              example:
-                created_at: 1591992745
-                entity_id: '856'
-                source: IDOLOGY
-                type: DOC_VERIFICATION
-                verification_workflow_execution_id: 59
-                full_response:
-                  info: This response depends on the verification source
-                  placeholderKey: placeholderValue
-  '/verification/result/{workflow_id}':
-    get:
-      tags:
-        - Entity verification
-      summary: Get verification results
-      description: >-
-        Returns all the information from the verification workflow execution for
-        a specific entity.
-      operationId: get_verification_result
-      parameters:
-        - $ref: '#/components/parameters/workflow_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                created_at: 1591992745
-                entity_id: 856
-                source: IDOLOGY
-                type: DOC_VERIFICATION
-                verification_workflow_execution_id: 59
-                full_response: {}
-  '/entities/{unit21_id}/continuous-monitoring':
-    post:
-      tags:
-        - Entity verification
-      summary: Update continuous monitoring
-      description: >
-        Add or disable Socure continuous monitoring for an entity.
-
-        To check whether an entity has continuous monitoring enabled, head to
-        the UI, then to **Entities > Verifications**. The [knowledge base
-        article on continuous
-        monitoring](https://docs.unit21.ai/dashboard/docs/continuous-monitoring)
-        has more detailed instructions.
-      operationId: update_continuous_monitoring
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/continuousMonitoring'
-      responses:
-        '200':
-          description: OK
-  /events/list:
-    post:
-      tags:
-        - Events
-      summary: List events
-      description: >
-        Returns an array of top-level information about events in your
-        environment. Because the response is paginated, the request body has a
-        `limit` and `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many events the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
-      operationId: list_events
-      requestBody:
-        $ref: '#/components/requestBodies/list'
-      responses:
-        '200':
-          description: Successfully returned events
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/listResponse'
-              example:
-                events:
-                  - custom_data: {}
-                    digital_data:
-                      client_fingerprint: null
-                      ip_address: null
-                    general_data:
-                      event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
-                      event_subtype: credit_card
-                      event_time: 1586950374
-                      event_type: transaction
-                      is_spooled: false
-                      status: complete
-                      tags: []
-                    is_cold_store: false
-                    location_data: null
-                    transaction_data:
-                      amount: 4646.34
-                      exchange_rate: null
-                      external_fee: null
-                      internal_fee: null
-                      received_amount: 4646.34
-                      received_currency: usd
-                      receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
-                      receiver_entity_type: user
-                      receiver_instrument_id: '30504733005354'
-                      receiver_source: internal
-                      sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
-                      sender_entity_type: user
-                      sender_instrument_id: '3560510398609341'
-                      sender_source: internal
-                      sent_amount: 4646.34
-                      sent_currency: usd
-                      usd_conversion_notes: null
-                    unit21_id: '2633544'
-                  - custom_data: {}
-                    digital_data:
-                      client_fingerprint: null
-                      ip_address: null
-                    general_data:
-                      event_id: t-9030cdce-2b43-40f1-832a-2ee264a41945
-                      event_subtype: credit_card
-                      event_time: 1586779444
-                      event_type: transaction
-                      is_spooled: false
-                      status: complete
-                      tags: []
-                    is_cold_store: false
-                    location_data: null
-                    transaction_data:
-                      amount: 14524.1
-                      exchange_rate: null
-                      external_fee: null
-                      internal_fee: null
-                      received_amount: 14524.1
-                      received_currency: usd
-                      receiver_entity_id: u-7b517e52-3324-4722-a2ff-60779d43ec6d
-                      receiver_entity_type: user
-                      receiver_instrument_id: i-4f88438d-1c4a-4a06-a1f0-d692c0bb4baa
-                      receiver_source: internal
-                      sender_entity_id: u-eca597f1-9e7f-45ca-b635-48723f60feb7
-                      sender_entity_type: user
-                      sender_instrument_id: i-7b977420-976f-4714-93bf-379c4dd5732f
-                      sender_source: internal
-                      sent_amount: 14524.1
-                      sent_currency: usd
-                      usd_conversion_notes: null
-                    unit21_id: '2633543'
-                    response_count: 2
-                    total_count: 2000
-        '400':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '409':
-          $ref: '#/components/responses/409'
-        '423':
-          $ref: '#/components/responses/423'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-        '503':
-          $ref: '#/components/responses/503'
-  /events/create:
-    post:
-      tags:
-        - Events
-      summary: Create an event
-      operationId: create_event
-      description: >
-        Creates a new event, sending event data in the request body. Two objects
-        are required: `general_data` and either `transaction_data` or
-        `action_data`. `general_data` requires the fields: `event_id`,
-        `event_type`, and `event_time`. `transaction_data` requires only the
-        field `amount`.
-
-        You can also batch upload entities to `events/create`.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/generalEvents'
-                - $ref: '#/components/schemas/transactionData'
-                - $ref: '#/components/schemas/actionData'
-                - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/locationData'
-                - $ref: '#/components/schemas/customData'
-                - $ref: '#/components/schemas/eventOptions'
-              example:
-                general_data:
-                  event_id: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
-                  event_type: transaction
-                  event_time: 1623365011
-                  event_subtype: payment
-                  status: active
-                  device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
-                  parents:
-                    event_id: 123
-                    event_type: transaction
-                  tags:
-                    - 'Sector:Europe'
-                transaction_data:
-                  amount: 13562.83
-                  sent_amount: 13562.83
-                  sent_currency: USD
-                  sender_entity_id: u-371b5091-da30-48a8-936b-7600f9983e80
-                  sender_entity_type: user
-                  sender_source: internal
-                  sender_instrument_id: string
-                  received_amount: 13562.83
-                  received_currency: USD
-                  receiver_entity_id: u-d8e1d453-c205-4996-a935-ff08be01bcd1
-                  receiver_entity_type: business
-                  receiver_source: internal
-                  receiver_instrument_id: t376839428256371
-                  exchange_rate: 1.0012
-                  usd_conversion_notes: N/A
-                  internal_fee: 5
-                  external_fee: 5
-                action_data:
-                  action_type: LOGIN
-                  action_details: Through mobile app v0.8.8
-                  entity_id: 371c4d7b-0563-4685-aab1
-                  entity_type: user
-                  instrument_id: 238938823-34347686-39405443
-                digital_data:
-                  ip_address: 255.255.255.255
-                location_data:
-                  type: SHIPPING
-                  building_number: 6c
-                  unit_number: 22a
-                  street_name: California Ave
-                  city: Redmond
-                  state: CA
-                  postal_code: 07710-0001
-                  country: US
-                custom_data:
-                  internal_notes: Reviewed by Mitchell on 31 June 2019
-                options:
-                  monitor: true
-                  resolve_geoip: true
-                  link_digital_data_to_entity: true
-                  linked_entity: sender
-                  merge_custom_data: false
-                  list_merge_strategy: union
-                  upsert_on_conflict: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                event_id: 40df948s-0563-aab1-4685
-                unit21_id: '43245'
-  '/events/{unit21_id}':
-    get:
-      tags:
-        - Events
-      summary: Get an event
-      description: Returns all data objects belonging to a single event.
-      operationId: get_event_by_unit21_id
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                properties:
-                  is_cold_store:
-                    description: |
-                      `true` if the event has been migrated to coldstore
-                    type: boolean
-                    example: false
-              example:
-                general_data:
-                  event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
-                  event_subtype: credit_card
-                  event_time: 1586950374
-                  event_type: transaction
-                  is_spooled: false
-                  status: complete
-                  tags: []
-                transaction_data:
-                  amount: 4646.34
-                  exchange_rate: null
-                  external_fee: null
-                  internal_fee: null
-                  received_amount: 4646.34
-                  received_currency: usd
-                  receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
-                  receiver_entity_type: user
-                  receiver_instrument_id: '30504733005354'
-                  receiver_source: internal
-                  sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
-                  sender_entity_type: user
-                  sender_instrument_id: '3560510398609341'
-                  sender_source: internal
-                  sent_amount: 4646.34
-                  sent_currency: usd
-                  usd_conversion_notes: null
-                unit21_id: '2633544'
-                custom_data: {}
-                digital_data:
-                  client_fingerprint: null
-                  ip_address: null
-                is_cold_store: false
-                location_data: null
-  '/{org_name}/events/{event_id}':
-    get:
-      tags:
-        - Events
-      summary: Get an event using external ID
-      description: Returns all data objects belonging to a single event.
-      operationId: get_event_by_unit21_id
-      parameters:
-        - $ref: '#/components/parameters/event_id'
-        - $ref: '#/components/parameters/org_name'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                properties:
-                  is_cold_store:
-                    description: |
-                      `true` if the event has been migrated to coldstore
-                    type: boolean
-                    example: false
-              example:
-                general_data:
-                  event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
-                  event_subtype: credit_card
-                  event_time: 1586950374
-                  event_type: transaction
-                  is_spooled: false
-                  status: complete
-                  tags: []
-                transaction_data:
-                  amount: 4646.34
-                  exchange_rate: null
-                  external_fee: null
-                  internal_fee: null
-                  received_amount: 4646.34
-                  received_currency: usd
-                  receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
-                  receiver_entity_type: user
-                  receiver_instrument_id: '30504733005354'
-                  receiver_source: internal
-                  sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
-                  sender_entity_type: user
-                  sender_instrument_id: '3560510398609341'
-                  sender_source: internal
-                  sent_amount: 4646.34
-                  sent_currency: usd
-                  usd_conversion_notes: null
-                unit21_id: '2633544'
-                custom_data: {}
-                digital_data:
-                  client_fingerprint: null
-                  ip_address: null
-                is_cold_store: false
-                location_data: null
-  '/events/{unit21_id}/update':
-    put:
-      tags:
-        - Events
-      summary: Update event
-      description: >
-        Updates an event. In the request body, you MAY send any subset of the
-        fields that the [`events/create`](ref:create_event) endpoint accepts.
-
-
-        Note that you can also update an event using an upsert through
-        `/events/create`.
-      operationId: update_event
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/eventOptions'
-              anyOf:
-                - $ref: '#/components/schemas/generalEvents'
-                - $ref: '#/components/schemas/transactionData'
-                - $ref: '#/components/schemas/actionData'
-                - $ref: '#/components/schemas/locationData'
-                - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/createEventResponse'
-              example:
-                event_id: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
-                previously_existed: true
-                unit21_id: '2633581'
-  '/{org_name}/events/{event_id}/update':
-    put:
-      tags:
-        - Events
-      summary: Update event using external ID
-      description: >-
-        Update an event using the `event_id` from your platform. Except for the
-        path syntax, the request is exactly the same as the [Updating an Entity
-        by `unit21_id`](ref:update_entity).
-      operationId: update_event_by_external
-      parameters:
-        - $ref: '#/components/parameters/event_id'
-        - $ref: '#/components/parameters/org_name'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/eventOptions'
-              anyOf:
-                - $ref: '#/components/schemas/generalEvents'
-                - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/locationData'
-                - $ref: '#/components/schemas/transactionData'
-                - $ref: '#/components/schemas/actionData'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                event_id: t-7d258c89-de60-4acd-acc8-db62506953d3
-                unit21_id: '2633554'
   /instruments/list:
     post:
       tags:
@@ -2345,6 +1813,538 @@ paths:
                   txn_count: 0
                   unit21_id: 2966
                   updated_at: 1623283105
+  '/entities/{unit21_id}/verify':
+    post:
+      tags:
+        - Entity verification
+      summary: Verify an entity
+      description: >
+        Run a verification workflow on an entity. Requires a `workflow_id`. You
+        can create a verification workflow from the Unit21 dashboard. To see
+        how, review [this help
+        article](https://docs.unit21.ai/dashboard/docs/kyc-verification-workflow).
+      operationId: run_verification_workflow
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/entityVerification'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  end_action:
+                    type: string
+                    description: >-
+                      The end result of the workflow, one of a set of end
+                      results defined by the workflow
+                  is_success:
+                    type: boolean
+                    description: >-
+                      Whether or not the workflow successful completed.
+                      Workflows rely on external services, which may at times
+                      fail
+                  results:
+                    type: object
+                    description: >-
+                      Object mapping from the executed verifications (e.g.
+                      IDOLOGY:DOC_VERIFICATION)
+                  full_response:
+                    type: object
+                    description: >-
+                      The raw response from the verification provider. Contents
+                      depend on the verification source and type.
+              example:
+                end_action: $REJECT
+                is_success: true
+                results:
+                  'IDOLOGY:DOC_VERIFICATION':
+                    parsed_result: CAPTURE_NOT_APPROVED
+                    verification_result_id: 73
+                  'IDOLOGY:ID_VERIFICATION':
+                    parsed_result: ID_NON_MATCH
+                    verification_result_id: 71
+                  'IDOLOGY:WATCHLIST_SCREENING':
+                    parsed_result: NO_RESTRICTION
+                    verification_result_id: 72
+                full_response:
+                  info: This response depends on the verification source
+  '/entities/{unit21_id}/link-verification-result':
+    post:
+      tags:
+        - Entity verification
+      summary: Link external verification
+      description: >-
+        Add the verification result from an external ID provider to an entity on
+        the Unit21 system.
+      operationId: add_verification_result_to_entity
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/linkVerificationResult'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/linkVerificationResponse'
+              example:
+                created_at: 1591992745
+                entity_id: '856'
+                source: IDOLOGY
+                type: DOC_VERIFICATION
+                verification_workflow_execution_id: 59
+                full_response:
+                  info: This response depends on the verification source
+                  placeholderKey: placeholderValue
+  '/verification/result/{workflow_id}':
+    get:
+      tags:
+        - Entity verification
+      summary: Get verification results
+      description: >-
+        Returns all the information from the verification workflow execution for
+        a specific entity.
+      operationId: get_verification_result
+      parameters:
+        - $ref: '#/components/parameters/workflow_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                created_at: 1591992745
+                entity_id: 856
+                source: IDOLOGY
+                type: DOC_VERIFICATION
+                verification_workflow_execution_id: 59
+                full_response: {}
+  '/entities/{unit21_id}/continuous-monitoring':
+    post:
+      tags:
+        - Entity verification
+      summary: Update continuous monitoring
+      description: >
+        Add or disable Socure continuous monitoring for an entity.
+
+        To check whether an entity has continuous monitoring enabled, head to
+        the UI, then to **Entities > Verifications**. The [knowledge base
+        article on continuous
+        monitoring](https://docs.unit21.ai/dashboard/docs/continuous-monitoring)
+        has more detailed instructions.
+      operationId: update_continuous_monitoring
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/continuousMonitoring'
+      responses:
+        '200':
+          description: OK
+  /events/list:
+    post:
+      tags:
+        - Events
+      summary: List events
+      description: >
+        Returns an array of top-level information about events in your
+        environment. Because the response is paginated, the request body has a
+        `limit` and `offset` field. At least one must be filled.
+
+        * `limit`  indicates how many events the request returns (the page
+        maximum is 50)
+
+        * `offset` indicates the offset for pagination. An `offset` value of 1
+        starts with the environment's first record.
+      operationId: list_events
+      requestBody:
+        $ref: '#/components/requestBodies/list'
+      responses:
+        '200':
+          description: Successfully returned events
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/listResponse'
+              example:
+                events:
+                  - custom_data: {}
+                    digital_data:
+                      client_fingerprint: null
+                      ip_address: null
+                    general_data:
+                      event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
+                      event_subtype: credit_card
+                      event_time: 1586950374
+                      event_type: transaction
+                      is_spooled: false
+                      status: complete
+                      tags: []
+                    is_cold_store: false
+                    location_data: null
+                    transaction_data:
+                      amount: 4646.34
+                      exchange_rate: null
+                      external_fee: null
+                      internal_fee: null
+                      received_amount: 4646.34
+                      received_currency: usd
+                      receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
+                      receiver_entity_type: user
+                      receiver_instrument_id: '30504733005354'
+                      receiver_source: internal
+                      sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
+                      sender_entity_type: user
+                      sender_instrument_id: '3560510398609341'
+                      sender_source: internal
+                      sent_amount: 4646.34
+                      sent_currency: usd
+                      usd_conversion_notes: null
+                    unit21_id: '2633544'
+                  - custom_data: {}
+                    digital_data:
+                      client_fingerprint: null
+                      ip_address: null
+                    general_data:
+                      event_id: t-9030cdce-2b43-40f1-832a-2ee264a41945
+                      event_subtype: credit_card
+                      event_time: 1586779444
+                      event_type: transaction
+                      is_spooled: false
+                      status: complete
+                      tags: []
+                    is_cold_store: false
+                    location_data: null
+                    transaction_data:
+                      amount: 14524.1
+                      exchange_rate: null
+                      external_fee: null
+                      internal_fee: null
+                      received_amount: 14524.1
+                      received_currency: usd
+                      receiver_entity_id: u-7b517e52-3324-4722-a2ff-60779d43ec6d
+                      receiver_entity_type: user
+                      receiver_instrument_id: i-4f88438d-1c4a-4a06-a1f0-d692c0bb4baa
+                      receiver_source: internal
+                      sender_entity_id: u-eca597f1-9e7f-45ca-b635-48723f60feb7
+                      sender_entity_type: user
+                      sender_instrument_id: i-7b977420-976f-4714-93bf-379c4dd5732f
+                      sender_source: internal
+                      sent_amount: 14524.1
+                      sent_currency: usd
+                      usd_conversion_notes: null
+                    unit21_id: '2633543'
+                    response_count: 2
+                    total_count: 2000
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+  /events/create:
+    post:
+      tags:
+        - Events
+      summary: Create an event
+      operationId: create_event
+      description: >
+        Creates a new event, sending event data in the request body. Two objects
+        are required: `general_data` and either `transaction_data` or
+        `action_data`. `general_data` requires the fields: `event_id`,
+        `event_type`, and `event_time`. `transaction_data` requires only the
+        field `amount`.
+
+        You can also batch upload entities to `events/create`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/generalEvents'
+                - $ref: '#/components/schemas/transactionData'
+                - $ref: '#/components/schemas/actionData'
+                - $ref: '#/components/schemas/digitalData'
+                - $ref: '#/components/schemas/locationData'
+                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/eventOptions'
+              example:
+                general_data:
+                  event_id: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
+                  event_type: transaction
+                  event_time: 1623365011
+                  event_subtype: payment
+                  status: active
+                  device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                  parents:
+                    event_id: 123
+                    event_type: transaction
+                  tags:
+                    - 'Sector:Europe'
+                transaction_data:
+                  amount: 13562.83
+                  sent_amount: 13562.83
+                  sent_currency: USD
+                  sender_entity_id: u-371b5091-da30-48a8-936b-7600f9983e80
+                  sender_entity_type: user
+                  sender_source: internal
+                  sender_instrument_id: string
+                  received_amount: 13562.83
+                  received_currency: USD
+                  receiver_entity_id: u-d8e1d453-c205-4996-a935-ff08be01bcd1
+                  receiver_entity_type: business
+                  receiver_source: internal
+                  receiver_instrument_id: t376839428256371
+                  exchange_rate: 1.0012
+                  usd_conversion_notes: N/A
+                  internal_fee: 5
+                  external_fee: 5
+                action_data:
+                  action_type: LOGIN
+                  action_details: Through mobile app v0.8.8
+                  entity_id: 371c4d7b-0563-4685-aab1
+                  entity_type: user
+                  instrument_id: 238938823-34347686-39405443
+                digital_data:
+                  ip_address: 255.255.255.255
+                location_data:
+                  type: SHIPPING
+                  building_number: 6c
+                  unit_number: 22a
+                  street_name: California Ave
+                  city: Redmond
+                  state: CA
+                  postal_code: 07710-0001
+                  country: US
+                custom_data:
+                  internal_notes: Reviewed by Mitchell on 31 June 2019
+                options:
+                  monitor: true
+                  resolve_geoip: true
+                  link_digital_data_to_entity: true
+                  linked_entity: sender
+                  merge_custom_data: false
+                  list_merge_strategy: union
+                  upsert_on_conflict: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                event_id: 40df948s-0563-aab1-4685
+                unit21_id: '43245'
+  '/events/{unit21_id}':
+    get:
+      tags:
+        - Events
+      summary: Get an event
+      description: Returns all data objects belonging to a single event.
+      operationId: get_event_by_unit21_id
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  is_cold_store:
+                    description: |
+                      `true` if the event has been migrated to coldstore
+                    type: boolean
+                    example: false
+              example:
+                general_data:
+                  event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
+                  event_subtype: credit_card
+                  event_time: 1586950374
+                  event_type: transaction
+                  is_spooled: false
+                  status: complete
+                  tags: []
+                transaction_data:
+                  amount: 4646.34
+                  exchange_rate: null
+                  external_fee: null
+                  internal_fee: null
+                  received_amount: 4646.34
+                  received_currency: usd
+                  receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
+                  receiver_entity_type: user
+                  receiver_instrument_id: '30504733005354'
+                  receiver_source: internal
+                  sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
+                  sender_entity_type: user
+                  sender_instrument_id: '3560510398609341'
+                  sender_source: internal
+                  sent_amount: 4646.34
+                  sent_currency: usd
+                  usd_conversion_notes: null
+                unit21_id: '2633544'
+                custom_data: {}
+                digital_data:
+                  client_fingerprint: null
+                  ip_address: null
+                is_cold_store: false
+                location_data: null
+  '/{org_name}/events/{event_id}':
+    get:
+      tags:
+        - Events
+      summary: Get an event using external ID
+      description: Returns all data objects belonging to a single event.
+      operationId: get_event_by_unit21_id
+      parameters:
+        - $ref: '#/components/parameters/event_id'
+        - $ref: '#/components/parameters/org_name'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  is_cold_store:
+                    description: |
+                      `true` if the event has been migrated to coldstore
+                    type: boolean
+                    example: false
+              example:
+                general_data:
+                  event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
+                  event_subtype: credit_card
+                  event_time: 1586950374
+                  event_type: transaction
+                  is_spooled: false
+                  status: complete
+                  tags: []
+                transaction_data:
+                  amount: 4646.34
+                  exchange_rate: null
+                  external_fee: null
+                  internal_fee: null
+                  received_amount: 4646.34
+                  received_currency: usd
+                  receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
+                  receiver_entity_type: user
+                  receiver_instrument_id: '30504733005354'
+                  receiver_source: internal
+                  sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
+                  sender_entity_type: user
+                  sender_instrument_id: '3560510398609341'
+                  sender_source: internal
+                  sent_amount: 4646.34
+                  sent_currency: usd
+                  usd_conversion_notes: null
+                unit21_id: '2633544'
+                custom_data: {}
+                digital_data:
+                  client_fingerprint: null
+                  ip_address: null
+                is_cold_store: false
+                location_data: null
+  '/events/{unit21_id}/update':
+    put:
+      tags:
+        - Events
+      summary: Update event
+      description: >
+        Updates an event. In the request body, you MAY send any subset of the
+        fields that the [`events/create`](ref:create_event) endpoint accepts.
+
+
+        Note that you can also update an event using an upsert through
+        `/events/create`.
+      operationId: update_event
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/eventOptions'
+              anyOf:
+                - $ref: '#/components/schemas/generalEvents'
+                - $ref: '#/components/schemas/transactionData'
+                - $ref: '#/components/schemas/actionData'
+                - $ref: '#/components/schemas/locationData'
+                - $ref: '#/components/schemas/digitalData'
+                - $ref: '#/components/schemas/customData'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createEventResponse'
+              example:
+                event_id: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
+                previously_existed: true
+                unit21_id: '2633581'
+  '/{org_name}/events/{event_id}/update':
+    put:
+      tags:
+        - Events
+      summary: Update event using external ID
+      description: >-
+        Update an event using the `event_id` from your platform. Except for the
+        path syntax, the request is exactly the same as the [Updating an Entity
+        by `unit21_id`](ref:update_entity).
+      operationId: update_event_by_external
+      parameters:
+        - $ref: '#/components/parameters/event_id'
+        - $ref: '#/components/parameters/org_name'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/eventOptions'
+              anyOf:
+                - $ref: '#/components/schemas/generalEvents'
+                - $ref: '#/components/schemas/digitalData'
+                - $ref: '#/components/schemas/locationData'
+                - $ref: '#/components/schemas/transactionData'
+                - $ref: '#/components/schemas/actionData'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                event_id: t-7d258c89-de60-4acd-acc8-db62506953d3
+                unit21_id: '2633554'
   /verification-forms/create:
     post:
       tags:
@@ -3401,91 +3401,6 @@ components:
             "source": "passport_app", "timestamp": 1572673229}'
 
             ```
-    entityVerification:
-      title: Entity Verification
-      description: Fields to verify an entity
-      required:
-        - workflow_id
-      properties:
-        workflow_id:
-          $ref: '#/components/schemas/workflowId'
-        synchronous_response:
-          $ref: '#/components/schemas/synchronousResponse'
-        include_full_response:
-          $ref: '#/components/schemas/includeFullResponse'
-    linkVerificationResult:
-      title: Link verification result
-      description: >-
-        Fields to link external verification results to entity in the Unit21
-        system
-      required:
-        - verification_type
-        - provider_name
-        - content
-      properties:
-        verification_type:
-          type: string
-          enum:
-            - ID_VERIFICATION
-            - DOC_VERIFICATION
-            - BUSINESS_VERIFICATION
-            - WATCHLIST_SCREENING
-            - ADVERSE_MEDIA_SCREENING
-            - CRYPTO_FORENSICS
-          description: >-
-            Type of verification, in one of the categories that the Unit21
-            system recognizes
-        provider_name:
-          type: string
-          description: name of KYC provider
-          example: FAKE_PROVIDER
-        content:
-          type: object
-          additionalProperties: true
-          description: JSON-formatted response from verification provider
-          example:
-            content:
-              test:
-                nested_field: 123
-              boolean_field: false
-              error: An error occurred
-        verification_timestamp:
-          $ref: '#/components/schemas/registeredAt'
-    linkVerificationResponse:
-      properties:
-        created_at:
-          $ref: '#/components/schemas/registeredAt'
-        entity_id:
-          type: string
-          description: Unit21 ID of the entity that the verification was run on.
-        source:
-          type: string
-          description: 'Provider that ran the verification (IDOLOGY, TRULIOO, etc.)'
-        type:
-          type: string
-          description: >-
-            Type of verification executed (DOC_VERIFICATION, ID_VERIFICATION,
-            etc.)
-        verification_workflow_execution_id:
-          type: number
-          description: ID of the workflow execution
-        full_response:
-          type: object
-          description: >-
-            Full response from the verification provider running the
-            verification
-    continuousMonitoring:
-      type: object
-      required:
-        - continuous_monitoring
-      properties:
-        continuous_monitoring:
-          type: boolean
-          description: >
-            Enable or disable continuous monitoring. Use `true` to turn on and
-            `false` to turn off.
-        synchronous_response:
-          $ref: '#/components/schemas/synchronousResponse'
     listResponse:
       type: object
       properties:
@@ -3497,366 +3412,6 @@ components:
           type: integer
           example: 100
           description: Total number of objects in the platform.
-    eventId:
-      type: string
-      description: Unique identifier of the event on your platform
-      example: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
-      minLength: 1
-      maxLength: 128
-    eventType:
-      type: string
-      enum:
-        - transaction
-        - action
-      description: >
-        `transaction` for monetary flows, `action` for other state changes, like
-        new logins.
-      example: transaction
-    generalEvents:
-      title: General Event Data
-      properties:
-        general_data:
-          type: object
-          required:
-            - event_id
-            - event_type
-            - event_time
-          description: >
-            General data is required for any request made to the
-            v1/events/create endpoint. This defines any pieces of information
-            that allows you to link up any event on Unit21's system to
-            transactions or user activities on your platform.
-          properties:
-            event_id:
-              $ref: '#/components/schemas/eventId'
-            event_type:
-              $ref: '#/components/schemas/eventType'
-            event_time:
-              $ref: '#/components/schemas/registeredAt'
-            event_subtype:
-              type: string
-              description: >
-                Extra info about how your organization classifies the event. You
-                MAY enter any value. Useful for granular categories, e.g. if you
-                have two types of products and a transaction can be associated
-                with either.
-              maxLength: 128
-              example: payment
-            status:
-              $ref: '#/components/schemas/objectStatus'
-            device_id:
-              $ref: '#/components/schemas/deviceId'
-            parents:
-              description: >-
-                The parent object consists of two fields─`event_id` for parent
-                unique identifier  and `event_type`.
-              items:
-                type: object
-                properties:
-                  event_id:
-                    $ref: '#/components/schemas/eventId'
-                  event_type:
-                    $ref: '#/components/schemas/eventType'
-              example:
-                event_id: 123
-                event_type: transaction
-            tags:
-              $ref: '#/components/schemas/Tags'
-    transactionData:
-      title: Transaction data
-      properties:
-        transaction_data:
-          description: >
-            In addition to the required `amount` field, must include at least
-            one of:
-
-            * `sender_entity_id`
-
-            * `sender_instrument_id`
-
-            * `receiver_entity_id`
-
-            * `receiver_instrument_id`
-          type: object
-          required:
-            - amount
-          properties:
-            amount:
-              type: number
-              description: >
-                The normalized monetary value of the transaction in customer's
-                home currency. This value MUST be greater than or equal to zero.
-                Direction of monetary flow should be entirely denoted by the
-                specifying sender/receiver entities and instruments
-                appropriately.
-              example: 13562.83
-            sent_amount:
-              type: number
-              description: >
-                The monetary value of the transaction, specified in terms of the
-                currency set in the sent_currency field. This value must be
-                positive (greater or equal to zero). Denote by the specifying
-                sender/receiver entities and instruments appropriately.
-              example: 13562.83
-            sent_currency:
-              type: string
-              description: The currency that the sender sent
-              maxLength: 128
-              example: USD
-            sender_entity_id:
-              type: string
-              description: >
-                Identifier of the sender entity on your platform - should
-                correspond to the `entity_id` field in an entity's
-                `general_data` section if the `sender_source` is `internal`. If
-                `sender_source` is `external`, this does not need to correspond
-                to anything in the Unit21 system.
-              maxLength: 128
-              example: u-371b5091-da30-48a8-936b-7600f9983e80
-            sender_entity_type:
-              type: string
-              enum:
-                - user
-                - business
-              description: >
-                (Required when `sender_source` is `internal`, ignored otherwise)
-                The entity type of the sender as defined in Entity's
-                `general_data` section. Must be either a user or business.
-              example: user
-            sender_source:
-              type: string
-              enum:
-                - internal
-                - external
-              description: >
-                Either internal or external. Internal senders exist on your
-                platform (and on Unit21's system), external senders are external
-                to your ecosystem and do not exist on your platform. Internal
-                senders are matched with entities on Unit21's system; external
-                senders are not.
-              maxLength: 128
-              example: internal
-            sender_instrument_id:
-              type: string
-              description: >
-                Identifier of the sender's transaction instrument on your
-                platform. if the `sender_source` is `internal`. and the
-                transaction is facilitated by an instrument (it may not always
-                be), `sender_instrument_id` should correspond to the
-                `instrument_id` field in an entity's `instrument_data` section.
-              maxLength: 128
-              example: instrumentA-3967112
-            received_amount:
-              type: number
-              description: >-
-                The monetary value of the transaction, specified in terms of the
-                currency set in the `received_currency` field. This value must
-                be positive (greater or equal to zero). Direction of monetary
-                flow should be entirely denoted by the specifying
-                sender/receiver entities and instruments appropriately.
-              example: 13562.83
-            received_currency:
-              type: string
-              description: The currency that the receiver party received
-              maxLength: 128
-              example: USD
-            receiver_entity_id:
-              type: string
-              description: >-
-                Identifier of the receiver entity on your platform - should
-                correspond to the entity_id field in an entity's general_data
-                section if the receiver_source is internal. If receiver_source
-                is external, this does not need to correspond to anything in our
-                system
-              maxLength: 128
-              example: u-d8e1d453-c205-4996-a935-ff08be01bcd1
-            receiver_entity_type:
-              type: string
-              enum:
-                - user
-                - business
-              description: >
-                (Required when `receiver_source == internal`, ignored
-                otherwise). The entity type of the receiver as defined in
-                Entity's general_data section. MUST be either `user` or
-                `business`.
-              example: business
-            receiver_source:
-              type: string
-              enum:
-                - internal
-                - external
-              description: >
-                Either internal or external. Internal receivers exist on your
-                platform (and on Unit21's system), external receivers are
-                external to your ecosystem and do not exist on your platform.
-                Internal receivers will be matched with entities on Unit21's
-                system while external receivers will not.
-              example: internal
-            receiver_instrument_id:
-              type: string
-              description: >
-                Identifier of the receiver's transaction instrument on your
-                platform. If the receiver_source is internal and the transaction
-                is facilitated by an instrument (it may not always be),
-                `receiver_instrument_id` should correspond to the
-                `instrument_id` field in an entity's `instrument_data` section.
-              maxLength: 128
-              example: t376839428256371
-            exchange_rate:
-              type: number
-              description: >
-                If both sent_currency and received_currency are defined, and
-                neither of them are in the home currency, then this is defined
-                as sent_amount/received_amount. If either `sent_currency` or
-                `received_currency` are in the home currency (but not both),
-                then `exchange_rate` is defined as
-                `home_currency_amount/non_home_currency_amount`. If both
-                sent_currency and received_currency are in the home currency,
-                not required.
-              example: 1.0012
-            usd_conversion_notes:
-              type: string
-              description: >-
-                Readable information associated with the exchange rate(s) used,
-                e.g. when the exchange rate was pulled, from what source it was
-                obtained
-              example: pulled from forex.com at 1572672226
-            internal_fee:
-              type: number
-              description: >
-                The sum of all internal fees associated with the transaction,
-                specified in USD. Internal fees are collected by your platform
-                e.g. if users pay a fee to you for facilitating a transaction
-                from user to user. All other field amounts should not include
-                the value of these fees.
-              example: 5
-            external_fee:
-              type: number
-              description: >
-                The sum of all external fees associated with the transaction,
-                specified in USD. External fees are paid out to external parties
-                independent of your platform e.g. payment network fees, shipping
-                fees, cleaning fees. All other amount fields should not include
-                the value of these fees
-              example: 5
-    actionData:
-      title: Action data
-      properties:
-        action_data:
-          type: object
-          description: >
-            Information about any notable actions that a user takes on your
-            system. Examples of actions that may be worth tracking are:
-              * Password changes from new IP addresses
-              * Logins from disparate locations
-              * Linking or unlinking instruments at an unusual frequency
-              * Finding users frequently using referral codes, potentially signally fake referral schemes.
-          required:
-            - entity_id
-            - entity_type
-          properties:
-            action_type:
-              type: string
-              description: >
-                A keyword (of your choosing) that describes an action event,
-                e.g. `LOGIN`, `SIGNUP`, `PASSWORD_RESET`.
-              maxLength: 512
-              example: LOGIN
-            action_details:
-              type: string
-              description: Extra information that provides more context about the event.
-              maxLength: 4096
-              example: Through mobile app v0.8.8
-            entity_id:
-              type: string
-              description: >-
-                Identifier of the entity on your platform that is associated
-                with this action event─should correspond to the `entity_id`
-                field in an [entity's `general_data`
-                section](ref:create_entity).
-              maxLength: 128
-              example: 371c4d7b-0563-4685-aab1
-            entity_type:
-              $ref: '#/components/schemas/entityType'
-            instrument_id:
-              type: string
-              description: >-
-                Identifier of the transaction instrument on your platform that
-                is associated with this action event - should correspond to the
-                `instrument_id` field in an [entity's `instrument_data`
-                section](ref:create_entity)
-              maxLength: 128
-              example: 238938823-34347686-39405443
-    digitalData:
-      title: Digital Data
-      properties:
-        digital_data:
-          description: >-
-            Associated digital properties - IP, device, browser, client info
-            etc.
-          type: object
-          properties:
-            ip_address:
-              $ref: '#/components/schemas/ipAddressSimple'
-    locationData:
-      title: Location data
-      properties:
-        location_data:
-          $ref: '#/components/schemas/locationDataProperties'
-    eventOptions:
-      title: Event options
-      properties:
-        options:
-          type: object
-          properties:
-            monitor:
-              type: boolean
-              description: >-
-                Whether or not to monitor this event (defaults to `true`).
-                Typically used to signal Unit21 to not flag such events or
-                include them in calculations i.e. to prevent double counting, or
-                to ignore applying monitoring to unimportant events that you
-                still want to associate with users
-              default: true
-            resolve_geoip:
-              $ref: '#/components/schemas/resolveGeoIp'
-            link_digital_data_to_entity:
-              type: boolean
-              description: >-
-                Whether or not to link the included `digital_data` with the
-                related entities. Includes geoip information if resolve_geoip is
-                enabled as well. On action events, defaults to `true`
-              example: true
-            linked_entity:
-              type: string
-              enum:
-                - sender
-                - receiver
-                - both
-              default: both
-              description: >-
-                Possible values are `sender`, `receiver`, and `both`. Defaults
-                to `both`. If `link_digital_data_to_entity` is flagged on
-                transaction events, this specifies which entities to associate
-                the `digital_data` to. If there is no `digital_data` or
-                entities, no exception is thrown.
-              example: sender
-            merge_custom_data:
-              $ref: '#/components/schemas/merge_custom_data'
-            list_merge_strategy:
-              $ref: '#/components/schemas/listMergeStrategy'
-            upsert_on_conflict:
-              $ref: '#/components/schemas/upsertOnConflict'
-    createEventResponse:
-      title: events/create response
-      properties:
-        event_id:
-          $ref: '#/components/schemas/eventId'
-        previously_existed:
-          $ref: '#/components/schemas/previouslyExisted'
-        unit21_id:
-          $ref: '#/components/schemas/unit21Id'
     instrumentId:
       type: string
       description: Unique identifier of the instrument on your platform.
@@ -3925,6 +3480,17 @@ components:
                 $ref: '#/components/schemas/entityId'
               entity_type:
                 $ref: '#/components/schemas/entityType'
+    digitalData:
+      title: Digital Data
+      properties:
+        digital_data:
+          description: >-
+            Associated digital properties - IP, device, browser, client info
+            etc.
+          type: object
+          properties:
+            ip_address:
+              $ref: '#/components/schemas/ipAddressSimple'
     createInstrumentResponse:
       title: instruments/create response
       properties:
@@ -4204,6 +3770,15 @@ components:
               $ref: '#/components/schemas/merge_custom_data'
             list_merge_strategy:
               $ref: '#/components/schemas/listMergeStrategy'
+    eventType:
+      type: string
+      enum:
+        - transaction
+        - action
+      description: >
+        `transaction` for monetary flows, `action` for other state changes, like
+        new logins.
+      example: transaction
     eventArray:
       title: events
       properties:
@@ -4339,6 +3914,431 @@ components:
       properties:
         case_id:
           $ref: '#/components/schemas/caseId'
+        previously_existed:
+          $ref: '#/components/schemas/previouslyExisted'
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+    entityVerification:
+      title: Entity Verification
+      description: Fields to verify an entity
+      required:
+        - workflow_id
+      properties:
+        workflow_id:
+          $ref: '#/components/schemas/workflowId'
+        synchronous_response:
+          $ref: '#/components/schemas/synchronousResponse'
+        include_full_response:
+          $ref: '#/components/schemas/includeFullResponse'
+    linkVerificationResult:
+      title: Link verification result
+      description: >-
+        Fields to link external verification results to entity in the Unit21
+        system
+      required:
+        - verification_type
+        - provider_name
+        - content
+      properties:
+        verification_type:
+          type: string
+          enum:
+            - ID_VERIFICATION
+            - DOC_VERIFICATION
+            - BUSINESS_VERIFICATION
+            - WATCHLIST_SCREENING
+            - ADVERSE_MEDIA_SCREENING
+            - CRYPTO_FORENSICS
+          description: >-
+            Type of verification, in one of the categories that the Unit21
+            system recognizes
+        provider_name:
+          type: string
+          description: name of KYC provider
+          example: FAKE_PROVIDER
+        content:
+          type: object
+          additionalProperties: true
+          description: JSON-formatted response from verification provider
+          example:
+            content:
+              test:
+                nested_field: 123
+              boolean_field: false
+              error: An error occurred
+        verification_timestamp:
+          $ref: '#/components/schemas/registeredAt'
+    linkVerificationResponse:
+      properties:
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        entity_id:
+          type: string
+          description: Unit21 ID of the entity that the verification was run on.
+        source:
+          type: string
+          description: 'Provider that ran the verification (IDOLOGY, TRULIOO, etc.)'
+        type:
+          type: string
+          description: >-
+            Type of verification executed (DOC_VERIFICATION, ID_VERIFICATION,
+            etc.)
+        verification_workflow_execution_id:
+          type: number
+          description: ID of the workflow execution
+        full_response:
+          type: object
+          description: >-
+            Full response from the verification provider running the
+            verification
+    continuousMonitoring:
+      type: object
+      required:
+        - continuous_monitoring
+      properties:
+        continuous_monitoring:
+          type: boolean
+          description: >
+            Enable or disable continuous monitoring. Use `true` to turn on and
+            `false` to turn off.
+        synchronous_response:
+          $ref: '#/components/schemas/synchronousResponse'
+    eventId:
+      type: string
+      description: Unique identifier of the event on your platform
+      example: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
+      minLength: 1
+      maxLength: 128
+    generalEvents:
+      title: General Event Data
+      properties:
+        general_data:
+          type: object
+          required:
+            - event_id
+            - event_type
+            - event_time
+          description: >
+            General data is required for any request made to the
+            v1/events/create endpoint. This defines any pieces of information
+            that allows you to link up any event on Unit21's system to
+            transactions or user activities on your platform.
+          properties:
+            event_id:
+              $ref: '#/components/schemas/eventId'
+            event_type:
+              $ref: '#/components/schemas/eventType'
+            event_time:
+              $ref: '#/components/schemas/registeredAt'
+            event_subtype:
+              type: string
+              description: >
+                Extra info about how your organization classifies the event. You
+                MAY enter any value. Useful for granular categories, e.g. if you
+                have two types of products and a transaction can be associated
+                with either.
+              maxLength: 128
+              example: payment
+            status:
+              $ref: '#/components/schemas/objectStatus'
+            device_id:
+              $ref: '#/components/schemas/deviceId'
+            parents:
+              description: >-
+                The parent object consists of two fields─`event_id` for parent
+                unique identifier  and `event_type`.
+              items:
+                type: object
+                properties:
+                  event_id:
+                    $ref: '#/components/schemas/eventId'
+                  event_type:
+                    $ref: '#/components/schemas/eventType'
+              example:
+                event_id: 123
+                event_type: transaction
+            tags:
+              $ref: '#/components/schemas/Tags'
+    transactionData:
+      title: Transaction data
+      properties:
+        transaction_data:
+          description: >
+            In addition to the required `amount` field, must include at least
+            one of:
+
+            * `sender_entity_id`
+
+            * `sender_instrument_id`
+
+            * `receiver_entity_id`
+
+            * `receiver_instrument_id`
+          type: object
+          required:
+            - amount
+          properties:
+            amount:
+              type: number
+              description: >
+                The normalized monetary value of the transaction in customer's
+                home currency. This value MUST be greater than or equal to zero.
+                Direction of monetary flow should be entirely denoted by the
+                specifying sender/receiver entities and instruments
+                appropriately.
+              example: 13562.83
+            sent_amount:
+              type: number
+              description: >
+                The monetary value of the transaction, specified in terms of the
+                currency set in the sent_currency field. This value must be
+                positive (greater or equal to zero). Denote by the specifying
+                sender/receiver entities and instruments appropriately.
+              example: 13562.83
+            sent_currency:
+              type: string
+              description: The currency that the sender sent
+              maxLength: 128
+              example: USD
+            sender_entity_id:
+              type: string
+              description: >
+                Identifier of the sender entity on your platform - should
+                correspond to the `entity_id` field in an entity's
+                `general_data` section if the `sender_source` is `internal`. If
+                `sender_source` is `external`, this does not need to correspond
+                to anything in the Unit21 system.
+              maxLength: 128
+              example: u-371b5091-da30-48a8-936b-7600f9983e80
+            sender_entity_type:
+              type: string
+              enum:
+                - user
+                - business
+              description: >
+                (Required when `sender_source` is `internal`, ignored otherwise)
+                The entity type of the sender as defined in Entity's
+                `general_data` section. Must be either a user or business.
+              example: user
+            sender_source:
+              type: string
+              enum:
+                - internal
+                - external
+              description: >
+                Either internal or external. Internal senders exist on your
+                platform (and on Unit21's system), external senders are external
+                to your ecosystem and do not exist on your platform. Internal
+                senders are matched with entities on Unit21's system; external
+                senders are not.
+              maxLength: 128
+              example: internal
+            sender_instrument_id:
+              type: string
+              description: >
+                Identifier of the sender's transaction instrument on your
+                platform. if the `sender_source` is `internal`. and the
+                transaction is facilitated by an instrument (it may not always
+                be), `sender_instrument_id` should correspond to the
+                `instrument_id` field in an entity's `instrument_data` section.
+              maxLength: 128
+              example: instrumentA-3967112
+            received_amount:
+              type: number
+              description: >-
+                The monetary value of the transaction, specified in terms of the
+                currency set in the `received_currency` field. This value must
+                be positive (greater or equal to zero). Direction of monetary
+                flow should be entirely denoted by the specifying
+                sender/receiver entities and instruments appropriately.
+              example: 13562.83
+            received_currency:
+              type: string
+              description: The currency that the receiver party received
+              maxLength: 128
+              example: USD
+            receiver_entity_id:
+              type: string
+              description: >-
+                Identifier of the receiver entity on your platform - should
+                correspond to the entity_id field in an entity's general_data
+                section if the receiver_source is internal. If receiver_source
+                is external, this does not need to correspond to anything in our
+                system
+              maxLength: 128
+              example: u-d8e1d453-c205-4996-a935-ff08be01bcd1
+            receiver_entity_type:
+              type: string
+              enum:
+                - user
+                - business
+              description: >
+                (Required when `receiver_source == internal`, ignored
+                otherwise). The entity type of the receiver as defined in
+                Entity's general_data section. MUST be either `user` or
+                `business`.
+              example: business
+            receiver_source:
+              type: string
+              enum:
+                - internal
+                - external
+              description: >
+                Either internal or external. Internal receivers exist on your
+                platform (and on Unit21's system), external receivers are
+                external to your ecosystem and do not exist on your platform.
+                Internal receivers will be matched with entities on Unit21's
+                system while external receivers will not.
+              example: internal
+            receiver_instrument_id:
+              type: string
+              description: >
+                Identifier of the receiver's transaction instrument on your
+                platform. If the receiver_source is internal and the transaction
+                is facilitated by an instrument (it may not always be),
+                `receiver_instrument_id` should correspond to the
+                `instrument_id` field in an entity's `instrument_data` section.
+              maxLength: 128
+              example: t376839428256371
+            exchange_rate:
+              type: number
+              description: >
+                If both sent_currency and received_currency are defined, and
+                neither of them are in the home currency, then this is defined
+                as sent_amount/received_amount. If either `sent_currency` or
+                `received_currency` are in the home currency (but not both),
+                then `exchange_rate` is defined as
+                `home_currency_amount/non_home_currency_amount`. If both
+                sent_currency and received_currency are in the home currency,
+                not required.
+              example: 1.0012
+            usd_conversion_notes:
+              type: string
+              description: >-
+                Readable information associated with the exchange rate(s) used,
+                e.g. when the exchange rate was pulled, from what source it was
+                obtained
+              example: pulled from forex.com at 1572672226
+            internal_fee:
+              type: number
+              description: >
+                The sum of all internal fees associated with the transaction,
+                specified in USD. Internal fees are collected by your platform
+                e.g. if users pay a fee to you for facilitating a transaction
+                from user to user. All other field amounts should not include
+                the value of these fees.
+              example: 5
+            external_fee:
+              type: number
+              description: >
+                The sum of all external fees associated with the transaction,
+                specified in USD. External fees are paid out to external parties
+                independent of your platform e.g. payment network fees, shipping
+                fees, cleaning fees. All other amount fields should not include
+                the value of these fees
+              example: 5
+    actionData:
+      title: Action data
+      properties:
+        action_data:
+          type: object
+          description: >
+            Information about any notable actions that a user takes on your
+            system. Examples of actions that may be worth tracking are:
+              * Password changes from new IP addresses
+              * Logins from disparate locations
+              * Linking or unlinking instruments at an unusual frequency
+              * Finding users frequently using referral codes, potentially signally fake referral schemes.
+          required:
+            - entity_id
+            - entity_type
+          properties:
+            action_type:
+              type: string
+              description: >
+                A keyword (of your choosing) that describes an action event,
+                e.g. `LOGIN`, `SIGNUP`, `PASSWORD_RESET`.
+              maxLength: 512
+              example: LOGIN
+            action_details:
+              type: string
+              description: Extra information that provides more context about the event.
+              maxLength: 4096
+              example: Through mobile app v0.8.8
+            entity_id:
+              type: string
+              description: >-
+                Identifier of the entity on your platform that is associated
+                with this action event─should correspond to the `entity_id`
+                field in an [entity's `general_data`
+                section](ref:create_entity).
+              maxLength: 128
+              example: 371c4d7b-0563-4685-aab1
+            entity_type:
+              $ref: '#/components/schemas/entityType'
+            instrument_id:
+              type: string
+              description: >-
+                Identifier of the transaction instrument on your platform that
+                is associated with this action event - should correspond to the
+                `instrument_id` field in an [entity's `instrument_data`
+                section](ref:create_entity)
+              maxLength: 128
+              example: 238938823-34347686-39405443
+    locationData:
+      title: Location data
+      properties:
+        location_data:
+          $ref: '#/components/schemas/locationDataProperties'
+    eventOptions:
+      title: Event options
+      properties:
+        options:
+          type: object
+          properties:
+            monitor:
+              type: boolean
+              description: >-
+                Whether or not to monitor this event (defaults to `true`).
+                Typically used to signal Unit21 to not flag such events or
+                include them in calculations i.e. to prevent double counting, or
+                to ignore applying monitoring to unimportant events that you
+                still want to associate with users
+              default: true
+            resolve_geoip:
+              $ref: '#/components/schemas/resolveGeoIp'
+            link_digital_data_to_entity:
+              type: boolean
+              description: >-
+                Whether or not to link the included `digital_data` with the
+                related entities. Includes geoip information if resolve_geoip is
+                enabled as well. On action events, defaults to `true`
+              example: true
+            linked_entity:
+              type: string
+              enum:
+                - sender
+                - receiver
+                - both
+              default: both
+              description: >-
+                Possible values are `sender`, `receiver`, and `both`. Defaults
+                to `both`. If `link_digital_data_to_entity` is flagged on
+                transaction events, this specifies which entities to associate
+                the `digital_data` to. If there is no `digital_data` or
+                entities, no exception is thrown.
+              example: sender
+            merge_custom_data:
+              $ref: '#/components/schemas/merge_custom_data'
+            list_merge_strategy:
+              $ref: '#/components/schemas/listMergeStrategy'
+            upsert_on_conflict:
+              $ref: '#/components/schemas/upsertOnConflict'
+    createEventResponse:
+      title: events/create response
+      properties:
+        event_id:
+          $ref: '#/components/schemas/eventId'
         previously_existed:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
@@ -4625,6 +4625,22 @@ components:
       required: true
       description: name of organization in your environment
       example: unit21
+    instrument_id:
+      in: path
+      name: instrument_id
+      schema:
+        type: string
+      required: true
+      description: Unique identifier of the instrument on your platform
+      example: 1036492444
+    device_id:
+      in: path
+      name: device_id
+      schema:
+        type: string
+      required: true
+      description: Identifier of the device within your system
+      example: 601
     workflow_id:
       in: path
       name: workflow_id
@@ -4643,19 +4659,3 @@ components:
       required: true
       description: Unique identifier of the event on your platform
       example: 1560408033
-    instrument_id:
-      in: path
-      name: instrument_id
-      schema:
-        type: string
-      required: true
-      description: Unique identifier of the instrument on your platform
-      example: 1036492444
-    device_id:
-      in: path
-      name: device_id
-      schema:
-        type: string
-      required: true
-      description: Identifier of the device within your system
-      example: 601
