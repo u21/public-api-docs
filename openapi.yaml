@@ -1210,6 +1210,396 @@ paths:
               example:
                 device_id: 3234-sdghfdf-3332
                 unit21_id: '49073'
+  /events/list:
+    post:
+      tags:
+        - Events
+      summary: List events
+      description: >
+        Returns an array of top-level information about events in your
+        environment. Because the response is paginated, the request body has a
+        `limit` and `offset` field. At least one must be filled.
+
+        * `limit`  indicates how many events the request returns (the page
+        maximum is 50)
+
+        * `offset` indicates the offset for pagination. An `offset` value of 1
+        starts with the environment's first record.
+      operationId: list_events
+      requestBody:
+        $ref: '#/components/requestBodies/list'
+      responses:
+        '200':
+          description: Successfully returned events
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/listResponse'
+              example:
+                events:
+                  - custom_data: {}
+                    digital_data:
+                      client_fingerprint: null
+                      ip_address: null
+                    general_data:
+                      event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
+                      event_subtype: credit_card
+                      event_time: 1586950374
+                      event_type: transaction
+                      is_spooled: false
+                      status: complete
+                      tags: []
+                    is_cold_store: false
+                    location_data: null
+                    transaction_data:
+                      amount: 4646.34
+                      exchange_rate: null
+                      external_fee: null
+                      internal_fee: null
+                      received_amount: 4646.34
+                      received_currency: usd
+                      receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
+                      receiver_entity_type: user
+                      receiver_instrument_id: '30504733005354'
+                      receiver_source: internal
+                      sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
+                      sender_entity_type: user
+                      sender_instrument_id: '3560510398609341'
+                      sender_source: internal
+                      sent_amount: 4646.34
+                      sent_currency: usd
+                      usd_conversion_notes: null
+                    unit21_id: '2633544'
+                  - custom_data: {}
+                    digital_data:
+                      client_fingerprint: null
+                      ip_address: null
+                    general_data:
+                      event_id: t-9030cdce-2b43-40f1-832a-2ee264a41945
+                      event_subtype: credit_card
+                      event_time: 1586779444
+                      event_type: transaction
+                      is_spooled: false
+                      status: complete
+                      tags: []
+                    is_cold_store: false
+                    location_data: null
+                    transaction_data:
+                      amount: 14524.1
+                      exchange_rate: null
+                      external_fee: null
+                      internal_fee: null
+                      received_amount: 14524.1
+                      received_currency: usd
+                      receiver_entity_id: u-7b517e52-3324-4722-a2ff-60779d43ec6d
+                      receiver_entity_type: user
+                      receiver_instrument_id: i-4f88438d-1c4a-4a06-a1f0-d692c0bb4baa
+                      receiver_source: internal
+                      sender_entity_id: u-eca597f1-9e7f-45ca-b635-48723f60feb7
+                      sender_entity_type: user
+                      sender_instrument_id: i-7b977420-976f-4714-93bf-379c4dd5732f
+                      sender_source: internal
+                      sent_amount: 14524.1
+                      sent_currency: usd
+                      usd_conversion_notes: null
+                    unit21_id: '2633543'
+                    response_count: 2
+                    total_count: 2000
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+  /events/create:
+    post:
+      tags:
+        - Events
+      summary: Create an event
+      operationId: create_event
+      description: >
+        Creates a new event, sending event data in the request body. Two objects
+        are required: `general_data` and either `transaction_data` or
+        `action_data`. `general_data` requires the fields: `event_id`,
+        `event_type`, and `event_time`. `transaction_data` requires only the
+        field `amount`.
+
+        You can also batch upload entities to `events/create`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/generalEvents'
+                - $ref: '#/components/schemas/transactionData'
+                - $ref: '#/components/schemas/actionData'
+                - $ref: '#/components/schemas/digitalData'
+                - $ref: '#/components/schemas/locationData'
+                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/eventOptions'
+              example:
+                general_data:
+                  event_id: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
+                  event_type: transaction
+                  event_time: 1623365011
+                  event_subtype: payment
+                  status: active
+                  device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                  parents:
+                    event_id: 123
+                    event_type: transaction
+                  tags:
+                    - 'Sector:Europe'
+                transaction_data:
+                  amount: 13562.83
+                  sent_amount: 13562.83
+                  sent_currency: USD
+                  sender_entity_id: u-371b5091-da30-48a8-936b-7600f9983e80
+                  sender_entity_type: user
+                  sender_source: internal
+                  sender_instrument_id: string
+                  received_amount: 13562.83
+                  received_currency: USD
+                  receiver_entity_id: u-d8e1d453-c205-4996-a935-ff08be01bcd1
+                  receiver_entity_type: business
+                  receiver_source: internal
+                  receiver_instrument_id: t376839428256371
+                  exchange_rate: 1.0012
+                  usd_conversion_notes: N/A
+                  internal_fee: 5
+                  external_fee: 5
+                action_data:
+                  action_type: LOGIN
+                  action_details: Through mobile app v0.8.8
+                  entity_id: 371c4d7b-0563-4685-aab1
+                  entity_type: user
+                  instrument_id: 238938823-34347686-39405443
+                digital_data:
+                  ip_address: 255.255.255.255
+                location_data:
+                  type: SHIPPING
+                  building_number: 6c
+                  unit_number: 22a
+                  street_name: California Ave
+                  city: Redmond
+                  state: CA
+                  postal_code: 07710-0001
+                  country: US
+                custom_data:
+                  internal_notes: Reviewed by Mitchell on 31 June 2019
+                options:
+                  monitor: true
+                  resolve_geoip: true
+                  link_digital_data_to_entity: true
+                  linked_entity: sender
+                  merge_custom_data: false
+                  list_merge_strategy: union
+                  upsert_on_conflict: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                event_id: 40df948s-0563-aab1-4685
+                unit21_id: '43245'
+  '/events/{unit21_id}':
+    get:
+      tags:
+        - Events
+      summary: Get an event
+      description: Returns all data objects belonging to a single event.
+      operationId: get_event_by_unit21_id
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  is_cold_store:
+                    description: |
+                      `true` if the event has been migrated to coldstore
+                    type: boolean
+                    example: false
+              example:
+                general_data:
+                  event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
+                  event_subtype: credit_card
+                  event_time: 1586950374
+                  event_type: transaction
+                  is_spooled: false
+                  status: complete
+                  tags: []
+                transaction_data:
+                  amount: 4646.34
+                  exchange_rate: null
+                  external_fee: null
+                  internal_fee: null
+                  received_amount: 4646.34
+                  received_currency: usd
+                  receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
+                  receiver_entity_type: user
+                  receiver_instrument_id: '30504733005354'
+                  receiver_source: internal
+                  sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
+                  sender_entity_type: user
+                  sender_instrument_id: '3560510398609341'
+                  sender_source: internal
+                  sent_amount: 4646.34
+                  sent_currency: usd
+                  usd_conversion_notes: null
+                unit21_id: '2633544'
+                custom_data: {}
+                digital_data:
+                  client_fingerprint: null
+                  ip_address: null
+                is_cold_store: false
+                location_data: null
+  '/{org_name}/events/{event_id}':
+    get:
+      tags:
+        - Events
+      summary: Get an event using external ID
+      description: Returns all data objects belonging to a single event.
+      operationId: get_event_by_unit21_id
+      parameters:
+        - $ref: '#/components/parameters/event_id'
+        - $ref: '#/components/parameters/org_name'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  is_cold_store:
+                    description: |
+                      `true` if the event has been migrated to coldstore
+                    type: boolean
+                    example: false
+              example:
+                general_data:
+                  event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
+                  event_subtype: credit_card
+                  event_time: 1586950374
+                  event_type: transaction
+                  is_spooled: false
+                  status: complete
+                  tags: []
+                transaction_data:
+                  amount: 4646.34
+                  exchange_rate: null
+                  external_fee: null
+                  internal_fee: null
+                  received_amount: 4646.34
+                  received_currency: usd
+                  receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
+                  receiver_entity_type: user
+                  receiver_instrument_id: '30504733005354'
+                  receiver_source: internal
+                  sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
+                  sender_entity_type: user
+                  sender_instrument_id: '3560510398609341'
+                  sender_source: internal
+                  sent_amount: 4646.34
+                  sent_currency: usd
+                  usd_conversion_notes: null
+                unit21_id: '2633544'
+                custom_data: {}
+                digital_data:
+                  client_fingerprint: null
+                  ip_address: null
+                is_cold_store: false
+                location_data: null
+  '/events/{unit21_id}/update':
+    put:
+      tags:
+        - Events
+      summary: Update event
+      description: >
+        Updates an event. In the request body, you MAY send any subset of the
+        fields that the [`events/create`](ref:create_event) endpoint accepts.
+
+
+        Note that you can also update an event using an upsert through
+        `/events/create`.
+      operationId: update_event
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/eventOptions'
+              anyOf:
+                - $ref: '#/components/schemas/generalEvents'
+                - $ref: '#/components/schemas/transactionData'
+                - $ref: '#/components/schemas/actionData'
+                - $ref: '#/components/schemas/locationData'
+                - $ref: '#/components/schemas/digitalData'
+                - $ref: '#/components/schemas/customData'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createEventResponse'
+              example:
+                event_id: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
+                previously_existed: true
+                unit21_id: '2633581'
+  '/{org_name}/events/{event_id}/update':
+    put:
+      tags:
+        - Events
+      summary: Update event using external ID
+      description: >-
+        Update an event using the `event_id` from your platform. Except for the
+        path syntax, the request is exactly the same as the [Updating an Entity
+        by `unit21_id`](ref:update_entity).
+      operationId: update_event_by_external
+      parameters:
+        - $ref: '#/components/parameters/event_id'
+        - $ref: '#/components/parameters/org_name'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/eventOptions'
+              anyOf:
+                - $ref: '#/components/schemas/generalEvents'
+                - $ref: '#/components/schemas/digitalData'
+                - $ref: '#/components/schemas/locationData'
+                - $ref: '#/components/schemas/transactionData'
+                - $ref: '#/components/schemas/actionData'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                event_id: t-7d258c89-de60-4acd-acc8-db62506953d3
+                unit21_id: '2633554'
   /rules/list:
     post:
       tags:
@@ -1955,396 +2345,6 @@ paths:
       responses:
         '200':
           description: OK
-  /events/list:
-    post:
-      tags:
-        - Events
-      summary: List events
-      description: >
-        Returns an array of top-level information about events in your
-        environment. Because the response is paginated, the request body has a
-        `limit` and `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many events the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
-      operationId: list_events
-      requestBody:
-        $ref: '#/components/requestBodies/list'
-      responses:
-        '200':
-          description: Successfully returned events
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/listResponse'
-              example:
-                events:
-                  - custom_data: {}
-                    digital_data:
-                      client_fingerprint: null
-                      ip_address: null
-                    general_data:
-                      event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
-                      event_subtype: credit_card
-                      event_time: 1586950374
-                      event_type: transaction
-                      is_spooled: false
-                      status: complete
-                      tags: []
-                    is_cold_store: false
-                    location_data: null
-                    transaction_data:
-                      amount: 4646.34
-                      exchange_rate: null
-                      external_fee: null
-                      internal_fee: null
-                      received_amount: 4646.34
-                      received_currency: usd
-                      receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
-                      receiver_entity_type: user
-                      receiver_instrument_id: '30504733005354'
-                      receiver_source: internal
-                      sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
-                      sender_entity_type: user
-                      sender_instrument_id: '3560510398609341'
-                      sender_source: internal
-                      sent_amount: 4646.34
-                      sent_currency: usd
-                      usd_conversion_notes: null
-                    unit21_id: '2633544'
-                  - custom_data: {}
-                    digital_data:
-                      client_fingerprint: null
-                      ip_address: null
-                    general_data:
-                      event_id: t-9030cdce-2b43-40f1-832a-2ee264a41945
-                      event_subtype: credit_card
-                      event_time: 1586779444
-                      event_type: transaction
-                      is_spooled: false
-                      status: complete
-                      tags: []
-                    is_cold_store: false
-                    location_data: null
-                    transaction_data:
-                      amount: 14524.1
-                      exchange_rate: null
-                      external_fee: null
-                      internal_fee: null
-                      received_amount: 14524.1
-                      received_currency: usd
-                      receiver_entity_id: u-7b517e52-3324-4722-a2ff-60779d43ec6d
-                      receiver_entity_type: user
-                      receiver_instrument_id: i-4f88438d-1c4a-4a06-a1f0-d692c0bb4baa
-                      receiver_source: internal
-                      sender_entity_id: u-eca597f1-9e7f-45ca-b635-48723f60feb7
-                      sender_entity_type: user
-                      sender_instrument_id: i-7b977420-976f-4714-93bf-379c4dd5732f
-                      sender_source: internal
-                      sent_amount: 14524.1
-                      sent_currency: usd
-                      usd_conversion_notes: null
-                    unit21_id: '2633543'
-                    response_count: 2
-                    total_count: 2000
-        '400':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '409':
-          $ref: '#/components/responses/409'
-        '423':
-          $ref: '#/components/responses/423'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-        '503':
-          $ref: '#/components/responses/503'
-  /events/create:
-    post:
-      tags:
-        - Events
-      summary: Create an event
-      operationId: create_event
-      description: >
-        Creates a new event, sending event data in the request body. Two objects
-        are required: `general_data` and either `transaction_data` or
-        `action_data`. `general_data` requires the fields: `event_id`,
-        `event_type`, and `event_time`. `transaction_data` requires only the
-        field `amount`.
-
-        You can also batch upload entities to `events/create`.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/generalEvents'
-                - $ref: '#/components/schemas/transactionData'
-                - $ref: '#/components/schemas/actionData'
-                - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/locationData'
-                - $ref: '#/components/schemas/customData'
-                - $ref: '#/components/schemas/eventOptions'
-              example:
-                general_data:
-                  event_id: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
-                  event_type: transaction
-                  event_time: 1623365011
-                  event_subtype: payment
-                  status: active
-                  device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
-                  parents:
-                    event_id: 123
-                    event_type: transaction
-                  tags:
-                    - 'Sector:Europe'
-                transaction_data:
-                  amount: 13562.83
-                  sent_amount: 13562.83
-                  sent_currency: USD
-                  sender_entity_id: u-371b5091-da30-48a8-936b-7600f9983e80
-                  sender_entity_type: user
-                  sender_source: internal
-                  sender_instrument_id: string
-                  received_amount: 13562.83
-                  received_currency: USD
-                  receiver_entity_id: u-d8e1d453-c205-4996-a935-ff08be01bcd1
-                  receiver_entity_type: business
-                  receiver_source: internal
-                  receiver_instrument_id: t376839428256371
-                  exchange_rate: 1.0012
-                  usd_conversion_notes: N/A
-                  internal_fee: 5
-                  external_fee: 5
-                action_data:
-                  action_type: LOGIN
-                  action_details: Through mobile app v0.8.8
-                  entity_id: 371c4d7b-0563-4685-aab1
-                  entity_type: user
-                  instrument_id: 238938823-34347686-39405443
-                digital_data:
-                  ip_address: 255.255.255.255
-                location_data:
-                  type: SHIPPING
-                  building_number: 6c
-                  unit_number: 22a
-                  street_name: California Ave
-                  city: Redmond
-                  state: CA
-                  postal_code: 07710-0001
-                  country: US
-                custom_data:
-                  internal_notes: Reviewed by Mitchell on 31 June 2019
-                options:
-                  monitor: true
-                  resolve_geoip: true
-                  link_digital_data_to_entity: true
-                  linked_entity: sender
-                  merge_custom_data: false
-                  list_merge_strategy: union
-                  upsert_on_conflict: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                event_id: 40df948s-0563-aab1-4685
-                unit21_id: '43245'
-  '/events/{unit21_id}':
-    get:
-      tags:
-        - Events
-      summary: Get an event
-      description: Returns all data objects belonging to a single event.
-      operationId: get_event_by_unit21_id
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                properties:
-                  is_cold_store:
-                    description: |
-                      `true` if the event has been migrated to coldstore
-                    type: boolean
-                    example: false
-              example:
-                general_data:
-                  event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
-                  event_subtype: credit_card
-                  event_time: 1586950374
-                  event_type: transaction
-                  is_spooled: false
-                  status: complete
-                  tags: []
-                transaction_data:
-                  amount: 4646.34
-                  exchange_rate: null
-                  external_fee: null
-                  internal_fee: null
-                  received_amount: 4646.34
-                  received_currency: usd
-                  receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
-                  receiver_entity_type: user
-                  receiver_instrument_id: '30504733005354'
-                  receiver_source: internal
-                  sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
-                  sender_entity_type: user
-                  sender_instrument_id: '3560510398609341'
-                  sender_source: internal
-                  sent_amount: 4646.34
-                  sent_currency: usd
-                  usd_conversion_notes: null
-                unit21_id: '2633544'
-                custom_data: {}
-                digital_data:
-                  client_fingerprint: null
-                  ip_address: null
-                is_cold_store: false
-                location_data: null
-  '/{org_name}/events/{event_id}':
-    get:
-      tags:
-        - Events
-      summary: Get an event using external ID
-      description: Returns all data objects belonging to a single event.
-      operationId: get_event_by_unit21_id
-      parameters:
-        - $ref: '#/components/parameters/event_id'
-        - $ref: '#/components/parameters/org_name'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                properties:
-                  is_cold_store:
-                    description: |
-                      `true` if the event has been migrated to coldstore
-                    type: boolean
-                    example: false
-              example:
-                general_data:
-                  event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
-                  event_subtype: credit_card
-                  event_time: 1586950374
-                  event_type: transaction
-                  is_spooled: false
-                  status: complete
-                  tags: []
-                transaction_data:
-                  amount: 4646.34
-                  exchange_rate: null
-                  external_fee: null
-                  internal_fee: null
-                  received_amount: 4646.34
-                  received_currency: usd
-                  receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
-                  receiver_entity_type: user
-                  receiver_instrument_id: '30504733005354'
-                  receiver_source: internal
-                  sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
-                  sender_entity_type: user
-                  sender_instrument_id: '3560510398609341'
-                  sender_source: internal
-                  sent_amount: 4646.34
-                  sent_currency: usd
-                  usd_conversion_notes: null
-                unit21_id: '2633544'
-                custom_data: {}
-                digital_data:
-                  client_fingerprint: null
-                  ip_address: null
-                is_cold_store: false
-                location_data: null
-  '/events/{unit21_id}/update':
-    put:
-      tags:
-        - Events
-      summary: Update event
-      description: >
-        Updates an event. In the request body, you MAY send any subset of the
-        fields that the [`events/create`](ref:create_event) endpoint accepts.
-
-
-        Note that you can also update an event using an upsert through
-        `/events/create`.
-      operationId: update_event
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/eventOptions'
-              anyOf:
-                - $ref: '#/components/schemas/generalEvents'
-                - $ref: '#/components/schemas/transactionData'
-                - $ref: '#/components/schemas/actionData'
-                - $ref: '#/components/schemas/locationData'
-                - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/createEventResponse'
-              example:
-                event_id: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
-                previously_existed: true
-                unit21_id: '2633581'
-  '/{org_name}/events/{event_id}/update':
-    put:
-      tags:
-        - Events
-      summary: Update event using external ID
-      description: >-
-        Update an event using the `event_id` from your platform. Except for the
-        path syntax, the request is exactly the same as the [Updating an Entity
-        by `unit21_id`](ref:update_entity).
-      operationId: update_event_by_external
-      parameters:
-        - $ref: '#/components/parameters/event_id'
-        - $ref: '#/components/parameters/org_name'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/eventOptions'
-              anyOf:
-                - $ref: '#/components/schemas/generalEvents'
-                - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/locationData'
-                - $ref: '#/components/schemas/transactionData'
-                - $ref: '#/components/schemas/actionData'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                event_id: t-7d258c89-de60-4acd-acc8-db62506953d3
-                unit21_id: '2633554'
   /verification-forms/create:
     post:
       tags:
@@ -3581,195 +3581,12 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
-    Disposition:
+    eventId:
       type: string
-      description: >-
-        Labels that describe the outcome of an alert or case investigation. More
-        info in [this knowledge base article about
-        dispositions](https://docs.unit21.ai/docs/concept-dispositions).
+      description: Unique identifier of the event on your platform
+      example: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
+      minLength: 1
       maxLength: 128
-      example: TRUE_POSITIVE
-    dispositionedBy:
-      type: array
-      description: >-
-        List of agent emails. Returns only objects whose dispositions were most
-        recently changed by listed agents.
-      items:
-        type: string
-        example: agent1@example.com
-    rulesU21Array:
-      type: array
-      description: Only objects associated with the listed rules' `unit21_id` values.
-      items:
-        type: integer
-      example:
-        - 13
-        - 21
-    associatedEntities:
-      type: array
-      description: Only objects associated with the listed entities' `unit21_id` values.
-      items:
-        type: integer
-      example:
-        - 1011
-        - 1012
-    associatedEvents:
-      type: array
-      description: Only objects associated with the listed events' `unit21_id` values.
-      items:
-        type: integer
-      example:
-        - 30120
-        - 30130
-    associatedInstruments:
-      type: array
-      description: Only objects associated with the listed instruments' `unit21_id` values.
-      items:
-        type: integer
-      example:
-        - 11
-        - 12
-    sourceArray:
-      type: array
-      description: 'Only `INTERNAL`, only `EXTERNAL`, or both.'
-      items:
-        type: string
-        enum:
-          - INTERNAL
-          - EXTERNAL
-    investigationStatus:
-      type: string
-      description: 'Investigation status, either `OPEN` or `ClOSED`'
-      enum:
-        - OPEN
-        - CLOSED
-      example: OPEN
-    statusArray:
-      type: array
-      description: Only objects from the listed set of `status` values. E.g. only `OPEN`
-      items:
-        $ref: '#/components/schemas/investigationStatus'
-    alertListFilters:
-      description: 'To filter your response to a subset of alerts, use these fields.'
-      properties:
-        types:
-          type: array
-          description: The `alert_types` to include─any or all of `tm` and `kyc`
-          items:
-            type: string
-            enum:
-              - tm
-              - kyc
-        created_after:
-          $ref: '#/components/schemas/registeredAt'
-        created_before:
-          $ref: '#/components/schemas/registeredAt'
-        dispositions:
-          type: array
-          description: Set of `disposition` values to include.
-          items:
-            $ref: '#/components/schemas/Disposition'
-        dispositioned_after:
-          $ref: '#/components/schemas/registeredAt'
-        dispositioned_before:
-          $ref: '#/components/schemas/registeredAt'
-        dispositioned_by:
-          $ref: '#/components/schemas/dispositionedBy'
-        rules:
-          $ref: '#/components/schemas/rulesU21Array'
-        associated_entities:
-          $ref: '#/components/schemas/associatedEntities'
-        associated_events:
-          $ref: '#/components/schemas/associatedEvents'
-        associated_instruments:
-          $ref: '#/components/schemas/associatedInstruments'
-        sources:
-          $ref: '#/components/schemas/sourceArray'
-        statuses:
-          $ref: '#/components/schemas/statusArray'
-        tag_filters:
-          $ref: '#/components/schemas/Tags'
-        options:
-          type: object
-          description: >-
-            Options for the data included in the returned alerts. Removing
-            unneeded options can improve response speed.
-          properties:
-            include_associations:
-              type: boolean
-              description: >-
-                If `true`, the response includes all entities, events &
-                instruments associated with the alert
-              example: false
-            include_actions:
-              type: boolean
-              description: >-
-                If `true`, the response includes list of all actions taken on
-                the alert, including disposition changes, status changes,
-                reassignments, etcetera
-              example: false
-    alertId:
-      type: string
-      description: Unique identifier of the alert on the customer's platform.
-      maxLength: 128
-      example: alertA-028eb01a-f8d3-42fb-b398-785b596ee4cb
-    dispositionNotes:
-      type: string
-      description: Free form text documenting reasoning and investigation notes
-      example: User confirmed that they did not initiate transaction
-    Alerts:
-      required:
-        - alert_id
-        - alert_type
-        - created_at
-        - title
-        - status
-      properties:
-        alert_id:
-          $ref: '#/components/schemas/alertId'
-        alert_type:
-          type: string
-          enum:
-            - tm
-            - kyc
-          description: >-
-            Either transaction monitoring, `tm`, or know-your-customer `kyc`.
-            Default is `tm`
-          example: tm
-        created_at:
-          $ref: '#/components/schemas/registeredAt'
-        title:
-          type: string
-          description: Title of the alert
-          example: Account deviation for user T18029
-        verification_result_id:
-          type: integer
-          description: >-
-            Integer value greater than or equal to 1. Used when `alert_type` is
-            `kyc`.
-          minimum: 1
-          example: 42
-        description:
-          type: string
-          description: Description of the alert
-          example: >-
-            Flagged 2 transactions in last hour that were 3 standard deviations
-            outside 3 month mean.
-        status:
-          $ref: '#/components/schemas/investigationStatus'
-        disposition:
-          $ref: '#/components/schemas/Disposition'
-        disposition_notes:
-          $ref: '#/components/schemas/dispositionNotes'
-        tags:
-          $ref: '#/components/schemas/Tags'
-        options:
-          type: object
-          properties:
-            merge_custom_data:
-              $ref: '#/components/schemas/merge_custom_data'
-            list_merge_strategy:
-              $ref: '#/components/schemas/listMergeStrategy'
     eventType:
       type: string
       enum:
@@ -3779,236 +3596,6 @@ components:
         `transaction` for monetary flows, `action` for other state changes, like
         new logins.
       example: transaction
-    eventArray:
-      title: events
-      properties:
-        events:
-          description: 'Array of event objects, consisting of `event_id` and `event_type`'
-          type: array
-          items:
-            type: object
-            required:
-              - event_id
-              - event_type
-            properties:
-              event_id:
-                example: event-1063e4e3e1
-                type: string
-              event_type:
-                $ref: '#/components/schemas/eventType'
-    instrumentArray:
-      title: instruments
-      properties:
-        instruments:
-          description: Array of `instrument_id` strings
-          type: array
-          items:
-            $ref: '#/components/schemas/instrumentId'
-    ruleArray:
-      title: rules
-      properties:
-        rules:
-          description: Array of "rule_id" strings
-          type: array
-          items:
-            type: string
-            example: r3-0ddfn3
-    createAlertResponse:
-      title: Create Alert response
-      properties:
-        alert_id:
-          $ref: '#/components/schemas/alertId'
-        previously_existed:
-          $ref: '#/components/schemas/previouslyExisted'
-        unit21_id:
-          $ref: '#/components/schemas/unit21Id'
-    caseListFilters:
-      description: 'To filter your response to a subset of alerts, use these fields.'
-      properties:
-        created_after:
-          $ref: '#/components/schemas/registeredAt'
-        created_before:
-          $ref: '#/components/schemas/registeredAt'
-        dispositions:
-          type: array
-          description: Set of `disposition` values to include.
-          items:
-            $ref: '#/components/schemas/Disposition'
-        dispositioned_after:
-          $ref: '#/components/schemas/registeredAt'
-        dispositioned_before:
-          $ref: '#/components/schemas/registeredAt'
-        dispositioned_by:
-          $ref: '#/components/schemas/dispositionedBy'
-        rules:
-          $ref: '#/components/schemas/rulesU21Array'
-        associated_entities:
-          $ref: '#/components/schemas/associatedEntities'
-        associated_events:
-          $ref: '#/components/schemas/associatedEvents'
-        associated_instruments:
-          $ref: '#/components/schemas/associatedInstruments'
-        sources:
-          $ref: '#/components/schemas/sourceArray'
-        statuses:
-          $ref: '#/components/schemas/statusArray'
-        options:
-          type: object
-          description: >-
-            Options for the data included in the returned case. Removing
-            unneeded options can improve response speed.
-          properties:
-            include_associations:
-              type: boolean
-              description: >-
-                If `true`, the response includes all entities, events &
-                instruments associated with the case
-              example: false
-            include_actions:
-              type: boolean
-              description: >-
-                If `true`, the response includes list of all actions taken on
-                the case, including disposition changes, status changes,
-                reassignments, etcetera
-              example: false
-    caseId:
-      type: string
-      description: Unique identifier of the case on the customer's platform
-      maxLength: 128
-      example: CaseA-123
-    Cases:
-      description: Top-level case data
-      title: Case data
-      required:
-        - case_id
-        - created_at
-        - title
-        - start_date
-      properties:
-        case_id:
-          $ref: '#/components/schemas/caseId'
-        title:
-          type: string
-          description: Title of the case
-          maxLength: 256
-          example: Active fraud investigation
-        start_date:
-          $ref: '#/components/schemas/registeredAt'
-        description:
-          type: string
-          description: Description of the case
-          maxLength: 1024
-          example: suspected money laundering example
-        status:
-          $ref: '#/components/schemas/investigationStatus'
-        disposition:
-          $ref: '#/components/schemas/Disposition'
-        disposition_notes:
-          $ref: '#/components/schemas/dispositionNotes'
-        end_date:
-          $ref: '#/components/schemas/registeredAt'
-        tags:
-          $ref: '#/components/schemas/Tags'
-    createCaseResponse:
-      title: Create case response
-      properties:
-        case_id:
-          $ref: '#/components/schemas/caseId'
-        previously_existed:
-          $ref: '#/components/schemas/previouslyExisted'
-        unit21_id:
-          $ref: '#/components/schemas/unit21Id'
-    entityVerification:
-      title: Entity Verification
-      description: Fields to verify an entity
-      required:
-        - workflow_id
-      properties:
-        workflow_id:
-          $ref: '#/components/schemas/workflowId'
-        synchronous_response:
-          $ref: '#/components/schemas/synchronousResponse'
-        include_full_response:
-          $ref: '#/components/schemas/includeFullResponse'
-    linkVerificationResult:
-      title: Link verification result
-      description: >-
-        Fields to link external verification results to entity in the Unit21
-        system
-      required:
-        - verification_type
-        - provider_name
-        - content
-      properties:
-        verification_type:
-          type: string
-          enum:
-            - ID_VERIFICATION
-            - DOC_VERIFICATION
-            - BUSINESS_VERIFICATION
-            - WATCHLIST_SCREENING
-            - ADVERSE_MEDIA_SCREENING
-            - CRYPTO_FORENSICS
-          description: >-
-            Type of verification, in one of the categories that the Unit21
-            system recognizes
-        provider_name:
-          type: string
-          description: name of KYC provider
-          example: FAKE_PROVIDER
-        content:
-          type: object
-          additionalProperties: true
-          description: JSON-formatted response from verification provider
-          example:
-            content:
-              test:
-                nested_field: 123
-              boolean_field: false
-              error: An error occurred
-        verification_timestamp:
-          $ref: '#/components/schemas/registeredAt'
-    linkVerificationResponse:
-      properties:
-        created_at:
-          $ref: '#/components/schemas/registeredAt'
-        entity_id:
-          type: string
-          description: Unit21 ID of the entity that the verification was run on.
-        source:
-          type: string
-          description: 'Provider that ran the verification (IDOLOGY, TRULIOO, etc.)'
-        type:
-          type: string
-          description: >-
-            Type of verification executed (DOC_VERIFICATION, ID_VERIFICATION,
-            etc.)
-        verification_workflow_execution_id:
-          type: number
-          description: ID of the workflow execution
-        full_response:
-          type: object
-          description: >-
-            Full response from the verification provider running the
-            verification
-    continuousMonitoring:
-      type: object
-      required:
-        - continuous_monitoring
-      properties:
-        continuous_monitoring:
-          type: boolean
-          description: >
-            Enable or disable continuous monitoring. Use `true` to turn on and
-            `false` to turn off.
-        synchronous_response:
-          $ref: '#/components/schemas/synchronousResponse'
-    eventId:
-      type: string
-      description: Unique identifier of the event on your platform
-      example: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
-      minLength: 1
-      maxLength: 128
     generalEvents:
       title: General Event Data
       properties:
@@ -4343,6 +3930,419 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    Disposition:
+      type: string
+      description: >-
+        Labels that describe the outcome of an alert or case investigation. More
+        info in [this knowledge base article about
+        dispositions](https://docs.unit21.ai/docs/concept-dispositions).
+      maxLength: 128
+      example: TRUE_POSITIVE
+    dispositionedBy:
+      type: array
+      description: >-
+        List of agent emails. Returns only objects whose dispositions were most
+        recently changed by listed agents.
+      items:
+        type: string
+        example: agent1@example.com
+    rulesU21Array:
+      type: array
+      description: Only objects associated with the listed rules' `unit21_id` values.
+      items:
+        type: integer
+      example:
+        - 13
+        - 21
+    associatedEntities:
+      type: array
+      description: Only objects associated with the listed entities' `unit21_id` values.
+      items:
+        type: integer
+      example:
+        - 1011
+        - 1012
+    associatedEvents:
+      type: array
+      description: Only objects associated with the listed events' `unit21_id` values.
+      items:
+        type: integer
+      example:
+        - 30120
+        - 30130
+    associatedInstruments:
+      type: array
+      description: Only objects associated with the listed instruments' `unit21_id` values.
+      items:
+        type: integer
+      example:
+        - 11
+        - 12
+    sourceArray:
+      type: array
+      description: 'Only `INTERNAL`, only `EXTERNAL`, or both.'
+      items:
+        type: string
+        enum:
+          - INTERNAL
+          - EXTERNAL
+    investigationStatus:
+      type: string
+      description: 'Investigation status, either `OPEN` or `ClOSED`'
+      enum:
+        - OPEN
+        - CLOSED
+      example: OPEN
+    statusArray:
+      type: array
+      description: Only objects from the listed set of `status` values. E.g. only `OPEN`
+      items:
+        $ref: '#/components/schemas/investigationStatus'
+    alertListFilters:
+      description: 'To filter your response to a subset of alerts, use these fields.'
+      properties:
+        types:
+          type: array
+          description: The `alert_types` to include─any or all of `tm` and `kyc`
+          items:
+            type: string
+            enum:
+              - tm
+              - kyc
+        created_after:
+          $ref: '#/components/schemas/registeredAt'
+        created_before:
+          $ref: '#/components/schemas/registeredAt'
+        dispositions:
+          type: array
+          description: Set of `disposition` values to include.
+          items:
+            $ref: '#/components/schemas/Disposition'
+        dispositioned_after:
+          $ref: '#/components/schemas/registeredAt'
+        dispositioned_before:
+          $ref: '#/components/schemas/registeredAt'
+        dispositioned_by:
+          $ref: '#/components/schemas/dispositionedBy'
+        rules:
+          $ref: '#/components/schemas/rulesU21Array'
+        associated_entities:
+          $ref: '#/components/schemas/associatedEntities'
+        associated_events:
+          $ref: '#/components/schemas/associatedEvents'
+        associated_instruments:
+          $ref: '#/components/schemas/associatedInstruments'
+        sources:
+          $ref: '#/components/schemas/sourceArray'
+        statuses:
+          $ref: '#/components/schemas/statusArray'
+        tag_filters:
+          $ref: '#/components/schemas/Tags'
+        options:
+          type: object
+          description: >-
+            Options for the data included in the returned alerts. Removing
+            unneeded options can improve response speed.
+          properties:
+            include_associations:
+              type: boolean
+              description: >-
+                If `true`, the response includes all entities, events &
+                instruments associated with the alert
+              example: false
+            include_actions:
+              type: boolean
+              description: >-
+                If `true`, the response includes list of all actions taken on
+                the alert, including disposition changes, status changes,
+                reassignments, etcetera
+              example: false
+    alertId:
+      type: string
+      description: Unique identifier of the alert on the customer's platform.
+      maxLength: 128
+      example: alertA-028eb01a-f8d3-42fb-b398-785b596ee4cb
+    dispositionNotes:
+      type: string
+      description: Free form text documenting reasoning and investigation notes
+      example: User confirmed that they did not initiate transaction
+    Alerts:
+      required:
+        - alert_id
+        - alert_type
+        - created_at
+        - title
+        - status
+      properties:
+        alert_id:
+          $ref: '#/components/schemas/alertId'
+        alert_type:
+          type: string
+          enum:
+            - tm
+            - kyc
+          description: >-
+            Either transaction monitoring, `tm`, or know-your-customer `kyc`.
+            Default is `tm`
+          example: tm
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        title:
+          type: string
+          description: Title of the alert
+          example: Account deviation for user T18029
+        verification_result_id:
+          type: integer
+          description: >-
+            Integer value greater than or equal to 1. Used when `alert_type` is
+            `kyc`.
+          minimum: 1
+          example: 42
+        description:
+          type: string
+          description: Description of the alert
+          example: >-
+            Flagged 2 transactions in last hour that were 3 standard deviations
+            outside 3 month mean.
+        status:
+          $ref: '#/components/schemas/investigationStatus'
+        disposition:
+          $ref: '#/components/schemas/Disposition'
+        disposition_notes:
+          $ref: '#/components/schemas/dispositionNotes'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        options:
+          type: object
+          properties:
+            merge_custom_data:
+              $ref: '#/components/schemas/merge_custom_data'
+            list_merge_strategy:
+              $ref: '#/components/schemas/listMergeStrategy'
+    eventArray:
+      title: events
+      properties:
+        events:
+          description: 'Array of event objects, consisting of `event_id` and `event_type`'
+          type: array
+          items:
+            type: object
+            required:
+              - event_id
+              - event_type
+            properties:
+              event_id:
+                example: event-1063e4e3e1
+                type: string
+              event_type:
+                $ref: '#/components/schemas/eventType'
+    instrumentArray:
+      title: instruments
+      properties:
+        instruments:
+          description: Array of `instrument_id` strings
+          type: array
+          items:
+            $ref: '#/components/schemas/instrumentId'
+    ruleArray:
+      title: rules
+      properties:
+        rules:
+          description: Array of "rule_id" strings
+          type: array
+          items:
+            type: string
+            example: r3-0ddfn3
+    createAlertResponse:
+      title: Create Alert response
+      properties:
+        alert_id:
+          $ref: '#/components/schemas/alertId'
+        previously_existed:
+          $ref: '#/components/schemas/previouslyExisted'
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+    caseListFilters:
+      description: 'To filter your response to a subset of alerts, use these fields.'
+      properties:
+        created_after:
+          $ref: '#/components/schemas/registeredAt'
+        created_before:
+          $ref: '#/components/schemas/registeredAt'
+        dispositions:
+          type: array
+          description: Set of `disposition` values to include.
+          items:
+            $ref: '#/components/schemas/Disposition'
+        dispositioned_after:
+          $ref: '#/components/schemas/registeredAt'
+        dispositioned_before:
+          $ref: '#/components/schemas/registeredAt'
+        dispositioned_by:
+          $ref: '#/components/schemas/dispositionedBy'
+        rules:
+          $ref: '#/components/schemas/rulesU21Array'
+        associated_entities:
+          $ref: '#/components/schemas/associatedEntities'
+        associated_events:
+          $ref: '#/components/schemas/associatedEvents'
+        associated_instruments:
+          $ref: '#/components/schemas/associatedInstruments'
+        sources:
+          $ref: '#/components/schemas/sourceArray'
+        statuses:
+          $ref: '#/components/schemas/statusArray'
+        options:
+          type: object
+          description: >-
+            Options for the data included in the returned case. Removing
+            unneeded options can improve response speed.
+          properties:
+            include_associations:
+              type: boolean
+              description: >-
+                If `true`, the response includes all entities, events &
+                instruments associated with the case
+              example: false
+            include_actions:
+              type: boolean
+              description: >-
+                If `true`, the response includes list of all actions taken on
+                the case, including disposition changes, status changes,
+                reassignments, etcetera
+              example: false
+    caseId:
+      type: string
+      description: Unique identifier of the case on the customer's platform
+      maxLength: 128
+      example: CaseA-123
+    Cases:
+      description: Top-level case data
+      title: Case data
+      required:
+        - case_id
+        - created_at
+        - title
+        - start_date
+      properties:
+        case_id:
+          $ref: '#/components/schemas/caseId'
+        title:
+          type: string
+          description: Title of the case
+          maxLength: 256
+          example: Active fraud investigation
+        start_date:
+          $ref: '#/components/schemas/registeredAt'
+        description:
+          type: string
+          description: Description of the case
+          maxLength: 1024
+          example: suspected money laundering example
+        status:
+          $ref: '#/components/schemas/investigationStatus'
+        disposition:
+          $ref: '#/components/schemas/Disposition'
+        disposition_notes:
+          $ref: '#/components/schemas/dispositionNotes'
+        end_date:
+          $ref: '#/components/schemas/registeredAt'
+        tags:
+          $ref: '#/components/schemas/Tags'
+    createCaseResponse:
+      title: Create case response
+      properties:
+        case_id:
+          $ref: '#/components/schemas/caseId'
+        previously_existed:
+          $ref: '#/components/schemas/previouslyExisted'
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+    entityVerification:
+      title: Entity Verification
+      description: Fields to verify an entity
+      required:
+        - workflow_id
+      properties:
+        workflow_id:
+          $ref: '#/components/schemas/workflowId'
+        synchronous_response:
+          $ref: '#/components/schemas/synchronousResponse'
+        include_full_response:
+          $ref: '#/components/schemas/includeFullResponse'
+    linkVerificationResult:
+      title: Link verification result
+      description: >-
+        Fields to link external verification results to entity in the Unit21
+        system
+      required:
+        - verification_type
+        - provider_name
+        - content
+      properties:
+        verification_type:
+          type: string
+          enum:
+            - ID_VERIFICATION
+            - DOC_VERIFICATION
+            - BUSINESS_VERIFICATION
+            - WATCHLIST_SCREENING
+            - ADVERSE_MEDIA_SCREENING
+            - CRYPTO_FORENSICS
+          description: >-
+            Type of verification, in one of the categories that the Unit21
+            system recognizes
+        provider_name:
+          type: string
+          description: name of KYC provider
+          example: FAKE_PROVIDER
+        content:
+          type: object
+          additionalProperties: true
+          description: JSON-formatted response from verification provider
+          example:
+            content:
+              test:
+                nested_field: 123
+              boolean_field: false
+              error: An error occurred
+        verification_timestamp:
+          $ref: '#/components/schemas/registeredAt'
+    linkVerificationResponse:
+      properties:
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        entity_id:
+          type: string
+          description: Unit21 ID of the entity that the verification was run on.
+        source:
+          type: string
+          description: 'Provider that ran the verification (IDOLOGY, TRULIOO, etc.)'
+        type:
+          type: string
+          description: >-
+            Type of verification executed (DOC_VERIFICATION, ID_VERIFICATION,
+            etc.)
+        verification_workflow_execution_id:
+          type: number
+          description: ID of the workflow execution
+        full_response:
+          type: object
+          description: >-
+            Full response from the verification provider running the
+            verification
+    continuousMonitoring:
+      type: object
+      required:
+        - continuous_monitoring
+      properties:
+        continuous_monitoring:
+          type: boolean
+          description: >
+            Enable or disable continuous monitoring. Use `true` to turn on and
+            `false` to turn off.
+        synchronous_response:
+          $ref: '#/components/schemas/synchronousResponse'
     tagFilters:
       description: >-
         To filter your response to a subset of tag associations, use these
@@ -4641,6 +4641,14 @@ components:
       required: true
       description: Identifier of the device within your system
       example: 601
+    event_id:
+      in: path
+      name: event_id
+      schema:
+        type: string
+      required: true
+      description: Unique identifier of the event on your platform
+      example: 1560408033
     workflow_id:
       in: path
       name: workflow_id
@@ -4651,11 +4659,3 @@ components:
         A Unit21 internally-assigned unique identifier for the verification
         workflow of the entity.
       example: verified-customer-onboarding
-    event_id:
-      in: path
-      name: event_id
-      schema:
-        type: string
-      required: true
-      description: Unique identifier of the event on your platform
-      example: 1560408033
