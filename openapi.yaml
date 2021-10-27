@@ -103,20 +103,27 @@ tags:
       to the `/datafiles` endpoint. For the fastest processing, the datafile
       SHOULD be a JSON file in the format of a typical POST request to this API.
 paths:
-  /entities:
-    tags:
-      - Events
-    summary: Events
-    description: |
-      SUPER PARTY COOL
   /entities/list:
     post:
       tags:
         - Entities
       summary: List entities
       description: >-
-        Returns paginated list of of top-level information about entities. Use
-        `limit` to configure entities per page (maximum is 50).
+        Returns paginated list of of top-level information about entities. 
+
+        Because the response is paginated, the request body has a `limit` and
+        `offset` field. At least one must be filled.
+
+        * `limit`  indicates how many events the request returns (the page
+        maximum is 50)
+
+        * `offset` indicates the offset for pagination. An `offset` value of 1
+        starts with the environment's first record.
+
+
+        The `total_count` field contains the total number of entities where the 
+        `response_count` field contains the number of entities included in the
+        response.
       operationId: list_entities
       requestBody:
         $ref: '#/components/requestBodies/list'
@@ -232,13 +239,7 @@ paths:
       tags:
         - Entities
       summary: Create an entity
-      description: >
-        Creates a new entity, sending entity data in the request body. Two
-        objects are required: `general_data` and EITHER `user_data` OR
-        `business_data`.
-
-
-        You can also batch upload entities to `entities/create`. 
+      description: "Creates a new entity, sending entity data in the request body. Two objects are required: `general_data` and EITHER `user_data` OR `business_data` but the objects can be empty.\n\n`user_data` is required if `general_data.entity_type` is set to `user`, otherwise this  field will be ignored.\n\n`business_data` is required if `general_data.entity_type` is set to `business`, otherwise this  field will be ignored.\n\nIf the `/entities/create` API is called for an entity that already exists in our system (i.e.  has an existing `entity_id`, it is treated it as an upsert and an update on the existing entity is performed. The response to the request will then contain the entry `previously_existed: true`. \n\nNote that Unit21 selectively ignores upserts if the request is identical to a previous request.  The response to any isgnored upsert will  contain the field `ignored: true`.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `entity_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tWhether or not this entity (with the same `entity_id`) already existed prior to the request     |\n\n\nUpdates to an entity's `general_data.entity_id` are not allowed.\n\nYou can batch upload entities to `entities/create`. \n"
       operationId: create_entity
       requestBody:
         description: ''
@@ -350,6 +351,10 @@ paths:
       description: >-
         Returns all data objects belonging to a single entity, including
         `general_data`, `document_data`, etc.
+
+
+        This endpoint requires the `unit21_id` which is a unique ID created by
+        Unit21 when the entity is first created.
       operationId: get_entity_by_unit21_id
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -435,6 +440,11 @@ paths:
       description: >-
         Returns all data objects belonging to a single entity, including
         `general_data`, `document_data`, etc.
+
+
+        This endpoint requires the `entity_id` which is a unique ID created by
+        your organization to identify the entity. The `org_name` is your Unit21
+        appointed organization name such as `google` or `acme`.
       operationId: get_entity_by_external
       parameters:
         - $ref: '#/components/parameters/entity_id'
@@ -519,10 +529,7 @@ paths:
         - Entities
       summary: Update an entity
       operationId: update_entity
-      description: >-
-        Updating an entity has no required fields. You MAY send any subset of
-        the fields that the [`entities/create`](ref:create_entity) endpoint
-        accepts.
+      description: "Updates an entity's information using the `unit21_id`.\n\nUpdating an entity has no required fields. You MAY send any subset of the fields that the [`entities/create`](ref:create_entity) endpoint accepts.\n\nThis endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the entity is first created.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `entity_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tWhether or not this entity (with the same `entity_id`) already existed prior to the request     |"
       parameters:
         - $ref: '#/components/parameters/unit21_id'
       requestBody:
@@ -555,10 +562,7 @@ paths:
       tags:
         - Entities
       summary: Update entity using external ID
-      description: >-
-        Update an entity using the `entity_id` from your platform. Except for
-        the path syntax, the request is exactly the same as the [Updating an
-        Entity by `unit21_id`](ref:update_entity)
+      description: "Updates an entity's information using the `entity_id` from your platform. \n\nUpdating an entity has no required fields. You MAY send any  subset of the fields that the entities/create endpoint accepts.\n\nThis endpoint requires the `entity_id` which is a unique ID created by your organization to identify the entity. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `entity_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tWhether or not this entity (with the same `entity_id`) already existed prior to the request     |"
       operationId: update_entity_by_external
       parameters:
         - $ref: '#/components/parameters/entity_id'
@@ -593,7 +597,20 @@ paths:
       tags:
         - Entities
       summary: Add instruments to entity
-      description: Associate an entity with an array of instruments.
+      description: >-
+        Associate an entity with an array of instruments.
+
+
+        Instruments can be associated with entities in the Unit21 system by
+        providing the IDs of these instruments within the `instrument_ids`
+        section of the `/entities/create` request.
+
+
+        Specify the `instrument_id` of the instrument (and not the `unit21_id`)
+        when associating instruments through this method. If we do not find any
+        instruments with a corresponding `instrument_id` in our system, we will
+        create a placeholder for it. Instrument details can then be supplemented
+        through the `/instruments/create` or `/instruments/update` endpoints.
       operationId: add_instruments_to_entity
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -611,9 +628,64 @@ paths:
         - Entities
       summary: Add media to an entity
       description: >-
-        Adds rich media objects (images, videos, etc.) to an existing entity.
-        You can either send base64 encoded media via JSON, or send the media via
-        form data.
+        Adds rich media objects (images, videos, etc.) to an existing entity. 
+
+
+        This endpoint is useful for sending in rich media such as profile
+        pictures, ID card scans, official documents etc.  that you want
+        available for investigative and verification purposes.
+
+
+        The payload to this endpoint can either be a **form-data** or a
+        **base64** encoded media file via the requests JSON body.
+
+
+        **Form-data** sent to this endpoint must use the key `media_key` and the
+        `value` as the media file.  If you wish to provide optional information,
+        use the `media_key` and provide stringified JSON data as the value. 
+        There are no required fields in each media file's supplementary form
+        data. However, if a recognized `media_type` value is provided,  the
+        Unit21 system will be able to use the media object for purposes such as
+        document verification.
+
+
+        ```
+            --form 'document_front=@/src/103031/images/document_front.jpg' \
+            --form 'document_front={"media_type": "IMAGE_ID_CARD_FRONT", "source": "passport_app", "timestamp": 1572673229}'
+        ```
+
+
+        **Base64** encoded media objects must follow the format:
+
+
+        ```json
+          {
+            "media": "iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAYAAABNEqduAAAgAElEQVR4Aey9CbgmV1Xv...",
+            "name": "Drivers License",
+            "media_type": "IMAGE_DRIVERS_LICENSE_FRONT",
+            "custom_data": {
+              "internal_notes": "Reviewed by Mitchell on 31 June 2019"
+            }
+          }
+        ```
+            
+        `media` and `name` are the only required fields for each media object.
+        Supplementary form data is sent through the optional `custom_data`
+        object.
+
+
+        Recognized values of `media_type` are: 
+
+
+          | media_type  |
+          |-----------|
+          | IMAGE_PROFILE_PICTURE     |
+          | IMAGE_DRIVERS_LICENSE_FRONT     |
+          | IMAGE_DRIVERS_LICENSE_BACK     |
+          | IMAGE_PASSPORT_FRONT     |
+          | IMAGE_ID_CARD_FRONT     |
+          | IMAGE_ID_CARD_BACK     |
+          | IMAGE_FACE_IMAGE     |
       operationId: link_media_to_entity
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -2611,7 +2683,10 @@ components:
           default: 1
     entityId:
       type: string
-      description: 'The unique identifier for an entity, as defined on _your_ platform.'
+      description: >-
+        The unique identifier for an entity, as defined on _your_ platform.
+        Entity IDs must only comprise of the characters
+        -_:.@a-zA-Z0-9!#$%&*+/=?^`{
       minLength: 1
       maxLength: 128
       example: u-3593dece-6642-4cdc-8547-aafc1454e0a0
@@ -3172,7 +3247,7 @@ components:
         general_data:
           $ref: '#/components/schemas/generalEntitiesProperties'
     documentDataArray:
-      title: document data array
+      title: Document data array
       properties:
         document_data:
           $ref: '#/components/schemas/documentDataArrayProperties'
