@@ -103,6 +103,12 @@ tags:
       to the `/datafiles` endpoint. For the fastest processing, the datafile
       SHOULD be a JSON file in the format of a typical POST request to this API.
 paths:
+  /entities:
+    tags:
+      - Events
+    summary: Events
+    description: |
+      SUPER PARTY COOL
   /entities/list:
     post:
       tags:
