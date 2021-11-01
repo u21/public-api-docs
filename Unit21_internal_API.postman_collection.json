@@ -188,7 +188,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"entity_id\": \"businessA-{{randId}}\",\n        \"entity_type\": \"business\",\n        \"entity_subtype\": \"payments\",\n        \"status\": \"active\",\n        \"registered_at\": 1572673226,\n        \"parents\": [\n            {\n                \"entity_id\": \"businessB-{{randId}}\",\n                \"entity_type\": \"business\"\n            }\n        ],\n        \"tags\": [\n            \"account_type:market2\",\n            \"sector:europe\"\n        ]\n    },\n    \"business_data\": {\n        \"business_name\": \"Global Liquids LLC\",\n        \"corporate_tax_id\": \"434-455-3167\",\n        \"account_holder_name\": \"John Smith\",\n        \"registered_state\": \"CA\",\n        \"registered_country\": \"US\"\n    },\n    \"communication_data\": {\n        \"email_addresses\": [\"jsmith47@company.com\"],\n        \"phone_numbers\": [\"+14159627132\"]\n    },\n    \"location_data\": {\n        \"building_number\": \"712\",\n        \"unit_number\": \"A\",\n        \"street_name\": \"California Ave\",\n        \"city\": \"Redmond\",\n        \"state\": \"WA\",\n        \"postal_code\": \"98008\",\n        \"country\": \"US\"\n    },\n    \"digital_data\": {\n        \"ip_addresses\": [\n            {\n                \"ip_address\": \"3.3.3.3\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673226\n            },\n            {\n                \"ip_address\": \"2.2.2.2\",\n                \"first_seen\": 1572643225,\n                \"last_seen\": 1572673225\n            }\n        ],\n        \"client_fingerprints\": [\n            {\n                \"client_fingerprint\": \"fingerprintA-{{randId}}\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673229\n            }\n        ]\n    },\n    \"instrument_ids\": [\n        \"instrumentD-{{randId}}\"\n    ],\n    \"custom_data\": {\n        \"internal_notes\": \"Reviewed by Mitchell on 31 June 2019\"\n    },\n    \"options\": {\n      \"resolve_geoip\": true,\n      \"merge_custom_data\": true\n    }\n}"
+							"raw": "{\n    \"general_data\": {\n        \"entity_id\": \"businessA-{{randId}}\",\n        \"entity_type\": \"business\",\n        \"entity_subtype\": \"payments\",\n        \"status\": \"active\",\n        \"registered_at\": 1572673226,\n        \"parents\": [\n            {\n                \"entity_id\": \"businessB-{{randId}}\",\n                \"entity_type\": \"business\"\n            }\n        ],\n        \"tags\": [\n            \"account_type:market2\",\n            \"sector:europe\"\n        ]\n    },\n    \"business_data\": {\n        \"business_name\": \"Global Liquids LLC\",\n        \"corporate_tax_id\": \"434-455-3167\",\n        \"account_holder_name\": \"John Smith\",\n        \"registered_state\": \"CA\",\n        \"registered_country\": \"US\",\n        \"website\": \"www.google.com\"\n    },\n    \"communication_data\": {\n        \"email_addresses\": [\"jsmith47@company.com\"],\n        \"phone_numbers\": [\"+14159627132\"]\n    },\n    \"location_data\": {\n        \"building_number\": \"712\",\n        \"unit_number\": \"A\",\n        \"street_name\": \"California Ave\",\n        \"city\": \"Redmond\",\n        \"state\": \"WA\",\n        \"postal_code\": \"98008\",\n        \"country\": \"US\"\n    },\n    \"digital_data\": {\n        \"ip_addresses\": [\n            {\n                \"ip_address\": \"3.3.3.3\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673226\n            },\n            {\n                \"ip_address\": \"2.2.2.2\",\n                \"first_seen\": 1572643225,\n                \"last_seen\": 1572673225\n            }\n        ],\n        \"client_fingerprints\": [\n            {\n                \"client_fingerprint\": \"fingerprintA-{{randId}}\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673229\n            }\n        ]\n    },\n    \"instrument_ids\": [\n        \"instrumentD-{{randId}}\"\n    ],\n    \"custom_data\": {\n        \"internal_notes\": \"Reviewed by Mitchell on 31 June 2019\"\n    },\n    \"options\": {\n      \"resolve_geoip\": true,\n      \"merge_custom_data\": true\n    }\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{host}}/v1/entities/create",
@@ -3281,6 +3281,82 @@
 					"response": []
 				},
 				{
+					"name": "bulk create alerts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"pm.environment.set('alertAId', jsonData.unit21_id);",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"alerts\": [\n        {\n            \"alert_id\": \"alertB-{{randId}}\",\n            \"created_at\": 1580763704,\n            \"title\": \"Alert for fraud ring fool\",\n            \"description\": \"6 accounts that each have transacted $1M+ with each other over the last 4 days\",\n            \"status\": \"OPEN\",\n            \"tags\": [\n                \"source:intuit_internal\"\n                ],\n            \"rules\": [\n                \"COLLUSION_3RD_PARTY\",\n                \"LAYERING_SCENARIO_A\"\n            ],\n            \"events\": [\n                {\n                \"event_id\": \"txnA-{{randId}}\",\n                \"event_type\": \"transaction\"\n                }\n            ],\n            \"entities\": [\n                {\n                    \"entity_id\": \"userA-{{randId}}\",\n                    \"entity_type\": \"user\"\n                },\n                {\n                    \"entity_id\": \"businessA-{{randId}}\",\n                    \"entity_type\": \"business\"\n                }\n            ],\n            \"custom_data\": {\n                \"priority\": \"5\"\n            }\n        },\n                {\n            \"alert_id\": \"alertC-{{randId}}\",\n            \"created_at\": 1580763704,\n            \"title\": \"Alert for fraud ring fool\",\n            \"description\": \"6 accounts that each have transacted $1M+ with each other over the last 4 days\",\n            \"status\": \"OPEN\",\n            \"tags\": [\n                \"source:intuit_internal\"\n                ],\n            \"rules\": [\n                \"COLLUSION_3RD_PARTY\",\n                \"LAYERING_SCENARIO_A\"\n            ],\n            \"events\": [\n                {\n                \"event_id\": \"txnA-{{randId}}\",\n                \"event_type\": \"transaction\"\n                }\n            ],\n            \"entities\": [\n                {\n                    \"entity_id\": \"userA-{{randId}}\",\n                    \"entity_type\": \"user\"\n                },\n                {\n                    \"entity_id\": \"businessA-{{randId}}\",\n                    \"entity_type\": \"business\"\n                }\n            ],\n            \"custom_data\": {\n                \"priority\": \"5\"\n            }\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}/v1/alerts/create",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"alerts",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SLEEP 2 S",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"setTimeout(function(){}, 2000);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{host}}/v1/status",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "update alertA",
 					"event": [
 						{
@@ -3868,6 +3944,81 @@
 					"response": []
 				},
 				{
+					"name": "create bulk case",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"pm.environment.set('caseAId', jsonData.unit21_id);",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cases\": [\n        {\n            \"case_id\": \"caseA-{{randId}}\",\n            \"start_date\": 1588963704,\n            \"end_date\": 1589963704,\n            \"title\": \"Imported case from internal flagging engine\",\n            \"description\": \"6 accounts that each have transacted $1M+ with each other over the last 4 days\",\n            \"status\": \"OPEN\",\n            \"tags\": [\n                \"source:intuit_internal\"\n                ],\n            \"events\": [\n                {\n                \"event_id\": \"txnA-{{randId}}\",\n                \"event_type\": \"transaction\"\n                }\n            ],\n            \"entities\": [\n                {\n                    \"entity_id\": \"userA-{{randId}}\",\n                    \"entity_type\": \"user\"\n                },\n                {\n                    \"entity_id\": \"businessA-{{randId}}\",\n                    \"entity_type\": \"business\"\n                }\n            ],\n            \"custom_data\": {\n                \"priority\": \"510\"\n            }\n        },\n        {\n            \"case_id\": \"caseB-{{randId}}\",\n            \"start_date\": 1588963704,\n            \"end_date\": 1589963704,\n            \"title\": \"Imported case from internal flagging engine\",\n            \"description\": \"6 accounts that each have transacted $1M+ with each other over the last 4 days\",\n            \"status\": \"OPEN\",\n            \"tags\": [\n                \"source:intuit_internal\"\n                ],\n            \"events\": [\n                {\n                \"event_id\": \"txnB-{{randId}}\",\n                \"event_type\": \"transaction\"\n                }\n            ],\n            \"entities\": [\n                {\n                    \"entity_id\": \"userB-{{randId}}\",\n                    \"entity_type\": \"user\"\n                },\n                {\n                    \"entity_id\": \"businessB-{{randId}}\",\n                    \"entity_type\": \"business\"\n                }\n            ],\n            \"custom_data\": {\n                \"priority\": \"510\"\n            }\n        }\n    ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}/v1/cases/create",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"cases",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SLEEP 2 S",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"setTimeout(function(){}, 2000);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{host}}/v1/status",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "update caseA",
 					"event": [
 						{
@@ -4200,7 +4351,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"offset\": 1, \n    \"limit\": 2,\n    \"options\": {\n        \"include_actions\": true,\n        \"include_associations\": true,\n        \"include_checklist\": true\n    }\n}",
+							"raw": "{\n    \"offset\": 1, \n    \"limit\": 2,\n    \"dispositions\": [\"UNRESOLVED\"],\n    \"options\": {\n        \"include_actions\": true,\n        \"include_associations\": true,\n        \"include_checklist\": true\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
