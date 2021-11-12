@@ -279,7 +279,7 @@ paths:
                   workflow_id: sanctions_check_1
                   run_verifications: false
                   synchronous_response: false
-                include_full_response: false
+                  include_full_response: false
                 resolve_geoip: true
                 merge_custom_data: false
                 list_merge_strategy: union
@@ -2556,6 +2556,24 @@ paths:
       responses:
         '200':
           description: OK
+  '/entities/{unit21_id}/suppress-provider-entity':
+    post:
+      tags:
+        - Entity verification
+      summary: Suppress provider entity
+      description: |
+        Mute Socure continuous monitoring for an entity.
+      operationId: update_suppressed_provider_entities
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/suppressProviderEntity'
+      responses:
+        '200':
+          description: OK
   /agents/list:
     get:
       tags:
@@ -2582,6 +2600,26 @@ paths:
                   email: JhonStrod@example.com
                   full_name: Jhon Strod
                   status: ACTIVE
+  '/agents/{agent_email}/deactivate':
+    put:
+      tags:
+        - Agents
+      summary: Deactivate an agent
+      description: Updates an alert's information using the `unit21_id`.
+      operationId: deactivate_agent
+      parameters:
+        - $ref: '#/components/parameters/agent_email'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                example:
+                  created_at: 1580423336
+                  email: nick@unit21.ai
+                  full_name: Nick Miller
+                  status: INACTIVE
   /verification-forms/create:
     post:
       tags:
@@ -4610,6 +4648,33 @@ components:
             `false` to turn off.
         synchronous_response:
           $ref: '#/components/schemas/synchronousResponse'
+    suppressProviderEntity:
+      type: object
+      required:
+        - suppress
+        - provider_entity_ids
+      properties:
+        suppress:
+          type: boolean
+          description: >
+            Enable or disable the silencing of the entity. Use `true` to turn on
+            and `false` to turn off.
+        synchronous_response:
+          $ref: '#/components/schemas/synchronousResponse'
+        socure_override_api_key:
+          type: string
+          description: |
+            Socure API key
+          example: d7b6b29e-891f-4a34-9eca-1886c9a2453d
+        provider_entity_ids:
+          type: array
+          description: |
+            Array of entity ID strings
+          items:
+            type: string
+          example:
+            - '5676572343'
+            - '4657605135'
     tagFilters:
       description: >-
         To filter your response to a subset of tag associations, use these
@@ -4926,3 +4991,11 @@ components:
         A Unit21 internally-assigned unique identifier for the verification
         workflow of the entity.
       example: verified-customer-onboarding
+    agent_email:
+      in: path
+      name: agent_email
+      schema:
+        type: string
+      required: true
+      description: Email of an agent in your organization
+      example: laura@unit21.ai
