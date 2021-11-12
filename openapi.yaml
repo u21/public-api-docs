@@ -3395,8 +3395,8 @@ components:
               example: false
             synchronous_response:
               $ref: '#/components/schemas/synchronousResponse'
-        include_full_response:
-          $ref: '#/components/schemas/includeFullResponse'
+            include_full_response:
+              $ref: '#/components/schemas/includeFullResponse'
         resolve_geoip:
           $ref: '#/components/schemas/resolveGeoIp'
         merge_custom_data:
@@ -4998,4 +4998,4 @@ components:
         type: string
       required: true
       description: Email of an agent in your organization
-      example: laura@unit21.ai
+      example: foobar@unit21.ai
