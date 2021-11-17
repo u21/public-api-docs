@@ -316,9 +316,11 @@ paths:
                   postal_code: 07710-0001
                   country: US
               risk_scores:
-                name: risk_score1
-                score: 65
-                denominator: 100
+                - name: risk_score1
+                  score: 65
+                  denominator: 100
+                - name: risk_score1
+                  score: 85
               custom_data:
                 internal_notes: Reviewed by Mitchell on 31 June 2019
       responses:
@@ -3436,7 +3438,10 @@ components:
         location_data:
           $ref: '#/components/schemas/locationDataArrayProperties'
         risk_scores:
-          $ref: '#/components/schemas/riskScoresProperties'
+          type: array
+          description: Set of `risk scores`
+          items:
+            $ref: '#/components/schemas/riskScoresProperties'
         options:
           $ref: '#/components/schemas/entityOptionsProperties'
         custom_data:
@@ -3511,7 +3516,10 @@ components:
         location_data:
           $ref: '#/components/schemas/locationDataArrayProperties'
         risk_scores:
-          $ref: '#/components/schemas/riskScoresProperties'
+          type: array
+          description: Set of `risk scores`
+          items:
+            $ref: '#/components/schemas/riskScoresProperties'
         options:
           $ref: '#/components/schemas/entityOptionsProperties'
         custom_data:
@@ -3575,7 +3583,10 @@ components:
       title: Risk Scores
       properties:
         risk_scores:
-          $ref: '#/components/schemas/riskScoresProperties'
+          type: array
+          description: Set of `risk scores`
+          items:
+            $ref: '#/components/schemas/riskScoresProperties'
     entityOptions:
       title: Entity Options
       properties:
