@@ -2995,7 +2995,7 @@ components:
       enum:
         - user
         - business
-      description: MUST be either `USER` or `BUSINESS`
+      description: MUST be either `user` or `business`
     entitySubtype:
       type: string
       description: >
@@ -4661,11 +4661,6 @@ components:
             and `false` to turn off.
         synchronous_response:
           $ref: '#/components/schemas/synchronousResponse'
-        socure_override_api_key:
-          type: string
-          description: |
-            Socure API key
-          example: d7b6b29e-891f-4a34-9eca-1886c9a2453d
         provider_entity_ids:
           type: array
           description: |
