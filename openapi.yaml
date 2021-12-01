@@ -323,6 +323,15 @@ paths:
                   score: 85
               custom_data:
                 internal_notes: Reviewed by Mitchell on 31 June 2019
+                reviewers: 3
+                login: 1638384860
+                timestamp: '2012-03-40 05:12:41.000Z'
+                daily_email: true
+                employees:
+                  - John
+                  - Anna
+                  - Peter
+                socure_device_session_id: '12121212121212112'
       responses:
         '200':
           description: OK
@@ -672,7 +681,13 @@ paths:
             "name": "Drivers License",
             "media_type": "IMAGE_DRIVERS_LICENSE_FRONT",
             "custom_data": {
-              "internal_notes": "Reviewed by Mitchell on 31 June 2019"
+              "internal_notes": "Reviewed by Mitchell on 31 June 2019",
+              "reviewers": 3,
+              "login": 1638384860,
+              "timestamp": "2012-03-40 05:12:41.000Z",
+              "daily_email": true,
+              "employees": ["John", "Anna", "Peter"],
+              "socure_device_session_id": "12121212121212112"
             }
           }
         ```
@@ -1429,6 +1444,15 @@ paths:
                   country: US
                 custom_data:
                   internal_notes: Reviewed by Mitchell on 31 June 2019
+                  reviewers: 3
+                  login: 1638384860
+                  timestamp: '2012-03-40 05:12:41.000Z'
+                  daily_email: true
+                  employees:
+                    - John
+                    - Anna
+                    - Peter
+                  socure_device_session_id: '12121212121212112'
                 options:
                   monitor: true
                   resolve_geoip: true
@@ -2003,7 +2027,13 @@ paths:
             "name": "Drivers License",
             "media_type": "IMAGE_DRIVERS_LICENSE_FRONT",
             "custom_data": {
-              "internal_notes": "Reviewed by Mitchell on 31 June 2019"
+              "internal_notes": "Reviewed by Mitchell on 31 June 2019",
+              "reviewers": 3,
+              "login": 1638384860,
+              "timestamp": "2012-03-40 05:12:41.000Z",
+              "daily_email": true,
+              "employees": ["John", "Anna", "Peter"],
+              "socure_device_session_id": "12121212121212112"
             }
           }
         ```
@@ -2232,7 +2262,13 @@ paths:
             "name": "Drivers License",
             "media_type": "IMAGE_DRIVERS_LICENSE_FRONT",
             "custom_data": {
-              "internal_notes": "Reviewed by Mitchell on 31 June 2019"
+              "internal_notes": "Reviewed by Mitchell on 31 June 2019",
+              "reviewers": 3,
+              "login": 1638384860,
+              "timestamp": "2012-03-40 05:12:41.000Z",
+              "daily_email": true,
+              "employees": ["John", "Anna", "Peter"],
+              "socure_device_session_id": "12121212121212112"
             }
           }
         ```
@@ -3411,11 +3447,21 @@ components:
       title: custom_data
       type: object
       description: >-
-        Any custom information that you want to associate with this entity 
-        (accepts any valid JSON object) in key:value format (string:int, 
-        string:string, string:array)
+        Any custom information that you wish our system to associate with this
+        object  (accepts any valid JSON object -- a key:value format --
+        string:object,  string:string, string:number, string:array,
+        string:boolean, string:null)
       example:
         internal_notes: Reviewed by Mitchell on 31 June 2019
+        reviewers: 3
+        login: 1638384860
+        timestamp: '2012-03-40 05:12:41.000Z'
+        daily_email: true
+        employees:
+          - John
+          - Anna
+          - Peter
+        socure_device_session_id: '12121212121212112'
       additionalProperties: true
     createUser:
       title: Create a user
@@ -3672,6 +3718,15 @@ components:
               associate with this object (accepts any valid JSON object)
             example:
               internal_notes: Reviewed by Mitchell on 31 June 2019
+              reviewers: 3
+              login: 1638384860
+              timestamp: '2012-03-40 05:12:41.000Z'
+              daily_email: true
+              employees:
+                - John
+                - Anna
+                - Peter
+              socure_device_session_id: '12121212121212112'
             additionalProperties: true
     linkMediaForm:
       title: Form Data
