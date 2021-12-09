@@ -2523,6 +2523,8 @@ paths:
       description: >-
         Add the verification result from an external ID provider to an entity on
         the Unit21 system.
+
+        You can only send 1 result per request.
       operationId: add_verification_result_to_entity
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -2576,13 +2578,8 @@ paths:
         - Entity verification
       summary: Update continuous monitoring
       description: >
-        Add or disable Socure continuous monitoring for an entity.
-
-        To check whether an entity has continuous monitoring enabled, head to
-        the UI, then to **Entities > Verifications**. The [knowledge base
-        article on continuous
-        monitoring](https://docs.unit21.ai/dashboard/docs/continuous-monitoring)
-        has more detailed instructions.
+        Fetch status and enables/disables Socure continuous monitoring for an
+        entity.
       operationId: update_continuous_monitoring
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -2599,8 +2596,9 @@ paths:
       tags:
         - Entity verification
       summary: Suppress provider entity
-      description: |
-        Mute Socure continuous monitoring for an entity.
+      description: >
+        Mute Socure continuous monitoring for an entity. 1 - Suppress 0 -
+        Unsuppress
       operationId: update_suppressed_provider_entities
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -3417,7 +3415,7 @@ components:
     entityOptionsProperties:
       title: Entity Options
       type: object
-      description: Options for specifing workflows and list merge strategies.
+      description: Options for specifying workflows and list merge strategies.
       properties:
         identity_verifications:
           type: object
