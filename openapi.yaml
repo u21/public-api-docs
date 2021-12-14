@@ -15,12 +15,12 @@ servers:
 security:
   - ApiKeyAuth: []
 tags:
-  - name: Entities
+  - name: Entities API
     description: >
       _Entities_ are typically businesses or users that have transactions on
       your platform.  The `/entities` endpoint can create, list, and update
       entities.
-  - name: Events
+  - name: Events API
     description: >
       Events have two types, _transaction events_  and _action events_:
 
@@ -31,75 +31,75 @@ tags:
       system, e.g. user logins. The `/events` endpoint sends and receives data
       about significant actions that occur with an entity or instrument on your
       system.  
-  - name: Instruments
+  - name: Instruments API
     description: >
       Instruments represent any physical, digital, or logical intermediary
       between an entity and a transaction event. The `/instruments` endpoint can
       create, list, and update instruments. 
-  - name: Devices
+  - name: Devices API
     description: >
       Devices representing any computer or physical device used to execute an
       event. Devices are most suitable when events can be traced back to a
       specific device fingerprint. The `/devices` endpoint can create, list, and
       update instruments. 
-  - name: Agents
+  - name: Agents API
     description: >
       Agents are your organization's members who use the Unit21 system to
       investigate suspicious objects and events. The `/agents` endpoint can list
       your agents. 
-  - name: Rules
+  - name: Rules API
     description: >
       Rules are the model logic that will find fraudulent and suspicious
       transactions and actions. Rules create alerts that can turn into cases
       with flagged entities, transactions and instruments. The `/rules` endpoint
       can get and list rules. 
-  - name: Alerts
+  - name: Alerts API
     description: >
       Alerts have two origins. Typically, alerts are generated whenever a Unit21
       detection tool (like a rule) flags an object, like an entity. However,
       your organization can also send alerts generated from your in-house
       detection systems. The `/alerts` endpoint can create, list, and update
       alerts. 
-  - name: Cases
+  - name: Cases API
     description: >
       Cases are usually active investigations, which may span multiple events,
       entities and documents. They can be directly escalated into a suspicious
       activity report. The `/cases` endpoint can create, list, and update
       cases. 
-  - name: Sars
+  - name: Sars API
     description: >
       Sars are cases that have been investigated and turned into a Suspicious
       Activity report with the intent to file it to FinCen. The `/sars` endpoint
       can get and list sars. 
-  - name: Entity verification
+  - name: Entity Verification API
     description: >
       Unit21 can execute entity verifications according to steps defined in
       system workflows. They can run when a new entity is added to the system,
       an update is made to an existing entity, or by directly triggering an API
       endpoint.
-  - name: Verification forms
+  - name: Verification Forms API
     description: >
       With verification forms, you can automate ID verification and user
       collection. To gather user input, the `verification forms` endpoint
       creates a URL. This URL is only valid for a specified period of time.
-  - name: Tag associations
+  - name: Tag Associations API
     description: >
       Tags provide a flexible means of linking objects together in the Unit21
       system. You can use the `/tag-associations` endpoint to explore these
       associations.
-  - name: Webhooks
+  - name: Webhooks API
     description: >
       Whenever an event happens on the Unit21 platform, Unit21 can send a
       webhook about the event to whatever URL you configure. Such events include
       entity verification results, generated alerts, case re-openings and
       closings, etcetera.
-  - name: Blacklists
+  - name: Blacklists API
     description: |
       Blacklists comprise one of the following categories:
         * of entities (users or business)
         * IPs (single or ranges)
         * strings
-  - name: Datafiles
+  - name: Datafiles API
     description: >
       If you want to bulk upload multiple objects, you can send them via a POST
       to the `/datafiles` endpoint. For the fastest processing, the datafile
@@ -108,7 +108,7 @@ paths:
   /entities/list:
     post:
       tags:
-        - Entities
+        - Entities API
       summary: List entities
       description: >-
         Returns paginated list of of top-level information about entities. 
@@ -240,7 +240,7 @@ paths:
   /entities/create:
     post:
       tags:
-        - Entities
+        - Entities API
       summary: Create an entity
       description: "Creates a new entity, sending entity data in the request body. Two objects are required: `general_data` and EITHER `user_data` OR `business_data` but the objects can be empty.\n\nThe `user_data` is required if `general_data.entity_type` is set to `user`, otherwise this  field will be ignored.\n\nThe `business_data` is required if `general_data.entity_type` is set to `business`, otherwise this  field will be ignored.\n\nIf the `/entities/create` API is called for an entity that already exists in our system (i.e.  has an existing `entity_id`, it is treated it as an upsert and an update on the existing entity is performed. The response to the request will then contain the entry `previously_existed: true`. \n\nNote that Unit21 selectively ignores upserts if the request is identical to a previous request.  The response to any isgnored upsert will  contain the field `ignored: true`.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `entity_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `entity_id`) already exists     |\n\n\nUpdates to an entity's `general_data.entity_id` are not allowed.\n\nYou can batch upload entities to `entities/create`. \n"
       operationId: create_entity
@@ -360,7 +360,7 @@ paths:
   '/entities/{unit21_id}':
     get:
       tags:
-        - Entities
+        - Entities API
       summary: Get an entity
       description: >-
         Returns all data objects belonging to a single entity, including
@@ -449,7 +449,7 @@ paths:
   '/{org_name}/entities/{entity_id}':
     get:
       tags:
-        - Entities
+        - Entities API
       summary: Get an entity using external ID
       description: >-
         Returns all data objects belonging to a single entity, including
@@ -540,7 +540,7 @@ paths:
   '/entities/{unit21_id}/update':
     put:
       tags:
-        - Entities
+        - Entities API
       summary: Update an entity
       operationId: update_entity
       description: "Updates an entity's information using the `unit21_id`.\n\nUpdating an entity has no required fields. You MAY send any subset of the fields that the `entities/create` endpoint accepts.\n\nThis endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the entity is first created.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `entity_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `entity_id`) already exists |\n\n\nNote that you can also update an entity using an upsert through `/entities/create`."
@@ -574,7 +574,7 @@ paths:
   '/{org_name}/entities/{entity_id}/update':
     put:
       tags:
-        - Entities
+        - Entities API
       summary: Update entity using external ID
       description: "Updates an entity's information using the `entity_id` from your platform. \n\nUpdating an entity has no required fields. You MAY send any  subset of the fields that the entities/create endpoint accepts.\n\nThis endpoint requires the `entity_id` which is a unique ID created by your organization to identify the entity. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `entity_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `entity_id`) already exists |\n\n\nNote that you can also update an entity using an upsert through `/entities/create`."
       operationId: update_entity_by_external
@@ -609,7 +609,7 @@ paths:
   '/entities/{unit21_id}/add-instruments':
     put:
       tags:
-        - Entities
+        - Entities API
       summary: Add instruments to entity
       description: >-
         Associate an entity with an array of instruments.
@@ -642,7 +642,7 @@ paths:
   '/entities/{unit21_id}/link-media':
     put:
       tags:
-        - Entities
+        - Entities API
       summary: Add media to an entity
       description: >-
         Adds rich media objects (images, videos, etc.) to an existing entity. 
@@ -725,7 +725,7 @@ paths:
   /instruments/list:
     post:
       tags:
-        - Instruments
+        - Instruments API
       summary: List instruments
       description: >
         Returns paginated list of of top-level information about instruments. 
@@ -805,7 +805,7 @@ paths:
   /instruments/create:
     post:
       tags:
-        - Instruments
+        - Instruments API
       summary: Create an instrument
       operationId: create_instrument
       description: "Creates a new instrument, sending instrument data in the request body.\n\nRecommended values for `instrument_type` include: account, crypto_address,  digital_wallet, credit_card, debit_card, gift_card, voucher, check.\n\nIf the `/instruments/create` API is called for an instrument that already exists in our system (i.e.  has an existing `instrument_id`, it is treated it as an upsert and an update on the existing instrument is performed. The response to the request will then contain the entry `previously_existed: true`. \n\nNote that Unit21 selectively ignores upserts if the request is identical to a previous request.  The response to any isgnored upsert will  contain the field `ignored: true`.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `instrument_id`\t         | String   | \tUnique identifier of the instrument on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `instrument_id`) already exists     |\n\n\nUpdates to an instrument's `instrument_id` are not allowed.\n\nYou can also batch upload instruments to `instruments/create`.\n"
@@ -837,7 +837,7 @@ paths:
   '/instruments/{unit21_id}':
     get:
       tags:
-        - Instruments
+        - Instruments API
       summary: Get an instrument
       description: >-
         Returns all data objects belonging to a single instrument.
@@ -867,7 +867,7 @@ paths:
   '/{org_name}/instruments/{entity_id}':
     get:
       tags:
-        - Instruments
+        - Instruments API
       summary: Get an instrument using external ID
       description: >-
         Returns all data objects belonging to a single instrument.
@@ -899,7 +899,7 @@ paths:
   '/instruments/{unit21_id}/update':
     put:
       tags:
-        - Instruments
+        - Instruments API
       summary: Update an instrument
       description: "Updates an instrument's information using the `unit21_id`.\n\nUpdating an instrument has no required fields. You MAY send any subset of the fields that the `instruments/create` endpoint accepts.\n\nThis endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the instrument is first created.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `instrument_id`\t         | String   | \tUnique identifier of the instrument on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `instrument_id`) already exists |\n\n\nNote that you can also update an instrument using an upsert through `/instruments/create`.\n"
       operationId: update_instrument
@@ -926,7 +926,7 @@ paths:
   '/{org_name}/instruments/{instrument_id}/update':
     put:
       tags:
-        - Instruments
+        - Instruments API
       summary: Update instrument using external ID
       description: "Updates an instrument's information using the `instrument_id` from your platform. \n\nUpdating an instrument has no required fields. You MAY send any  subset of the fields that the `instruments/create` endpoint accepts.\n\nThis endpoint requires the `instrument_id` which is a unique ID created by your organization to identify the instrument. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `instrument_id`\t         | String   | \tUnique identifier of the instrument on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the instrument within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `instrument_id`) already exists |\n\n\nNote that you can also update an instrument using an upsert through `/instruments/create`."
       operationId: update_instrument_by_external
@@ -954,7 +954,7 @@ paths:
   /devices/list:
     post:
       tags:
-        - Devices
+        - Devices API
       summary: List devices
       description: >
         Returns paginated list of of top-level information about devices. 
@@ -1044,7 +1044,7 @@ paths:
   /devices/create:
     post:
       tags:
-        - Devices
+        - Devices API
       summary: Create a device
       operationId: create_device
       description: "Creates a new device, sending device data in the request body.\n\nRecommended values for `instrument_type` include: account, crypto_address,  digital_wallet, credit_card, debit_card, gift_card, voucher, check.\n\nIf the `/devices/create` API is called for an device that already exists in our system (i.e.  has an existing `device_id`, it is treated it as an upsert and an update on the existing device is performed. The response to the request will then contain the entry `previously_existed: true`. \n\nNote that Unit21 selectively ignores upserts if the request is identical to a previous request.  The response to any isgnored upsert will  contain the field `ignored: true`.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `device_id`\t             | String   | \tUnique identifier of the device on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the device within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf device (with the same `device_id`) already exists     |\n\n\nUpdates to an device's `device_id` are not allowed.\n\nYou can also batch upload devices to `devices/create`. \n"
@@ -1095,7 +1095,7 @@ paths:
   '/devices/{unit21_id}':
     get:
       tags:
-        - Devices
+        - Devices API
       summary: Get a device
       description: >-
         Returns all data objects belonging to a single device.
@@ -1139,7 +1139,7 @@ paths:
   '/{org_name}/devices/{device_id}':
     get:
       tags:
-        - Devices
+        - Devices API
       summary: Get a device using external ID
       description: >-
         Returns all data objects belonging to a single device.
@@ -1185,7 +1185,7 @@ paths:
   '/devices/update/{unit21_id}':
     put:
       tags:
-        - Devices
+        - Devices API
       summary: Update a device
       description: "Updates a device's information using the `unit21_id`. \n\nUpdating an device has no required fields. You MAY send any subset of the fields that the `devices/create` endpoint accepts.\n\nThis endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the device is first created.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `device_id`\t              | String   | \tUnique identifier of the device on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the device within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf device (with the same `device_id`) already exists |\n\n\nNote that you can also update a device using an upsert through `/devices/create`.\n"
       operationId: update_device
@@ -1230,7 +1230,7 @@ paths:
   '/{org_name}/devices/{device_id}/update':
     put:
       tags:
-        - Devices
+        - Devices API
       summary: Update device using external ID
       description: "Updates an device's information using the `device_id` from your platform. \n\nUpdating a device has no required fields. You MAY send any  subset of the fields that the `devices/create` endpoint accepts.\n\nThis endpoint requires the `device_id` which is a unique ID created by your organization to identify the device. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `device_id`\t             | String   | \tUnique identifier of the device on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the device within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `device_id`) already exists |\n\n\nNote that you can also update a device using an upsert through `/devices/create`."
       operationId: update_device_by_external
@@ -1255,7 +1255,7 @@ paths:
   /events/list:
     post:
       tags:
-        - Events
+        - Events API
       summary: List events
       description: >
         Returns an array of top-level information about events in your
@@ -1377,7 +1377,7 @@ paths:
   /events/create:
     post:
       tags:
-        - Events
+        - Events API
       summary: Create an event
       operationId: create_event
       description: "Creates a new event, sending event data in the request body. \nTwo objects are required: `general_data` and either `transaction_data` or `action_data`. `general_data` requires the fields: `event_id`, `event_type`, and `event_time`. `transaction_data` requires only the field `amount`.\n\nUnlike entities, events on our system are cannot be explicitly updated.  However, they can be overwritten in a naive upsert-overwrite fashion.  If we receive a request to create an event for an `event_id` that already exists in our system,  we will simply overwrite that previous entry with the newly provided data if this transaction  is not already associated with other articles in our system. \n\nFor instance, if a transaction is flagged in an alert and we receive a request to overwrite  the details of this transaction, we will respond with a **409 error code** indicating that this  event cannot be overwritten.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `event_id`\t             | String   | \tUnique identifier of the event on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `event_id`) already exists     |\n\n\nUpdates to an event's `general_data.event_id` are not allowed.\n\nYou can also batch upload entities to `events/create`.\n"
@@ -1472,7 +1472,7 @@ paths:
   '/events/{unit21_id}':
     get:
       tags:
-        - Events
+        - Events API
       summary: Get an event
       description: >-
         Returns all data objects belonging to a single event.
@@ -1532,7 +1532,7 @@ paths:
   '/{org_name}/events/{event_id}':
     get:
       tags:
-        - Events
+        - Events API
       summary: Get an event using external ID
       description: >-
         Returns all data objects belonging to a single event.
@@ -1594,7 +1594,7 @@ paths:
   '/events/{unit21_id}/update':
     put:
       tags:
-        - Events
+        - Events API
       summary: Update event
       description: "Updates an event's information using the `unit21_id`.\n\nUpdating an event has no required fields. You MAY send any subset of the fields that the `entities/create` endpoint accepts.\n\nThis endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the event is first created.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `event_id`\t             | String   | \tUnique identifier of the event on your platform      |\n  | `unit21_id`\t             | String   | \tInternal ID of the event within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf event (with the same `event_id`) already exists |\n\n\nNote that you can also update an event using an upsert through `/events/create`.\n"
       operationId: update_event
@@ -1627,7 +1627,7 @@ paths:
   '/{org_name}/events/{event_id}/update':
     put:
       tags:
-        - Events
+        - Events API
       summary: Update event using external ID
       description: "Update an event using the `event_id` from your platform. \n\nUpdating an event has no required fields. You MAY send any  subset of the fields that the events/create endpoint accepts.\n\nThis endpoint requires the `event_id` which is a unique ID created by your organization to identify the event. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `event_id`\t             | String   | \tUnique identifier of the event on your platform      |\n  | `unit21_id`\t             | String   | \tInternal ID of the event within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `event_id`) already exists  |"
       operationId: update_event_by_external
@@ -1657,7 +1657,7 @@ paths:
   /rules/list:
     post:
       tags:
-        - Rules
+        - Rules API
       summary: List rules
       description: >-
         Returns paginated list of of top-level information about rules.     
@@ -1733,7 +1733,7 @@ paths:
   '/rules/{unit21_id}':
     get:
       tags:
-        - Rules
+        - Rules API
       summary: Get a rule
       description: >-
         Returns all data objects belonging to a single rule.
@@ -1766,7 +1766,7 @@ paths:
   /alerts/list:
     post:
       tags:
-        - Alerts
+        - Alerts API
       summary: List alerts
       description: >
         Returns an array of top-level information about alerts in your
@@ -1856,7 +1856,7 @@ paths:
   /alerts/create:
     post:
       tags:
-        - Alerts
+        - Alerts API
       summary: Create alerts
       description: "Creates a new alert, sending alert data in the request body. \nTo create an Alert, you MUST include the following fields: `alert_id`, `alert_type`, `created_at`, `title`, and `status`. The other top-level fields are optional.\n\nIf we receive a request to create an alert for an `alert_id` that already exists in our system,  we will respond with a **409 error code** indicating that this alert cannot be created/updated.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `alert_id`\t             | String   | \tUnique identifier of the alert on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the alert within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf alert (with the same `alert_id`) already exists     |\n\n\nUpdates to an alert's `alert_id` are not allowed.\n\nYou can also batch upload entities to `alerts/create`.\n"
       operationId: create_alert
@@ -1886,7 +1886,7 @@ paths:
   '/alerts/{unit21_id}':
     get:
       tags:
-        - Alerts
+        - Alerts API
       summary: Get an alert
       description: >-
         Returns all data objects belonging to a single alert.
@@ -1963,7 +1963,7 @@ paths:
   '/alerts/{unit21_id}/update':
     put:
       tags:
-        - Alerts
+        - Alerts API
       summary: Update alert
       description: "Updates an alert's information using the `unit21_id`.\n\nUpdating an alert has no required fields. You MAY send any subset of the fields that the `alerts/create` endpoint accepts.\n\nThis endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the entity is first created.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `alert_id`\t             | String   | \tUnique identifier of the alert on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the alert within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `alert_id`) already exists |"
       operationId: update_alert
@@ -1988,7 +1988,7 @@ paths:
   '/alerts/{unit21_id}/link-media':
     put:
       tags:
-        - Alerts
+        - Alerts API
       summary: Add media to an alert
       description: >-
         Adds rich media objects (images, videos, etc.) to an existing alert. 
@@ -2071,7 +2071,7 @@ paths:
   /cases/list:
     post:
       tags:
-        - Cases
+        - Cases API
       summary: List cases
       description: >
         Returns an array of top-level information about cases in your
@@ -2133,7 +2133,7 @@ paths:
   /cases/create:
     post:
       tags:
-        - Cases
+        - Cases API
       summary: Create a case
       description: "Creates a new case, sending case data in the request body. \nTo create an case, you MUST include the following fields: `case_id`, `title`, and `created_at`. The other top-level fields are optional.\n\nIf we receive a request to create a case for an `case_id` that already exists in our system,  we will respond with a **409 error code** indicating that this case cannot be created/updated.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `case_id`\t               | String   | \tUnique identifier of the case on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the case within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf alert (with the same `case_id`) already exists     |\n\n\nUpdates to an cases's `case_id` are not allowed.\n\nYou can also batch upload entities to `cases/create`.\n"
       operationId: create_case
@@ -2161,7 +2161,7 @@ paths:
   '/cases/{unit21_id}':
     get:
       tags:
-        - Cases
+        - Cases API
       summary: Get a case
       description: >-
         Returns all data objects belonging to a single case.
@@ -2198,7 +2198,7 @@ paths:
   '/cases/{unit21_id}/update':
     put:
       tags:
-        - Cases
+        - Cases API
       summary: Update case
       description: "Update a case through its `unit21_id`.\n    \n\nUpdating a case has no required fields. You MAY send any subset of the fields that the `cases/create` endpoint accepts.\n\nThis endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the case is first created.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `case_id`\t               | String   | \tUnique identifier of the case on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the case within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `case_id`) already exists |\n\n\nNote that you can also update an alert using an upsert through `/cases/create`."
       operationId: update_case
@@ -2223,7 +2223,7 @@ paths:
   '/cases/{unit21_id}/link-media':
     put:
       tags:
-        - Cases
+        - Cases API
       summary: Add media to an case
       description: >-
         Adds rich media objects (images, videos, etc.) to an existing case. 
@@ -2312,7 +2312,7 @@ paths:
   /sars/list:
     post:
       tags:
-        - Sars
+        - Sars API
       summary: List sars
       description: >-
         Returns paginated list of of top-level information about
@@ -2416,7 +2416,7 @@ paths:
   '/sars/{unit21_id}':
     get:
       tags:
-        - Sars
+        - Sars API
       summary: Get a sars
       description: >-
         Returns all data objects belonging to a single SAR.
@@ -2455,7 +2455,7 @@ paths:
   '/entities/{unit21_id}/verify':
     post:
       tags:
-        - Entity verification
+        - Entity Verification API
       summary: Verify an entity
       description: >
         Run a verification workflow on an entity. Requires a `workflow_id`. You
@@ -2518,7 +2518,7 @@ paths:
   '/entities/{unit21_id}/link-verification-result':
     post:
       tags:
-        - Entity verification
+        - Entity Verification API
       summary: Link external verification
       description: >-
         Add the verification result from an external ID provider to an entity on
@@ -2552,7 +2552,7 @@ paths:
   '/verification/result/{workflow_id}':
     get:
       tags:
-        - Entity verification
+        - Entity Verification API
       summary: Get verification results
       description: >-
         Returns all the information from the verification workflow execution for
@@ -2575,7 +2575,7 @@ paths:
   '/entities/{unit21_id}/continuous-monitoring':
     post:
       tags:
-        - Entity verification
+        - Entity Verification API
       summary: Update continuous monitoring
       description: >
         Fetch status and enables/disables Socure continuous monitoring for an
@@ -2594,7 +2594,7 @@ paths:
   '/entities/{unit21_id}/suppress-provider-entity':
     post:
       tags:
-        - Entity verification
+        - Entity Verification API
       summary: Suppress provider entity
       description: >
         Mute Socure continuous monitoring for an entity. 1 - Suppress 0 -
@@ -2613,7 +2613,7 @@ paths:
   /agents/list:
     get:
       tags:
-        - Agents
+        - Agents API
       summary: List agents
       description: >-
         Returns an array of all agents in your organization who are using the
@@ -2639,7 +2639,7 @@ paths:
   '/agents/{agent_email}/deactivate':
     put:
       tags:
-        - Agents
+        - Agents API
       summary: Deactivate an agent
       description: Updates an alert's information using the `unit21_id`.
       operationId: deactivate_agent
@@ -2659,8 +2659,8 @@ paths:
   /verification-forms/create:
     post:
       tags:
-        - Verification forms
-      summary: Create a verification form
+        - Verification Forms API
+      summary: Verification Forms API
       description: >-
         If you are verifying IDs and collecting user data, this endpoint creates
         a temporary URL to which you can redirect users.
@@ -2697,7 +2697,7 @@ paths:
   /tag-associations/list:
     post:
       tags:
-        - Tag associations
+        - Tag Associations API
       summary: List tags
       description: >
         Returns an array of objects associated with a set of tags in your
@@ -2770,7 +2770,7 @@ paths:
   '/webhooks/{unit21_id}/update':
     put:
       tags:
-        - Webhooks
+        - Webhooks API
       summary: Update webhook URL
       description: >-
         Change the URL of an existing webhook from Unit21.
@@ -2798,7 +2798,7 @@ paths:
   /blacklists/list:
     post:
       tags:
-        - Blacklists
+        - Blacklists API
       summary: List blacklists
       description: >
         Returns an array of blacklist in your environment. 
@@ -2840,7 +2840,7 @@ paths:
   /blacklists/create:
     post:
       tags:
-        - Blacklists
+        - Blacklists API
       summary: Create a blacklist
       description: "Create a new blacklist sending blacklist data in the request body. \n\nUnit21 currently supports 5 types of blacklists:\n\n  * `STRING`: Plain strings to match against any text-type field.\n  * `IP_INET`: IPv4 or IPv6 IP addresses to blacklist.\n  * `IP_CIDR`: [Classless Inter-Domain Routing (CIDR) notation IP address ranges](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) to blacklist, \n  * `USER`: Series of fields that a Unit21 user entity will be matched against.\n  * `BUSINESS`: Series of fields that a Unit21 business entity will be matched against.\n\n\nIf the `/blacklists/create` API is called multiple times, it will create a new blacklist each time.  This endpoint does not support updates/upserts.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `blacklist_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n\n\nThis endpoint does not support batch uploads.\n"
       operationId: create_blacklist
@@ -2861,7 +2861,7 @@ paths:
   '/blacklists/{unit21_id}/add-values':
     post:
       tags:
-        - Blacklists
+        - Blacklists API
       summary: Add items to a blacklist
       description: "Add items to a blacklist, according to the blacklist's `type`.\nThe response will consist of the following fields:\n\n\n  | Type | Description | Example |\n  |-----|-----|-------|\n  | `STRING`\t | Plain strings to match against any text-type field.   | \t\t\"blacklist_value\": \"abcde\"     |\n  | `IP_INET`\t | IPv4 or IPv6 IP addresses to blacklist.   | \t\"ip_address\": \"255.255.255.255\"     |\n  | `IP_CIDR`\t | Classless Inter-Domain Routing (CIDR) [notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) IP address ranges to blacklist.  | \t\"cidr\": \"255.255.255.255/32\" |\n  | `USER`\t   | \tSeries of fields that a Unit21 user entity will be matched against.  | \tuser_data object |\n  | `BUSINESS` | Series of fields that a Unit21 business entity will be matched against.  | \tbusiness_data object |\n"
       operationId: add_blacklist_values
@@ -2883,7 +2883,7 @@ paths:
   /datafiles/create:
     post:
       tags:
-        - Datafiles
+        - Datafiles API
       operationId: create_datafiles
       summary: Upload datafiles
       description: >
@@ -2926,7 +2926,7 @@ paths:
   '/datafiles/{unit21_id}':
     get:
       tags:
-        - Datafiles
+        - Datafiles API
       operationId: get_datafile_by_unit21_id
       summary: Get datafile
       description: >-
@@ -2954,7 +2954,7 @@ paths:
   '/datafiles/{unit21_id}/mappings':
     post:
       tags:
-        - Datafiles
+        - Datafiles API
       operationId: get_datafile_mappings
       summary: Retrieve datafile mappings
       description: >
