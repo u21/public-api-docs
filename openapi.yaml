@@ -242,7 +242,7 @@ paths:
       tags:
         - Entities API
       summary: Create an entity
-      description: "Creates a new entity, sending entity data in the request body. Two objects are required: `general_data` and EITHER `user_data` OR `business_data` but the objects can be empty.\n\nThe `user_data` is required if `general_data.entity_type` is set to `user`, otherwise this  field will be ignored.\n\nThe `business_data` is required if `general_data.entity_type` is set to `business`, otherwise this  field will be ignored.\n\nIf the `/entities/create` API is called for an entity that already exists in our system (i.e.  has an existing `entity_id`, it is treated it as an upsert and an update on the existing entity is performed. The response to the request will then contain the entry `previously_existed: true`. \n\nNote that Unit21 selectively ignores upserts if the request is identical to a previous request.  The response to any isgnored upsert will  contain the field `ignored: true`.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `entity_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `entity_id`) already exists     |\n\n\nUpdates to an entity's `general_data.entity_id` are not allowed.\n\nYou can batch upload entities to `entities/create`. \n"
+      description: "Creates a new entity, sending entity data in the request body. \n\nTwo objects are required: `general_data` and EITHER `user_data` OR `business_data` but the objects can be empty. The `user_data` is required if `general_data.entity_type` is set to `user`, otherwise this  field will be ignored. The `business_data` is required if `general_data.entity_type` is set to `business`,  otherwise this field will be ignored.\n\nIf the `/entities/create` API is called for an entity that already exists in our system, it is treated it as an  [upsert](https://docs.unit21.ai/u21/reference/should-i-update-or-upsert) and an update on the existing entity is performed. The response to the request will then contain the entry `previously_existed: true`. \n\nUnit21 selectively ignores upserts if the request is identical to a previous request. The response to any  ignored upsert will contain the field `ignored: true`. \n\nIf you want to perform strict validation and not perform an upsert on conflict, specifying  `options.upsert_on_conflict: false` will result in the API responding with a **409 error code** indicating  that this entity cannot be overwritten.\n\nUpdates to an entity's `general_data.entity_id` are not allowed.\n\nInstruments can be associated with entities by providing the IDs of these  instruments within the `instrument_ids` section of the request. If the instrument doesn't already exist,  Unit21 creates a [placeholder](https://docs.unit21.ai/u21/reference/placeholder-objects) instrument.\n\nWhitelisted entities cannot be updated through the `/entities/create` endpoint. \n\nWe recommend that you create entities prior to running verification. In the event you wish to run a  verification on an entity immediately, Unit21 recommends that you wait at-least 2 minutes for your entity  data to be securely stored. You will receive a **423 error code** if an entity is *busy*.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/u21/reference/endpoint-options)\n  - [Verification options](https://docs.unit21.ai/u21/reference/identity-verification-options)\n  - [Risk scores](https://dash.readme.com/project/unit21/v1.0/refs/risk-scores)\n  - [Custom data](https://docs.unit21.ai/u21/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/u21/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/u21/reference/modifying-tags)\n\nThe response will consist of the following fields:\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `entity_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `entity_id`) already exists |\n"
       operationId: create_entity
       requestBody:
         description: ''
@@ -543,7 +543,7 @@ paths:
         - Entities API
       summary: Update an entity
       operationId: update_entity
-      description: "Updates an entity's information using the `unit21_id`.\n\nUpdating an entity has no required fields. You MAY send any subset of the fields that the `entities/create` endpoint accepts.\n\nThis endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the entity is first created.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `entity_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `entity_id`) already exists |\n\n\nNote that you can also update an entity using an upsert through `/entities/create`."
+      description: "Updates an entity's information using the `unit21_id`.\n\nUpdating an entity has no required fields. You MAY send any subset of the fields that the `entities/create` endpoint accepts.\n\nThis endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the entity is first created.\n\nNote that you can also update an entity using an upsert through `/entities/create`.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/u21/reference/endpoint-options)\n  - [Verification options](https://docs.unit21.ai/u21/reference/identity-verification-options)\n  - [Risk scores](https://dash.readme.com/project/unit21/v1.0/refs/risk-scores)\n  - [Custom data](https://docs.unit21.ai/u21/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/u21/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/u21/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `entity_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `entity_id`) already exists |"
       parameters:
         - $ref: '#/components/parameters/unit21_id'
       requestBody:
@@ -576,7 +576,7 @@ paths:
       tags:
         - Entities API
       summary: Update entity using external ID
-      description: "Updates an entity's information using the `entity_id` from your platform. \n\nUpdating an entity has no required fields. You MAY send any  subset of the fields that the entities/create endpoint accepts.\n\nThis endpoint requires the `entity_id` which is a unique ID created by your organization to identify the entity. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.\n\nThe response will consist of the following fields:\n\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `entity_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `entity_id`) already exists |\n\n\nNote that you can also update an entity using an upsert through `/entities/create`."
+      description: "Updates an entity's information using the `entity_id` from your platform. \n\nUpdating an entity has no required fields. You MAY send any  subset of the fields that the entities/create endpoint accepts.\n\nThis endpoint requires the `entity_id` which is a unique ID created by your organization to identify the entity. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.\n\nNote that you can also update an entity using an upsert through `/entities/create`.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/u21/reference/endpoint-options)\n  - [Verification options](https://docs.unit21.ai/u21/reference/identity-verification-options)\n  - [Risk scores](https://dash.readme.com/project/unit21/v1.0/refs/risk-scores)\n  - [Custom data](https://docs.unit21.ai/u21/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/u21/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/u21/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field | Type | Description |\n  |-----|-----|-------|\n  | `entity_id`\t             | String   | \tUnique identifier of the entity on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the entity within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `entity_id`) already exists |"
       operationId: update_entity_by_external
       parameters:
         - $ref: '#/components/parameters/entity_id'
@@ -615,19 +615,18 @@ paths:
         Associate an entity with an array of instruments.
 
 
-        Instruments can be associated with entities in the Unit21 system by
-        providing the IDs of these instruments within the `instrument_ids`
-        section of the `/entities/create` request.
-
-
         Specify the `instrument_id` of the instrument (and not the `unit21_id`)
-        when associating instruments through this method.
+        when associating instruments.
 
 
         If we do not find any instruments with a corresponding `instrument_id`
-        in our system, we will create a placeholder for it. Instrument details
-        can then be supplemented through the `/instruments/create` or
-        `/instruments/update` endpoints.
+        in our system, we will create a
+        [placeholder](https://docs.unit21.ai/u21/reference/placeholder-objects)
+        for it.
+
+
+        Instrument details can then be supplemented through the
+        `/instruments/create` or `/instruments/update` endpoints.
       operationId: add_instruments_to_entity
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -667,8 +666,8 @@ paths:
 
 
         ```
-            --form 'document_front=@/src/103031/images/document_front.jpg' \
-            --form 'document_front={"media_type": "IMAGE_ID_CARD_FRONT", "source": "passport_app", "timestamp": 1572673229}'
+          --form 'document_front=@/src/103031/images/document_front.jpg' \
+          --form 'document_front={"media_type": "IMAGE_ID_CARD_FRONT", "source": "passport_app", "timestamp": 1572673229}'
         ```
 
 
@@ -697,18 +696,18 @@ paths:
         object.
 
 
-        Recognized values of `media_type` are: 
+        For verification purposes, recognized values of `media_type` are: 
 
 
-          | media_type  |
-          |-----------|
-          | IMAGE_PROFILE_PICTURE     |
-          | IMAGE_DRIVERS_LICENSE_FRONT     |
-          | IMAGE_DRIVERS_LICENSE_BACK     |
-          | IMAGE_PASSPORT_FRONT     |
-          | IMAGE_ID_CARD_FRONT     |
-          | IMAGE_ID_CARD_BACK     |
-          | IMAGE_FACE_IMAGE     |
+          | media_type                  |
+          |-----------------------------|
+          | IMAGE_PROFILE_PICTURE       |
+          | IMAGE_DRIVERS_LICENSE_FRONT |
+          | IMAGE_DRIVERS_LICENSE_BACK  |
+          | IMAGE_PASSPORT_FRONT        |
+          | IMAGE_ID_CARD_FRONT         |
+          | IMAGE_ID_CARD_BACK          |
+          | IMAGE_FACE_IMAGE            | 
       operationId: link_media_to_entity
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -3063,9 +3062,8 @@ components:
       title: General entity data
       type: object
       description: >-
-        **Required** for requests to `/entities/create`. General information
-        about the entity. With this object, you can link any entity on Unit21's
-        system to a user or business on your platform.
+        General information about the entity. With this object, you can link any
+        entity on Unit21's system to a user or business on your platform.
       required:
         - entity_id
         - entity_type
@@ -3101,9 +3099,9 @@ components:
       title: User Data
       type: object
       description: >
-        Personal data - name, birthday, SSN etc. If `general_data.entity_type`
-        is set to `user`, this field is required. However, none of the fields in
-        user_data are required. You may send in an empty array: "user_data": {}
+        Personal data - name, birthday, SSN etc. If `general_data.entity_type ==
+        user`,  this field is required. However, none of the fields in user_data
+        are required. You may send in an empty array: `"user_data": {}`.
       properties:
         first_name:
           type: string
@@ -3447,8 +3445,8 @@ components:
       description: >-
         Any custom information that you wish our system to associate with this
         object  (accepts any valid JSON object -- a key:value format --
-        string:object,  string:string, string:number, string:array,
-        string:boolean, string:null)
+        `string:object`,  `string:string`, `string:number`, `string:array`,
+        `string:boolean`, `string:null`)
       example:
         internal_notes: Reviewed by Mitchell on 31 June 2019
         reviewers: 3
@@ -3508,10 +3506,11 @@ components:
     businessDataProperties:
       title: Business Data
       description: >
-        Business data - business name, TIN/EIN etc.
+        Business data - business name, TIN/EIN etc. If `general_data.entity_type
+        == business`, this field is required.
 
-        If `general_data.entity_type` is set to `business`, this field is
-        required.
+        However, none of the fields in business_data are required. You may send
+        in an empty array: `"business_data": {}`.
       type: object
       properties:
         business_name:
