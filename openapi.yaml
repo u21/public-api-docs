@@ -3053,7 +3053,7 @@ paths:
         is not yet processed.
     The mapping results are as follows:
       parameters:
-        - $ref: ../components/parameters/unit21_id.yaml
+        - $ref: '#/components/parameters/unit21_id'
       requestBody:
         content:
           application/json:
