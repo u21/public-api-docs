@@ -4785,6 +4785,13 @@ components:
           description: >-
             Full response from the verification provider running the
             verification
+    synchronousResponses:
+      type: boolean
+      description: >-
+        **Default**: `false`. If `true`,  the response is returned in the
+        request but may take slightly longer to complete.
+      default: false
+      example: false
     continuousMonitoring:
       type: object
       required:
@@ -4796,7 +4803,7 @@ components:
             Enable or disable continuous monitoring. Use `true` to turn on and
             `false` to turn off.
         synchronous_response:
-          $ref: '#/components/schemas/synchronousResponse'
+          $ref: '#/components/schemas/synchronousResponses'
     suppressProviderEntity:
       type: object
       required:
@@ -4809,7 +4816,7 @@ components:
             Enable or disable the silencing of the entity. Use `true` to turn on
             and `false` to turn off.
         synchronous_response:
-          $ref: '#/components/schemas/synchronousResponse'
+          $ref: '#/components/schemas/synchronousResponses'
         provider_entity_ids:
           type: array
           description: |
