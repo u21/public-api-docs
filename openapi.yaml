@@ -3485,7 +3485,7 @@ components:
         values that did not exist. `replace` overwrites the old values with the
         new values. `difference` removes the values you send(provided they
         already existed on the system). See the [list-merge-strategy
-        section](doc:data-merging-on-updates) for more details. **Default**:
+        section](doc:/how-data-merges-on-updates) for more details. **Default**:
         `union`
       default: union
     upsertOnConflict:
