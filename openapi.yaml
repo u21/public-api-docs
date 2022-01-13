@@ -863,7 +863,7 @@ paths:
                 status: inactive
                 tags: []
                 unit21_id: '198446'
-  '/{org_name}/instruments/{entity_id}':
+  '/{org_name}/instruments/{instrument_id}':
     get:
       tags:
         - Instruments API
