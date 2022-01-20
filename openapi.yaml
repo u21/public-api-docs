@@ -3232,10 +3232,7 @@ components:
           example: 733-99-5921
     State:
       type: string
-      description: >-
-        For the US, use the two letter state codes. Otherwise, use the country
-        and regional subdivision codes. Codes are based on the [ISO 3166-1
-        alpha-2 standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+      description: Any string representing a state such as "CA" or "California"
       maxLength: 128
       example: CA
     documentDataProperties:
@@ -3363,8 +3360,8 @@ components:
     Country:
       type: string
       description: >-
-        Country of primary residence, provided acording to the [ISO 3166-1
-        alpha-2 standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2].
+        Country of primary residence such as "USA", "United States", "US", "The
+        United States of America"
       maxLength: 2
       example: US
     locationDataProperties:
