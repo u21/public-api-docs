@@ -2753,7 +2753,7 @@ paths:
     get:
       tags:
         - Entity Verification API
-      summary: Get entity verification workflow ID.
+      summary: Get entity verification workflow ID
       description: >-
         Returns the verification workflow ID.
 
@@ -2775,7 +2775,7 @@ paths:
                 - created_at: 1644533538
                   end_action: $EXCEPTION
                   verification_workflow_execution_id: 132413
-  '/verification@verification-workflow-execution@{verification_workflow_execution_id}':
+  '/verification/verification-workflow-execution/{verification_workflow_execution_id}':
     get:
       tags:
         - Entity Verification API
