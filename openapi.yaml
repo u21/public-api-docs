@@ -3528,9 +3528,9 @@ components:
       type: object
       description: >-
         Any custom information that you wish our system to associate with this
-        object  (accepts any valid JSON object -- a key:value format --
-        `string:object`,  `string:string`, `string:number`, `string:array`,
-        `string:boolean`, `string:null`)
+        object  (accepts any valid JSON object -- up to 3 layers deep -- in
+        key:value format --  `string:string`, `string:int`, `string:bool` -- no
+        arrays)
       example:
         internal_notes: Reviewed by Mitchell on 31 June 2019
         reviewers: 3
