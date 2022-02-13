@@ -2529,12 +2529,81 @@ paths:
       summary: Verify an entity
       description: >
         Run a verification workflow on an entity. Requires a `workflow_id`. You
-        can create a verification workflow from the Unit21 dashboard. To see
-        how, review [this help
-        article](https://docs.unit21.ai/dashboard/docs/kyc-verification-workflow).
+        can create a verification workflow from the Unit21 dashboard. 
       operationId: run_verification_workflow
       parameters:
         - $ref: '#/components/parameters/unit21_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/entityVerification'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  end_action:
+                    type: string
+                    description: >-
+                      The end result of the workflow, one of a set of end
+                      results defined by the workflow
+                  is_success:
+                    type: boolean
+                    description: >-
+                      Whether or not the workflow successful completed.
+                      Workflows rely on external services, which may at times
+                      fail
+                  results:
+                    type: object
+                    description: >-
+                      Object mapping from the executed verifications (e.g.
+                      IDOLOGY:DOC_VERIFICATION)
+                  full_response:
+                    type: object
+                    description: >-
+                      The raw response from the verification provider. Contents
+                      depend on the verification source and type.
+              example:
+                end_action: $REJECT
+                is_success: true
+                results:
+                  'IDOLOGY:DOC_VERIFICATION':
+                    parsed_result: CAPTURE_NOT_APPROVED
+                    verification_result_id: 73
+                  'IDOLOGY:ID_VERIFICATION':
+                    parsed_result: ID_NON_MATCH
+                    verification_result_id: 71
+                  'IDOLOGY:WATCHLIST_SCREENING':
+                    parsed_result: NO_RESTRICTION
+                    verification_result_id: 72
+                full_response:
+                  info: This response depends on the verification source
+  '/{org_name}/entities/{entity_id}/verify':
+    post:
+      tags:
+        - Entity Verification API
+      summary: Verify an entity using external ID
+      description: >
+        Run a verification workflow on an entity using the `entity_id` from your
+        platform. 
+
+
+        Requires a `workflow_id`. You can create a verification workflow from
+        the Unit21 dashboard.
+
+
+        This endpoint requires the `entity_id` which is a unique ID created by
+        your organization to identify the entity. The `org_name` is your Unit21
+        appointed organization name such as `google` or `acme`.
+      operationId: run_verifications_workflow_through_external_id
+      parameters:
+        - $ref: '#/components/parameters/entity_id'
+        - $ref: '#/components/parameters/org_name'
       requestBody:
         required: true
         content:
@@ -2680,6 +2749,55 @@ paths:
       responses:
         '200':
           description: OK
+  '/entities/{unit21_id}/verification_workflow_executions':
+    get:
+      tags:
+        - Entity Verification API
+      summary: Get entity verification workflow ID.
+      description: >-
+        Returns the verification workflow ID.
+
+
+        This endpoint requires the `unit21_id` which is a unique ID created by
+        Unit21 when the entity is first created.
+      operationId: get_verification_workflow_executions
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                - created_at: 1644533569
+                  end_action: $ACCEPT
+                  verification_workflow_execution_id: 132423
+                - created_at: 1644533538
+                  end_action: $EXCEPTION
+                  verification_workflow_execution_id: 132413
+  '/verification@verification-workflow-execution@{verification_workflow_execution_id}':
+    get:
+      tags:
+        - Entity Verification API
+      summary: Get verification workflow execution IDs
+      description: >-
+        Returns all the data associated with a
+        verification_workflow_execution_id
+      operationId: get_verification_workflow_execution
+      parameters:
+        - $ref: '#/components/parameters/verification_workflow_execution_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                created_at: 1591992745
+                entity_id: 856
+                source: IDOLOGY
+                type: DOC_VERIFICATION
+                verification_workflow_execution_id: 59
+                full_response: {}
   /agents/list:
     get:
       tags:
@@ -5140,6 +5258,16 @@ components:
         A Unit21 internally-assigned unique identifier for the verification
         workflow of the entity.
       example: verified-customer-onboarding
+    verification_workflow_execution_id:
+      in: path
+      name: verification_workflow_execution_id
+      schema:
+        type: int
+      required: true
+      description: >-
+        A Unit21 internally-assigned unique identifier for the verification
+        workflow execution.
+      example: 14823
     agent_email:
       in: path
       name: agent_email
