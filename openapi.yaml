@@ -5262,7 +5262,7 @@ components:
       in: path
       name: verification_workflow_execution_id
       schema:
-        type: int
+        type: integer
       required: true
       description: >-
         A Unit21 internally-assigned unique identifier for the verification
