@@ -2753,14 +2753,14 @@ paths:
     get:
       tags:
         - Entity Verification API
-      summary: Get entity verification workflow ID
+      summary: Get entity verification workflow IDs
       description: >-
-        Returns the verification workflow ID.
+        Returns the verification workflow IDs for an entity.
 
 
         This endpoint requires the `unit21_id` which is a unique ID created by
         Unit21 when the entity is first created.
-      operationId: get_verification_workflow_executions
+      operationId: get_entity_verification_workflow_executions
       parameters:
         - $ref: '#/components/parameters/unit21_id'
       responses:
@@ -2779,7 +2779,7 @@ paths:
     get:
       tags:
         - Entity Verification API
-      summary: Get verification workflow execution IDs
+      summary: Get verification workflow execution details
       description: >-
         Returns all the data associated with a
         verification_workflow_execution_id
@@ -2792,12 +2792,19 @@ paths:
           content:
             application/json:
               example:
-                created_at: 1591992745
-                entity_id: 856
-                source: IDOLOGY
-                type: DOC_VERIFICATION
-                verification_workflow_execution_id: 59
-                full_response: {}
+                alert_id: 9739988
+                created_at: 1642443889
+                end_action: $ACCEPT
+                end_time: 1642443889
+                entity_id: 594242743
+                id: 130622
+                is_success: true
+                message: null
+                org_id: 1
+                start_time: 1642443889
+                unit_id: 1
+                verification_form_id: null
+                verification_workflow_id: 1283
   /agents/list:
     get:
       tags:
