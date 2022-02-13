@@ -5981,7 +5981,7 @@
 			"name": "Verification",
 			"item": [
 				{
-					"name": "verify endpoint",
+					"name": "verify",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -6011,7 +6011,37 @@
 					"response": []
 				},
 				{
-					"name": "evaluate endpoint",
+					"name": "verify through external ID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"workflow_id\": \"api-test\",\n    \"synchronous_response\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}/v1/entities/{{userAId}}/verify",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"entities",
+								"{{userAId}}",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluate",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -6041,37 +6071,7 @@
 					"response": []
 				},
 				{
-					"name": "suppress provider entity endpoint",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"synchronous_response\": false,\n    \"provider_entity_ids\": [\"userA\"],\n    \"suppress\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/{{userAId}}/suppress-provider-entity",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"{{userAId}}",
-								"suppress-provider-entity"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "continuous monitoring endpoint",
+					"name": "update continuous monitoring",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -6101,16 +6101,13 @@
 					"response": []
 				},
 				{
-					"name": "continuous monitoring endpoint",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "suppress provider entity",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"synchronous_response\": false,\n    \"provider_entity_ids\": [\"userA\"],\n    \"suppress\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6118,7 +6115,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/{{userAId}}/continuous-monitoring",
+							"raw": "{{protocol}}://{{host}}/v1/entities/{{userAId}}/suppress-provider-entity",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
@@ -6127,7 +6124,7 @@
 								"v1",
 								"entities",
 								"{{userAId}}",
-								"continuous-monitoring"
+								"suppress-provider-entity"
 							]
 						}
 					},
@@ -6180,6 +6177,58 @@
 								"v1",
 								"entities",
 								"{{userAId}}",
+								"link-verification-result"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "link verif result through external ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"verification_type\": \"ID_VERIFICATION\",\n    \"provider_name\": \"FAKE_PROVIDER\",\n    \"content\": {\"test\": {\"nested_field\": 123}, \"boolean_field\": false, \"error\": \"An error occurred\"},\n    \"verification_timestamp\": 1600277454\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}/v1/unit21/entities/userA-{{randId}}/link-verification-result",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"unit21",
+								"entities",
+								"userA-{{randId}}",
 								"link-verification-result"
 							]
 						}
@@ -6247,7 +6296,7 @@
 					"response": []
 				},
 				{
-					"name": "link verif result through external ID",
+					"name": "get verif workflow id",
 					"event": [
 						{
 							"listen": "test",
@@ -6256,14 +6305,23 @@
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.test(\"entity_id matches response\", function () {",
+									"    pm.expect(pm.environment.get('userAId')).to.equal(String(jsonData.entity_id));",
+									"});",
 									""
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -6274,7 +6332,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"verification_type\": \"ID_VERIFICATION\",\n    \"provider_name\": \"FAKE_PROVIDER\",\n    \"content\": {\"test\": {\"nested_field\": 123}, \"boolean_field\": false, \"error\": \"An error occurred\"},\n    \"verification_timestamp\": 1600277454\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6282,17 +6340,76 @@
 							}
 						},
 						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/unit21/entities/userA-{{randId}}/link-verification-result",
+							"raw": "{{protocol}}://{{host}}/v1/verification/result/{{verification_result_id}}",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"v1",
-								"unit21",
-								"entities",
-								"userA-{{randId}}",
-								"link-verification-result"
+								"verification",
+								"result",
+								"{{verification_result_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get verif workflow execution ids",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.test(\"entity_id matches response\", function () {",
+									"    pm.expect(pm.environment.get('userAId')).to.equal(String(jsonData.entity_id));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}/v1/verification/result/{{verification_result_id}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"verification",
+								"result",
+								"{{verification_result_id}}"
 							]
 						}
 					},
