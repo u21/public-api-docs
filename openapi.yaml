@@ -2719,6 +2719,20 @@ paths:
       description: >
         Fetch status and enables/disables Socure continuous monitoring for an
         entity.
+
+
+        For asynchronous continuous monitoring, the endpoint will always return
+        a 200 success status response.
+
+
+        For synchronous continous monitoring, the endpoint will always return a
+        200 success status response  but you should look at the `is_success =
+        true` field to check if the result was actually successful: 
+
+        ``` {
+          "error_message": "This entity has no existing continuous monitoring subscriptions to disable.",
+          "is_success": true
+        }
       operationId: update_continuous_monitoring
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -3578,8 +3592,7 @@ components:
       type: boolean
       description: >-
         Include the full, raw, verification results. Can be used only if
-        `synchronous_response` is `true`.
-         **Default**: `false`
+        `synchronous_response` is `true`. Default is `false`.
       default: false
     resolveGeoIp:
       type: boolean
@@ -4911,8 +4924,8 @@ components:
     synchronousResponses:
       type: boolean
       description: >-
-        **Default**: `false`. If `true`,  the response is returned in the
-        request but may take slightly longer to complete.
+        Default: `false`. If `true`,  the response is returned in the request
+        but may take slightly longer to complete.
       default: false
       example: false
     continuousMonitoring:
