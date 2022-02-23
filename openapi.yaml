@@ -2729,10 +2729,13 @@ paths:
         200 success status response  but you should look at the `is_success =
         true` field to check if the result was actually successful: 
 
-        ``` {
-          "error_message": "This entity has no existing continuous monitoring subscriptions to disable.",
-          "is_success": true
-        }
+
+        `
+          {
+            "error_message": "This entity has no existing continuous monitoring subscriptions to disable.",
+            "is_success": true
+          }
+        `
       operationId: update_continuous_monitoring
       parameters:
         - $ref: '#/components/parameters/unit21_id'
