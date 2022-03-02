@@ -820,7 +820,7 @@ paths:
                 - $ref: '#/components/schemas/Instruments'
                 - $ref: '#/components/schemas/entityArray'
                 - $ref: '#/components/schemas/locationDataArray'
-                - $ref: '#/components/schemas/digitalData'
+                - $ref: '#/components/schemas/digitalDataArray'
                 - $ref: '#/components/schemas/customData'
       responses:
         '200':
@@ -912,7 +912,7 @@ paths:
                 - $ref: '#/components/schemas/Instruments'
                 - $ref: '#/components/schemas/entityArray'
                 - $ref: '#/components/schemas/locationDataArray'
-                - $ref: '#/components/schemas/digitalData'
+                - $ref: '#/components/schemas/digitalDataArray'
                 - $ref: '#/components/schemas/customData'
       responses:
         '200':
@@ -940,7 +940,7 @@ paths:
                 - $ref: '#/components/schemas/Instruments'
                 - $ref: '#/components/schemas/entityArray'
                 - $ref: '#/components/schemas/locationDataArray'
-                - $ref: '#/components/schemas/digitalData'
+                - $ref: '#/components/schemas/digitalDataArray'
                 - $ref: '#/components/schemas/customData'
       responses:
         '200':
@@ -3324,7 +3324,7 @@ components:
         tags:
           $ref: '#/components/schemas/Tags'
     userDataProperties:
-      title: User Data
+      title: User data
       type: object
       description: >
         Personal data - name, birthday, SSN etc. If `general_data.entity_type ==
@@ -3429,7 +3429,7 @@ components:
       maxLength: 128
     instrumentsArrayProperties:
       title: Instruments array
-      description: array of instrument ids as string
+      description: Array of instrument ids as string
       type: array
       items:
         $ref: '#/components/schemas/deviceId'
@@ -3443,7 +3443,7 @@ components:
         type: string
         example: '+14159627132'
     communicationDataProperties:
-      title: Communication Data
+      title: Communication data
       type: object
       description: >-
         An entity's associated means of communication, like emails and phone
@@ -3472,8 +3472,23 @@ components:
           $ref: '#/components/schemas/registeredAt'
         last_seen:
           $ref: '#/components/schemas/registeredAt'
+    clientFingerprintSimple:
+      title: Client Fingerprint
+      type: string
+      description: A Unique address
+      maxLength: 128
+      example: 5454-ahfd-4531d-f4il
+    clientFingerprintExtended:
+      title: Extended Client Fingerprint
+      properties:
+        ip_address:
+          $ref: '#/components/schemas/clientFingerprintSimple'
+        first_seen:
+          $ref: '#/components/schemas/registeredAt'
+        last_seen:
+          $ref: '#/components/schemas/registeredAt'
     digitalDataArrayProperties:
-      title: Digital Data
+      title: Digital data
       description: 'Associated digital properties - IP, device, browser, client info etc.'
       type: object
       properties:
@@ -3484,10 +3499,9 @@ components:
             $ref: '#/components/schemas/ipAddressExtended'
         client_fingerprints:
           type: array
-          description: Fingerprints associated with this entity.
+          description: List of unique addresses.
           items:
-            type: string
-            example: 4908hsdfknkd90432nj3k2kj2jk23kj2k3jk2j3
+            $ref: '#/components/schemas/clientFingerprintExtended'
     City:
       type: string
       description: Associated city (max 128 characters)
@@ -3545,12 +3559,12 @@ components:
           $ref: '#/components/schemas/Country'
     locationDataArrayProperties:
       title: Location data array
-      description: array of location data objects
+      description: Array of location data objects
       type: array
       items:
         $ref: '#/components/schemas/locationDataProperties'
     riskScoresProperties:
-      title: Risk Scores
+      title: Risk scores
       required:
         - name
         - score
@@ -3635,7 +3649,7 @@ components:
       default: true
       example: true
     entityOptionsProperties:
-      title: Entity Options
+      title: Entity options
       type: object
       description: Options for specifying workflows and list merge strategies.
       properties:
@@ -3664,7 +3678,7 @@ components:
         upsert_on_conflict:
           $ref: '#/components/schemas/upsertOnConflict'
     customDataProperties:
-      title: custom_data
+      title: Custom_data
       type: object
       description: >-
         Any custom information that you wish our system to associate with this
@@ -3728,7 +3742,7 @@ components:
       maxLength: 512
       example: Global Liquids
     businessDataProperties:
-      title: Business Data
+      title: Business data
       description: >
         Business data - business name, TIN/EIN etc. If `general_data.entity_type
         == business`, this field is required.
@@ -3809,7 +3823,7 @@ components:
         Unit21 system.
       example: '1237466'
     createEntityResponse:
-      title: entities/create Response
+      title: Entities/create Response
       description: 200 response for `list_entities` operation
       type: object
       properties:
@@ -3832,12 +3846,12 @@ components:
         document_data:
           $ref: '#/components/schemas/documentDataArrayProperties'
     communicationData:
-      title: Communication Data
+      title: Communication data
       properties:
         communication_data:
           $ref: '#/components/schemas/communicationDataProperties'
     digitalDataArray:
-      title: Digital_data array
+      title: Digital data array
       properties:
         digital_data:
           $ref: '#/components/schemas/digitalDataArrayProperties'
@@ -3847,7 +3861,7 @@ components:
         location_data:
           $ref: '#/components/schemas/locationDataArrayProperties'
     riskScores:
-      title: Risk Scores
+      title: Risk scores
       properties:
         risk_scores:
           type: array
@@ -3855,17 +3869,17 @@ components:
           items:
             $ref: '#/components/schemas/riskScoresProperties'
     entityOptions:
-      title: Entity Options
+      title: Entity options
       properties:
         options:
           $ref: '#/components/schemas/entityOptionsProperties'
     customData:
-      title: Custom Data
+      title: Custom data
       properties:
         custom_data:
           $ref: '#/components/schemas/customDataProperties'
     userData:
-      title: User Data
+      title: User data
       description: >
         Personal data - name, birthday, SSN etc. If `general_data.entity_type`
         is set to `user`, this field is required.
@@ -3873,7 +3887,7 @@ components:
         user_data:
           $ref: '#/components/schemas/userDataProperties'
     businessData:
-      title: Business Data
+      title: Business data
       description: >
         Business data - business name, TIN/EIN etc. If
         `general_data.entity_type` is set to `business`, this field is required.
@@ -3950,7 +3964,7 @@ components:
               socure_device_session_id: '12121212121212112'
             additionalProperties: true
     linkMediaForm:
-      title: Form Data
+      title: Form data
       type: object
       properties:
         form_data:
@@ -4055,7 +4069,7 @@ components:
         options:
           $ref: '#/components/schemas/Options'
     entityArray:
-      title: entities
+      title: Entities
       properties:
         entities:
           description: >-
@@ -4072,19 +4086,8 @@ components:
                 $ref: '#/components/schemas/entityId'
               entity_type:
                 $ref: '#/components/schemas/entityType'
-    digitalData:
-      title: Digital Data
-      properties:
-        digital_data:
-          description: >-
-            Associated digital properties - IP, device, browser, client info
-            etc.
-          type: object
-          properties:
-            ip_address:
-              $ref: '#/components/schemas/ipAddressSimple'
     createInstrumentResponse:
-      title: instruments/create response
+      title: Instruments/create response
       properties:
         instrument_id:
           $ref: '#/components/schemas/instrumentId'
@@ -4162,8 +4165,19 @@ components:
           $ref: '#/components/schemas/Tags'
         options:
           $ref: '#/components/schemas/Options'
+    digitalData:
+      title: Digital data
+      properties:
+        digital_data:
+          description: >-
+            Associated digital properties - IP, device, browser, client info
+            etc.
+          type: object
+          properties:
+            ip_address:
+              $ref: '#/components/schemas/ipAddressSimple'
     createDeviceResponse:
-      title: devices/create response
+      title: Devices/create response
       properties:
         device_id:
           $ref: '#/components/schemas/deviceId'
@@ -4189,7 +4203,7 @@ components:
         new logins.
       example: transaction
     generalEvents:
-      title: General Event Data
+      title: General event data
       properties:
         general_data:
           type: object
@@ -4514,7 +4528,7 @@ components:
             upsert_on_conflict:
               $ref: '#/components/schemas/upsertOnConflict'
     createEventResponse:
-      title: events/create response
+      title: Events/create response
       properties:
         event_id:
           $ref: '#/components/schemas/eventId'
@@ -4716,7 +4730,7 @@ components:
             list_merge_strategy:
               $ref: '#/components/schemas/listMergeStrategy'
     eventArray:
-      title: events
+      title: Events
       properties:
         events:
           description: 'Array of event objects, consisting of `event_id` and `event_type`'
@@ -4733,7 +4747,7 @@ components:
               event_type:
                 $ref: '#/components/schemas/eventType'
     instrumentArray:
-      title: instruments
+      title: Instruments
       properties:
         instruments:
           description: Array of `instrument_id` strings
@@ -4741,7 +4755,7 @@ components:
           items:
             $ref: '#/components/schemas/instrumentId'
     ruleArray:
-      title: rules
+      title: Rules
       properties:
         rules:
           description: Array of "rule_id" strings
@@ -5076,7 +5090,7 @@ components:
             example: Oso
           date_of_birth:
             type: string
-            description: in format MM/DD/YYYY
+            description: In format MM/DD/YYYY
             example: 12/25/1989
           ssn:
             type: string
@@ -5248,7 +5262,7 @@ components:
       schema:
         type: string
       required: true
-      description: name of organization in your environment
+      description: Name of organization in your environment
       example: unit21
     instrument_id:
       in: path
