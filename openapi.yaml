@@ -1789,7 +1789,7 @@ paths:
 
           | Field                   | Type        | Description                                                                                                       |
           | ----------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- |
-          | `types`                 | String[]    | Must be list of alert types: `tm`, `kyc`                                                                          |
+          | `types`                 | String[]    | Must be list of alert types: `tm`, `kyc`, `chainalysis`                                                           |
           | `created_after`         | Numeric     | Alerts created on or after this unix timestamp                                                                    |
           | `created_before`        | Numeric     | Alerts created before this unix timestamp                                                                         |
           | `dispositions`          | String[]    | List of alert disposition states (defined on an integration basis)                                                |
@@ -3584,8 +3584,7 @@ components:
         **Default**: `false`. If `true`,  the APU immediately executes the
         workflow, and sends the verification result with the API response. If
         `true` and the workflow doesn't allow synchronous responses, the API
-        returns an error([this can be configured in the
-        UI](https://docs.unit21.ai/dashboard/docs/kyc-verification-workflow)).
+        returns an error.
 
         **Note**: Using synchronous calls may cause the API to return a `423`
         error. If that happens, try switching `synchronous_response` to `false`.
@@ -4596,12 +4595,15 @@ components:
       properties:
         types:
           type: array
-          description: The `alert_types` to include─any or all of `tm` and `kyc`
+          description: >-
+            The `alert_types` to include─any or all of `tm`, `chainalysis`, and
+            `kyc`
           items:
             type: string
             enum:
               - tm
               - kyc
+              - chainalysis
         created_after:
           $ref: '#/components/schemas/registeredAt'
         created_before:
@@ -4674,6 +4676,7 @@ components:
           enum:
             - tm
             - kyc
+            - chainalysis
           description: >-
             Either transaction monitoring, `tm`, or know-your-customer `kyc`.
             Default is `tm`
