@@ -3244,6 +3244,14 @@ components:
             the first record.
           minimum: 1
           default: 1
+        start_date:
+          type: string
+          description: Start date
+          example: 2019-11-05T04:13:46.000Z
+        end_date:
+          type: string
+          description: End date
+          example: 2021-11-05T04:13:46.000Z
     entityId:
       type: string
       description: >-
@@ -3468,10 +3476,6 @@ components:
       properties:
         ip_address:
           $ref: '#/components/schemas/ipAddressSimple'
-        first_seen:
-          $ref: '#/components/schemas/registeredAt'
-        last_seen:
-          $ref: '#/components/schemas/registeredAt'
     clientFingerprintSimple:
       title: Client Fingerprint
       type: string
@@ -3481,12 +3485,8 @@ components:
     clientFingerprintExtended:
       title: Extended Client Fingerprint
       properties:
-        ip_address:
+        client_fingerprint:
           $ref: '#/components/schemas/clientFingerprintSimple'
-        first_seen:
-          $ref: '#/components/schemas/registeredAt'
-        last_seen:
-          $ref: '#/components/schemas/registeredAt'
     digitalDataArrayProperties:
       title: Digital data
       description: 'Associated digital properties - IP, device, browser, client info etc.'
