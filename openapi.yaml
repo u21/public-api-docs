@@ -3471,22 +3471,12 @@ components:
       description: Either IPv4 or IPv6
       maxLength: 128
       example: 255.255.255.255
-    ipAddressExtended:
-      title: Extended IP address
-      properties:
-        ip_address:
-          $ref: '#/components/schemas/ipAddressSimple'
     clientFingerprintSimple:
-      title: Client Fingerprint
+      title: Client fingerprint
       type: string
       description: A Unique address
       maxLength: 128
       example: 5454-ahfd-4531d-f4il
-    clientFingerprintExtended:
-      title: Extended Client Fingerprint
-      properties:
-        client_fingerprint:
-          $ref: '#/components/schemas/clientFingerprintSimple'
     digitalDataArrayProperties:
       title: Digital data
       description: 'Associated digital properties - IP, device, browser, client info etc.'
@@ -3496,12 +3486,12 @@ components:
           type: array
           description: List of IP addresses. MUST be in either IPv4 or IPv6 format.
           items:
-            $ref: '#/components/schemas/ipAddressExtended'
+            $ref: '#/components/schemas/ipAddressSimple'
         client_fingerprints:
           type: array
           description: List of unique addresses.
           items:
-            $ref: '#/components/schemas/clientFingerprintExtended'
+            $ref: '#/components/schemas/clientFingerprintSimple'
     City:
       type: string
       description: Associated city (max 128 characters)
