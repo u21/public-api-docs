@@ -4386,14 +4386,14 @@ components:
             exchange_rate:
               type: number
               description: >
-                If both sent_currency and received_currency are defined, and
+                If both `sent_currency` and `received_currency` are defined, and
                 neither of them are in the home currency, then this is defined
-                as sent_amount/received_amount. If either `sent_currency` or
-                `received_currency` are in the home currency (but not both),
-                then `exchange_rate` is defined as
-                `home_currency_amount/non_home_currency_amount`. If both
-                sent_currency and received_currency are in the home currency,
-                not required.
+                as `sent_amount/received_amount`.  If either `sent_currency` or
+                `received_currency` are in the home currency  (but not both),
+                then `exchange_rate` is defined as 
+                `home_currency_amount/non_home_currency_amount` (i.e exchange
+                rate to USD). If both `sent_currency` and `received_currency`
+                are in the home currency,  this is not required.
               example: 1.0012
             usd_conversion_notes:
               type: string
