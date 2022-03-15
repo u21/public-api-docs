@@ -1802,9 +1802,6 @@ paths:
         * `offset` indicates the offset for pagination. An `offset` value of 1
         starts with the environment's first record.
 
-        * `case_id`  is a filter. Only alerts with the associated case ID will
-        be shown.
-
 
         To narrow down your alert search, we provide filter parameters to this
         endpoint. Note that all list inputs function as an "or" filter, as in
@@ -1813,6 +1810,7 @@ paths:
 
           | Field                   | Type        | Description                                                                                                       |
           | ----------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- |
+          | `case_id`               | Numeric     | Only alerts with the associated case ID will be shown.                                                            |
           | `types`                 | String[]    | Must be list of alert types: `tm`, `kyc`, `chainalysis`                                                           |
           | `created_after`         | Numeric     | Alerts created on or after this unix timestamp                                                                    |
           | `created_before`        | Numeric     | Alerts created before this unix timestamp                                                                         |
