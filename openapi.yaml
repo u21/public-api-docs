@@ -123,13 +123,19 @@ paths:
         * `offset` indicates the offset for pagination. An `offset` value of 1
         starts with the environment's first record.
 
+        * `case_id`  is a filter. Only entities with the associated case ID will
+        be shown.
+
+        * `alert_id` is a filter. Only entities with the associated alert ID
+        will be shown.
+
 
         The `total_count` field contains the total number of entities where the 
         `response_count` field contains the number of entities included in the
         response.
       operationId: list_entities
       requestBody:
-        $ref: '#/components/requestBodies/list'
+        $ref: '#/components/requestBodies/listID'
       responses:
         '200':
           description: OK
@@ -738,13 +744,16 @@ paths:
         * `offset` indicates the offset for pagination. An `offset` value of 1
         starts with the environment's first record.
 
+        * `alert_id` is a filter. Only instruments with the associated alert ID
+        will be shown.
+
 
         The `total_count` field contains the total number of instruments where
         the  `response_count` field contains the number of instruments included
         in the response.
       operationId: list_instruments
       requestBody:
-        $ref: '#/components/requestBodies/list'
+        $ref: '#/components/requestBodies/listAlertID'
       responses:
         '200':
           description: OK
@@ -1270,13 +1279,25 @@ paths:
         * `offset` indicates the offset for pagination. An `offset` value of 1
         starts with the environment's first record.
 
+        * `case_id`  is a filter. Only events with the associated case ID will
+        be shown.
+
+        * `alert_id` is a filter. Only events with the associated alert ID will
+        be shown.
+
+        * `start_date`  is a filter. Only events that started on or after this
+        date will be shown.
+
+        * `end_date` is a filter. Only events that ended on or before this date
+        will be shown.
+
 
         The `total_count` field contains the total number of events where the 
         `response_count` field contains the number of events included in the
         response.
       operationId: list_events
       requestBody:
-        $ref: '#/components/requestBodies/list'
+        $ref: '#/components/requestBodies/listDate'
       responses:
         '200':
           description: Successfully returned events
@@ -1781,6 +1802,9 @@ paths:
         * `offset` indicates the offset for pagination. An `offset` value of 1
         starts with the environment's first record.
 
+        * `case_id`  is a filter. Only alerts with the associated case ID will
+        be shown.
+
 
         To narrow down your alert search, we provide filter parameters to this
         endpoint. Note that all list inputs function as an "or" filter, as in
@@ -1822,7 +1846,7 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/listRequest'
+                - $ref: '#/components/schemas/listCaseRequest'
                 - $ref: '#/components/schemas/alertListFilters'
       responses:
         '200':
@@ -1843,21 +1867,9 @@ paths:
                     disposition: REJECTED
                     dispositioned_at: 1597849123
                     dispositioned_by: person@example.com
-                    entities:
-                      - entity_id: userA-ef3d5d41-9ac4-4071-b1fe-7dd77c80a4e8
-                        entity_type: user
-                        resolution: UNRESOLVED
-                        unit21_id: 3789
-                    events:
-                      - event_id: txnBulk-11-ef3d5d41-6bc4-4070-b6ed-4dd77c90a5e8
-                        event_type: transaction
-                        resolution: UNRESOLVED
-                        unit21_id: 98
-                    instruments:
-                      - instrument_id: instrument-3012850a
-                        instrument_type: wallet
-                        unit21_id: 427
-                        resolution: UNRESOLVED
+                    entities: []
+                    events: []
+                    instruments: []
                     rules:
                       - rule_id: '123'
                         unit21_id: 456
@@ -3228,7 +3240,7 @@ components:
       in: header
       name: u21-key
   schemas:
-    listRequest:
+    listIDRequest:
       type: object
       properties:
         limit:
@@ -3244,14 +3256,14 @@ components:
             the first record.
           minimum: 1
           default: 1
-        start_date:
-          type: string
-          description: Start date
-          example: 2019-11-05T04:13:46.000Z
-        end_date:
-          type: string
-          description: End date
-          example: 2021-11-05T04:13:46.000Z
+        case_id:
+          type: integer
+          description: Associated case ID filter
+          example: 10107269
+        alert_id:
+          type: integer
+          description: Associated alert ID filter
+          example: 73913
     entityId:
       type: string
       description: >-
@@ -3997,6 +4009,26 @@ components:
             "source": "passport_app", "timestamp": 1572673229}'
 
             ```
+    listAlertRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: Number of objects per page.
+          minimum: 0
+          maximum: 50
+          example: 2
+        offset:
+          type: integer
+          description: >-
+            Pagination offset. A value of 1 returns a response beginning with
+            the first record.
+          minimum: 1
+          default: 1
+        alert_id:
+          type: integer
+          description: Associated alert ID filter
+          example: 73913
     listResponse:
       type: object
       properties:
@@ -4087,6 +4119,22 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    listRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: Number of objects per page.
+          minimum: 0
+          maximum: 50
+          example: 2
+        offset:
+          type: integer
+          description: >-
+            Pagination offset. A value of 1 returns a response beginning with
+            the first record.
+          minimum: 1
+          default: 1
     Devices:
       description: Top-level data about an instrument.
       title: Device data
@@ -4177,6 +4225,38 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    listDateRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: Number of objects per page.
+          minimum: 0
+          maximum: 50
+          example: 2
+        offset:
+          type: integer
+          description: >-
+            Pagination offset. A value of 1 returns a response beginning with
+            the first record.
+          minimum: 1
+          default: 1
+        start_date:
+          type: string
+          description: Start date
+          example: 2019-11-05T04:13:46.000Z
+        end_date:
+          type: string
+          description: End date
+          example: 2021-11-05T04:13:46.000Z
+        case_id:
+          type: integer
+          description: Associated case ID filter
+          example: 10107269
+        alert_id:
+          type: integer
+          description: Associated alert ID filter
+          example: 73913
     eventId:
       type: string
       description: Unique identifier of the event on your platform
@@ -4526,6 +4606,26 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    listCaseRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: Number of objects per page.
+          minimum: 0
+          maximum: 50
+          example: 2
+        offset:
+          type: integer
+          description: >-
+            Pagination offset. A value of 1 returns a response beginning with
+            the first record.
+          minimum: 1
+          default: 1
+        case_id:
+          type: integer
+          description: Associated case ID filter
+          example: 10107269
     Disposition:
       type: string
       description: >-
@@ -5191,6 +5291,20 @@ components:
             description: string value to upload to blacklist
             example: Anything
   requestBodies:
+    listID:
+      description: ''
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/listIDRequest'
+    listAlertID:
+      description: ''
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/listAlertRequest'
     list:
       description: ''
       required: true
@@ -5198,6 +5312,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/listRequest'
+    listDate:
+      description: ''
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/listDateRequest'
   responses:
     '400':
       description: Bad Request. Your request is invalid.
