@@ -1856,39 +1856,39 @@ paths:
                   - $ref: '#/components/schemas/listResponse'
               example:
                 alerts:
-                  - alert_id: '12345'
+                  - alert_id: null
                     alert_type: tm
-                    assigned_to: person@example.com
-                    created_at: 1597739123
+                    assigned_to: nicole@unit21.ai
+                    created_at: 1646698620
                     custom_data: {}
-                    description: Alert description
-                    disposition: REJECTED
-                    dispositioned_at: 1597849123
-                    dispositioned_by: person@example.com
+                    descendant_cases: []
+                    description: >-
+                      Total of 3 events in group entities:
+                      8adc9ecc22854ce7b5453c82f0db9d17 found by rule: test.
+                    disposition: CLOSED
+                    dispositioned_at: 1648581392
+                    dispositioned_by: nicole@unit21.ai
+                    end_date: 1645463825
                     entities: []
                     events: []
                     instruments: []
                     rules:
-                      - rule_id: '123'
-                        unit21_id: 456
+                      - rule_id: null
+                        unit21_id: 6608294
                     source: INTERNAL
+                    start_date: 1645458482
                     status: CLOSED
                     tags:
-                      - 'scenario_type:blacklist'
-                      - 'sameplekey:samplevalue'
-                    title: Alert Title
-                    unit21_id: 101
-                    actions:
-                      - subdispositions:
-                          - subdisposition: TITLE
-                            value: MISSING_DOCUMENTS
-                        disposition: REJECTED
-                        status_changed_to: CLOSED
-                        action_time: 1597849123
-                        author: person@example.com
-                        disposition_notes: free form agent text describing the action/resaons
+                      - 'sector:europe'
+                      - 'updated:true'
+                      - 'account_type:unverified'
+                      - 'account_type:verified'
+                    title: >-
+                      Rule #6608294 (test) triggered for entities:
+                      8adc9ecc22854ce7b5453c82f0db9d17
+                    unit21_id: '10080108'
                 response_count: 1
-                total_count: 10
+                total_count: 379024
   /alerts/create:
     post:
       tags:
@@ -2173,24 +2173,40 @@ paths:
                 $ref: '#/components/schemas/listResponse'
               example:
                 cases:
-                  - alerts: []
-                    assigned_to: john@example.com
+                  - actions: []
+                    alerts: []
+                    assigned_to: peter@unit21.ai
                     case_id: null
-                    created_at: 1616433161
+                    checklist: {}
+                    created_at: 1600215971
+                    created_by: eric@unit21.ai
                     custom_data: {}
-                    description: Test Case Description
+                    descendant_sar_filing:
+                      - 536203
+                      - 536204
+                    description: >-
+                      Total of 5 events in group entities:
+                      userA-736890b7-9ca1-4edf-a48c-dd840adb5f55 found by rule:
+                      Low-valued transactions compared to merchant's average txn
+                      value.
                     disposition: UNRESOLVED
                     dispositioned_at: null
                     dispositioned_by: null
                     entities: []
                     events: []
+                    rules:
+                      - rule_id: null
+                        unit21_id: 97970
                     source: INTERNAL
-                    status: OPEN
+                    status: CLOSED
                     tags: []
-                    title: Test Case
-                    unit21_id: '17529'
+                    title: >-
+                      Rule #97970 (Low-valued transactions compared to
+                      merchant's average txn value) triggered for entities:
+                      userA-736890b7-9ca1-4edf-a48c-dd840adb5f55
+                    unit21_id: '536202'
                 response_count: 1
-                total_count: 13
+                total_count: 950
   /cases/create:
     post:
       tags:
@@ -4744,15 +4760,15 @@ components:
             include_associations:
               type: boolean
               description: >-
-                If `true`, the response includes all entities, events &
-                instruments associated with the alert
+                If `true`, the response includes all cases associated with the
+                alert under `descendant_cases`.
               example: false
             include_actions:
               type: boolean
               description: >-
                 If `true`, the response includes list of all actions taken on
                 the alert, including disposition changes, status changes,
-                reassignments, etcetera
+                reassignments, etcetera.
               example: false
     alertId:
       type: string
@@ -4899,15 +4915,16 @@ components:
             include_associations:
               type: boolean
               description: >-
-                If `true`, the response includes all entities, events &
-                instruments associated with the case
+                If `true`, the response includes all rule IDs and SAR filing IDs
+                associated with the case under `rules` and
+                `descendant_sar_filing`.
               example: false
             include_actions:
               type: boolean
               description: >-
                 If `true`, the response includes list of all actions taken on
                 the case, including disposition changes, status changes,
-                reassignments, etcetera
+                reassignments, etcetera.
               example: false
     caseId:
       type: string
