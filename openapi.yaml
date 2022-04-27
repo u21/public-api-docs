@@ -1055,7 +1055,7 @@ paths:
         - Devices API
       summary: Create a device
       operationId: create_device
-      description: "Creates a new device, sending device data in the request body.\n\nRecommended values for `instrument_type` include: account, crypto_address,  digital_wallet, credit_card, debit_card, gift_card, voucher, check.\n\nIf the `/devices/create` API is called for an device that already exists in our system (i.e.  has an existing `device_id`, it is treated it as an  [upsert](https://docs.unit21.ai/u21/reference/should-i-update-or-upsert) and an update on the existing device is performed. The response to the request will then contain the entry `previously_existed: true`. \n\nUnit21 selectively ignores upserts if the request is identical to a previous request.  The response to any isgnored upsert will  contain the field `ignored: true`.\n\nUpdates to an device's `device_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/u21/reference/endpoint-options)\n  - [Custom data](https://docs.unit21.ai/u21/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/u21/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/u21/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                            |\n  |--------------------------|----------|--------------------------------------------------------|\n  | `device_id`\t             | String   | \tUnique identifier of the device on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the device within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `device_id`) already exists |\n"
+      description: "Creates a new device, sending device data in the request body.\n\nRecommended values for `device_type` include: laptop, home_computer, work_laptop, phone, smartphone, scanner.\n\nIf the `/devices/create` API is called for an device that already exists in our system (i.e.  has an existing `device_id`, it is treated it as an  [upsert](https://docs.unit21.ai/u21/reference/should-i-update-or-upsert) and an update on the existing device is performed. The response to the request will then contain the entry `previously_existed: true`. \n\nUnit21 selectively ignores upserts if the request is identical to a previous request.  The response to any isgnored upsert will  contain the field `ignored: true`.\n\nUpdates to an device's `device_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/u21/reference/endpoint-options)\n  - [Custom data](https://docs.unit21.ai/u21/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/u21/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/u21/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                            |\n  |--------------------------|----------|--------------------------------------------------------|\n  | `device_id`\t             | String   | \tUnique identifier of the device on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the device within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `device_id`) already exists |\n"
       requestBody:
         required: true
         content:
@@ -2870,10 +2870,12 @@ paths:
                   email: Sallyallen@example.com
                   full_name: Sally Allen
                   status: ACTIVE
+                  unit21_id: 1264
                 - created_at: 1613604175
                   email: JhonStrod@example.com
                   full_name: Jhon Strod
                   status: ACTIVE
+                  unit21_id: 1265
   '/agents/{agent_email}/deactivate':
     put:
       tags:
