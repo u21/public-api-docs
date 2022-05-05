@@ -727,6 +727,39 @@ paths:
       responses:
         '200':
           description: OK
+  /entities/bulk-export:
+    post:
+      tags:
+        - Entities API
+      summary: Bulk export entities
+      description: >
+        Initiates an email and dashboard export of entities. The export will be
+        as a CSV file.
+
+
+        Either the agent `ID` or `email` is required to begin the export.
+
+
+        Either the `filters` or the list of `entity IDs` are required for the
+        export.
+          
+      operationId: export_entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/agentId'
+                - $ref: '#/components/schemas/agentEmail'
+                - $ref: '#/components/schemas/entityIds'
+                - $ref: '#/components/schemas/entityExportFilters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                message: File export has started
   /instruments/list:
     post:
       tags:
@@ -959,6 +992,39 @@ paths:
               example:
                 instrument_id: 3234-sdghfdf-3332
                 unit21_id: '49073'
+  /instruments/bulk-export:
+    post:
+      tags:
+        - Instruments API
+      summary: Bulk export instruments
+      description: >
+        Initiates an email and dashboard export of instruments. The export will
+        be as a CSV file.
+
+
+        Either the agent `ID` or `email` is required to begin the export.
+
+
+        Either the `filters` or the list of `instrument IDs` are required for
+        the export.
+          
+      operationId: export_instruments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/agentId'
+                - $ref: '#/components/schemas/agentEmail'
+                - $ref: '#/components/schemas/instrumentsIds'
+                - $ref: '#/components/schemas/instrumentExportFilters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                message: File export has started
   /devices/list:
     post:
       tags:
@@ -1260,6 +1326,38 @@ paths:
               example:
                 device_id: 3234-sdghfdf-3332
                 unit21_id: '49073'
+  /devices/bulk-export:
+    post:
+      tags:
+        - Devices API
+      summary: Bulk export devices
+      description: >
+        Initiates an email and dashboard export of devices. The export will be
+        as a CSV file.
+
+
+        Either the agent `ID` or `email` is required to begin the export.
+
+
+        Either the `filters` or the list of `device IDs` are required for the
+        export.
+      operationId: export_devices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/agentId'
+                - $ref: '#/components/schemas/agentEmail'
+                - $ref: '#/components/schemas/deviceIds'
+                - $ref: '#/components/schemas/deviceExportFilters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                message: File export has started
   /events/list:
     post:
       tags:
@@ -1674,6 +1772,72 @@ paths:
               example:
                 event_id: t-7d258c89-de60-4acd-acc8-db62506953d3
                 unit21_id: '2633554'
+  /events/bulk-export:
+    post:
+      tags:
+        - Events API
+      summary: Bulk export events
+      description: >
+        Initiates an email and dashboard export of events. The export will be as
+        a CSV file.
+
+
+        Either the agent `ID` or `email` is required to begin the export.
+
+
+        Either the `filters` or the list of `event IDs` are required for the
+        export.
+          
+      operationId: export_events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/agentId'
+                - $ref: '#/components/schemas/agentEmail'
+                - $ref: '#/components/schemas/eventIds'
+                - $ref: '#/components/schemas/eventExportFilters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                message: File export has started
+  /txn_events/bulk-export:
+    post:
+      tags:
+        - Events API
+      summary: Bulk export transactions
+      description: >
+        Initiates an email and dashboard export of events. The export will be as
+        a CSV file.
+
+
+        Either the agent `ID` or `email` is required to begin the export.
+
+
+        Either the `filters` or the list of `event IDs` are required for the
+        export.
+          
+      operationId: export_transactions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/agentId'
+                - $ref: '#/components/schemas/agentEmail'
+                - $ref: '#/components/schemas/eventIds'
+                - $ref: '#/components/schemas/eventExportFilters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                message: File export has started
   /rules/list:
     post:
       tags:
@@ -1783,6 +1947,39 @@ paths:
                   tags: []
                   title: tessst
                   unit21_id: '9097753'
+  /rules/bulk-export:
+    post:
+      tags:
+        - Rules API
+      summary: Bulk export rules
+      description: >
+        Initiates an email and dashboard export of rules. The export will be as
+        a CSV file.
+
+
+        Either the agent `ID` or `email` is required to begin the export.
+
+
+        Either the `filters` or the list of `rule IDs` are required for the
+        export.
+          
+      operationId: export_rules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/agentId'
+                - $ref: '#/components/schemas/agentEmail'
+                - $ref: '#/components/schemas/ruleIds'
+                - $ref: '#/components/schemas/ruleExportFilters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                message: File export has started
   /alerts/list:
     post:
       tags:
@@ -2103,6 +2300,38 @@ paths:
       responses:
         '200':
           description: OK
+  /alerts/bulk-export:
+    post:
+      tags:
+        - Alerts API
+      summary: Bulk export alerts
+      description: >
+        Initiates an email and dashboard export of alerts. The export will be as
+        a CSV file.
+
+
+        Either the agent `ID` or `email` is required to begin the export.
+
+
+        Either the `filters` or the list of `alert IDs` are required for the
+        export.
+      operationId: export_alerts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/agentId'
+                - $ref: '#/components/schemas/agentEmail'
+                - $ref: '#/components/schemas/alertIds'
+                - $ref: '#/components/schemas/alertExportFilters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                message: File export has started
   /cases/list:
     post:
       tags:
@@ -2385,6 +2614,38 @@ paths:
                 example:
                   unit21_id: '1423'
                   case_id: caseA-123
+  /cases/bulk-export:
+    post:
+      tags:
+        - Cases API
+      summary: Bulk export cases
+      description: >
+        Initiates an email and dashboard export of cases. The export will be as
+        a CSV file.
+
+
+        Either the agent `ID` or `email` is required to begin the export.
+
+
+        Either the `filters` or the list of `case IDs` are required for the
+        export.
+      operationId: export_cases
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/agentId'
+                - $ref: '#/components/schemas/agentEmail'
+                - $ref: '#/components/schemas/caseIds'
+                - $ref: '#/components/schemas/caseExportFilters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                message: File export has started
   /sars/list:
     post:
       tags:
@@ -2848,6 +3109,39 @@ paths:
                 unit_id: 1
                 verification_form_id: null
                 verification_workflow_id: 1283
+  /sars/bulk-export:
+    post:
+      tags:
+        - Sars API
+      summary: Bulk export sars
+      description: >
+        Initiates an email and dashboard export of sars. The export will be as a
+        CSV file.
+
+
+        Either the agent `ID` or `email` is required to begin the export.
+
+
+        Either the `filters` or the list of `sar IDs` are required for the
+        export.
+          
+      operationId: export_sars
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/agentId'
+                - $ref: '#/components/schemas/agentEmail'
+                - $ref: '#/components/schemas/sarIds'
+                - $ref: '#/components/schemas/sarExportFilters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                message: File export has started
   /agents/list:
     get:
       tags:
@@ -4025,6 +4319,87 @@ components:
             "source": "passport_app", "timestamp": 1572673229}'
 
             ```
+    agentId:
+      properties:
+        agent_id:
+          type: string
+          description: Numerical identifier of an agent in your organization
+          example: 295
+    agentEmail:
+      properties:
+        agent_email:
+          type: string
+          example: foobar@unit21.ai
+    entityIds:
+      properties:
+        entity_ids:
+          type: array
+          items:
+            - $ref: '#/components/schemas/entityId'
+          example:
+            - 82432
+            - 234234
+            - 6554654
+            - 654746
+    entityExportFilterDetails:
+      description: 'To filter your result of a entities export, use these fields.'
+      type: object
+      properties:
+        tag_ids:
+          type: array
+          description: Numerical IDs of the tags.
+          items:
+            type: integer
+            example: 9
+        instrument_id:
+          type: string
+          description: ID of the instrument associated with the entities.
+          example: '1285839'
+        device_id:
+          type: string
+          description: ID of the device associated with the entities.
+          example: '1285839'
+        start_date:
+          type: string
+          description: Entity creation date start.
+          example: '2019-11-05 04:13:46'
+        end_date:
+          type: string
+          description: Entity creation date end.
+          example: '2021-11-05 04:13:46'
+        child_org_ids:
+          type: array
+          description: Entities that belong to this Child Org (Numerical ID).
+          items:
+            type: integer
+            example: 85
+        status:
+          type: string
+          description: Status of the entities.
+          example: active
+        internal_entity_type:
+          type: array
+          description: Type of entity.
+          items:
+            type: string
+            enum:
+              - user
+              - business
+    entityExportFilters:
+      properties:
+        filters:
+          type: object
+          items:
+            - $ref: '#/components/schemas/entityExportFilterDetails'
+          example:
+            tag_ids:
+              - 12
+            entity_ids: []
+            child_org_ids: []
+            internal_entity_type: ''
+            status: new
+            start_date: '2022-05-01 07:00:00'
+            end_date: '2022-05-06 06:59:00'
     listAlertRequest:
       type: object
       properties:
@@ -4135,6 +4510,94 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    instrumentsIds:
+      properties:
+        instrument_ids:
+          type: array
+          items:
+            - $ref: '#/components/schemas/instrumentId'
+          example:
+            - 82432
+            - 234234
+            - 6554654
+            - 654746
+    instrumentExportFilterDetails:
+      description: 'To filter your result of a instrument export, use these fields.'
+      type: object
+      properties:
+        instrument_type:
+          type: string
+          description: Type of instrument.
+          example: wallet
+        tag_ids:
+          type: array
+          description: Numerical IDs of the tags.
+          items:
+            type: integer
+            example: 9
+        child_org_ids:
+          type: array
+          description: Instruments that belong to this Child org (Numerical ID).
+          items:
+            type: integer
+            example: 85
+        status:
+          type: string
+          description: Status of the instruments.
+          example: active
+        entity_ids:
+          type: array
+          description: Numerical IDs of the entities.
+          items:
+            type: integer
+            example: 15453219
+        start_date:
+          type: string
+          description: Instrument creation date start.
+          example: '2019-11-05 04:13:46'
+        end_date:
+          type: string
+          description: Instrument creation date end.
+          example: '2021-11-05 04:13:46'
+        created_start_date:
+          type: string
+          description: Instrument creation start date
+          example: '2019-11-05 04:13:46'
+        created_end_date:
+          type: string
+          description: Instrument creation end date
+          example: '2019-11-05 04:13:46'
+        minimum_sent:
+          type: integer
+          description: Minimum amount sent by instrument.
+          example: 1000
+        maximum_sent:
+          type: integer
+          description: Maximum amount sent by instrument.
+          example: 100000
+        minimum_received:
+          type: integer
+          description: Minimum amount received by instrument.
+          example: 1000
+        maximum_received:
+          type: integer
+          description: Maximum amount received by instrument.
+          example: 100000
+    instrumentExportFilters:
+      properties:
+        filters:
+          type: object
+          items:
+            - $ref: '#/components/schemas/instrumentExportFilterDetails'
+          example:
+            instrument_type: account
+            status: active
+            tag_ids:
+              - 15
+            child_org_ids:
+              - 4
+            start_date: '2021-09-01 07:00:00'
+            end_date: '2022-05-07 06:59:00'
     listRequest:
       type: object
       properties:
@@ -4241,6 +4704,36 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    deviceIds:
+      properties:
+        device_ids:
+          type: array
+          items:
+            - $ref: '#/components/schemas/deviceId'
+          example:
+            - 82432
+            - 234234
+            - 6554654
+            - 654746
+    deviceExportFilterDetails:
+      description: 'To filter your result of a device export, use these fields.'
+      type: object
+      properties:
+        child_org_ids:
+          type: array
+          description: Devices that belong to this Child org (Numerical ID).
+          items:
+            type: integer
+            example: 85
+    deviceExportFilters:
+      properties:
+        filters:
+          type: object
+          items:
+            - $ref: '#/components/schemas/deviceExportFilterDetails'
+          example:
+            child_org_ids:
+              - 23
     listDateRequest:
       type: object
       properties:
@@ -4622,6 +5115,166 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    eventIds:
+      properties:
+        event_ids:
+          type: array
+          items:
+            - $ref: '#/components/schemas/eventId'
+          example:
+            - 82432
+            - 234234
+            - 6554654
+            - 654746
+    eventExportFilterDetails:
+      description: 'To filter your result of a event export, use these fields.'
+      type: object
+      properties:
+        tag_ids:
+          type: array
+          description: Numerical IDs of the tags.
+          items:
+            type: integer
+            example: 9
+        statuses:
+          type: array
+          description: Status for the events.
+          items:
+            type: string
+            example: new
+        internal_txn_type:
+          type: array
+          description: Type of event (transaction).
+          items:
+            type: string
+            example: ach
+        start_date:
+          type: string
+          description: Event creation date start.
+          example: '2019-11-05 04:13:46'
+        end_date:
+          type: string
+          description: Event creation date end.
+          example: '2021-11-05 04:13:46'
+        minimum_amount:
+          type: integer
+          description: Minimum amount in the event transaction.
+          example: 1000
+        maximum_amount:
+          type: integer
+          description: Maximum amount in the event transaction.
+          example: 100000
+        currency:
+          type: string
+          description: Currency used in the transaction.
+          example: USD
+        entity_ids:
+          type: array
+          description: Numerical IDs of the entities in the event.
+          items:
+            type: integer
+            example: 85
+        child_org_ids:
+          type: array
+          description: Events that belong to this Child org (Numerical ID).
+          items:
+            type: integer
+            example: 85
+    eventExportFilters:
+      properties:
+        filters:
+          type: object
+          items:
+            - $ref: '#/components/schemas/eventExportFilterDetails'
+          example:
+            tag_ids:
+              - 12
+            maximum_amount: 500000
+            currency: USD
+            entity_ids:
+              - 5645654
+              - 9826578
+            child_org_ids:
+              - 5
+            start_date: '2021-04-27 07:00:00'
+            end_date: '2022-04-27 07:00:00'
+    ruleId:
+      type: string
+      description: Unique identifier of the rule on the customer's platform
+      maxLength: 128
+      example: 1589513
+    ruleIds:
+      properties:
+        rule_ids:
+          type: array
+          items:
+            - $ref: '#/components/schemas/ruleId'
+          example:
+            - 82432
+            - 234234
+            - 6554654
+            - 654746
+    ruleExportFilterDetails:
+      description: 'To filter your result of a rule export, use these fields.'
+      type: object
+      properties:
+        statuses:
+          type: array
+          description: Status for the rule.
+          items:
+            type: string
+            enum:
+              - ACTIVE
+              - INACTIVE
+              - VALIDATION
+        tag_ids:
+          type: array
+          description: Numerical IDs of the tags.
+          items:
+            type: integer
+            example: 9
+        sources:
+          type: array
+          description: Source for the rules.
+          items:
+            type: string
+            enum:
+              - INTERNAL
+              - EXTERNAL
+        agent_ids:
+          type: array
+          description: Numerical IDs of the agents.
+          items:
+            type: integer
+            example: 14
+        phrase:
+          type: string
+          description: ID or title of the rule.
+          example: Rule to flag X
+        created_at_start:
+          type: string
+          description: Rule creation start date
+          example: '2019-11-05 04:13:46'
+        created_at_end:
+          type: string
+          description: Rule Creation end date
+          example: '2021-11-05 04:13:46'
+    ruleExportFilters:
+      properties:
+        filters:
+          type: object
+          items:
+            - $ref: '#/components/schemas/ruleExportFilterDetails'
+          example:
+            statuses:
+              - ACTIVE
+            agent_ids:
+              - 2783
+              - 1020
+            sources:
+              - INTERNAL
+            tag_ids:
+              - 68
     listCaseRequest:
       type: object
       properties:
@@ -4878,6 +5531,153 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    alertIds:
+      properties:
+        alert_ids:
+          type: array
+          items:
+            - $ref: '#/components/schemas/alertId'
+          example:
+            - 82432
+            - 234234
+            - 6554654
+            - 654746
+    alertExportFilterDetails:
+      description: 'To filter your result of an alert export, use these fields.'
+      type: object
+      properties:
+        tag_ids:
+          type: array
+          description: Numerical IDs of the tags.
+          items:
+            type: integer
+            example: 9
+        statuses:
+          type: array
+          description: Status for the alerts.
+          items:
+            type: string
+            enum:
+              - open
+              - closed
+        sources:
+          type: array
+          description: Sources for the alerts.
+          items:
+            type: string
+            enum:
+              - internal
+              - external
+        tags:
+          $ref: '#/components/schemas/Tags'
+        assigned_to_id:
+          type: array
+          description: Numerical IDs of the agents the alerts are assigned to.
+          items:
+            type: integer
+            example: 85
+        alert_types:
+          type: array
+          description: Sources for the alerts.
+          items:
+            type: string
+            enum:
+              - chainalysis
+              - tm
+              - kyc
+        alert_queue_ids:
+          type: array
+          description: Numerical IDs of the alert queues.
+          items:
+            type: integer
+            example: 125
+        created_start_date:
+          type: string
+          description: Alert creation start date
+          example: '2019-11-05 04:13:46'
+        created_end_date:
+          type: string
+          description: Alert creation end date
+          example: '2021-11-05 04:13:46'
+        disposition_start_date:
+          type: string
+          description: Disposition start date
+          example: '2019-11-05 04:13:46'
+        disposition_end_date:
+          type: string
+          description: Disposition end date
+          example: '2021-11-05 04:13:46'
+        team_ids:
+          type: array
+          description: Numerical IDs of the teams.
+          items:
+            type: integer
+            example: 6
+        entity_ids:
+          type: array
+          description: Numerical IDs of the entities.
+          items:
+            type: integer
+            example: 15453219
+        agent_ids:
+          type: array
+          description: Numerical IDs of the agents.
+          items:
+            type: integer
+            example: 14
+        minimum_amount:
+          type: integer
+          description: Minimum amount in the alerts.
+          example: 1000
+        maximum_amount:
+          type: integer
+          description: Maximum amount in the alerts.
+          example: 100000
+        rule_ids:
+          type: array
+          description: Numerical IDs of the rules.
+          items:
+            type: integer
+            example: 371
+        subdisposition_ids:
+          type: array
+          description: Numerical IDs for the subdisposition.
+          items:
+            type: integer
+            example: 2
+        subdisposition_option_ids:
+          type: array
+          description: Numerical IDs for the subdisposition option.
+          items:
+            type: integer
+            example: 1
+        disposition:
+          type: string
+          description: Disposition name.
+          example: Closed
+        alerting_org_ids:
+          type: array
+          description: Numerical IDs of the organizations.
+          items:
+            type: integer
+            example: 45
+        min_alert_score:
+          type: integer
+          description: Minimum alert score.
+          example: 0
+        max_alert_score:
+          type: integer
+          description: Maximum alert score.
+          example: 100
+    alertExportFilters:
+      properties:
+        filters:
+          type: object
+          items:
+            - $ref: '#/components/schemas/alertExportFilterDetails'
+          example:
+            max_alert_score: 10
+            disposition: Closed
     caseListFilters:
       description: 'To filter your response to a subset of alerts, use these fields.'
       properties:
@@ -4975,6 +5775,153 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    caseIds:
+      properties:
+        case_ids:
+          type: array
+          items:
+            - $ref: '#/components/schemas/caseId'
+          example:
+            - 82432
+            - 234234
+            - 6554654
+            - 654746
+    caseExportFilterDetails:
+      description: 'To filter your result of a case export, use these fields.'
+      type: object
+      properties:
+        tag_ids:
+          type: array
+          description: Numerical IDs of the tags.
+          items:
+            type: integer
+            example: 9
+        statuses:
+          type: array
+          description: Statuses for the cases.
+          items:
+            type: string
+            enum:
+              - open
+              - closed
+        sources:
+          type: array
+          description: Sources for the cases.
+          items:
+            type: string
+            enum:
+              - internal
+              - external
+        tags:
+          $ref: '#/components/schemas/Tags'
+        assigned_to_id:
+          type: array
+          description: Numerical IDs of the agents the cases are assigned to.
+          items:
+            type: integer
+            example: 85
+        alert_types:
+          type: array
+          description: Sources for the alerts.
+          items:
+            type: string
+            enum:
+              - chainalysis
+              - tm
+              - kyc
+        alert_queue_ids:
+          type: array
+          description: Numerical IDs of the alert queues.
+          items:
+            type: integer
+            example: 125
+        created_start_date:
+          type: string
+          description: Alert creation start date
+          example: '2019-11-05 04:13:46'
+        created_end_date:
+          type: string
+          description: Alert Creation end date
+          example: '2021-11-05 04:13:46'
+        disposition_start_date:
+          type: string
+          description: Disposition start date
+          example: '2019-11-05 04:13:46'
+        disposition_end_date:
+          type: string
+          description: Disposition end date
+          example: '2021-11-05 04:13:46'
+        team_ids:
+          type: array
+          description: Numerical IDs of the teams.
+          items:
+            type: integer
+            example: 6
+        entity_ids:
+          type: array
+          description: Numerical IDs of the entities.
+          items:
+            type: integer
+            example: 15453219
+        agent_ids:
+          type: array
+          description: Numerical IDs of the agents.
+          items:
+            type: integer
+            example: 14
+        minimum_amount:
+          type: integer
+          description: Minimum amount in the alert.
+          example: 1000
+        maximum_amount:
+          type: integer
+          description: Maximum amount in the alert.
+          example: 100000
+        rule_ids:
+          type: array
+          description: Numerical IDs of the rules.
+          items:
+            type: integer
+            example: 371
+        subdisposition_ids:
+          type: array
+          description: Numerical IDs of the agents.
+          items:
+            type: integer
+            example: 2
+        subdisposition_option_ids:
+          type: array
+          description: Numerical IDs of the agents.
+          items:
+            type: integer
+            example: 1
+        disposition:
+          type: string
+          description: Disposition name.
+          example: Closed
+        alerting_org_ids:
+          type: array
+          description: Numerical IDs of the organizations.
+          items:
+            type: integer
+            example: 45
+        min_alert_score:
+          type: integer
+          description: Minimum alert score.
+          example: 0
+        max_alert_score:
+          type: integer
+          description: Maximum alert score.
+          example: 100
+    caseExportFilters:
+      properties:
+        filters:
+          type: object
+          items:
+            - $ref: '#/components/schemas/caseExportFilterDetails'
+          example:
+            max_alert_score: 10
+            disposition: Closed
     entityVerification:
       title: Entity Verification
       description: Fields to verify an entity
@@ -5089,6 +6036,113 @@ components:
           example:
             - '5676572343'
             - '4657605135'
+    sarId:
+      type: string
+      description: Unique identifier of the sars on the customer's platform
+      maxLength: 128
+      example: 1589513
+    sarIds:
+      properties:
+        sar_ids:
+          type: array
+          items:
+            - $ref: '#/components/schemas/sarId'
+          example:
+            - 82432
+            - 234234
+            - 6554654
+            - 654746
+    sarExportFilterDetails:
+      description: 'To filter your result of a sars/str export, use these fields.'
+      type: object
+      properties:
+        statuses:
+          type: array
+          description: Status for the sars.
+          items:
+            type: string
+            enum:
+              - ARCHIVED
+              - PREFILING_VALIDATION_PENDING
+              - PREFILING_VALIDATION_IN_PROCESS
+              - PREFILING_VALIDATION_FAILED
+              - PREFILING_VALIDATION_SUCCESS
+              - QUEUED_FOR_FILING
+              - READY_FOR_REVIEW
+              - SENDING_TO_FINCEN
+              - SENT_TO_FINCEN
+              - FILING_FAILED
+              - FILING_MAX_RETRIES_EXCEEDED
+              - FILING_SUCCESS
+              - FINCEN_VALIDATION_FAILED
+              - FINCEN_REJECTED
+              - FINCEN_STATUS_OTHER
+              - FINCEN_ACCEPTED
+        created_at_start:
+          type: string
+          description: Report creation start date
+          example: '2019-11-05 04:13:46'
+        created_at_end:
+          type: string
+          description: Report Creation end date
+          example: '2021-11-05 04:13:46'
+        updated_at_start:
+          type: string
+          description: Report update start date
+          example: '2019-11-05 04:13:46'
+        updated_at_end:
+          type: string
+          description: Report update end date
+          example: '2021-11-05 04:13:46'
+        filed_at_start:
+          type: string
+          description: Report file start date
+          example: '2019-11-05 04:13:46'
+        filed_at_end:
+          type: string
+          description: Report file end date
+          example: '2021-11-05 04:13:46'
+        submitted:
+          type: bool
+          description: Report submited?
+          example: true
+        search_id:
+          type: string
+          description: BSA ID or SAR/STR ID.
+          example: '1285839'
+        assigned_to_id:
+          description: Numerical ID of the agents the reports are assigned to.
+          type: integer
+          example: 85
+        entity_ids:
+          type: array
+          description: Numerical IDs of the entities in the report.
+          items:
+            type: integer
+            example: 85
+        sources:
+          type: array
+          description: Which type of report to export.
+          items:
+            type: string
+            enum:
+              - GOAML_STR
+              - FINCEN_SAR
+    sarExportFilters:
+      properties:
+        filters:
+          type: object
+          items:
+            - $ref: '#/components/schemas/sarExportFilterDetails'
+          example:
+            agent_ids:
+              - 901
+            statuses:
+              - ARCHIVED
+            created_at_start: '2022-05-04T07:00:00.000Z'
+            created_at_end: '2022-05-07T06:59:59.999Z'
+            filed_at_start: '2022-05-01T07:00:00.000Z'
+            filed_at_end: '2022-05-03T06:59:59.999Z'
     tagFilters:
       description: >-
         To filter your response to a subset of tag associations, use these
