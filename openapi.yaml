@@ -4341,63 +4341,61 @@ components:
           example:
             - 82432
             - 234234
-    entityExportFilterDetails:
-      description: 'To filter your result of a entities export, use these fields.'
-      type: object
-      properties:
-        tag_ids:
-          type: array
-          description: Numerical IDs of the tags.
-          items:
-            type: integer
-            example: 9
-        instrument_id:
-          type: string
-          description: ID of the instrument associated with the entities.
-          example: '1285839'
-        device_id:
-          type: string
-          description: ID of the device associated with the entities.
-          example: '1285839'
-        start_date:
-          type: string
-          description: Entity creation date start.
-          example: '2019-11-05 04:13:46'
-        end_date:
-          type: string
-          description: Entity creation date end.
-          example: '2021-11-05 04:13:46'
-        child_org_ids:
-          type: array
-          description: Entities that belong to this Child Org (Numerical ID).
-          items:
-            type: integer
-            example: 85
-        status:
-          type: string
-          description: Status of the entities.
-          example: active
-        internal_entity_type:
-          type: array
-          description: Type of entity.
-          items:
-            type: string
-            enum:
-              - user
-              - business
     entityExportFilters:
+      description: To filter your response.
       properties:
         filters:
           type: object
           description: Filter to narrow down entities in export
           items:
-            - $ref: '#/components/schemas/entityExportFilterDetails'
+            tag_ids:
+              type: array
+              description: Numerical IDs of the tags.
+              items:
+                type: integer
+                example: 9
+            instrument_id:
+              type: string
+              description: ID of the instrument associated with the entities.
+              example: '1285839'
+            device_id:
+              type: string
+              description: ID of the device associated with the entities.
+              example: '1285839'
+            start_date:
+              type: string
+              description: Entity creation date start.
+              example: '2019-11-05 04:13:46'
+            end_date:
+              type: string
+              description: Entity creation date end.
+              example: '2021-11-05 04:13:46'
+            child_org_ids:
+              type: array
+              description: Entities that belong to this Child Org (Numerical ID).
+              items:
+                type: integer
+                example: 85
+            status:
+              type: string
+              description: Status of the entities.
+              example: active
+            internal_entity_type:
+              type: array
+              description: Type of entity.
+              items:
+                type: string
+                enum:
+                  - user
+                  - business
           example:
             tag_ids:
               - 12
-            entity_ids: []
-            child_org_ids: []
-            internal_entity_type: ''
+            entity_ids:
+              - 23
+            child_org_ids:
+              - 1
+            internal_entity_type: business
             status: new
             start_date: '2022-05-01 07:00:00'
             end_date: '2022-05-06 06:59:00'
