@@ -3563,7 +3563,8 @@ components:
           type: integer
           description: >-
             Pagination offset. A value of 1 returns a response beginning with
-            the first record.
+            the first record. The offset is relative to the number of pages (not
+            the total count of objects)
           minimum: 1
           default: 1
         case_id:
@@ -4401,7 +4402,8 @@ components:
           type: integer
           description: >-
             Pagination offset. A value of 1 returns a response beginning with
-            the first record.
+            the first record. The offset is relative to the number of pages (not
+            the total count of objects)
           minimum: 1
           default: 1
         alert_id:
@@ -4585,7 +4587,8 @@ components:
           type: integer
           description: >-
             Pagination offset. A value of 1 returns a response beginning with
-            the first record.
+            the first record. The offset is relative to the number of pages (not
+            the total count of objects)
           minimum: 1
           default: 1
     Devices:
@@ -4713,7 +4716,8 @@ components:
           type: integer
           description: >-
             Pagination offset. A value of 1 returns a response beginning with
-            the first record.
+            the first record. The offset is relative to the number of pages (not
+            the total count of objects)
           minimum: 1
           default: 1
         start_date:
@@ -5219,7 +5223,8 @@ components:
           type: integer
           description: >-
             Pagination offset. A value of 1 returns a response beginning with
-            the first record.
+            the first record. The offset is relative to the number of pages (not
+            the total count of objects)
           minimum: 1
           default: 1
         case_id:
