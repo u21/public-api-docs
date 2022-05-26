@@ -5544,7 +5544,7 @@ components:
               description: Alert creation end date
               example: '2021-11-05 04:13:46'
             custom_data_filters:
-              type: string
+              type: object
               description: >-
                 Custom data filter (no JSON nesting allowed). Operators
                 supported = EQ, NEQ, GT, LT, GE, LE, IN, NOT_IN. Filters
@@ -5804,7 +5804,7 @@ components:
               description: Case creation end date
               example: '2021-11-05 04:13:46'
             custom_data_filters:
-              type: string
+              type: object
               description: >-
                 Custom data filter (no JSON nesting allowed). Operators
                 supported = EQ, NEQ, GT, LT, GE, LE, IN, NOT_IN. Filters
