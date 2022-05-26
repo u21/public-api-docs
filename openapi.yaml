@@ -684,7 +684,7 @@ paths:
         ```json
           {
             "media": "iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAYAAABNEqduAAAgAElEQVR4Aey9CbgmV1Xv...",
-            "name": "Drivers License",
+            "name": "Drivers_License.png",
             "media_type": "IMAGE_DRIVERS_LICENSE_FRONT",
             "custom_data": {
               "internal_notes": "Reviewed by Mitchell on 31 June 2019",
@@ -699,6 +699,7 @@ paths:
         ```
             
         `media` and `name` are the only required fields for each media object.
+        The `name`` must include the file extension such a `File.pdf`.
         Supplementary form data is sent through the optional `custom_data`
         object.
 
@@ -2261,7 +2262,7 @@ paths:
         ```json
           {
             "media": "iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAYAAABNEqduAAAgAElEQVR4Aey9CbgmV1Xv...",
-            "name": "Drivers License",
+            "name": "Drivers_License.png",
             "media_type": "IMAGE_DRIVERS_LICENSE_FRONT",
             "custom_data": {
               "internal_notes": "Reviewed by Mitchell on 31 June 2019",
@@ -2276,6 +2277,7 @@ paths:
         ```
             
         `media` and `name` are the only required fields for each media object.
+        The `name`` must include the file extension such a `File.pdf`.
         Supplementary form data is sent through the optional `custom_data`
         object.
 
@@ -2569,7 +2571,7 @@ paths:
         ```json
           {
             "media": "iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAYAAABNEqduAAAgAElEQVR4Aey9CbgmV1Xv...",
-            "name": "Drivers License",
+            "name": "Drivers_License.png",
             "media_type": "IMAGE_DRIVERS_LICENSE_FRONT",
             "custom_data": {
               "internal_notes": "Reviewed by Mitchell on 31 June 2019",
@@ -2584,6 +2586,7 @@ paths:
         ```
             
         `media` and `name` are the only required fields for each media object.
+        The `name`` must include the file extension such a `File.pdf`.
         Supplementary form data is sent through the optional `custom_data`
         object.
 
