@@ -5543,6 +5543,29 @@ components:
               type: string
               description: Alert creation end date
               example: '2021-11-05 04:13:46'
+            custom_data_filters:
+              type: string
+              description: >-
+                Custom data filter (no JSON nesting allowed). Operators
+                supported = EQ, NEQ, GT, LT, GE, LE, IN, NOT_IN. Filters
+                supported for = entity, event, txn_instrument.
+              example:
+                txn_instrument:
+                  - key: CurrentBalance
+                    operator: EQ
+                    value: '100'
+                    nested: false
+                entity:
+                  - key: country_code
+                    operator: IN
+                    value:
+                      - 'US, CA'
+                    nested: false
+                event:
+                  - key: Authorization Code
+                    operator: EQ
+                    value: '80048'
+                    nested: false
             disposition_start_date:
               type: string
               description: Disposition start date
@@ -5780,6 +5803,29 @@ components:
               type: string
               description: Case creation end date
               example: '2021-11-05 04:13:46'
+            custom_data_filters:
+              type: string
+              description: >-
+                Custom data filter (no JSON nesting allowed). Operators
+                supported = EQ, NEQ, GT, LT, GE, LE, IN, NOT_IN. Filters
+                supported for = entity, event, txn_instrument.
+              example:
+                txn_instrument:
+                  - key: CurrentBalance
+                    operator: EQ
+                    value: '100'
+                    nested: false
+                entity:
+                  - key: country_code
+                    operator: IN
+                    value:
+                      - 'US, CA'
+                    nested: false
+                event:
+                  - key: Authorization Code
+                    operator: EQ
+                    value: '80048'
+                    nested: false
             disposition_start_date:
               type: string
               description: Disposition start date
