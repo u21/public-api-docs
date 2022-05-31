@@ -3183,7 +3183,7 @@ paths:
       tags:
         - Agents API
       summary: Deactivate an agent
-      description: Updates an alert's information using the `unit21_id`.
+      description: Archives an agent so that he/she can no longer log in to the dashboard.
       operationId: deactivate_agent
       parameters:
         - $ref: '#/components/parameters/agent_email'
