@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: readmeio/github-readme-sync@v2
+      - uses: readmeio/rdme@7.2.0
         with:
-          readme-oas-key: ${{ secrets.README_OAS_KEY }}
+          rdme: openapi path/to/file.json --key=README_API_KEY --id=1.0.0
