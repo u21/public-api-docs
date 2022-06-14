@@ -6468,7 +6468,7 @@ components:
       example: 1560408033
     result_id:
       in: path
-      name: workflow_id
+      name: result_id
       schema:
         type: string
       required: true
