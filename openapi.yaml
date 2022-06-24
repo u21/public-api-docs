@@ -4394,20 +4394,30 @@ components:
           type: object
           description: Filter to narrow down entities in export
           properties:
+            statuses:
+              type: array
+              description: Statuses for the entities.
+              items:
+                type: string
+                enum:
+                  - active
+                  - inactive
+            status:
+              type: string
+              description: Status of the entities.
+              example: active
             tag_ids:
               type: array
               description: Numerical IDs of the tags.
               items:
                 type: integer
                 example: 9
-            instrument_id:
-              type: string
-              description: ID of the instrument associated with the entities.
-              example: '1285839'
-            device_id:
-              type: string
-              description: ID of the device associated with the entities.
-              example: '1285839'
+            rule_ids:
+              type: array
+              description: Numerical IDs of the rules.
+              items:
+                type: integer
+                example: 371
             start_date:
               type: string
               description: Entity creation date start.
@@ -4416,16 +4426,12 @@ components:
               type: string
               description: Entity creation date end.
               example: '2021-11-05 04:13:46'
-            child_org_ids:
+            entity_ids:
               type: array
-              description: Entities that belong to this Child Org (Numerical ID).
+              description: Numerical IDs of the entities.
               items:
                 type: integer
-                example: 85
-            status:
-              type: string
-              description: Status of the entities.
-              example: active
+                example: 1894
             internal_entity_type:
               type: array
               description: Type of entity.
@@ -4434,6 +4440,14 @@ components:
                 enum:
                   - user
                   - business
+            entity_type:
+              $ref: '#/components/schemas/entityType'
+            child_org_ids:
+              type: array
+              description: Entities that belong to this Child Org (Numerical ID).
+              items:
+                type: integer
+                example: 85
     listAlertRequest:
       type: object
       properties:
@@ -4561,32 +4575,30 @@ components:
           type: object
           description: Filter to narrow down instruments in export
           properties:
-            instrument_type:
+            statuses:
+              type: array
+              description: Statuses for the entities.
+              items:
+                type: string
+                enum:
+                  - active
+                  - inactive
+            status:
               type: string
-              description: Type of instrument.
-              example: wallet
+              description: Status of the instruments.
+              example: active
             tag_ids:
               type: array
               description: Numerical IDs of the tags.
               items:
                 type: integer
                 example: 9
-            child_org_ids:
+            rule_ids:
               type: array
-              description: Instruments that belong to this Child org (Numerical ID).
+              description: Numerical IDs of the rules.
               items:
                 type: integer
-                example: 85
-            status:
-              type: string
-              description: Status of the instruments.
-              example: active
-            entity_ids:
-              type: array
-              description: Numerical IDs of the entities.
-              items:
-                type: integer
-                example: 15453219
+                example: 371
             start_date:
               type: string
               description: Instrument creation date start.
@@ -4595,30 +4607,16 @@ components:
               type: string
               description: Instrument creation date end.
               example: '2021-11-05 04:13:46'
-            created_start_date:
+            entity_ids:
+              type: array
+              description: Numerical IDs of the entities.
+              items:
+                type: integer
+                example: 15453219
+            instrument_type:
               type: string
-              description: Instrument creation start date
-              example: '2019-11-05 04:13:46'
-            created_end_date:
-              type: string
-              description: Instrument creation end date
-              example: '2019-11-05 04:13:46'
-            minimum_sent:
-              type: integer
-              description: Minimum amount sent by instrument.
-              example: 1000
-            maximum_sent:
-              type: integer
-              description: Maximum amount sent by instrument.
-              example: 100000
-            minimum_received:
-              type: integer
-              description: Minimum amount received by instrument.
-              example: 1000
-            maximum_received:
-              type: integer
-              description: Maximum amount received by instrument.
-              example: 100000
+              description: Type of instrument.
+              example: wallet
     listRequest:
       type: object
       properties:
@@ -4742,12 +4740,12 @@ components:
           type: object
           description: Filter to narrow down devices in export
           properties:
-            child_org_ids:
+            tag_ids:
               type: array
-              description: Devices that belong to this Child org (Numerical ID).
+              description: Numerical IDs of the tags.
               items:
                 type: integer
-                example: 85
+                example: 9
     listDateRequest:
       type: object
       properties:
@@ -5146,24 +5144,22 @@ components:
           type: object
           description: Filter to narrow down events in export
           properties:
-            tag_ids:
-              type: array
-              description: Numerical IDs of the tags.
-              items:
-                type: integer
-                example: 9
             statuses:
               type: array
               description: Status for the events.
               items:
                 type: string
                 example: new
-            internal_txn_type:
+            status:
+              type: string
+              description: Status of the event.
+              example: active
+            tag_ids:
               type: array
-              description: Type of event (transaction).
+              description: Numerical IDs of the tags.
               items:
-                type: string
-                example: ach
+                type: integer
+                example: 9
             start_date:
               type: string
               description: Event creation date start.
@@ -5190,12 +5186,6 @@ components:
               items:
                 type: integer
                 example: 85
-            child_org_ids:
-              type: array
-              description: Events that belong to this Child org (Numerical ID).
-              items:
-                type: integer
-                example: 85
     ruleIds:
       properties:
         rule_ids:
@@ -5212,7 +5202,7 @@ components:
       properties:
         filters:
           type: object
-          description: Filter to narrow down rules in export
+          description: Filter to narrow down rules in export.
           properties:
             statuses:
               type: array
@@ -5223,38 +5213,36 @@ components:
                   - ACTIVE
                   - INACTIVE
                   - VALIDATION
+            status:
+              type: string
+              description: Status for the rule.
+              example: OPEN
             tag_ids:
               type: array
               description: Numerical IDs of the tags.
               items:
                 type: integer
                 example: 9
-            sources:
-              type: array
-              description: Source for the rules.
-              items:
-                type: string
-                enum:
-                  - INTERNAL
-                  - EXTERNAL
             agent_ids:
               type: array
               description: Numerical IDs of the agents.
               items:
                 type: integer
                 example: 14
-            phrase:
+            start_date:
               type: string
-              description: ID or title of the rule.
-              example: Rule to flag X
-            created_at_start:
-              type: string
-              description: Rule creation start date
+              description: Rule creation start date.
               example: '2019-11-05 04:13:46'
-            created_at_end:
+            end_date:
               type: string
-              description: Rule Creation end date
+              description: Rule Creation end date.
               example: '2021-11-05 04:13:46'
+            rule_ids:
+              type: array
+              description: Numerical IDs of the rules.
+              items:
+                type: integer
+                example: 14
     listCaseRequest:
       type: object
       properties:
@@ -5530,36 +5518,64 @@ components:
           type: object
           description: Filter to narrow down alerts in export
           properties:
+            statuses:
+              type: array
+              description: Statuses for the alerts.
+              items:
+                type: string
+                enum:
+                  - open
+                  - closed
+            status:
+              type: string
+              description: Status for the alert.
+              example: OPEN
             tag_ids:
               type: array
               description: Numerical IDs of the tags.
               items:
                 type: integer
                 example: 9
-            statuses:
+            rule_ids:
               type: array
-              description: Status for the alerts.
-              items:
-                type: string
-                enum:
-                  - open
-                  - closed
-            sources:
-              type: array
-              description: Sources for the alerts.
-              items:
-                type: string
-                enum:
-                  - internal
-                  - external
-            tags:
-              $ref: '#/components/schemas/Tags'
-            assigned_to_id:
-              type: array
-              description: Numerical IDs of the agents the alerts are assigned to.
+              description: Numerical IDs of the rules.
               items:
                 type: integer
-                example: 85
+                example: 371
+            start_date:
+              type: string
+              description: Alert creation start date.
+              example: '2019-11-05 04:13:46'
+            end_date:
+              type: string
+              description: Alert creation end date.
+              example: '2021-11-05 04:13:46'
+            minimum_amount:
+              type: integer
+              description: Minimum amount in the alert.
+              example: 1000
+            maximum_amount:
+              type: integer
+              description: Maximum amount in the alert.
+              example: 100000
+            agent_ids:
+              type: array
+              description: Numerical IDs of the agents.
+              items:
+                type: integer
+                example: 14
+            team_ids:
+              type: array
+              description: Numerical IDs of the teams.
+              items:
+                type: integer
+                example: 6
+            alert_ids:
+              type: array
+              description: Numerical ID of the alerts.
+              items:
+                type: integer
+                example: 45
             alert_types:
               type: array
               description: Sources for the alerts.
@@ -5569,113 +5585,60 @@ components:
                   - chainalysis
                   - tm
                   - kyc
-            alert_queue_ids:
+            sources:
               type: array
-              description: Numerical IDs of the alert queues.
+              description: Sources for the alerts.
               items:
-                type: integer
-                example: 5
-            created_start_date:
-              type: string
-              description: Alert creation start date
-              example: '2019-11-05 04:13:46'
-            created_end_date:
-              type: string
-              description: Alert creation end date
-              example: '2021-11-05 04:13:46'
-            custom_data_filters:
-              type: object
-              description: >-
-                Custom data filter (no JSON nesting allowed). Operators
-                supported = EQ, NEQ, GT, LT, GE, LE, IN, NOT_IN. Filters
-                supported for = entity, event, txn_instrument.
-              example:
-                txn_instrument:
-                  - key: CurrentBalance
-                    operator: EQ
-                    value: '100'
-                    nested: false
-                entity:
-                  - key: country_code
-                    operator: IN
-                    value:
-                      - 'US, CA'
-                    nested: false
-                event:
-                  - key: Authorization Code
-                    operator: EQ
-                    value: '80048'
-                    nested: false
+                type: string
+                enum:
+                  - internal
+                  - external
             disposition_start_date:
               type: string
-              description: Disposition start date
+              description: Disposition start date.
               example: '2019-11-05 04:13:46'
             disposition_end_date:
               type: string
-              description: Disposition end date
+              description: Disposition end date.
               example: '2021-11-05 04:13:46'
-            team_ids:
-              type: array
-              description: Numerical IDs of the teams.
-              items:
-                type: integer
-                example: 6
             entity_ids:
               type: array
               description: Numerical IDs of the entities.
               items:
                 type: integer
-                example: 185453
-            agent_ids:
+                example: 15453219
+            phrase:
+              type: string
+              description: ID or title of the alert.
+              example: Case 37765
+            alerting_org_ids:
               type: array
-              description: Numerical IDs of the agents.
+              description: Numerical ID of the alerting org.
               items:
                 type: integer
-                example: 14
-            minimum_amount:
-              type: integer
-              description: Minimum amount in the alerts.
-              example: 1000
-            maximum_amount:
-              type: integer
-              description: Maximum amount in the alerts.
-              example: 100000
-            rule_ids:
+                example: 45
+            alert_queue_ids:
               type: array
-              description: Numerical IDs of the rules.
+              description: Numerical IDs of the alert queues.
               items:
                 type: integer
-                example: 371
+                example: 125
+            disposition:
+              type: string
+              description: Disposition name.
+              example: Closed
             subdisposition_ids:
               type: array
-              description: Numerical IDs for the subdisposition.
+              description: Numerical IDs of the agents.
               items:
                 type: integer
                 example: 2
             subdisposition_option_ids:
               type: array
-              description: Numerical IDs for the subdisposition option.
+              description: Numerical IDs of the subdisposition.
               items:
                 type: integer
                 example: 1
-            disposition:
-              type: string
-              description: Disposition name.
-              example: Closed
-            alerting_org_ids:
-              type: array
-              description: Numerical IDs of the organizations.
-              items:
-                type: integer
-                example: 45
-            min_alert_score:
-              type: integer
-              description: Minimum alert score.
-              example: 0
-            max_alert_score:
-              type: integer
-              description: Maximum alert score.
-              example: 100
     caseListFilters:
       description: 'To filter your response to a subset of alerts, use these fields.'
       properties:
@@ -5790,12 +5753,6 @@ components:
           type: object
           description: Filter to narrow down cases in export
           properties:
-            tag_ids:
-              type: array
-              description: Numerical IDs of the tags.
-              items:
-                type: integer
-                example: 9
             statuses:
               type: array
               description: Statuses for the cases.
@@ -5804,94 +5761,30 @@ components:
                 enum:
                   - open
                   - closed
-            sources:
-              type: array
-              description: Sources for the cases.
-              items:
-                type: string
-                enum:
-                  - internal
-                  - external
-            tags:
-              $ref: '#/components/schemas/Tags'
-            assigned_to_id:
-              type: array
-              description: Numerical IDs of the agents the cases are assigned to.
-              items:
-                type: integer
-                example: 85
-            alert_types:
-              type: array
-              description: Sources for the alerts.
-              items:
-                type: string
-                enum:
-                  - chainalysis
-                  - tm
-                  - kyc
-            alert_queue_ids:
-              type: array
-              description: Numerical IDs of the alert queues.
-              items:
-                type: integer
-                example: 125
-            created_start_date:
+            status:
               type: string
-              description: Case creation start date
+              description: Status for the case.
+              example: OPEN
+            tag_ids:
+              type: array
+              description: Numerical IDs of the tags.
+              items:
+                type: integer
+                example: 9
+            rule_ids:
+              type: array
+              description: Numerical IDs of the rules.
+              items:
+                type: integer
+                example: 371
+            start_date:
+              type: string
+              description: Case creation start date.
               example: '2019-11-05 04:13:46'
-            created_end_date:
+            end_date:
               type: string
-              description: Case creation end date
+              description: Case creation end date.
               example: '2021-11-05 04:13:46'
-            custom_data_filters:
-              type: object
-              description: >-
-                Custom data filter (no JSON nesting allowed). Operators
-                supported = EQ, NEQ, GT, LT, GE, LE, IN, NOT_IN. Filters
-                supported for = entity, event, txn_instrument.
-              example:
-                txn_instrument:
-                  - key: CurrentBalance
-                    operator: EQ
-                    value: '100'
-                    nested: false
-                entity:
-                  - key: country_code
-                    operator: IN
-                    value:
-                      - 'US, CA'
-                    nested: false
-                event:
-                  - key: Authorization Code
-                    operator: EQ
-                    value: '80048'
-                    nested: false
-            disposition_start_date:
-              type: string
-              description: Disposition start date
-              example: '2019-11-05 04:13:46'
-            disposition_end_date:
-              type: string
-              description: Disposition end date
-              example: '2021-11-05 04:13:46'
-            team_ids:
-              type: array
-              description: Numerical IDs of the teams.
-              items:
-                type: integer
-                example: 6
-            entity_ids:
-              type: array
-              description: Numerical IDs of the entities.
-              items:
-                type: integer
-                example: 15453219
-            agent_ids:
-              type: array
-              description: Numerical IDs of the agents.
-              items:
-                type: integer
-                example: 14
             minimum_amount:
               type: integer
               description: Minimum amount in the case.
@@ -5900,42 +5793,24 @@ components:
               type: integer
               description: Maximum amount in the case.
               example: 100000
-            rule_ids:
-              type: array
-              description: Numerical IDs of the rules.
-              items:
-                type: integer
-                example: 371
-            subdisposition_ids:
+            agent_ids:
               type: array
               description: Numerical IDs of the agents.
               items:
                 type: integer
-                example: 2
-            subdisposition_option_ids:
+                example: 14
+            team_ids:
               type: array
-              description: Numerical IDs of the subdisposition.
+              description: Numerical IDs of the teams.
               items:
                 type: integer
-                example: 1
-            disposition:
-              type: string
-              description: Disposition name.
-              example: Closed
-            alerting_org_ids:
+                example: 6
+            case_ids:
               type: array
-              description: Numerical ID of the alerting org.
+              description: Numerical ID of the cases.
               items:
                 type: integer
                 example: 45
-            min_alert_score:
-              type: integer
-              description: Minimum alert score.
-              example: 0
-            max_alert_score:
-              type: integer
-              description: Maximum alert score.
-              example: 100
     entityVerification:
       title: Entity Verification
       description: Fields to verify an entity
@@ -6089,56 +5964,53 @@ components:
                   - FINCEN_REJECTED
                   - FINCEN_STATUS_OTHER
                   - FINCEN_ACCEPTED
+            status:
+              type: string
+              description: Status of the sar.
+              example: active
+            tag_ids:
+              type: array
+              description: Numerical IDs of the tags.
+              items:
+                type: integer
+                example: 9
             created_at_start:
               type: string
-              description: Report creation start date
+              description: Report creation start date.
               example: '2019-11-05 04:13:46'
             created_at_end:
               type: string
-              description: Report Creation end date
+              description: Report Creation end date.
               example: '2021-11-05 04:13:46'
             updated_at_start:
               type: string
-              description: Report update start date
+              description: Report update start date.
               example: '2019-11-05 04:13:46'
             updated_at_end:
               type: string
-              description: Report update end date
+              description: Report update end date.
               example: '2021-11-05 04:13:46'
             filed_at_start:
               type: string
-              description: Report file start date
+              description: Report file start date.
               example: '2019-11-05 04:13:46'
             filed_at_end:
               type: string
-              description: Report file end date
+              description: Report file end date.
               example: '2021-11-05 04:13:46'
             submitted:
               type: boolean
               description: Report submited?
               example: true
-            search_id:
+            report_type:
               type: string
-              description: BSA ID or SAR/STR ID.
-              example: '1285839'
-            assigned_to_id:
-              description: Numerical ID of the agents the reports are assigned to.
-              type: integer
-              example: 85
-            entity_ids:
-              type: array
-              description: Numerical IDs of the entities in the report.
-              items:
-                type: integer
-                example: 85
-            sources:
-              type: array
-              description: Which type of report to export.
-              items:
-                type: string
-                enum:
-                  - GOAML_STR
-                  - FINCEN_SAR
+              description: Type of report.
+              example: FINCEN_SAR
+              enum:
+                - FINCEN_SAR
+                - ESTONIAN_FIU
+                - GOAML_STR
+                - NCA_SAR
     tagFilters:
       description: >-
         To filter your response to a subset of tag associations, use these
