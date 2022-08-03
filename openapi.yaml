@@ -3509,7 +3509,7 @@ paths:
         '200':
           description: OK
           content:
-            applicationjson:
+            application/json:
               example:
                 file_name: file1.txt
                 unit21_id: 440
