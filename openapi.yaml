@@ -748,7 +748,9 @@ paths:
 
         Either the `filters` or the list of `entity IDs` are required for the
         export.
-          
+
+
+        Custom data filters are not supported for bulk exports at this time.
       operationId: export_entities
       requestBody:
         content:
@@ -1014,7 +1016,9 @@ paths:
 
         Either the `filters` or the list of `instrument IDs` are required for
         the export.
-          
+
+
+        Custom data filters are not supported for bulk exports at this time.
       operationId: export_instruments
       requestBody:
         content:
@@ -1349,6 +1353,9 @@ paths:
 
         Either the `filters` or the list of `device IDs` are required for the
         export.
+
+
+        Custom data filters are not supported for bulk exports at this time.
       operationId: export_devices
       requestBody:
         content:
@@ -1795,7 +1802,9 @@ paths:
 
         Either the `filters` or the list of `event IDs` are required for the
         export.
-          
+
+
+        Custom data filters are not supported for bulk exports at this time.
       operationId: export_events
       requestBody:
         content:
@@ -1828,7 +1837,9 @@ paths:
 
         Either the `filters` or the list of `event IDs` are required for the
         export.
-          
+
+
+        Custom data filters are not supported for bulk exports at this time.
       operationId: export_transactions
       requestBody:
         content:
@@ -1971,7 +1982,9 @@ paths:
 
         Either the `filters` or the list of `rule IDs` are required for the
         export.
-          
+
+
+        Custom data filters are not supported for bulk exports at this time.
       operationId: export_rules
       requestBody:
         content:
@@ -2113,9 +2126,9 @@ paths:
                 - $ref: '#/components/schemas/Alerts'
                 - $ref: '#/components/schemas/entityArray'
                 - $ref: '#/components/schemas/eventArray'
-                - $ref: '#/components/schemas/customData'
                 - $ref: '#/components/schemas/instrumentArray'
                 - $ref: '#/components/schemas/ruleArray'
+                - $ref: '#/components/schemas/customData'
       responses:
         '200':
           description: OK
@@ -2331,6 +2344,9 @@ paths:
 
         Either the `filters` or the list of `alert IDs` are required for the
         export.
+
+
+        Custom data filters are not supported for bulk exports at this time.
       operationId: export_alerts
       requestBody:
         content:
@@ -2457,7 +2473,7 @@ paths:
       tags:
         - Cases API
       summary: Create a case
-      description: "Creates a new case, sending case data in the request body. \nTo create a case, you MUST include the following fields: `case_id`, `title`, and `created_at`.  The other top-level fields are optional.\n\nIf we receive a request to create a case for an `case_id` that already exists in our system,  we will respond with a **409 error code** indicating that this case cannot be created/updated. You must use the `/case/update` endpoint to update a case.\n\nYou can add the following objects to an alert:\n\n  | Field                    | Type     | Description                                                                                                           |\n  |--------------------------|----------|-----------------------------------------------------------------------------------------------------------------------|\n  | `rules`\t                 | String[] | Unique identifier of the rules/triggers/scenarios that triggered this alert                                           |\n  | `events`\t               | Object[] | Transactions affiliated with the alert. Each object must consist of a `event_id` and `event_type` field               |\n  | `entities`\t             | Object[] | Users or businesses affiliated with the alert. Each object must consist of an `entity_id` and `entity_type` field     |\n  | `instruments`\t           | String[] | Unique identifiers of any instruments affiliated with the alert                                                       |\n\n\nUpdates to a cases's `case_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/u21/reference/endpoint-options)\n  - [Custom data](https://docs.unit21.ai/u21/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/u21/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/u21/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                          |\n  |--------------------------|----------|------------------------------------------------------|\n  | `case_id`\t               | String   | \tUnique identifier of the case on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the case within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf alert (with the same `case_id`) already exists  |\n"
+      description: "Creates a new case, sending case data in the request body. \nTo create a case, you MUST include the following fields: `case_id`, `title`, and `created_at`.  The other top-level fields are optional.\n\nIf we receive a request to create a case for an `case_id` that already exists in our system,  we will respond with a **409 error code** indicating that this case cannot be created/updated. You must use the `/case/update` endpoint to update a case.\n\nYou can add the following objects to a case:\n\n  | Field                    | Type     | Description                                                             |\n  |--------------------------|----------|-------------------------------------------------------------------------|\n  | `alerts`\t               | Array[]  | Alerts that are associated with this case. Consists of `alert_id`s      |\n  | `events`\t               | Array[]  | Transactions affiliated with the case. Consists of `event_id`s          |\n  | `entities`\t             | Array[]  | Users or businesses affiliated with the case. Consists of `entity_id`s  |\n\nUpdates to a cases's `case_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/u21/reference/endpoint-options)\n  - [Custom data](https://docs.unit21.ai/u21/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/u21/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/u21/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                          |\n  |--------------------------|----------|------------------------------------------------------|\n  | `case_id`\t               | String   | \tUnique identifier of the case on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the case within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf case (with the same `case_id`) already exists   |\n"
       operationId: create_case
       requestBody:
         required: true
@@ -2466,8 +2482,9 @@ paths:
             schema:
               allOf:
                 - $ref: '#/components/schemas/Cases'
-                - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/eventArray'
+                - $ref: '#/components/schemas/alertIds'
+                - $ref: '#/components/schemas/entityIds'
+                - $ref: '#/components/schemas/eventIds'
                 - $ref: '#/components/schemas/customData'
       responses:
         '200':
@@ -2650,6 +2667,9 @@ paths:
 
         Either the `filters` or the list of `case IDs` are required for the
         export.
+
+
+        Custom data filters are not supported for bulk exports at this time.
       operationId: export_cases
       requestBody:
         content:
@@ -3169,7 +3189,9 @@ paths:
 
         Either the `filters` or the list of `sar IDs` are required for the
         export.
-          
+
+
+        Custom data filters are not supported for bulk exports at this time.
       operationId: export_sars
       requestBody:
         content:
