@@ -2079,7 +2079,6 @@ paths:
                     alert_type: tm
                     assigned_to: nicole@unit21.ai
                     created_at: 1646698620
-                    custom_data: {}
                     descendant_cases: []
                     description: >-
                       Total of 3 events in group entities:
@@ -2165,7 +2164,6 @@ paths:
                   alert_type: tm
                   assigned_to: null
                   created_at: 1616433282
-                  custom_data: {}
                   description: >-
                     Period of no transaction activity for entity
                     u-6833a351-ae5d-4911-a2ca-715294b8ef62 from on 03-25-2020
@@ -2286,16 +2284,7 @@ paths:
           {
             "media": "iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAYAAABNEqduAAAgAElEQVR4Aey9CbgmV1Xv...",
             "name": "Drivers_License.png",
-            "media_type": "IMAGE_DRIVERS_LICENSE_FRONT",
-            "custom_data": {
-              "internal_notes": "Reviewed by Mitchell on 31 June 2019",
-              "reviewers": 3,
-              "login": 1638384860,
-              "timestamp": "2012-03-40 05:12:41.000Z",
-              "daily_email": true,
-              "employees": ["John", "Anna", "Peter"],
-              "socure_device_session_id": "12121212121212112"
-            }
+            "media_type": "IMAGE_DRIVERS_LICENSE_FRONT"
           }
         ```
             
@@ -2441,7 +2430,6 @@ paths:
                     checklist: {}
                     created_at: 1600215971
                     created_by: eric@unit21.ai
-                    custom_data: {}
                     descendant_sar_filing:
                       - 536203
                       - 536204
@@ -2522,7 +2510,6 @@ paths:
                   assigned_to: Alf@example.com
                   case_id: null
                   created_at: 1616433161
-                  custom_data: {}
                   description: Test Case Description
                   disposition: UNRESOLVED
                   dispositioned_at: null
@@ -2603,16 +2590,7 @@ paths:
           {
             "media": "iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAYAAABNEqduAAAgAElEQVR4Aey9CbgmV1Xv...",
             "name": "Drivers_License.png",
-            "media_type": "IMAGE_DRIVERS_LICENSE_FRONT",
-            "custom_data": {
-              "internal_notes": "Reviewed by Mitchell on 31 June 2019",
-              "reviewers": 3,
-              "login": 1638384860,
-              "timestamp": "2012-03-40 05:12:41.000Z",
-              "daily_email": true,
-              "employees": ["John", "Anna", "Peter"],
-              "socure_device_session_id": "12121212121212112"
-            }
+            "media_type": "IMAGE_DRIVERS_LICENSE_FRONT"
           }
         ```
             
@@ -5475,8 +5453,6 @@ components:
         options:
           type: object
           properties:
-            merge_custom_data:
-              $ref: '#/components/schemas/merge_custom_data'
             list_merge_strategy:
               $ref: '#/components/schemas/listMergeStrategy'
     eventArray:
