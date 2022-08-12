@@ -71,6 +71,10 @@ tags:
       Sars are cases that have been investigated and turned into a Suspicious
       Activity report with the intent to file it to FinCen. The `/sars` endpoint
       can get and list sars. 
+  - name: Exports API
+    description: >
+      If you want to download files requested via the dashboard or the bulk
+      export endpoints. The `/file-exports` endpoint can get and list sars. 
   - name: Entity Verification API
     description: >
       Unit21 can execute entity verifications according to steps defined in
@@ -3185,6 +3189,91 @@ paths:
             application/json:
               example:
                 message: File export has started
+  /file-exports/list:
+    post:
+      tags:
+        - Exports API
+      summary: List exports
+      description: >-
+        Returns paginated list exports. It will only show the exports initiated
+        by the requester (The requester is the creator of the API key)
+
+
+        Because the response is paginated, the request body has a `limit` and
+        `offset` field. At least one must be filled.
+
+        * `limit`  indicates how many objects the request returns (the page
+        maximum is 50)
+
+        * `offset` indicates the offset for pagination. An `offset` value of 1
+        starts with the environment's first record. The offset is relative to
+        the number of pages (not the total count of objects).
+
+
+        The `total_count` field contains the total number of exports where the 
+        `response_count` field contains the number of exports included in the
+        response.
+      operationId: list_exports
+      requestBody:
+        $ref: '#/components/requestBodies/listExports'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                file_exports:
+                  - created_at: '2022-07-11T22:10:19+00:00'
+                    export_type: ALERTS
+                    external_ids: null
+                    file_name: ''
+                    file_size: 100
+                    id: 4
+                    request_source: Dashboard
+                    status: GENERATING
+                    status_message: ''
+                  - created_at: '2022-08-09T18:24:27+00:00'
+                    export_type: ALERT
+                    external_ids: []
+                    file_name: prod1/org_Unit21/1660069841000_bulk_Alert.xlsx
+                    file_size: 45393365
+                    id: 257031
+                    request_source: Dashboard
+                    status: READY_FOR_DOWNLOAD
+                    status_message: ''
+                response_count: 2
+                total_count: 2
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+  '/file-exports/download/{file_export_id}':
+    post:
+      tags:
+        - Exports API
+      summary: Download export
+      description: Returns a signed url to download the file.
+      operationId: download_file_export
+      parameters:
+        - $ref: '#/components/parameters/export_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                url: >-
+                  https://dashboard-file-exports.s3.amazonaws.com/20201105-200246_Intuit_BULK_ALERT.xlsx?AWSAccessKeyId=AKIA4GCWZN4AWKTTJM7N&Signature=0jfhY%2FvVGZMpAYrlhWEwhzLt1bw%3D&Expires=1656675423
   /agents/list:
     get:
       tags:
@@ -6007,6 +6096,39 @@ components:
                 - ESTONIAN_FIU
                 - GOAML_STR
                 - NCA_SAR
+    listExports:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: Number of objects per page.
+          minimum: 0
+          maximum: 50
+          example: 2
+        offset:
+          type: integer
+          description: >-
+            Pagination offset. A value of 1 returns a response beginning with
+            the first record. The offset is relative to the number of pages (not
+            the total count of objects)
+          minimum: 1
+          default: 1
+        file_export_ids:
+          type: array
+          description: IDs for the files to export
+          example:
+            - 4
+            - 6
+          items:
+            type: integer
+        statuses:
+          type: array
+          description: Statuses for the files to export
+          example:
+            - READY_FOR_DOWNLOAD
+            - GENERATING
+          items:
+            type: string
     tagFilters:
       description: >-
         To filter your response to a subset of tag associations, use these
@@ -6254,6 +6376,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/listDateRequest'
+    listExports:
+      description: ''
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/listExports'
   responses:
     '400':
       description: Bad Request. Your request is invalid.
@@ -6354,6 +6483,14 @@ components:
         A Unit21 internally-assigned unique identifier for the verification
         workflow execution.
       example: 14823
+    export_id:
+      in: path
+      name: file_export_id
+      schema:
+        type: integer
+      required: true
+      description: A Unit21 internally-assigned unique identifier for an a file.
+      example: 45
     agent_email:
       in: path
       name: agent_email
