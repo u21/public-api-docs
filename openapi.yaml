@@ -3267,7 +3267,7 @@ paths:
         '503':
           $ref: '#/components/responses/503'
   '/file-exports/download/{file_export_id}':
-    post:
+    get:
       tags:
         - Exports API
       summary: Download export
