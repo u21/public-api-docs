@@ -2470,120 +2470,6 @@ paths:
                     verification_result_id: 72
                 full_response:
                   info: This response depends on the verification source
-  '/verification/result/{result_id}':
-    get:
-      tags:
-        - Entity Verification API
-      summary: Get verification results by result id
-      description: Returns all the information from the verification of a specific entity.
-      operationId: get_verification_result
-      parameters:
-        - $ref: '#/components/parameters/result_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                created_at: 1591992745
-                entity_id: 856
-                source: IDOLOGY
-                type: DOC_VERIFICATION
-                verification_workflow_execution_id: 59
-                full_response: {}
-  '/verification/verification-workflow-execution/{verification_workflow_execution_id}':
-    get:
-      tags:
-        - Entity Verification API
-      summary: Get verification workflow execution details
-      description: >-
-        Returns all the data associated with a
-        verification_workflow_execution_id
-      operationId: get_verification_workflow_execution
-      parameters:
-        - $ref: '#/components/parameters/verification_workflow_execution_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                alert_id: 9739988
-                created_at: 1642443889
-                end_action: $ACCEPT
-                end_time: 1642443889
-                entity_id: 594242743
-                id: 130622
-                is_success: true
-                message: null
-                org_id: 1
-                start_time: 1642443889
-                unit_id: 1
-                verification_form_id: null
-                verification_workflow_id: 1283
-  '/verification/verification-workflow-execution/{verification_workflow_execution_id}/results':
-    get:
-      tags:
-        - Entity Verification API
-      summary: Get verification results from workflow
-      description: >-
-        Returns all the information from the verification workflow execution for
-        a specific entity.
-      operationId: get_verification_result_from_workflow_execution
-      parameters:
-        - $ref: '#/components/parameters/verification_workflow_execution_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                id: 765
-                created_at: 1591992745
-                source: IDOLOGY
-                content: {}
-                entity_id: 856
-                type: DOC_VERIFICATION
-                verification_workflow_execution_id: 59
-                continuous_monitoring: false
-  /verification-forms/create:
-    post:
-      tags:
-        - Verification Forms API
-      summary: Verification Forms API
-      description: >-
-        If you are verifying IDs and collecting user data, this endpoint creates
-        a temporary URL to which you can redirect users.
-      operationId: create_verification_form
-      requestBody:
-        required: true
-        description: Set session length. Not required.
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                session_length_minutes:
-                  type: integer
-                  description: >
-                    Time in minutes that form will be valid. Once this expires,
-                    the user can no longer submit or view the form. Max is 10080
-                    minutes (one week). Default is 1440 minutes (one day)
-                  minimum: 1
-                  maximum: 10080
-                  default: 1440
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  redirect_to:
-                    type: string
-                    format: URL
-                    description: URL to redirect users to fill out form
   /file-exports/list:
     post:
       tags:
@@ -2610,7 +2496,12 @@ paths:
         response.
       operationId: list_exports
       requestBody:
-        $ref: '#/components/requestBodies/listExports'
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/listExports'
       responses:
         '200':
           description: OK
@@ -5412,6 +5303,39 @@ components:
           $ref: '#/components/schemas/synchronousResponse'
         include_full_response:
           $ref: '#/components/schemas/includeFullResponse'
+    listExports:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: Number of objects per page.
+          minimum: 0
+          maximum: 50
+          example: 2
+        offset:
+          type: integer
+          description: >-
+            Pagination offset. A value of 1 returns a response beginning with
+            the first record. The offset is relative to the number of pages (not
+            the total count of objects)
+          minimum: 1
+          default: 1
+        file_export_ids:
+          type: array
+          description: IDs for the files to export
+          example:
+            - 4
+            - 6
+          items:
+            type: integer
+        statuses:
+          type: array
+          description: Statuses for the files to export
+          example:
+            - READY_FOR_DOWNLOAD
+            - GENERATING
+          items:
+            type: string
     tagFilters:
       description: >-
         To filter your response to a subset of tag associations, use these
@@ -5670,39 +5594,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/listRequest'
-    listExports:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: Number of objects per page.
-          minimum: 0
-          maximum: 50
-          example: 2
-        offset:
-          type: integer
-          description: >-
-            Pagination offset. A value of 1 returns a response beginning with
-            the first record. The offset is relative to the number of pages (not
-            the total count of objects)
-          minimum: 1
-          default: 1
-        file_export_ids:
-          type: array
-          description: IDs for the files to export
-          example:
-            - 4
-            - 6
-          items:
-            type: integer
-        statuses:
-          type: array
-          description: Statuses for the files to export
-          example:
-            - READY_FOR_DOWNLOAD
-            - GENERATING
-          items:
-            type: string
   responses:
     '400':
       description: Bad Request. Your request is invalid.
@@ -5775,26 +5666,6 @@ components:
         Unit21 system. Depending on the endpoint, `unit21_id` can refer to an
         entity, an event, a case, an alert, a device, etc.
       example: 571485314
-    result_id:
-      in: path
-      name: result_id
-      schema:
-        type: string
-      required: true
-      description: >-
-        A Unit21 internally-assigned unique identifier for the verification
-        workflow of the entity.
-      example: verified-customer-onboarding
-    verification_workflow_execution_id:
-      in: path
-      name: verification_workflow_execution_id
-      schema:
-        type: integer
-      required: true
-      description: >-
-        A Unit21 internally-assigned unique identifier for the verification
-        workflow execution.
-      example: 14823
     export_id:
       in: path
       name: file_export_id
