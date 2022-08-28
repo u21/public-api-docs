@@ -1023,11 +1023,9 @@ paths:
                       receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
                       receiver_entity_type: user
                       receiver_instrument_id: '30504733005354'
-                      receiver_source: internal
                       sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
                       sender_entity_type: user
                       sender_instrument_id: '3560510398609341'
-                      sender_source: internal
                       sent_amount: 4646.34
                       sent_currency: usd
                       usd_conversion_notes: null
@@ -1056,11 +1054,9 @@ paths:
                       receiver_entity_id: u-7b517e52-3324-4722-a2ff-60779d43ec6d
                       receiver_entity_type: user
                       receiver_instrument_id: i-4f88438d-1c4a-4a06-a1f0-d692c0bb4baa
-                      receiver_source: internal
                       sender_entity_id: u-eca597f1-9e7f-45ca-b635-48723f60feb7
                       sender_entity_type: user
                       sender_instrument_id: i-7b977420-976f-4714-93bf-379c4dd5732f
-                      sender_source: internal
                       sent_amount: 14524.1
                       sent_currency: usd
                       usd_conversion_notes: null
@@ -1127,7 +1123,6 @@ paths:
           - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)
           - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)
       requestBody:
-        required: true
         content:
           application/json:
             schema:
@@ -1158,13 +1153,11 @@ paths:
                   sent_currency: USD
                   sender_entity_id: u-371b5091-da30-48a8-936b-7600f9983e80
                   sender_entity_type: user
-                  sender_source: internal
                   sender_instrument_id: string
                   received_amount: 13562.83
                   received_currency: USD
                   receiver_entity_id: u-d8e1d453-c205-4996-a935-ff08be01bcd1
                   receiver_entity_type: business
-                  receiver_source: internal
                   receiver_instrument_id: t376839428256371
                   exchange_rate: 1.0012
                   usd_conversion_notes: N/A
@@ -1260,11 +1253,9 @@ paths:
                   receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
                   receiver_entity_type: user
                   receiver_instrument_id: '30504733005354'
-                  receiver_source: internal
                   sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
                   sender_entity_type: user
                   sender_instrument_id: '3560510398609341'
-                  sender_source: internal
                   sent_amount: 4646.34
                   sent_currency: usd
                   usd_conversion_notes: null
@@ -1998,7 +1989,7 @@ paths:
       tags:
         - Cases API
       summary: Create a case
-      description: "Creates a new case, sending case data in the request body. \nTo create a case, you MUST include the following fields: `case_id`, `title`, and `created_at`.  The other top-level fields are optional.\n\nIf we receive a request to create a case for an `case_id` that already exists in our system,  we will respond with a **409 error code** indicating that this case cannot be created/updated. You must use the `/case/update` endpoint to update a case.\n\nYou can add the following objects to a case:\n\n  | Field                    | Type     | Description                                                             |\n  |--------------------------|----------|-------------------------------------------------------------------------|\n  | `alerts`\t               | Array[]  | Alerts that are associated with this case. Consists of `alert_id`s      |\n  | `events`\t               | Array[]  | Transactions affiliated with the case. Consists of `event_id`s          |\n  | `entities`\t             | Array[]  | Users or businesses affiliated with the case. Consists of `entity_id`s  |\n\nUpdates to a cases's `case_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                          |\n  |--------------------------|----------|------------------------------------------------------|\n  | `case_id`\t               | String   | \tUnique identifier of the case on your platform     |\n  | `previously_existed`\t   | Boolean  | \tIf case (with the same `case_id`) already exists   |\n"
+      description: "Creates a new case, sending case data in the request body. \nTo create a case, you MUST include the following fields: `case_id`, `title`, and `created_at`.  The other top-level fields are optional.\n\nIf we receive a request to create a case for an `case_id` that already exists in our system,  we will respond with a **409 error code** indicating that this case cannot be created/updated. You must use the `/case/update` endpoint to update a case.\n\nYou can add the following objects to a case:\n\n  | Field                    | Type     | Description                                                             |\n  |--------------------------|----------|-------------------------------------------------------------------------|\n  | `alerts`\t               | Array[]  | Alerts that are associated with this case. Consists of `alert_id`s      |\n  | `events`\t               | Array[]  | Transactions affiliated with the case. Consists of `event_id`s          |\n  | `entities`\t             | Array[]  | Entities affiliated with the case. Consists of `entity_id`s             |\n\nUpdates to a cases's `case_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                          |\n  |--------------------------|----------|------------------------------------------------------|\n  | `case_id`\t               | String   | \tUnique identifier of the case on your platform     |\n  | `previously_existed`\t   | Boolean  | \tIf case (with the same `case_id`) already exists   |\n"
       operationId: create_case
       requestBody:
         required: true
@@ -2470,6 +2461,44 @@ paths:
                     verification_result_id: 72
                 full_response:
                   info: This response depends on the verification source
+  /verification-forms/create:
+    post:
+      tags:
+        - Verification Forms API
+      summary: Verification Forms API
+      description: >-
+        If you are verifying IDs and collecting user data, this endpoint creates
+        a temporary URL to which you can redirect users.
+      operationId: create_verification_form
+      requestBody:
+        required: true
+        description: Set session length. Not required.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                session_length_minutes:
+                  type: integer
+                  description: >
+                    Time in minutes that form will be valid. Once this expires,
+                    the user can no longer submit or view the form. Max is 10080
+                    minutes (one week). Default is 1440 minutes (one day)
+                  minimum: 1
+                  maximum: 10080
+                  default: 1440
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  redirect_to:
+                    type: string
+                    format: URL
+                    description: URL to redirect users to fill out form
   /file-exports/list:
     post:
       tags:
@@ -2931,6 +2960,9 @@ components:
   schemas:
     listEntityRequest:
       type: object
+      required:
+        - limit
+        - offset
       properties:
         limit:
           type: integer
@@ -2970,16 +3002,6 @@ components:
       description: The TIN/EIN of the business
       maxLength: 128
       example: 434-455-3166
-    State:
-      type: string
-      description: Any string representing a state such as "CA" or "California"
-      maxLength: 128
-      example: CA
-    dbaName:
-      type: string
-      description: Operating name of the business.
-      maxLength: 512
-      example: Global Liquids
     businessDataProperties:
       title: Business data
       description: >
@@ -2999,22 +3021,6 @@ components:
           description: The name of the main person associated with the business
           maxLength: 128
           example: John Smith
-        website:
-          type: string
-          description: The website or associated URL for the business
-          maxLength: 512
-          example: www.google.com
-        registered_state:
-          $ref: '#/components/schemas/State'
-        registered_country:
-          type: string
-          description: >-
-            Country where the business is registered. Provided acording to the
-            ISO 3166-1 alpha-2 standard.
-          maxLength: 2
-          example: US
-        doing_business_as:
-          $ref: '#/components/schemas/dbaName'
     phoneNumbers:
       type: array
       description: >-
@@ -3058,6 +3064,13 @@ components:
           - Anna
           - Peter
         socure_device_session_id: '12121212121212112'
+        CITY: Philadelphia
+        CURRENT_SIGN_IN_IP: 23.24.34.1
+        DEVICE_INFO: >-
+          Carrier: Metro by T-Mobile, Mac address: dc:9b:d6:7f:6d:40, Device
+          name: TCL 5007Z
+        PREVENT_LOGIN_REASON: Login Not blocked
+        SUSPENDED: 'TRUE'
       additionalProperties: true
     ipAddressSimple:
       title: IP address
@@ -3086,6 +3099,11 @@ components:
           description: List of unique addresses.
           items:
             $ref: '#/components/schemas/clientFingerprintSimple'
+    State:
+      type: string
+      description: Any string representing a state such as "CA" or "California"
+      maxLength: 128
+      example: CA
     documentDataProperties:
       type: object
       description: document data properties
@@ -3124,6 +3142,13 @@ components:
             Date when document expires, in seconds since 1 Jan 1970 00:00:00 UTC
             (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
           example: 1572673227
+        verified_on:
+          type: integer
+          description: >-
+            Date when document was verified, in seconds since 1 Jan 1970
+            00:00:00 UTC (i.e. in [Unix
+            time](https://en.wikipedia.org/wiki/Unix_time))".
+          example: 1572673227
     documentDataArrayProperties:
       title: Document data array
       description: array of document data objects
@@ -3140,10 +3165,7 @@ components:
       example: u-3593dece-6642-4cdc-8547-aafc1454e0a0
     entityType:
       type: string
-      enum:
-        - user
-        - business
-      description: MUST be either `user` or `business`
+      description: Describes user such as `employee` or `business`
     entitySubtype:
       type: string
       description: >
@@ -3179,7 +3201,6 @@ components:
         entity on Unit21's system to a user or business on your platform.
       required:
         - entity_id
-        - entity_type
       properties:
         entity_id:
           $ref: '#/components/schemas/entityId'
@@ -3271,6 +3292,13 @@ components:
           $ref: '#/components/schemas/zipCode'
         country:
           $ref: '#/components/schemas/Country'
+        verified_on:
+          type: integer
+          description: >-
+            Date when location was verified, in seconds since 1 Jan 1970
+            00:00:00 UTC (i.e. in [Unix
+            time](https://en.wikipedia.org/wiki/Unix_time))".
+          example: 1572673227
     locationDataArrayProperties:
       title: Location data array
       description: Array of location data objects
@@ -3312,14 +3340,6 @@ components:
           type: integer
           description: Year of the user's date of birth (e.g. 1990)
           example: 1990
-        gender:
-          type: string
-          description: 'MALE, FEMALE, or OTHER'
-          enum:
-            - male
-            - female
-            - other
-          example: female
         ssn:
           type: string
           pattern: '^\d{3}-\d{2}-\d{4}$'
@@ -3330,10 +3350,29 @@ components:
       type: string
       description: Epoch
       example: 1661620487
+    media:
+      type: string
+      description: Base64 encoded media file
+      example: RGlkIHlvdSByZWFsbHkgbG9vayB0aGlzIHVwPw==
     mediaType:
       type: string
-      description: Media file type
-      example: document
+      enum:
+        - IMAGE_PROFILE_PICTURE
+        - IMAGE_DRIVERS_LICENSE_FRONT
+        - IMAGE_DRIVERS_LICENSE_BACK
+        - IMAGE_PASSPORT_FRONT
+        - IMAGE_ID_CARD_FRONT
+        - IMAGE_ID_CARD_BACK
+        - IMAGE_FACE_IMAGE
+      description: >
+        Type of media. The dropdown contains Unit21-recognized types.
+
+
+        Though you can provide any string, Unit21 processes and display
+        recognized `media_type` values with custom formatting. Unit21 can also
+        use recognized media object types for dedicated requests, like document
+        verification.
+      example: IMAGE_DRIVERS_LICENSE_FRONT
     name:
       type: string
       description: Media file name
@@ -3341,10 +3380,12 @@ components:
     mediaDataProperties:
       title: media data properties
       type: object
-      description: Media data
+      description: Media data. See `/link-media` endpoint
       properties:
         created_at:
           $ref: '#/components/schemas/createdAt'
+        media:
+          $ref: '#/components/schemas/media'
         media_type:
           $ref: '#/components/schemas/mediaType'
         name:
@@ -3369,9 +3410,7 @@ components:
           $ref: '#/components/schemas/generalEntitiesProperties'
         instrument_ids:
           type: array
-          description: >-
-            List of instrument unit21_ids. TO BE DEPRECATED in lieu of
-            instrument_ids.
+          description: List of instrument IDs.
           items:
             $ref: '#/components/schemas/instrumentId'
         location_data:
@@ -3446,6 +3485,10 @@ components:
         Include the full, raw, verification results. Can be used only if
         `synchronous_response` is `true`. Default is `false`.
       default: false
+    socureKey:
+      type: string
+      description: Socure API Key
+      example: 4543h90fdm3-02r8fgdgfd-78gf7tdg
     resolveGeoIp:
       type: boolean
       description: >-
@@ -3505,6 +3548,8 @@ components:
               $ref: '#/components/schemas/synchronousResponse'
             include_full_response:
               $ref: '#/components/schemas/includeFullResponse'
+            socure_override_api_key:
+              $ref: '#/components/schemas/socureKey'
         resolve_geoip:
           $ref: '#/components/schemas/resolveGeoIp'
         merge_custom_data:
@@ -3544,8 +3589,8 @@ components:
       type: boolean
       example: true
       description: >-
-        During upserts, `true` if all fields are identical to already existing
-        fields for that object
+        OPTIONAL. During upserts, `true` if all fields are identical to already
+        existing fields for that object
     previouslyExisted:
       type: boolean
       description: >-
@@ -3623,9 +3668,8 @@ components:
           $ref: '#/components/schemas/customDataProperties'
     userData:
       title: User data
-      description: >
-        Personal data - name, birthday, SSN etc. If `general_data.entity_type`
-        is set to `user`, this field is required.
+      description: |
+        Personal data - name, birthday, SSN etc.
       properties:
         user_data:
           $ref: '#/components/schemas/userDataProperties'
@@ -3644,8 +3688,6 @@ components:
           $ref: '#/components/schemas/entityId'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
-        error_code:
-          $ref: '#/components/schemas/errorCode'
     linkInstrument:
       type: object
       description: 'Associate an instrument directly with an object, like an Entity or Case.'
@@ -3672,32 +3714,13 @@ components:
         type: object
         properties:
           media:
-            type: string
-            description: Base64 encoded media file
-            example: RGlkIHlvdSByZWFsbHkgbG9vayB0aGlzIHVwPw==
+            $ref: '#/components/schemas/media'
           name:
             type: string
             description: name of media object
             example: Drivers License
           media_type:
-            type: string
-            enum:
-              - IMAGE_PROFILE_PICTURE
-              - IMAGE_DRIVERS_LICENSE_FRONT
-              - IMAGE_DRIVERS_LICENSE_BACK
-              - IMAGE_PASSPORT_FRONT
-              - IMAGE_ID_CARD_FRONT
-              - IMAGE_ID_CARD_BACK
-              - IMAGE_FACE_IMAGE
-            description: >
-              Type of media. The dropdown contains Unit21-recognized types.
-
-
-              Though you can provide any string, Unit21 processes and display
-              recognized `media_type` values with custom formatting. Unit21 can
-              also use recognized media object types for dedicated requests,
-              like document verification.
-            example: IMAGE_DRIVERS_LICENSE_FRONT
+            $ref: '#/components/schemas/mediaType'
           custom_data:
             type: object
             description: >-
@@ -3830,9 +3853,7 @@ components:
               description: Type of entity.
               items:
                 type: string
-                enum:
-                  - user
-                  - business
+                example: employer
             entity_type:
               $ref: '#/components/schemas/entityType'
             child_org_ids:
@@ -3843,6 +3864,9 @@ components:
                 example: 85
     listAlertRequest:
       type: object
+      required:
+        - limit
+        - offset
       properties:
         limit:
           type: integer
@@ -3948,7 +3972,6 @@ components:
       title: Create an instrument
       required:
         - instrument_id
-        - instrument_type
       properties:
         instrument_id:
           $ref: '#/components/schemas/instrumentId'
@@ -4003,10 +4026,6 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
-        error_code:
-          $ref: '#/components/schemas/errorCode'
-        message:
-          $ref: '#/components/schemas/message'
     Instrument:
       title: Instrument
       description: Top-level data about an instrument.
@@ -4073,8 +4092,6 @@ components:
           $ref: '#/components/schemas/instrumentId'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
-        error_code:
-          $ref: '#/components/schemas/errorCode'
     instrumentExportFilters:
       properties:
         filters:
@@ -4280,45 +4297,21 @@ components:
               example: USD
             sender_entity_id:
               type: string
-              description: >
-                Identifier of the sender entity on your platform - should
-                correspond to the `entity_id` field in an entity's
-                `general_data` section if the `sender_source` is `internal`. If
-                `sender_source` is `external`, this does not need to correspond
-                to anything in the Unit21 system.
+              description: |
+                Identifier of the sender entity on your platform.
               maxLength: 128
               example: u-371b5091-da30-48a8-936b-7600f9983e80
             sender_entity_type:
               type: string
-              enum:
-                - user
-                - business
               description: >
-                (Required when `sender_source` is `internal`, ignored otherwise)
                 The entity type of the sender as defined in Entity's
-                `general_data` section. Must be either a user or business.
+                `general_data` section.
               example: user
-            sender_source:
-              type: string
-              enum:
-                - internal
-                - external
-              description: >
-                Either internal or external. Internal senders exist on your
-                platform (and on Unit21's system), external senders are external
-                to your ecosystem and do not exist on your platform. Internal
-                senders are matched with entities on Unit21's system; external
-                senders are not.
-              maxLength: 128
-              example: internal
             sender_instrument_id:
               type: string
               description: >
                 Identifier of the sender's transaction instrument on your
-                platform. if the `sender_source` is `internal`. and the
-                transaction is facilitated by an instrument (it may not always
-                be), `sender_instrument_id` should correspond to the
-                `instrument_id` field in an entity's `instrument_data` section.
+                platform.
               maxLength: 128
               example: instrumentA-3967112
             received_amount:
@@ -4337,45 +4330,20 @@ components:
               example: USD
             receiver_entity_id:
               type: string
-              description: >-
-                Identifier of the receiver entity on your platform - should
-                correspond to the entity_id field in an entity's general_data
-                section if the receiver_source is internal. If receiver_source
-                is external, this does not need to correspond to anything in our
-                system
+              description: Identifier of the receiver entity on your platform
               maxLength: 128
               example: u-d8e1d453-c205-4996-a935-ff08be01bcd1
             receiver_entity_type:
               type: string
-              enum:
-                - user
-                - business
               description: >
-                (Required when `receiver_source == internal`, ignored
-                otherwise). The entity type of the receiver as defined in
-                Entity's general_data section. MUST be either `user` or
-                `business`.
+                The entity type of the receiver as defined in Entity's
+                general_data section.
               example: business
-            receiver_source:
-              type: string
-              enum:
-                - internal
-                - external
-              description: >
-                Either internal or external. Internal receivers exist on your
-                platform (and on Unit21's system), external receivers are
-                external to your ecosystem and do not exist on your platform.
-                Internal receivers will be matched with entities on Unit21's
-                system while external receivers will not.
-              example: internal
             receiver_instrument_id:
               type: string
               description: >
                 Identifier of the receiver's transaction instrument on your
-                platform. If the receiver_source is internal and the transaction
-                is facilitated by an instrument (it may not always be),
-                `receiver_instrument_id` should correspond to the
-                `instrument_id` field in an entity's `instrument_data` section.
+                platform.
               maxLength: 128
               example: t376839428256371
             exchange_rate:
@@ -5484,6 +5452,11 @@ components:
             $ref: '#/components/schemas/objectStatus'
           entity_subtype:
             $ref: '#/components/schemas/entitySubtype'
+    dbaName:
+      type: string
+      description: Operating name of the business.
+      maxLength: 512
+      example: Global Liquids
     blacklistBusiness:
       title: Business blacklist
       type: array
@@ -5569,7 +5542,6 @@ components:
             $ref: '#/components/schemas/createEntityRequest'
     listAlertID:
       description: ''
-      required: true
       content:
         application/json:
           schema:
@@ -5582,7 +5554,6 @@ components:
             $ref: '#/components/schemas/createInstrumentRequest'
     listDate:
       description: ''
-      required: true
       content:
         application/json:
           schema:
