@@ -1197,7 +1197,6 @@ paths:
                   link_digital_data_to_entity: true
                   linked_entity: sender
                   merge_custom_data: false
-                  list_merge_strategy: union
                   upsert_on_conflict: true
       responses:
         '200':
@@ -1644,7 +1643,7 @@ paths:
       tags:
         - Alerts API
       summary: Create alerts
-      description: "Creates a new alert, sending alert data in the request body. \nTo create an Alert, you MUST include the following fields: `alert_id`, `alert_type`, `created_at`, `title`, and `status`. The other top-level fields are optional.\n\nIf we receive a request to create an alert for an `alert_id` that already exists in our system,  we will respond with a **409 error code** indicating that this alert cannot be created/updated. You must use the `/alert/update` endpoint to update an alert.\n\nYou can add the following objects to an alert:\n\n  | Field                    | Type     | Description                                                                                                           |\n  |--------------------------|----------|-----------------------------------------------------------------------------------------------------------------------|\n  | `rules`\t                 | String[] | Unique identifier of the rules/triggers/scenarios that triggered this alert                                           |\n  | `events`\t               | Object[] | Transactions affiliated with the alert. Each object must consist of a `event_id` and `event_type` field               |\n  | `entities`\t             | Object[] | Users or businesses affiliated with the alert. Each object must consist of an `entity_id` and `entity_type` field     |\n  | `instruments`\t           | String[] | Unique identifiers of any instruments affiliated with the alert                                                       |\n\n\nPlease note that if `verification_result_id` is included, it will link the entity that is associated  with the verification result with the alert regardless of the `list_merge_strategy` provided in the `options` field.\n\nUpdates to an alert's `alert_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                             |\n  |--------------------------|----------|---------------------------------------------------------|\n  | `alert_id`\t             | String   | Unique identifier of the alert on your platform         |\n  | `unit21_id`\t             | String   | Internal ID of the alert within Unit21's system         |\n  | `previously_existed`\t   | Boolean  | If alert (with the same `alert_id`) already exists      |\n"
+      description: "Creates a new alert, sending alert data in the request body. \nTo create an Alert, you MUST include the following fields: `alert_id`, `alert_type`, `created_at`, `title`, and `status`. The other top-level fields are optional.\n\nIf we receive a request to create an alert for an `alert_id` that already exists in our system,  we will respond with a **409 error code** indicating that this alert cannot be created/updated. You must use the `/alert/update` endpoint to update an alert.\n\nYou can add the following objects to an alert:\n\n  | Field                    | Type     | Description                                                                                                           |\n  |--------------------------|----------|-----------------------------------------------------------------------------------------------------------------------|\n  | `rules`\t                 | String[] | Unique identifier of the rules/triggers/scenarios that triggered this alert                                           |\n  | `events`\t               | Object[] | Transactions affiliated with the alert. Each object must consist of a `event_id` and `event_type` field               |\n  | `entities`\t             | Object[] | Users or businesses affiliated with the alert. Each object must consist of an `entity_id` and `entity_type` field     |\n  | `instruments`\t           | String[] | Unique identifiers of any instruments affiliated with the alert                                                       |\n\n\nPlease note that if `verification_result_id` is included, it will link the entity that is associated  with the verification result with the alert.\n\nUpdates to an alert's `alert_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                             |\n  |--------------------------|----------|---------------------------------------------------------|\n  | `alert_id`\t             | String   | Unique identifier of the alert on your platform         |\n  | `unit21_id`\t             | String   | Internal ID of the alert within Unit21's system         |\n  | `previously_existed`\t   | Boolean  | If alert (with the same `alert_id`) already exists      |\n"
       operationId: create_alert
       requestBody:
         required: true
@@ -1748,7 +1747,7 @@ paths:
       tags:
         - Alerts API
       summary: Update alert
-      description: "Updates an alert's information using the `unit21_id`.\n\nUpdating an alert has no required fields. You MAY send any subset of the fields that the `alerts/create` endpoint accepts.\n\nThis endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the entity is first created.\n\nPlease note that if `verification_result_id` is included, it will link the entity that is associated with the  verification result with the alert regardless of the `list_merge_strategy` provided in the `options` field.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Custom data](https://docs.unit21.ai/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                             |\n  |--------------------------|----------|---------------------------------------------------------|\n  | `alert_id`\t             | String   | Unique identifier of the alert on your platform         |\n  | `unit21_id`\t             | String   | Internal ID of the alert within Unit21's system         |\n  | `previously_existed`\t   | Boolean  | If alert (with the same `alert_id`) already exists      |"
+      description: "Updates an alert's information using the `unit21_id`.\n\nUpdating an alert has no required fields. You MAY send any subset of the fields that the `alerts/create` endpoint accepts.\n\nThis endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the entity is first created.\n\nPlease note that if `verification_result_id` is included, it will link the entity that is associated with the  verification result with the alert.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Custom data](https://docs.unit21.ai/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                             |\n  |--------------------------|----------|---------------------------------------------------------|\n  | `alert_id`\t             | String   | Unique identifier of the alert on your platform         |\n  | `unit21_id`\t             | String   | Internal ID of the alert within Unit21's system         |\n  | `previously_existed`\t   | Boolean  | If alert (with the same `alert_id`) already exists      |"
       operationId: update_alert
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -3309,8 +3308,7 @@ components:
       title: User data
       type: object
       description: >
-        Personal data - name, birthday, SSN etc. If `general_data.entity_type ==
-        user`,  this field is required. However, none of the fields in user_data
+        Personal data - name, birthday, SSN etc. None of the fields in user_data
         are required. You may send in an empty array: `"user_data": {}`.
       properties:
         first_name:
@@ -3505,20 +3503,6 @@ components:
         strategy](doc:how-data-merges-on-updates#custom-data-merge-strategy) for
         more details. **Default**: `false`
       default: false
-    listMergeStrategy:
-      type: string
-      enum:
-        - union
-        - replace
-        - difference
-      description: >
-        Relevant only for list updates/upserts, ignored otherwise. `union` adds
-        values that did not exist. `replace` overwrites the old values with the
-        new values. `difference` removes the values you send(provided they
-        already existed on the system). See the [list-merge-strategy
-        section](doc:how-data-merges-on-updates#arrays-merged-using-optionslist_merge_strategy)
-        for more details. **Default**: `union`
-      default: union
     upsertOnConflict:
       type: boolean
       description: >-
@@ -3554,8 +3538,6 @@ components:
           $ref: '#/components/schemas/resolveGeoIp'
         merge_custom_data:
           $ref: '#/components/schemas/mergeCustomData'
-        list_merge_strategy:
-          $ref: '#/components/schemas/listMergeStrategy'
         upsert_on_conflict:
           $ref: '#/components/schemas/upsertOnConflict'
     createEntityRequest:
@@ -3565,8 +3547,6 @@ components:
       properties:
         general_data:
           $ref: '#/components/schemas/generalEntitiesProperties'
-        business_data:
-          $ref: '#/components/schemas/businessDataProperties'
         user_data:
           $ref: '#/components/schemas/userDataProperties'
         document_data:
@@ -3581,8 +3561,6 @@ components:
           $ref: '#/components/schemas/locationDataArrayProperties'
         custom_data:
           $ref: '#/components/schemas/customDataProperties'
-        media_data:
-          $ref: '#/components/schemas/mediaDataProperties'
         options:
           $ref: '#/components/schemas/entityOptionsProperties'
     Ignored:
@@ -3657,8 +3635,6 @@ components:
           $ref: '#/components/schemas/resolveGeoIp'
         merge_custom_data:
           $ref: '#/components/schemas/mergeCustomData'
-        list_merge_strategy:
-          $ref: '#/components/schemas/listMergeStrategy'
         upsert_on_conflict:
           $ref: '#/components/schemas/upsertOnConflict'
     customData:
@@ -3675,9 +3651,8 @@ components:
           $ref: '#/components/schemas/userDataProperties'
     businessData:
       title: Business data
-      description: >
-        Business data - business name, TIN/EIN etc. If
-        `general_data.entity_type` is set to `business`, this field is required.
+      description: |
+        Business data - business name, TIN/EIN etc.
       properties:
         business_data:
           $ref: '#/components/schemas/businessDataProperties'
@@ -3966,8 +3941,6 @@ components:
           $ref: '#/components/schemas/resolveGeoIp'
         merge_custom_data:
           $ref: '#/components/schemas/mergeCustomData'
-        list_merge_strategy:
-          $ref: '#/components/schemas/listMergeStrategy'
     createInstrumentRequest:
       title: Create an instrument
       required:
@@ -4471,8 +4444,6 @@ components:
               example: sender
             merge_custom_data:
               $ref: '#/components/schemas/mergeCustomData'
-            list_merge_strategy:
-              $ref: '#/components/schemas/listMergeStrategy'
             upsert_on_conflict:
               $ref: '#/components/schemas/upsertOnConflict'
     eventIds:
@@ -4814,11 +4785,6 @@ components:
           $ref: '#/components/schemas/dispositionNotes'
         tags:
           $ref: '#/components/schemas/Tags'
-        options:
-          type: object
-          properties:
-            list_merge_strategy:
-              $ref: '#/components/schemas/listMergeStrategy'
     eventArray:
       title: Events
       properties:
