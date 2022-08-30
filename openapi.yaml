@@ -610,8 +610,6 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/agentId'
-                - $ref: '#/components/schemas/agentEmail'
                 - $ref: '#/components/schemas/entityIds'
                 - $ref: '#/components/schemas/entityExportFilters'
       responses:
@@ -1340,8 +1338,6 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/agentId'
-                - $ref: '#/components/schemas/agentEmail'
                 - $ref: '#/components/schemas/eventIds'
                 - $ref: '#/components/schemas/eventExportFilters'
       responses:
@@ -1375,8 +1371,6 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/agentId'
-                - $ref: '#/components/schemas/agentEmail'
                 - $ref: '#/components/schemas/eventIds'
                 - $ref: '#/components/schemas/eventExportFilters'
       responses:
@@ -1520,8 +1514,6 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/agentId'
-                - $ref: '#/components/schemas/agentEmail'
                 - $ref: '#/components/schemas/ruleIds'
                 - $ref: '#/components/schemas/ruleExportFilters'
       responses:
@@ -1869,8 +1861,6 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/agentId'
-                - $ref: '#/components/schemas/agentEmail'
                 - $ref: '#/components/schemas/alertIds'
                 - $ref: '#/components/schemas/alertExportFilters'
       responses:
@@ -2179,8 +2169,6 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/agentId'
-                - $ref: '#/components/schemas/agentEmail'
                 - $ref: '#/components/schemas/caseIds'
                 - $ref: '#/components/schemas/caseExportFilters'
       responses:
@@ -2378,8 +2366,6 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/agentId'
-                - $ref: '#/components/schemas/agentEmail'
                 - $ref: '#/components/schemas/sarIds'
                 - $ref: '#/components/schemas/sarExportFilters'
       responses:
@@ -3755,18 +3741,6 @@ components:
             "source": "passport_app", "timestamp": 1572673229}'
 
             ```
-    agentId:
-      properties:
-        agent_id:
-          type: string
-          description: Numerical identifier of an agent in your organization
-          example: 295
-    agentEmail:
-      properties:
-        agent_email:
-          type: string
-          description: Email of an agent in your organization
-          example: foobar@unit21.ai
     entityIds:
       properties:
         entity_ids:
