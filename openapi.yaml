@@ -2508,6 +2508,13 @@ paths:
         The `total_count` field contains the total number of exports where the 
         `response_count` field contains the number of exports included in the
         response.
+
+
+        The `statuses` for exports address: | Status      | Description | |
+        ----------- | ----------- | | READY_FOR_DOWNLOAD      | File is ready
+        for download       | | GENERATING   | File is generating        | |
+        FAILED      | File export failed       | | REQUESTED   | File exort has
+        been requested        |
       operationId: list_exports
       requestBody:
         description: ''
@@ -5237,11 +5244,13 @@ components:
         statuses:
           type: array
           description: >-
-            Statuses for the files to export such as READY_FOR_DOWNLOAD or
-            GENERATING
+            Statuses for the files to export. One of READY_FOR_DOWNLOAD,
+            GENERATING, FAILED, REQUESTED
           example:
             - READY_FOR_DOWNLOAD
             - GENERATING
+            - FAILED
+            - REQUESTED
           items:
             type: string
     tagFilters:
