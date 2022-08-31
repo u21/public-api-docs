@@ -5236,7 +5236,9 @@ components:
             type: integer
         statuses:
           type: array
-          description: Statuses for the files to export
+          description: >-
+            Statuses for the files to export such as READY_FOR_DOWNLOAD or
+            GENERATING
           example:
             - READY_FOR_DOWNLOAD
             - GENERATING
