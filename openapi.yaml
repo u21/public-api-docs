@@ -2510,11 +2510,12 @@ paths:
         response.
 
 
-        The `statuses` for exports address: | Status      | Description | |
-        ----------- | ----------- | | READY_FOR_DOWNLOAD      | File is ready
-        for download       | | GENERATING   | File is generating        | |
-        FAILED      | File export failed       | | REQUESTED   | File exort has
-        been requested        |
+        The `statuses` for exports address:
+
+        | Status      | Description | | ----------- | ----------- | |
+        READY_FOR_DOWNLOAD      | File is ready for download       | |
+        GENERATING   | File is generating        | | FAILED      | File export
+        failed       | | REQUESTED   | File exort has been requested        |
       operationId: list_exports
       requestBody:
         description: ''
