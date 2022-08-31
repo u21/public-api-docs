@@ -1347,7 +1347,7 @@ paths:
             application/json:
               example:
                 message: File export has started
-  /txn_events/bulk-export:
+  /txn-events/bulk-export:
     post:
       tags:
         - Events API
