@@ -2963,7 +2963,7 @@ paths:
                   signature: c3nvYeLthbKYx4n6lfo1LCVbpno=
                 url: 'https://local-tm-uploads.s3.amazonaws.com/'
                 file_id: 12
-  '/{pre-signed-url}':
+  '/{pre_signed_url}':
     post:
       tags:
         - Datafiles API
