@@ -2982,6 +2982,8 @@ paths:
 
 
         We support JSON, JSONL, CSV format only.
+      parameters:
+        - $ref: '#/components/parameters/pre_signed_url'
       requestBody:
         content:
           multipart/form-data:
@@ -5653,3 +5655,13 @@ components:
       required: true
       description: Email of an agent in your organization
       example: foobar@unit21.ai
+    pre_signed_url:
+      in: path
+      name: pre_signed_url
+      schema:
+        type: string
+      required: true
+      description: >-
+        A Unit21 internally-assigned unique url for an AWS S3 bucket where your
+        organization can upload data.
+      example: 'https://local-tm-uploads.s3.amazonaws.com/'
