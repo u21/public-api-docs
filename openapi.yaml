@@ -65,10 +65,6 @@ tags:
       Sars are cases that have been investigated and turned into a Suspicious
       Activity report with the intent to file it to FinCen. The `/sars` endpoint
       can get and list sars. 
-  - name: Exports API
-    description: >
-      If you want to download files requested via the dashboard or the bulk
-      export endpoints. The `/file-exports` endpoint can get and list sars. 
   - name: Entity Verification API
     description: >
       Unit21 can execute entity verifications according to steps defined in
@@ -97,11 +93,21 @@ tags:
         * of entities (users or business)
         * IPs (single or ranges)
         * strings
+  - name: Exports API
+    description: >
+      If you want to download files requested via the dashboard or the bulk
+      export endpoints. The `/file-exports` endpoint can get and list sars. 
   - name: Datafiles API
     description: >
       If you want to bulk upload multiple objects, you can send them via a POST
       to the `/datafiles` endpoint. For the fastest processing, the datafile
       SHOULD be a JSON file in the format of a typical POST request to this API.
+  - name: Import API
+    description: >
+      If you want to upload a file with a lot of information in it, you can send
+      them via a POST to a custom URL. You can request this URL via a POST to
+      the `/datafiles` endpoint.  For the fastest processing, the file SHOULD be
+      JSON or CSV.
 paths:
   /entities/list:
     post:
@@ -2446,6 +2452,197 @@ paths:
                     verification_result_id: 72
                 full_response:
                   info: This response depends on the verification source
+  '/entities/{unit21_id}/link-verification-result':
+    post:
+      tags:
+        - Entity Verification API
+      summary: Link external verification
+      description: >-
+        Add the verification result from an external ID provider to an entity on
+        the Unit21 system.
+
+        You can only send 1 result per request.
+      operationId: add_verification_result_to_entity
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/linkVerificationResult'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/linkVerificationResponse'
+              example:
+                created_at: 1591992745
+                entity_id: '856'
+                source: IDOLOGY
+                type: DOC_VERIFICATION
+                verification_workflow_execution_id: 59
+                full_response:
+                  info: This response depends on the verification source
+                  placeholderKey: placeholderValue
+  '/verification/result/{result_id}':
+    get:
+      tags:
+        - Entity Verification API
+      summary: Get verification results by result id
+      description: Returns all the information from the verification of a specific entity.
+      operationId: get_verification_result
+      parameters:
+        - $ref: '#/components/parameters/result_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                created_at: 1591992745
+                entity_id: 856
+                source: IDOLOGY
+                type: DOC_VERIFICATION
+                verification_workflow_execution_id: 59
+                full_response: {}
+  '/entities/{unit21_id}/continuous-monitoring':
+    post:
+      tags:
+        - Entity Verification API
+      summary: Update continuous monitoring
+      description: >
+        Fetch status and enables/disables Socure continuous monitoring for an
+        entity.
+
+
+        For asynchronous continuous monitoring, the endpoint will always return
+        a 200 success status response.
+
+
+        For synchronous continous monitoring, the endpoint will always return a
+        200 success status response  but you should look at the `is_success =
+        true` field to check if the result was actually successful: 
+
+
+        `
+          {
+            "error_message": "This entity has no existing continuous monitoring subscriptions to disable.",
+            "is_success": true
+          }
+        `
+      operationId: update_continuous_monitoring
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/continuousMonitoring'
+      responses:
+        '200':
+          description: OK
+  '/entities/{unit21_id}/suppress-provider-entity':
+    post:
+      tags:
+        - Entity Verification API
+      summary: Suppress provider entity
+      description: >
+        Mute Socure continuous monitoring for an entity. 1 - Suppress 0 -
+        Unsuppress
+      operationId: update_suppressed_provider_entities
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/suppressProviderEntity'
+      responses:
+        '200':
+          description: OK
+  '/entities/{unit21_id}/verification_workflow_executions':
+    get:
+      tags:
+        - Entity Verification API
+      summary: Get entity verification workflow IDs
+      description: >-
+        Returns the verification workflow IDs for an entity.
+
+
+        This endpoint requires the `unit21_id` which is a unique ID created by
+        Unit21 when the entity is first created.
+      operationId: get_entity_verification_workflow_executions
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                - created_at: 1644533569
+                  end_action: $ACCEPT
+                  verification_workflow_execution_id: 132423
+                - created_at: 1644533538
+                  end_action: $EXCEPTION
+                  verification_workflow_execution_id: 132413
+  '/verification/verification-workflow-execution/{verification_workflow_execution_id}':
+    get:
+      tags:
+        - Entity Verification API
+      summary: Get verification workflow execution details
+      description: >-
+        Returns all the data associated with a
+        verification_workflow_execution_id
+      operationId: get_verification_workflow_execution
+      parameters:
+        - $ref: '#/components/parameters/verification_workflow_execution_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                alert_id: 9739988
+                created_at: 1642443889
+                end_action: $ACCEPT
+                end_time: 1642443889
+                entity_id: 594242743
+                id: 130622
+                is_success: true
+                message: null
+                org_id: 1
+                start_time: 1642443889
+                unit_id: 1
+                verification_form_id: null
+                verification_workflow_id: 1283
+  '/verification/verification-workflow-execution/{verification_workflow_execution_id}/results':
+    get:
+      tags:
+        - Entity Verification API
+      summary: Get verification results from workflow
+      description: >-
+        Returns all the information from the verification workflow execution for
+        a specific entity.
+      operationId: get_verification_result_from_workflow_execution
+      parameters:
+        - $ref: '#/components/parameters/verification_workflow_execution_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                id: 765
+                created_at: 1591992745
+                source: IDOLOGY
+                content: {}
+                entity_id: 856
+                type: DOC_VERIFICATION
+                verification_workflow_execution_id: 59
+                continuous_monitoring: false
   /verification-forms/create:
     post:
       tags:
@@ -2919,9 +3116,9 @@ paths:
                   - instrument_id: BTC-123
                     unit21_id: 10
   /datafiles/pre-signed-url/create:
-    get:
+    post:
       tags:
-        - Datafiles API
+        - Import API
       operationId: get_pre_signed_url
       summary: Get pre-signed URL
       description: >-
@@ -2966,12 +3163,23 @@ paths:
   '/{pre_signed_url}':
     post:
       tags:
-        - Datafiles API
+        - Import API
       operationId: upload_datafiles
       summary: Upload data to URL
       description: >
         Upload your file to our S3 bucket using the pre signed AWS URL you
         received in the `create` endpoint.
+
+
+        **PLEASE NOTE THAT THE URL FOR THIS POST REQUEST IS THE `pre_signed_url`
+        ONLY.**
+
+
+        A correct URL example: https://local-tm-uploads.s3.amazonaws.com/
+
+
+        Documentation shows an incorrect example:
+        https://sandbox1-api.unit21.com/v1/local-tm-uploads.s3.amazonaws.com/
 
 
         Only one file can be uploaded in a request, with a file size maximum of
@@ -5269,6 +5477,108 @@ components:
           $ref: '#/components/schemas/synchronousResponse'
         include_full_response:
           $ref: '#/components/schemas/includeFullResponse'
+    linkVerificationResult:
+      title: Link verification result
+      description: >-
+        Fields to link external verification results to entity in the Unit21
+        system
+      required:
+        - verification_type
+        - provider_name
+        - content
+      properties:
+        verification_type:
+          type: string
+          enum:
+            - ID_VERIFICATION
+            - DOC_VERIFICATION
+            - BUSINESS_VERIFICATION
+            - WATCHLIST_SCREENING
+            - ADVERSE_MEDIA_SCREENING
+            - CRYPTO_FORENSICS
+          description: >-
+            Type of verification, in one of the categories that the Unit21
+            system recognizes
+        provider_name:
+          type: string
+          description: name of KYC provider
+          example: FAKE_PROVIDER
+        content:
+          type: object
+          additionalProperties: true
+          description: JSON-formatted response from verification provider
+          example:
+            content:
+              test:
+                nested_field: 123
+              boolean_field: false
+              error: An error occurred
+        verification_timestamp:
+          $ref: '#/components/schemas/registeredAt'
+    linkVerificationResponse:
+      properties:
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        entity_id:
+          type: string
+          description: Unit21 ID of the entity that the verification was run on.
+        source:
+          type: string
+          description: 'Provider that ran the verification (IDOLOGY, TRULIOO, etc.)'
+        type:
+          type: string
+          description: >-
+            Type of verification executed (DOC_VERIFICATION, ID_VERIFICATION,
+            etc.)
+        verification_workflow_execution_id:
+          type: number
+          description: ID of the workflow execution
+        full_response:
+          type: object
+          description: >-
+            Full response from the verification provider running the
+            verification
+    synchronousResponses:
+      type: boolean
+      description: >-
+        Default: `false`. If `true`,  the response is returned in the request
+        but may take slightly longer to complete.
+      default: false
+      example: false
+    continuousMonitoring:
+      type: object
+      required:
+        - continuous_monitoring
+      properties:
+        continuous_monitoring:
+          type: boolean
+          description: >
+            Enable or disable continuous monitoring. Use `true` to turn on and
+            `false` to turn off.
+        synchronous_response:
+          $ref: '#/components/schemas/synchronousResponses'
+    suppressProviderEntity:
+      type: object
+      required:
+        - suppress
+        - provider_entity_ids
+      properties:
+        suppress:
+          type: boolean
+          description: >
+            Enable or disable the silencing of the entity. Use `true` to turn on
+            and `false` to turn off.
+        synchronous_response:
+          $ref: '#/components/schemas/synchronousResponses'
+        provider_entity_ids:
+          type: array
+          description: |
+            Array of entity ID strings
+          items:
+            type: string
+          example:
+            - '5676572343'
+            - '4657605135'
     listExports:
       type: object
       properties:
@@ -5639,6 +5949,26 @@ components:
         Unit21 system. Depending on the endpoint, `unit21_id` can refer to an
         entity, an event, a case, an alert, a device, etc.
       example: 571485314
+    result_id:
+      in: path
+      name: result_id
+      schema:
+        type: string
+      required: true
+      description: >-
+        A Unit21 internally-assigned unique identifier for the verification
+        workflow of the entity.
+      example: verified-customer-onboarding
+    verification_workflow_execution_id:
+      in: path
+      name: verification_workflow_execution_id
+      schema:
+        type: integer
+      required: true
+      description: >-
+        A Unit21 internally-assigned unique identifier for the verification
+        workflow execution.
+      example: 14823
     export_id:
       in: path
       name: file_export_id
