@@ -3956,13 +3956,6 @@ components:
       properties:
         message:
           $ref: '#/components/schemas/message'
-    instrumentIds:
-      properties:
-        instrument_ids:
-          type: array
-          description: List of instrument_ids.
-          items:
-            $ref: '#/components/schemas/instrumentId'
     workflowId:
       type: string
       description: |
@@ -4055,7 +4048,10 @@ components:
         document_data:
           $ref: '#/components/schemas/documentDataArrayProperties'
         instrument_ids:
-          $ref: '#/components/schemas/instrumentIds'
+          type: array
+          description: List of instrument_ids.
+          items:
+            $ref: '#/components/schemas/instrumentId'
         communication_data:
           $ref: '#/components/schemas/communicationDataProperties'
         digital_data:
@@ -4556,6 +4552,13 @@ components:
           $ref: '#/components/schemas/instrumentId'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    instrumentIds:
+      properties:
+        instrument_ids:
+          type: array
+          description: List of instrument_ids.
+          items:
+            $ref: '#/components/schemas/instrumentId'
     instrumentExportFilters:
       properties:
         filters:
