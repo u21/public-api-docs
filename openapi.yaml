@@ -25,6 +25,12 @@ tags:
       Instruments represent any physical, digital, or logical intermediary
       between an entity and a transaction event. The `/instruments` endpoint can
       create, list, and update instruments. 
+  - name: Devices API
+    description: >
+      Devices representing any computer or physical device used to execute an
+      event. Devices are most suitable when events can be traced back to a
+      specific device fingerprint. The `/devices` endpoint can create, list, and
+      update instruments. 
   - name: Events API
     description: >
       Events have two types, _transaction events_  and _action events_:
@@ -955,6 +961,251 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
+  /devices/list:
+    post:
+      tags:
+        - Devices API
+      summary: List devices
+      description: >
+        Returns paginated list of of top-level information about devices. 
+
+        Because the response is paginated, the request body has a `limit` and
+        `offset` field. At least one must be filled.
+
+        * `limit`  indicates how many objects the request returns (the page
+        maximum is 50)
+
+        * `offset` indicates the offset for pagination. An `offset` value of 1
+        starts with the environment's first record. The offset is relative to
+        the number of pages (not the total count of objects).
+
+
+        The `total_count` field contains the total number of devices where the 
+        `response_count` field contains the number of devices included in the
+        response.
+      operationId: list_devices
+      requestBody:
+        $ref: '#/components/requestBodies/list'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listResponse'
+              example:
+                devices:
+                  devices:
+                    - app_version: 5.44.5
+                      custom_data: null
+                      device_id: 11b72726-18d6-43b3-a0bf-b4adf6d576474
+                      device_manufacturer: samsung
+                      device_model: SM-N970U
+                      device_subtype: ios
+                      device_type: mobile
+                      entities:
+                        - entity_id: userA-11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                          entity_type: user
+                          unit21_id: 571485314
+                      is_spooled: false
+                      network_carrier: AT&T
+                      network_cellular: false
+                      os_name: Android
+                      os_version: '10'
+                      phone_numbers:
+                        - '+1234567890'
+                      registered_at: 1572672326
+                      status: active
+                      tags:
+                        - 'sector:europe'
+                      timezone: America/Los_Angeles
+                      unit21_id: '601'
+                    - app_version: 5.44.5
+                      custom_data:
+                        nft_asset_hash: 59790095
+                        nft_copies: 2250
+                        nft_creator: cryptocomnft
+                        nft_creator_id: '792843'
+                        nft_edition: 567
+                        nft_name: The 24/7 Trader
+                      device_id: 132926-18dewew6-43b3-a0bf-b1234
+                      device_manufacturer: samsung
+                      device_model: SM-N970U
+                      device_subtype: android
+                      device_type: mobile
+                      entities:
+                        - entity_id: userA-11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                          entity_type: user
+                          unit21_id: 571485314
+                      is_spooled: false
+                      network_carrier: KTV
+                      network_cellular: true
+                      os_name: Android
+                      os_version: '10'
+                      phone_numbers:
+                        - '+1234567890'
+                      registered_at: 1572672326
+                      status: active
+                      tags:
+                        - 'sector:korea'
+                      timezone: Seoul
+                      unit21_id: '436'
+                  response_count: 2
+                  total_count: 16
+  /devices/create:
+    post:
+      tags:
+        - Devices API
+      summary: Create a device
+      operationId: create_device
+      description: "Creates a new device, sending device data in the request body.\n\nRecommended values for `device_type` include: laptop, home_computer, work_laptop, phone, smartphone, scanner.\n\nIf the `/devices/create` API is called for an device that already exists in our system (i.e.  has an existing `device_id`, it is treated it as an  [upsert](https://docs.unit21.ai/u21/reference/should-i-update-or-upsert) and an update on the existing device is performed. The response to the request will then contain the entry `previously_existed: true`. \n\nUnit21 selectively ignores upserts if the request is identical to a previous request.  The response to any isgnored upsert will  contain the field `ignored: true`.\n\nUpdates to an device's `device_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/u21/reference/endpoint-options)\n  - [Custom data](https://docs.unit21.ai/u21/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/u21/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/u21/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                            |\n  |--------------------------|----------|--------------------------------------------------------|\n  | `device_id`\t             | String   | \tUnique identifier of the device on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the device within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `device_id`) already exists |\n"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/Devices'
+              anyOf:
+                - $ref: '#/components/schemas/entityArray'
+                - $ref: '#/components/schemas/locationDataArray'
+                - $ref: '#/components/schemas/digitalData'
+                - $ref: '#/components/schemas/customData'
+            example:
+              device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+              device_type: mobile
+              device_subtype: android
+              status: active
+              registered_at: 1623365011
+              os_name: Android
+              os_version: 10.1.x
+              app_version: 5.44.4
+              device_manufacturer: samsung
+              device_model: SM-N970U
+              timezone: UTC-7
+              network_carrier: T-Mobile
+              network_cellular: true
+              phone_numbers:
+                - '+14159627132'
+              entities:
+                - entity_id: u-3593dece-6642-4cdc-8547-aafc1454e0a0
+                  entity_type: user
+              tags:
+                - 'Sector:Europe'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createDeviceResponse'
+              example:
+                device_id: device-3232
+                previously_existed: true
+                unit21_id: '403746'
+  '/{org_name}/devices/{device_id}':
+    get:
+      tags:
+        - Devices API
+      summary: Get a device using external ID
+      description: >-
+        Returns all data objects belonging to a single device.
+
+
+        This endpoint requires the `device_id` which is a unique ID created by
+        your organization to identify the device. The `org_name` is your Unit21
+        appointed organization name such as `google` or `acme`.
+      operationId: get_device_by_external
+      parameters:
+        - $ref: '#/components/parameters/device_id'
+        - $ref: '#/components/parameters/org_name'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                app_version: 5.44.5
+                custom_data: null
+                device_id: 11b72726-18d6-43b3-a0bf-b4adf6d576474
+                device_manufacturer: samsung
+                device_model: SM-N970U
+                device_subtype: ios
+                device_type: mobile
+                entities:
+                  - entity_id: userA-11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+                    entity_type: user
+                    unit21_id: 571485314
+                is_spooled: false
+                network_carrier: AT&T
+                network_cellular: false
+                os_name: Android
+                os_version: '10'
+                phone_numbers:
+                  - '+1234567890'
+                registered_at: 1572672326
+                status: active
+                tags:
+                  - 'sector:europe'
+                timezone: America/Los_Angeles
+                unit21_id: '601'
+  '/{org_name}/devices/{device_id}/update':
+    put:
+      tags:
+        - Devices API
+      summary: Update device using external ID
+      description: "Updates an device's information using the `device_id` from your platform. \n\nUpdating a device has no required fields. You MAY send any  subset of the fields that the `devices/create` endpoint accepts.\n\nThis endpoint requires the `device_id` which is a unique ID created by your organization to identify the device. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.\n\nNote that you can also update a device using an upsert through `/devices/create`.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/u21/reference/endpoint-options)\n  - [Custom data](https://docs.unit21.ai/u21/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/u21/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/u21/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                            |\n  |--------------------------|----------|--------------------------------------------------------|\n  | `device_id`\t             | String   | \tUnique identifier of the device on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the device within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `device_id`) already exists |"
+      operationId: update_device_by_external
+      parameters:
+        - $ref: '#/components/parameters/device_id'
+        - $ref: '#/components/parameters/org_name'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+                - $ref: '#/components/schemas/Devices'
+                - $ref: '#/components/schemas/customData'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                device_id: 3234-sdghfdf-3332
+                unit21_id: '49073'
+  /devices/bulk-export:
+    post:
+      tags:
+        - Devices API
+      summary: Bulk export devices
+      description: >
+        Initiates an email and dashboard export of devices. The export will be
+        as a CSV file.
+
+
+        Either the agent `ID` or `email` is required to begin the export.
+
+
+        Either the `filters` or the list of `device IDs` are required for the
+        export.
+      operationId: export_devices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/agentId'
+                - $ref: '#/components/schemas/agentEmail'
+                - $ref: '#/components/schemas/deviceIds'
+                - $ref: '#/components/schemas/deviceExportFilters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                message: File export has started
   /events/list:
     post:
       tags:
@@ -4360,6 +4611,153 @@ components:
           type: string
           description: Export success.
           example: File export has started
+    listRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: Number of objects per page.
+          minimum: 0
+          maximum: 50
+          example: 2
+        offset:
+          type: integer
+          description: >-
+            Pagination offset. A value of 1 returns a response beginning with
+            the first record. The offset is relative to the number of pages (not
+            the total count of objects)
+          minimum: 1
+          default: 1
+    listResponse:
+      type: object
+      properties:
+        response_count:
+          type: integer
+          example: 10
+          description: Number of objects in the response
+        total_count:
+          type: integer
+          example: 100
+          description: Total number of objects in the platform.
+    deviceId:
+      type: string
+      description: Identifier of the device within your system
+      example: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
+      minLength: 1
+      maxLength: 128
+    Devices:
+      description: Top-level data about an instrument.
+      title: Device data
+      required:
+        - device_type
+        - device_id
+      properties:
+        device_id:
+          $ref: '#/components/schemas/deviceId'
+        device_type:
+          type: string
+          description: Type of device
+          maxLength: 128
+          example: mobile
+        device_subtype:
+          type: string
+          description: SubType of device
+          maxLength: 128
+          example: android
+        status:
+          $ref: '#/components/schemas/objectStatus'
+        registered_at:
+          $ref: '#/components/schemas/registeredAt'
+        os_name:
+          type: string
+          description: Operating system used by the device
+          maxLength: 128
+          example: Android
+        os_version:
+          type: string
+          description: Operating system version used by the device
+          maxLength: 128
+          example: 10.1.x
+        app_version:
+          type: string
+          description: Application version used by the device
+          maxLength: 128
+          example: 5.44.4
+        device_manufacturer:
+          type: string
+          description: Manufacturer of the device value
+          maxLength: 128
+          example: samsung
+        device_model:
+          type: string
+          description: Specific device model number value
+          maxLength: 128
+          example: SM-N970U
+        timezone:
+          type: string
+          description: Timezone configured by the device's application/OS
+          maxLength: 128
+          example: UTC-7
+        network_carrier:
+          type: string
+          description: 'Network carrier used by the device (T-Mobile, Verizon etc.)'
+          maxLength: 128
+          example: T-Mobile
+        network_cellular:
+          type: boolean
+          description: Whether or not the device has a cellular connection
+          example: true
+        phone_numbers:
+          $ref: '#/components/schemas/phoneNumbers'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        options:
+          $ref: '#/components/schemas/Options'
+    createDeviceResponse:
+      title: Devices/create response
+      properties:
+        device_id:
+          $ref: '#/components/schemas/deviceId'
+        ignored:
+          $ref: '#/components/schemas/Ignored'
+        previously_existed:
+          $ref: '#/components/schemas/previouslyExisted'
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+    agentId:
+      properties:
+        agent_id:
+          type: string
+          description: Numerical identifier of an agent in your organization
+          example: 295
+    agentEmail:
+      properties:
+        agent_email:
+          type: string
+          description: Email of an agent in your organization
+          example: foobar@unit21.ai
+    deviceIds:
+      properties:
+        device_ids:
+          type: array
+          description: Array of the unique identifiers of the device IDs.
+          items:
+            type: integer
+          example:
+            - 136544
+            - 546456
+    deviceExportFilters:
+      properties:
+        filters:
+          type: object
+          description: Filter to narrow down devices in export
+          properties:
+            child_org_ids:
+              type: array
+              description: Devices that belong to this Child org (Numerical ID).
+              items:
+                type: integer
+                example: 85
     listDateRequest:
       type: object
       properties:
@@ -4393,17 +4791,6 @@ components:
           type: integer
           description: Associated alert ID filter
           example: 73913
-    listResponse:
-      type: object
-      properties:
-        response_count:
-          type: integer
-          example: 10
-          description: Number of objects in the response
-        total_count:
-          type: integer
-          example: 100
-          description: Total number of objects in the platform.
     eventId:
       type: string
       description: Unique identifier of the event on your platform
@@ -4744,23 +5131,6 @@ components:
               items:
                 type: integer
                 example: 85
-    listRequest:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: Number of objects per page.
-          minimum: 0
-          maximum: 50
-          example: 2
-        offset:
-          type: integer
-          description: >-
-            Pagination offset. A value of 1 returns a response beginning with
-            the first record. The offset is relative to the number of pages (not
-            the total count of objects)
-          minimum: 1
-          default: 1
     ruleIds:
       properties:
         rule_ids:
@@ -5864,12 +6234,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/createInstrumentRequest'
-    listDate:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/listDateRequest'
     list:
       description: ''
       required: true
@@ -5877,6 +6241,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/listRequest'
+    listDate:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/listDateRequest'
   responses:
     '400':
       description: Bad Request. Your request is invalid.
@@ -5930,6 +6300,14 @@ components:
       required: true
       description: Unique identifier of the instrument on your platform
       example: 1036492444
+    device_id:
+      in: path
+      name: device_id
+      schema:
+        type: string
+      required: true
+      description: Identifier of the device within your system
+      example: 601
     event_id:
       in: path
       name: event_id
