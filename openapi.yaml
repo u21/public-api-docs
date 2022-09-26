@@ -4958,6 +4958,10 @@ components:
                 rate to USD). If both `sent_currency` and `received_currency`
                 are in the home currency,  this is not required.
               example: 1.0012
+            transaction_hash:
+              type: string
+              description: Used for chainalysis. Chanalysis transaction hash.
+              example: af830da0919f9d3ebbc413040460708c4107e77c83c1d1a56c6bc76a48d
             usd_conversion_notes:
               type: string
               description: >-
