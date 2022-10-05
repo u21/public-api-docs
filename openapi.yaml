@@ -3412,9 +3412,9 @@ paths:
                 url: 'https://local-tm-uploads.s3.amazonaws.com/'
                 file_id: 12
   '/{pre_signed_url}':
+    servers:
+      - url: 'https://'
     post:
-      servers:
-        - url: 'https://'
       tags:
         - Import API
       operationId: upload_datafiles
