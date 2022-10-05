@@ -3375,6 +3375,11 @@ paths:
       description: >-
         Get details your unique URL you can use to import data into the Unit21
         system.
+
+
+        The response will include a URL which you must use to upload your
+        datafile. In the example below, your datafile will be uploaded to
+        https://local-tm-uploads.s3.amazonaws.com/.
       requestBody:
         content:
           application/json:
@@ -3414,7 +3419,11 @@ paths:
   '/{pre_signed_url}':
     servers:
       - url: 'https://'
+    security: []
     post:
+      servers:
+        - url: 'https://'
+      security: []
       tags:
         - Import API
       operationId: upload_datafiles
@@ -3425,14 +3434,14 @@ paths:
 
 
         **PLEASE NOTE THAT THE URL FOR THIS POST REQUEST IS THE `pre_signed_url`
-        ONLY.**
-
-
-        A correct URL example: https://local-tm-uploads.s3.amazonaws.com/
+        ONLY.** YOU MUST REMOVE `https://sandbox1-api.unit21.com/v1`.
 
 
         Documentation shows an incorrect example:
-        https://sandbox1-api.unit21.com/v1/local-tm-uploads.s3.amazonaws.com/
+        https://sandbox1-api.unit21.com/v1/local-tm-uploads.s3.amazonaws.com/.
+
+
+        The correct URL would be: https://local-tm-uploads.s3.amazonaws.com/
 
 
         Only one file can be uploaded in a request, with a file size maximum of
