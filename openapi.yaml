@@ -3366,7 +3366,7 @@ paths:
                 instrument_list:
                   - instrument_id: BTC-123
                     unit21_id: 10
-  /datafiles/pre-signed-url/create:
+  /imports/pre-signed-url/create:
     post:
       tags:
         - Import API
@@ -3413,6 +3413,8 @@ paths:
                 file_id: 12
   '/{pre_signed_url}':
     post:
+      servers:
+        - url: 'https://'
       tags:
         - Import API
       operationId: upload_datafiles
@@ -3455,6 +3457,81 @@ paths:
       responses:
         '200':
           description: OK
+  '/imports/{file_id}':
+    get:
+      tags:
+        - Import API
+      operationId: datafile_status
+      summary: Retrieve datafile status
+      description: "Retrieve datafile status.\n\nNote `file_id` will be included in the initial request to get a presigned_url.\n\nProgrammatically check on the status of files and take action should errors occur.\n\nFiles uploaded and processed have the following `status` value with the following definitions:\n\n  | Error code               | Definition                                                                                                                                 |\n  |--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|\n  | `PENDING_UPLOAD`\t       | Customer is programmatically uploading via API, but the file has not landed (or not yet been detected as landed) in S3                     |\n  | `ADDED`\t                 | Customer manually uploaded to the UI, but has not attempted to process the file yet                                                        |\n  | `QUEUED`\t               | File is in a queue waiting to process                                                                                                      |\n  | `PROCESSING`\t           | File is presently being processed                                                                                                          |\n  | `FINISHED`\t             | The File finished successfully. Note that this does not mean all data is processed successfully as referenced by Hard error Handling below |\n  | `FAILED`\t               | File hit a hard failure case and was unable to process data                                                                                |\n\n\nHard errors refer to unprocessable datafiles, aka files that whose status end up `FAILED` are accompanied by an error code from this list:\n\n  | Error code               | Definition                                                                                                                                                                                                                                           |\n  |--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n  | `unparseable_file`\t     | File failed to read (i.e. file contents was not actually csv or the contents use a non-traditional delimiter character)                                                                                                                              |\n  | `invalid_schema`\t       | By the stream configuration, the file had unexpected column headers or values present and thus the system did not process the data                                                                                                                   |\n  | `stream_not_configured`\t | This error means that the stream has not yet been configured with all the necessary settings to ingest the data yet. Generally this should only happen if you are testing uploaded datafiles in advance of having defined landing the data in Unit21 |\n  | `unknown`\t               | This is akin to 500 server error, and Unit21 does not have a specific known cause at this time                                                                                                                                                       |\n"
+      parameters:
+        - $ref: '#/components/parameters/file_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                file_id: abc-123
+                file_name: UAT2_entities_21092022.csv
+                file_type: CSV
+                date_created: 1623365011
+                process_start_time: 1623365011
+                process_end_time: 1623365011
+                successful_count: 1000
+                failure_count: 0
+                status: FINISHED
+                failure_code: null
+  /imports/list:
+    post:
+      tags:
+        - Import API
+      operationId: list_datafiles
+      summary: Retrieve datafiles list
+      description: >
+        Retrieve list of datafiles.
+
+
+        Note `file_id` will be included in the initial request to get a
+        presigned_url.
+
+
+        This route will be limited to 1000 records ordered by upload time.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                created_after:
+                  type: integer
+                  description: >-
+                    Unix timestamp for the time range at which the
+                    pre-signed-url was requested.
+                  example: 1623365011
+                created_before:
+                  type: integer
+                  description: >-
+                    Unix timestamp for the time range at which the
+                    pre-signed-url was requested.
+                  example: 1621365011
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                datafiles:
+                  type: array
+                  description: list of files with the same schema from the GET route.
+                  example: []
+                response_count:
+                  type: integer
+                  description: total count of files in this response payload.
+                  example: 100
+                total_count:
+                  type: integer
+                  description: total count of files over the time range specified.
+                  example: 100
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -6380,3 +6457,11 @@ components:
         A Unit21 internally-assigned unique url for an AWS S3 bucket where your
         organization can upload data.
       example: 'https://local-tm-uploads.s3.amazonaws.com/'
+    file_id:
+      in: path
+      name: file_id
+      schema:
+        type: integer
+      required: true
+      description: Unique identifier of the datafile in the Unit21 system
+      example: 45
