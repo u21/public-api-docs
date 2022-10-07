@@ -4548,6 +4548,14 @@ components:
           description: Unique identifier of the parent instrument.
           maxLength: 128
           example: 3234-sdghfdf-3331
+        entities:
+          description: List of the unique identifiers of the entity IDs.
+          type: array
+          items:
+            type: object
+            properties:
+              entity_id:
+                $ref: '#/components/schemas/entityId'
         custom_data:
           $ref: '#/components/schemas/customData'
         digital_data:
