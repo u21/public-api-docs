@@ -874,7 +874,7 @@ paths:
             schema:
               anyOf:
                 - $ref: '#/components/schemas/Instrument'
-                - $ref: '#/components/schemas/entityArray'
+                - $ref: '#/components/schemas/entityRelations'
                 - $ref: '#/components/schemas/locationDataArray'
                 - $ref: '#/components/schemas/digitalDataArray'
                 - $ref: '#/components/schemas/customData'
@@ -3782,7 +3782,7 @@ components:
       example: u-3593dece-6642-4cdc-8547-aafc1454e0a0
     entityType:
       type: string
-      description: Describes user such as `employee` or `business`
+      description: Describes a user such as `employee` or `business`
       example: user
     entitySubtype:
       type: string
@@ -4759,11 +4759,11 @@ components:
           $ref: '#/components/schemas/Tags'
         options:
           $ref: '#/components/schemas/Options'
-    entityArray:
+    entityRelations:
       title: Entities
       properties:
         entities:
-          description: List of the unique identifiers of the entity IDs.
+          description: List of entity relationships.
           type: array
           items:
             type: object
@@ -4772,6 +4772,12 @@ components:
             properties:
               entity_id:
                 $ref: '#/components/schemas/entityId'
+              relationship_id:
+                description: Description of the relationship.
+                type: string
+                example: friend
+              entity_type:
+                $ref: '#/components/schemas/entityType'
     updateInstrumentResponse:
       title: Instrument create response
       properties:
@@ -4943,6 +4949,19 @@ components:
           $ref: '#/components/schemas/Tags'
         options:
           $ref: '#/components/schemas/Options'
+    entityArray:
+      title: Entities
+      properties:
+        entities:
+          description: List of the unique identifiers of the entity IDs.
+          type: array
+          items:
+            type: object
+            required:
+              - entity_id
+            properties:
+              entity_id:
+                $ref: '#/components/schemas/entityId'
     createDeviceResponse:
       title: Devices/create response
       properties:
