@@ -12,6 +12,8 @@ servers:
     description: Sandbox1 server for testing
   - url: 'https://sandbox2-api.unit21.com/v1'
     description: Sandbox2 server for testing
+  - url: 'https://api.unit21.com/v1'
+    description: Main production server
 security:
   - ApiKeyAuth: []
 tags:
@@ -231,6 +233,7 @@ paths:
 
 
         Follow the links for more information:
+          - [Relationships](https://docs.unit21.ai/reference/relationships)
           - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
           - [Verification options](https://docs.unit21.ai/reference/identity-verification-options)
           - [Custom data](https://docs.unit21.ai/reference/best-practices-for-custom-data)
@@ -356,14 +359,17 @@ paths:
             schema:
               anyOf:
                 - $ref: '#/components/schemas/generalEntities'
+                - $ref: '#/components/schemas/userData'
+                - $ref: '#/components/schemas/businessData'
                 - $ref: '#/components/schemas/documentDataArray'
+                - $ref: '#/components/schemas/instrumentArray'
                 - $ref: '#/components/schemas/communicationData'
                 - $ref: '#/components/schemas/digitalDataArray'
                 - $ref: '#/components/schemas/locationDataArray'
-                - $ref: '#/components/schemas/entityOptions'
+                - $ref: '#/components/schemas/riskScores'
                 - $ref: '#/components/schemas/customData'
-                - $ref: '#/components/schemas/userData'
-                - $ref: '#/components/schemas/businessData'
+                - $ref: '#/components/schemas/relationshipsDataProperties'
+                - $ref: '#/components/schemas/entityOptions'
       responses:
         '200':
           description: OK
@@ -3589,14 +3595,22 @@ components:
       description: The TIN/EIN of the business
       maxLength: 128
       example: 434-455-3166
+    state:
+      type: string
+      description: Any string representing a state such as "CA" or "California"
+      maxLength: 128
+      example: CA
+    dbaName:
+      type: string
+      description: Operating name of the business.
+      maxLength: 512
+      example: Global Liquids
     businessDataProperties:
       title: Business data
       description: >
-        Business data - business name, TIN/EIN etc. If `general_data.entity_type
-        == business`, this field is required.
-
-        However, none of the fields in business_data are required. You may send
-        in an empty array: `"business_data": {}`.
+        Business data - business name, TIN/EIN etc. None of the fields in
+        business_data are required. You may send in an empty array:
+        `"business_data": {}`.
       type: object
       properties:
         business_name:
@@ -3608,6 +3622,22 @@ components:
           description: The name of the main person associated with the business
           maxLength: 128
           example: John Smith
+        registered_state:
+          $ref: '#/components/schemas/state'
+        registered_country:
+          type: string
+          description: >-
+            Country where the business is registered. Provided acording to the
+            ISO 3166-1 alpha-2 standard.
+          maxLength: 2
+          example: US
+        doing_business_as:
+          $ref: '#/components/schemas/dbaName'
+        website:
+          type: string
+          description: The website or associated URL for the business
+          maxLength: 612
+          example: www.google.com
     phoneNumbers:
       type: array
       description: >-
@@ -3738,7 +3768,7 @@ components:
           example: 1572673227
     documentDataArrayProperties:
       title: Document data array
-      description: array of document data objects
+      description: Array of document data objects.
       type: array
       items:
         $ref: '#/components/schemas/documentDataProperties'
@@ -3753,6 +3783,7 @@ components:
     entityType:
       type: string
       description: Describes user such as `employee` or `business`
+      example: user
     entitySubtype:
       type: string
       description: >
@@ -3888,7 +3919,7 @@ components:
           example: 1572673227
     locationDataArrayProperties:
       title: Location data array
-      description: Array of location data objects
+      description: Array of location data objects.
       type: array
       items:
         $ref: '#/components/schemas/locationDataProperties'
@@ -3926,6 +3957,14 @@ components:
           type: integer
           description: Year of the user's date of birth (e.g. 1990)
           example: 1990
+        gender:
+          type: string
+          description: 'MALE, FEMALE, or OTHER'
+          enum:
+            - male
+            - female
+            - other
+          example: female
         ssn:
           type: string
           pattern: '^\d{3}-\d{2}-\d{4}$'
@@ -4039,6 +4078,81 @@ components:
       properties:
         message:
           $ref: '#/components/schemas/message'
+    riskScoresProperties:
+      title: Risk scores
+      required:
+        - name
+        - score
+      type: object
+      description: Third party risk score information
+      properties:
+        name:
+          type: string
+          description: Name of risk score
+          example: risk_score1
+        score:
+          type: integer
+          description: Risk Value assigned to entity
+          example: 65
+        denominator:
+          type: integer
+          description: >
+            Number by which `score`can be divided. If no value is given, Unit21
+            sets the denominator as 10^n, where `n`is the number of characters
+            in the value. E.G. a value of 50 has a denominator of 10², a value
+            of 501 has a denominator of 10³.
+          example: 100
+    relatedEntity:
+      type: object
+      description: Filter to narrow down entities in export
+      properties:
+        entity_id:
+          description: Numerical ID of the entity.
+          type: integer
+          example: 1894
+        relationship_id:
+          description: Description of the relationship.
+          type: string
+          example: friend
+        entity_type:
+          $ref: '#/components/schemas/entityType'
+    relatedInstrument:
+      title: Instrument
+      description: Top-level data about an instrument relationship.
+      properties:
+        instrument_id:
+          $ref: '#/components/schemas/instrumentId'
+        relationship_id:
+          description: Description of the relationship.
+          type: string
+          example: friend
+    relationshipsDataProperties:
+      title: Relationship data
+      type: object
+      description: >-
+        An entity's associated intruments and entities (also called
+        relationships)
+      properties:
+        parents:
+          type: array
+          description: List of parent entities.
+          items:
+            $ref: '#/components/schemas/relatedEntity'
+        children:
+          type: array
+          description: List of children entities.
+          items:
+            $ref: '#/components/schemas/relatedEntity'
+        undirected:
+          type: array
+          description: List of undirected entities.
+          items:
+            $ref: '#/components/schemas/relatedEntity'
+        instruments:
+          type: array
+          description: List of associated instruments.
+          items:
+            $ref: '#/components/schemas/relatedInstrument'
     workflowId:
       type: string
       description: |
@@ -4128,6 +4242,8 @@ components:
           $ref: '#/components/schemas/generalEntitiesProperties'
         user_data:
           $ref: '#/components/schemas/userDataProperties'
+        business_data:
+          $ref: '#/components/schemas/businessDataProperties'
         document_data:
           $ref: '#/components/schemas/documentDataArrayProperties'
         instrument_ids:
@@ -4141,8 +4257,15 @@ components:
           $ref: '#/components/schemas/digitalDataArrayProperties'
         location_data:
           $ref: '#/components/schemas/locationDataArrayProperties'
+        risk_scores:
+          type: array
+          description: Set of risk scores.
+          items:
+            $ref: '#/components/schemas/riskScoresProperties'
         custom_data:
           $ref: '#/components/schemas/customDataProperties'
+        relationships:
+          $ref: '#/components/schemas/relationshipsDataProperties'
         options:
           $ref: '#/components/schemas/entityOptionsProperties'
     Ignored:
@@ -4172,11 +4295,33 @@ components:
       properties:
         general_data:
           $ref: '#/components/schemas/generalEntitiesProperties'
+    userData:
+      title: User data
+      description: |
+        Personal data - name, birthday, SSN etc.
+      properties:
+        user_data:
+          $ref: '#/components/schemas/userDataProperties'
+    businessData:
+      title: Business data
+      description: |
+        Business data - business name, TIN/EIN etc.
+      properties:
+        business_data:
+          $ref: '#/components/schemas/businessDataProperties'
     documentDataArray:
       title: Document data array
       properties:
         document_data:
           $ref: '#/components/schemas/documentDataArrayProperties'
+    instrumentArray:
+      title: Instruments
+      properties:
+        instruments:
+          description: Array of `instrument_id` strings
+          type: array
+          items:
+            $ref: '#/components/schemas/instrumentId'
     communicationData:
       title: Communication data
       properties:
@@ -4192,6 +4337,19 @@ components:
       properties:
         location_data:
           $ref: '#/components/schemas/locationDataArrayProperties'
+    riskScores:
+      title: Risk scores
+      properties:
+        risk_scores:
+          type: array
+          description: Set of `risk scores`
+          items:
+            $ref: '#/components/schemas/riskScoresProperties'
+    customData:
+      title: Custom data
+      properties:
+        custom_data:
+          $ref: '#/components/schemas/customDataProperties'
     entityOptions:
       title: Entity options
       type: object
@@ -4219,25 +4377,6 @@ components:
           $ref: '#/components/schemas/mergeCustomData'
         upsert_on_conflict:
           $ref: '#/components/schemas/upsertOnConflict'
-    customData:
-      title: Custom data
-      properties:
-        custom_data:
-          $ref: '#/components/schemas/customDataProperties'
-    userData:
-      title: User data
-      description: |
-        Personal data - name, birthday, SSN etc.
-      properties:
-        user_data:
-          $ref: '#/components/schemas/userDataProperties'
-    businessData:
-      title: Business data
-      description: |
-        Business data - business name, TIN/EIN etc.
-      properties:
-        business_data:
-          $ref: '#/components/schemas/businessDataProperties'
     updateEntityResponse:
       title: Instrument create response
       properties:
@@ -4552,12 +4691,9 @@ components:
           description: List of the unique identifiers of the entity IDs.
           type: array
           items:
-            type: object
-            properties:
-              entity_id:
-                $ref: '#/components/schemas/entityId'
+            $ref: '#/components/schemas/relatedEntity'
         custom_data:
-          $ref: '#/components/schemas/customData'
+          $ref: '#/components/schemas/customDataProperties'
         digital_data:
           $ref: '#/components/schemas/digitalData'
         location_data:
@@ -5510,14 +5646,6 @@ components:
                 type: string
               event_type:
                 $ref: '#/components/schemas/eventType'
-    instrumentArray:
-      title: Instruments
-      properties:
-        instruments:
-          description: Array of `instrument_id` strings
-          type: array
-          items:
-            $ref: '#/components/schemas/instrumentId'
     ruleArray:
       title: Rules
       properties:
@@ -5560,8 +5688,8 @@ components:
               items:
                 type: string
                 enum:
-                  - open
-                  - closed
+                  - OPEN
+                  - CLOSED
             status:
               type: string
               description: Status for the alert.
@@ -5618,17 +5746,19 @@ components:
               items:
                 type: string
                 enum:
-                  - chainalysis
-                  - tm
-                  - kyc
+                  - CHAINALYSIS
+                  - TM
+                  - KYC
+                  - MANUAL
+                  - CAR
             sources:
               type: array
               description: Sources for the alerts.
               items:
                 type: string
                 enum:
-                  - internal
-                  - external
+                  - INTERNAL
+                  - EXTERNAL
             disposition_start_date:
               type: string
               description: Disposition start date.
@@ -5662,7 +5792,7 @@ components:
             disposition:
               type: string
               description: Disposition name.
-              example: Closed
+              example: CLOSED
             subdisposition_ids:
               type: array
               description: Numerical IDs of the agents.
@@ -6232,11 +6362,6 @@ components:
             $ref: '#/components/schemas/objectStatus'
           entity_subtype:
             $ref: '#/components/schemas/entitySubtype'
-    dbaName:
-      type: string
-      description: Operating name of the business.
-      maxLength: 512
-      example: Global Liquids
     blacklistBusiness:
       title: Business blacklist
       type: array
