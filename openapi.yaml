@@ -228,8 +228,12 @@ paths:
         We recommend that you create entities prior to running verification. In
         the event you wish to run a  verification on an entity immediately,
         Unit21 recommends that you wait at-least 2 minutes for your entity  data
-        to be securely stored. You will receive a **423 error code** if an
-        entity is *busy*.
+        to be fully processed. You will receive a **423 error code** if an
+        entity is *busy*. When a 200 response is received,  the data has been
+        successfully stored on the Unit21 backend; however, it may take a few
+        additional seconds to process that data  so that it becomes available in
+        subsequent API calls, in the frontend UI, and/or for verification
+        purposes.
 
 
         Follow the links for more information:
