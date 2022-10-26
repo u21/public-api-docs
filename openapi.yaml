@@ -346,6 +346,7 @@ paths:
 
 
         Follow the links for more information:
+          - [Relationships](https://docs.unit21.ai/reference/relationships)
           - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
           - [Verification options](https://docs.unit21.ai/reference/identity-verification-options)
           - [Custom data](https://docs.unit21.ai/reference/best-practices-for-custom-data)
@@ -757,6 +758,7 @@ paths:
 
 
         Follow the links for more information:
+          - [Relationships](https://docs.unit21.ai/reference/relationships)
           - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
           - [Custom data](https://docs.unit21.ai/reference/best-practices-for-custom-data)
           - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)
@@ -864,6 +866,7 @@ paths:
 
 
         Follow the links for more information:
+          - [Relationships](https://docs.unit21.ai/reference/relationships)
           - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
           - [Custom data](https://docs.unit21.ai/reference/best-practices-for-custom-data)
           - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)
