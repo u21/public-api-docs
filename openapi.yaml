@@ -363,7 +363,7 @@ paths:
           application/json:
             schema:
               anyOf:
-                - $ref: '#/components/schemas/generalEntities'
+                - $ref: '#/components/schemas/generalEntitiesBasic'
                 - $ref: '#/components/schemas/userData'
                 - $ref: '#/components/schemas/businessData'
                 - $ref: '#/components/schemas/documentDataArray'
@@ -373,7 +373,7 @@ paths:
                 - $ref: '#/components/schemas/locationDataArray'
                 - $ref: '#/components/schemas/riskScores'
                 - $ref: '#/components/schemas/customData'
-                - $ref: '#/components/schemas/relationshipsDataProperties'
+                - $ref: '#/components/schemas/relationshipsData'
                 - $ref: '#/components/schemas/entityOptions'
       responses:
         '200':
@@ -880,7 +880,7 @@ paths:
           application/json:
             schema:
               anyOf:
-                - $ref: '#/components/schemas/Instrument'
+                - $ref: '#/components/schemas/InstrumentBasic'
                 - $ref: '#/components/schemas/entityRelations'
                 - $ref: '#/components/schemas/locationDataArray'
                 - $ref: '#/components/schemas/digitalDataArray'
@@ -4114,9 +4114,11 @@ components:
       description: Filter to narrow down entities in export
       properties:
         entity_id:
-          description: Numerical ID of the entity.
-          type: integer
-          example: 1894
+          description: >-
+            Unique identifier of the entity. Entity IDs must be unique and only
+            comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'.
+          type: string
+          example: roster-1894
         relationship_id:
           description: Description of the relationship.
           type: string
@@ -4297,11 +4299,43 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
-    generalEntities:
+    generalEntitiesPropertiesBasic:
+      title: General entity data
+      type: object
+      description: >-
+        General information about the entity. With this object, you can link any
+        entity on Unit21's system to a user or business on your platform.
+      properties:
+        entity_type:
+          $ref: '#/components/schemas/entityType'
+        entity_subtype:
+          $ref: '#/components/schemas/entitySubtype'
+        status:
+          $ref: '#/components/schemas/objectStatus'
+        registered_at:
+          $ref: '#/components/schemas/registeredAt'
+        parents:
+          type: array
+          description: >-
+            The parent object consists of two fields─`entity_id` for parent
+            unique identifier  and `entity_type`.
+          items:
+            type: object
+            properties:
+              entity_id:
+                type: string
+                description: Parent unique identifier
+                maxLength: 128
+                example: entity-5500
+              entity_type:
+                $ref: '#/components/schemas/entityType'
+        tags:
+          $ref: '#/components/schemas/Tags'
+    generalEntitiesBasic:
       title: General entity data
       properties:
         general_data:
-          $ref: '#/components/schemas/generalEntitiesProperties'
+          $ref: '#/components/schemas/generalEntitiesPropertiesBasic'
     userData:
       title: User data
       description: |
@@ -4357,33 +4391,16 @@ components:
       properties:
         custom_data:
           $ref: '#/components/schemas/customDataProperties'
+    relationshipsData:
+      title: Relationship data
+      properties:
+        relationships:
+          $ref: '#/components/schemas/relationshipsDataProperties'
     entityOptions:
       title: Entity options
-      type: object
-      description: Options for specifying workflows and list merge strategies.
       properties:
-        identity_verifications:
-          type: object
-          properties:
-            workflow_id:
-              $ref: '#/components/schemas/workflowId'
-            run_verifications:
-              type: boolean
-              description: >-
-                Whether or not to execute a verification workflow for the
-                uploaded entity/entities. **Default**: `false`
-              default: false
-              example: false
-            synchronous_response:
-              $ref: '#/components/schemas/synchronousResponse'
-            include_full_response:
-              $ref: '#/components/schemas/includeFullResponse'
-        resolve_geoip:
-          $ref: '#/components/schemas/resolveGeoIp'
-        merge_custom_data:
-          $ref: '#/components/schemas/mergeCustomData'
-        upsert_on_conflict:
-          $ref: '#/components/schemas/upsertOnConflict'
+        options:
+          $ref: '#/components/schemas/entityOptionsProperties'
     updateEntityResponse:
       title: Instrument create response
       properties:
@@ -4633,22 +4650,6 @@ components:
           type: integer
           example: 204
           description: Total number of objects in the platform.
-    digitalData:
-      title: Digital data
-      properties:
-        digital_data:
-          description: >-
-            Associated digital properties - IP, device, browser, client info
-            etc.
-          type: object
-          properties:
-            ip_address:
-              $ref: '#/components/schemas/ipAddressSimple'
-    locationData:
-      title: Location data
-      properties:
-        location_data:
-          $ref: '#/components/schemas/locationDataProperties'
     Options:
       properties:
         upsert_on_conflict:
@@ -4702,9 +4703,9 @@ components:
         custom_data:
           $ref: '#/components/schemas/customDataProperties'
         digital_data:
-          $ref: '#/components/schemas/digitalData'
+          $ref: '#/components/schemas/digitalDataArrayProperties'
         location_data:
-          $ref: '#/components/schemas/locationData'
+          $ref: '#/components/schemas/locationDataArrayProperties'
         tags:
           $ref: '#/components/schemas/Tags'
         options:
@@ -4720,12 +4721,10 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
-    Instrument:
+    InstrumentBasic:
       title: Instrument
       description: Top-level data about an instrument.
       properties:
-        instrument_id:
-          $ref: '#/components/schemas/instrumentId'
         instrument_type:
           type: string
           description: >-
@@ -4756,12 +4755,6 @@ components:
           description: Unique identifier of the parent instrument.
           maxLength: 128
           example: 3234-sdghfdf-3331
-        custom_data:
-          $ref: '#/components/schemas/customData'
-        digital_data:
-          $ref: '#/components/schemas/digitalData'
-        location_data:
-          $ref: '#/components/schemas/locationData'
         tags:
           $ref: '#/components/schemas/Tags'
         options:
@@ -4969,6 +4962,17 @@ components:
             properties:
               entity_id:
                 $ref: '#/components/schemas/entityId'
+    digitalData:
+      title: Digital data
+      properties:
+        digital_data:
+          description: >-
+            Associated digital properties - IP, device, browser, client info
+            etc.
+          type: object
+          properties:
+            ip_address:
+              $ref: '#/components/schemas/ipAddressSimple'
     createDeviceResponse:
       title: Devices/create response
       properties:
@@ -5291,6 +5295,11 @@ components:
                 section](ref:create_entity)
               maxLength: 128
               example: 238938823-34347686-39405443
+    locationData:
+      title: Location data
+      properties:
+        location_data:
+          $ref: '#/components/schemas/locationDataProperties'
     eventOptions:
       title: Event options
       properties:
