@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "c893b0aa-6af8-4675-81c3-e21eeaf7a3f2",
-		"name": "Unit21 API",
+		"_postman_id": "ae87c8ce-c89b-46d7-9505-d54a2eb4e391",
+		"name": "unit21_public_api_collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -71,36 +71,6 @@
 					"response": []
 				},
 				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "create userA",
 					"event": [
 						{
@@ -136,103 +106,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"entity_id\": \"userA-{{randId}}\",\n        \"entity_type\": \"user\",\n        \"entity_subtype\": \"payments\",\n        \"status\": \"active\",\n        \"registered_at\": 1572673226,\n        \"parents\": [\n            {\n                \"entity_id\": \"userB-{{randId}}\",\n                \"entity_type\": \"user\"\n            }\n        ],\n        \"tags\": [\n            \"account_type:market2\",\n            \"sector:europe\"\n        ]\n    },\n    \"user_data\": {\n        \"first_name\": \"John\",\n        \"middle_name\": \"Smith\",\n        \"last_name\": \"Smith\",\n        \"day_of_birth\": 28,\n        \"month_of_birth\": 2,\n        \"year_of_birth\": 1975,\n        \"gender\": \"male\",\n        \"ssn\": \"112-22-3333\"\n    },\n    \"document_data\": [\n        {\n            \"document_id\": \"G3352413F\",\n            \"document_type\": \"drivers_license\",\n            \"state\": \"CA\",\n            \"country\": \"US\"\n        },\n        {\n            \"document_id\": \"E1234566798D\",\n            \"document_type\": \"passport\",\n            \"state\": \"FL\",\n            \"country\": \"US\"\n        }\n    ],\n    \"communication_data\": {\n        \"email_addresses\": [\n            \"jsmith47@email.com\"\n        ],\n        \"phone_numbers\": [\n            \"+14159627132\"\n        ]\n    },\n    \"location_data\": {\n        \"building_number\": \"222333\",\n        \"street_name\": \"Peachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree Place\",\n        \"city\": \"Atlanta\",\n        \"state\": \"GA\",\n        \"postal_code\": \"30318\",\n        \"country\": \"US\"\n    },\n    \"digital_data\": {\n        \"ip_addresses\": [\n            {\n                \"ip_address\": \"43.250.192.0\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673226\n            },\n            {\n                \"ip_address\": \"52.15.247.208\",\n                \"first_seen\": 1572643225,\n                \"last_seen\": 1572673225\n            }\n        ],\n        \"client_fingerprints\": [\n            {\n                \"client_fingerprint\": \"fingerprintA-{{randId}}\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673229\n            }\n        ]\n    },\n    \"custom_data\": {\n        \"internal_notes\": \"Reviewed by aaa on 31 June 2019\"\n    },\n    \"options\": {\n        \"resolve_geoip\": true\n    },\n    \"risk_scores\": [\n        {\n          \"name\": \"socure-test\",\n          \"score\": -2\n        }\n    ]\n}",
+							"raw": "{\n    \"general_data\": {\n        \"entity_id\": \"userA-{{randId}}\",\n        \"entity_type\": \"user\",\n        \"entity_subtype\": \"payments\",\n        \"status\": \"active\",\n        \"registered_at\": 1572673226,\n        \"tags\": [\n            \"account_type:market2\",\n            \"sector:europe\"\n        ]\n    },\n    \"user_data\": {\n        \"first_name\": \"John\",\n        \"middle_name\": \"Smith\",\n        \"last_name\": \"Smith\",\n        \"day_of_birth\": 28,\n        \"month_of_birth\": 2,\n        \"year_of_birth\": 1975,\n        \"gender\": \"male\",\n        \"ssn\": \"112-22-3333\"\n    },\n    \"document_data\": [\n        {\n            \"document_id\": \"G3352413F\",\n            \"document_type\": \"drivers_license\",\n            \"state\": \"CA\",\n            \"country\": \"US\"\n        },\n        {\n            \"document_id\": \"E1234566798D\",\n            \"document_type\": \"passport\",\n            \"state\": \"FL\",\n            \"country\": \"US\"\n        }\n    ],\n    \"communication_data\": {\n        \"email_addresses\": [\n            \"jsmith47@email.com\"\n        ],\n        \"phone_numbers\": [\n            \"+14159627132\"\n        ]\n    },\n    \"location_data\": [{\n        \"building_number\": \"222333\",\n        \"street_name\": \"Peachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree PlacePeachtree Place\",\n        \"city\": \"Atlanta\",\n        \"state\": \"GA\",\n        \"postal_code\": \"30318\",\n        \"country\": \"US\"\n    }],\n    \"digital_data\": {\n        \"ip_addresses\": [\"43.250.192.0\", \"52.15.247.208\"],\n        \"client_fingerprints\": [\"fingerprintA-{{randId}}\"]\n    },\n    \"custom_data\": {\n        \"internal_notes\": \"Reviewed by aaa on 31 June 2019\"\n    },\n    \"options\": {\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/create",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create businessA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody)",
-									"pm.environment.set('businessAId', jsonData.unit21_id);",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"entity_id\": \"businessA-{{randId}}\",\n        \"entity_type\": \"business\",\n        \"entity_subtype\": \"payments\",\n        \"status\": \"active\",\n        \"registered_at\": 1572673226,\n        \"parents\": [\n            {\n                \"entity_id\": \"businessB-{{randId}}\",\n                \"entity_type\": \"business\"\n            }\n        ],\n        \"tags\": [\n            \"account_type:market2\",\n            \"sector:europe\"\n        ]\n    },\n    \"business_data\": {\n        \"business_name\": \"Global Liquids LLC\",\n        \"corporate_tax_id\": \"434-455-3167\",\n        \"account_holder_name\": \"John Smith\",\n        \"registered_state\": \"CA\",\n        \"registered_country\": \"US\",\n        \"website\": \"www.google.com\"\n    },\n    \"communication_data\": {\n        \"email_addresses\": [\"jsmith47@company.com\"],\n        \"phone_numbers\": [\"+14159627132\"]\n    },\n    \"location_data\": {\n        \"building_number\": \"712\",\n        \"unit_number\": \"A\",\n        \"street_name\": \"California Ave\",\n        \"city\": \"Redmond\",\n        \"state\": \"WA\",\n        \"postal_code\": \"98008\",\n        \"country\": \"US\"\n    },\n    \"digital_data\": {\n        \"ip_addresses\": [\n            {\n                \"ip_address\": \"3.3.3.3\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673226\n            },\n            {\n                \"ip_address\": \"2.2.2.2\",\n                \"first_seen\": 1572643225,\n                \"last_seen\": 1572673225\n            }\n        ],\n        \"client_fingerprints\": [\n            {\n                \"client_fingerprint\": \"fingerprintA-{{randId}}\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673229\n            }\n        ]\n    },\n    \"instrument_ids\": [\n        \"instrumentD-{{randId}}\"\n    ],\n    \"custom_data\": {\n        \"internal_notes\": \"Reviewed by Mitchell on 31 June 2019\"\n    },\n    \"options\": {\n      \"resolve_geoip\": true,\n      \"merge_custom_data\": true\n    }\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/create",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "fail create businessA (upsert_on_conflict: false)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 409\", function () {",
-									"    pm.response.to.have.status(409);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"entity_id\": \"businessA-{{randId}}\",\n        \"entity_type\": \"business\",\n        \"entity_subtype\": \"payments\",\n        \"status\": \"active\",\n        \"registered_at\": 1572673226,\n        \"parents\": [\n            {\n                \"entity_id\": \"businessB-{{randId}}\",\n                \"entity_type\": \"business\"\n            }\n        ],\n        \"tags\": [\n            \"account_type:market2\",\n            \"sector:europe\"\n        ]\n    },\n    \"business_data\": {\n        \"business_name\": \"Global Liquids LLC\",\n        \"corporate_tax_id\": \"434-455-3167\",\n        \"account_holder_name\": \"John Smith\",\n        \"registered_state\": \"CA\",\n        \"registered_country\": \"US\"\n    },\n    \"communication_data\": {\n        \"email_addresses\": [\"jsmith47@company.com\"],\n        \"phone_numbers\": [\"+14159627132\"]\n    },\n    \"location_data\": {\n        \"building_number\": \"712\",\n        \"unit_number\": \"A\",\n        \"street_name\": \"California Ave\",\n        \"city\": \"Redmond\",\n        \"state\": \"WA\",\n        \"postal_code\": \"98008\",\n        \"country\": \"US\"\n    },\n    \"digital_data\": {\n        \"ip_addresses\": [\n            {\n                \"ip_address\": \"3.3.3.3\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673226\n            },\n            {\n                \"ip_address\": \"2.2.2.2\",\n                \"first_seen\": 1572643225,\n                \"last_seen\": 1572673225\n            }\n        ],\n        \"client_fingerprints\": [\n            {\n                \"client_fingerprint\": \"fingerprintA-{{randId}}\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673229\n            }\n        ]\n    },\n    \"instrument_ids\": [\n        \"instrumentD-{{randId}}\"\n    ],\n    \"custom_data\": {\n        \"internal_notes\": \"Reviewed by Mitchell on 31 June 2019\"\n    },\n    \"options\": {\n      \"resolve_geoip\": true,\n      \"upsert_on_conflict\": false\n    }\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{host}}/v1/entities/create",
@@ -276,7 +155,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"entities\": [\n        {\n            \"general_data\": {\n                \"entity_id\": \"userB-{{randId}}\",\n                \"entity_type\": \"user\",\n                \"entity_subtype\": \"payments\",\n                \"status\": \"active\",\n                \"registered_at\": 1572673226,\n                \"parents\": [\n                    {\n                        \"entity_id\": \"userC-{{randId}}\",\n                        \"entity_type\": \"user\"\n                    }\n                ],\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"user_data\": {\n                \"first_name\": \"John\",\n                \"middle_name\": \"Joseph\",\n                \"last_name\": \"Smith\",\n                \"day_of_birth\": 14,\n                \"month_of_birth\": 1,\n                \"year_of_birth\": 1983,\n                \"gender\": \"male\",\n                \"ssn\": \"733-99-5921\"\n            },\n            \"document_data\": {\n                \"document_id\": \"G3352403F\",\n                \"document_type\": \"drivers_license\",\n                \"state\": \"CA\",\n                \"country\": \"US\"\n            },\n            \"communication_data\": {\n                \"email_addresses\": [\n                    \"jsmith47@email.com\"\n                ],\n                \"phone_numbers\": [\n                    \"+14159627132\"\n                ]\n            },\n            \"location_data\": {\n                \"building_number\": \"712\",\n                \"unit_number\": \"A\",\n                \"street_name\": \"California Ave\",\n                \"city\": \"Redmond\",\n                \"state\": \"WA\",\n                \"postal_code\": \"98008\",\n                \"country\": \"US\"\n            },\n            \"digital_data\": {\n                \"ip_addresses\": [\n                    {\n                        \"ip_address\": \"1.1.1.1\",\n                        \"first_seen\": 1572643226,\n                        \"last_seen\": 1572673226\n                    },\n                    {\n                        \"ip_address\": \"2.2.2.2\",\n                        \"first_seen\": 1572643225,\n                        \"last_seen\": 1572673225\n                    }\n                ],\n                \"client_fingerprints\": [\n                    {\n                        \"client_fingerprint\": \"fingerprintA-{{randId}}\",\n                        \"first_seen\": 1572643226,\n                        \"last_seen\": 1572673229\n                    }\n                ]\n            },\n            \"instrument_ids\": [\n                \"instrumentB-{{randId}}\"\n            ],\n            \"custom_data\": {\n                \"internal_notes\": \"Reviewed by aaa on 31 June 2019\"\n            }\n        },\n        {\n            \"general_data\": {\n                \"entity_id\": \"userC-{{randId}}\",\n                \"entity_type\": \"user\",\n                \"entity_subtype\": \"payments\",\n                \"status\": \"active\",\n                \"registered_at\": 1572673226,\n                \"parents\": [\n                    {\n                        \"entity_id\": \"userB-{{randId}}\",\n                        \"entity_type\": \"user\"\n                    }\n                ],\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"user_data\": {\n                \"first_name\": \"Camile\",\n                \"middle_name\": \"Joseph\",\n                \"last_name\": \"Smith\",\n                \"day_of_birth\": 14,\n                \"month_of_birth\": 1,\n                \"year_of_birth\": 1983,\n                \"gender\": \"male\",\n                \"ssn\": \"733-99-5921\"\n            },\n            \"document_data\": {\n                \"document_id\": \"G3352403F\",\n                \"document_type\": \"drivers_license\",\n                \"state\": \"CA\",\n                \"country\": \"US\"\n            },\n            \"communication_data\": {\n                \"email_addresses\": [\n                    \"deebosamuel@gmail.com\"\n                ],\n                \"phone_numbers\": [\n                    \"+14159627132\"\n                ]\n            },\n            \"location_data\": {\n                \"building_number\": \"712\",\n                \"unit_number\": \"A\",\n                \"street_name\": \"California Ave\",\n                \"city\": \"Redmond\",\n                \"state\": \"WA\",\n                \"postal_code\": \"98008\",\n                \"country\": \"US\"\n            },\n            \"digital_data\": {\n                \"ip_addresses\": [\n                    {\n                        \"ip_address\": \"2.2.2.2\",\n                        \"first_seen\": 1572643226,\n                        \"last_seen\": 1572673226\n                    }\n                ],\n                \"client_fingerprints\": [\n                    {\n                        \"client_fingerprint\": \"fingerprintD-{{randId}}\",\n                        \"first_seen\": 1572643226,\n                        \"last_seen\": 1572673229\n                    }\n                ]\n            },\n            \"instrument_ids\": [\n                \"instrumentB-{{randId}}\"\n            ],\n            \"custom_data\": {\n                \"internal_notes\": \"Reviewed by aaa on 31 June 2019\"\n            }\n        },\n        {\n            \"general_data\": {\n                \"entity_id\": \"userD-{{randId}}\",\n                \"entity_type\": \"user\",\n                \"entity_subtype\": \"payments\",\n                \"status\": \"active\",\n                \"registered_at\": 1572673226,\n                \"parents\": [\n                    {\n                        \"entity_id\": \"userB-{{randId}}\",\n                        \"entity_type\": \"user\"\n                    }\n                ],\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"user_data\": {\n                \"first_name\": \"Andrew\",\n                \"middle_name\": \"Joseph\",\n                \"last_name\": \"Smith\",\n                \"day_of_birth\": 14,\n                \"month_of_birth\": 1,\n                \"year_of_birth\": 1983,\n                \"gender\": \"male\",\n                \"ssn\": \"733-99-5921\"\n            },\n            \"document_data\": {\n                \"document_id\": \"G3352403F\",\n                \"document_type\": \"drivers_license\",\n                \"state\": \"CA\",\n                \"country\": \"US\"\n            },\n            \"communication_data\": {\n                \"email_addresses\": [\n                    \"jsmith47@email.com\"\n                ],\n                \"phone_numbers\": [\n                    \"+14139627132\"\n                ]\n            },\n            \"location_data\": {\n                \"building_number\": \"712\",\n                \"unit_number\": \"A\",\n                \"street_name\": \"California Ave\",\n                \"city\": \"Redmond\",\n                \"state\": \"WA\",\n                \"postal_code\": \"98008\",\n                \"country\": \"US\"\n            },\n            \"digital_data\": {\n                \"ip_addresses\": [\n                    {\n                        \"ip_address\": \"4.4.4.4\",\n                        \"first_seen\": 1572643226,\n                        \"last_seen\": 1572673226\n                    }\n                ],\n                \"client_fingerprints\": [\n                    {\n                        \"client_fingerprint\": \"fingerprintG-{{randId}}\",\n                        \"first_seen\": 1572643226,\n                        \"last_seen\": 1572673229\n                    }\n                ]\n            },\n            \"instrument_ids\": [\n                \"instrumentD-{{randId}}\"\n            ],\n            \"custom_data\": {\n                \"internal_notes\": \"Reviewed by aaa on 31 June 2019\"\n            }\n        }\n    ]\n}",
+							"raw": "{\n    \"entities\": [\n        {\n            \"general_data\": {\n                \"entity_id\": \"userB-{{randId}}\",\n                \"entity_type\": \"user\",\n                \"entity_subtype\": \"payments\",\n                \"status\": \"active\",\n                \"registered_at\": 1572673226,\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"user_data\": {\n                \"first_name\": \"John\",\n                \"middle_name\": \"Joseph\",\n                \"last_name\": \"Smith\",\n                \"day_of_birth\": 14,\n                \"month_of_birth\": 1,\n                \"year_of_birth\": 1983,\n                \"gender\": \"male\",\n                \"ssn\": \"733-99-5921\"\n            },\n            \"document_data\": [{\n                \"document_id\": \"G3352403F\",\n                \"document_type\": \"drivers_license\",\n                \"state\": \"CA\",\n                \"country\": \"US\"\n            }],\n            \"communication_data\": {\n                \"email_addresses\": [\n                    \"jsmith47@email.com\"\n                ],\n                \"phone_numbers\": [\n                    \"+14159627132\"\n                ]\n            },\n            \"location_data\": [{\n                \"building_number\": \"712\",\n                \"unit_number\": \"A\",\n                \"street_name\": \"California Ave\",\n                \"city\": \"Redmond\",\n                \"state\": \"WA\",\n                \"postal_code\": \"98008\",\n                \"country\": \"US\"\n            }],\n            \"digital_data\": {\n                \"ip_addresses\": [\"1.1.1.1\", \"2.2.2.2\"],\n                \"client_fingerprints\": [\"fingerprintA-{{randId}}\"]\n            },\n            \"custom_data\": {\n                \"internal_notes\": \"Reviewed by aaa on 31 June 2019\"\n            }\n        },\n        {\n            \"general_data\": {\n                \"entity_id\": \"userC-{{randId}}\",\n                \"entity_type\": \"user\",\n                \"entity_subtype\": \"payments\",\n                \"status\": \"active\",\n                \"registered_at\": 1572673226,\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"user_data\": {\n                \"first_name\": \"Camile\",\n                \"middle_name\": \"Joseph\",\n                \"last_name\": \"Smith\",\n                \"day_of_birth\": 14,\n                \"month_of_birth\": 1,\n                \"year_of_birth\": 1983,\n                \"gender\": \"male\",\n                \"ssn\": \"733-99-5921\"\n            },\n            \"document_data\": [{\n                \"document_id\": \"G3352403F\",\n                \"document_type\": \"drivers_license\",\n                \"state\": \"CA\",\n                \"country\": \"US\"\n            }],\n            \"communication_data\": {\n                \"email_addresses\": [\n                    \"deebosamuel@gmail.com\"\n                ],\n                \"phone_numbers\": [\n                    \"+14159627132\"\n                ]\n            },\n            \"location_data\": [{\n                \"building_number\": \"712\",\n                \"unit_number\": \"A\",\n                \"street_name\": \"California Ave\",\n                \"city\": \"Redmond\",\n                \"state\": \"WA\",\n                \"postal_code\": \"98008\",\n                \"country\": \"US\"\n            }],\n            \"custom_data\": {\n                \"internal_notes\": \"Reviewed by aaa on 31 June 2019\"\n            }\n        },\n        {\n            \"general_data\": {\n                \"entity_id\": \"userD-{{randId}}\",\n                \"entity_type\": \"user\",\n                \"entity_subtype\": \"payments\",\n                \"status\": \"active\",\n                \"registered_at\": 1572673226,\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"user_data\": {\n                \"first_name\": \"Andrew\",\n                \"middle_name\": \"Joseph\",\n                \"last_name\": \"Smith\",\n                \"day_of_birth\": 14,\n                \"month_of_birth\": 1,\n                \"year_of_birth\": 1983,\n                \"gender\": \"male\",\n                \"ssn\": \"733-99-5921\"\n            },\n            \"document_data\": [{\n                \"document_id\": \"G3352403F\",\n                \"document_type\": \"drivers_license\",\n                \"state\": \"CA\",\n                \"country\": \"US\"\n            }],\n            \"communication_data\": {\n                \"email_addresses\": [\n                    \"jsmith47@email.com\"\n                ],\n                \"phone_numbers\": [\n                    \"+14139627132\"\n                ]\n            },\n            \"location_data\": [{\n                \"building_number\": \"712\",\n                \"unit_number\": \"A\",\n                \"street_name\": \"California Ave\",\n                \"city\": \"Redmond\",\n                \"state\": \"WA\",\n                \"postal_code\": \"98008\",\n                \"country\": \"US\"\n            }],\n            \"custom_data\": {\n                \"internal_notes\": \"Reviewed by aaa on 31 June 2019\"\n            }\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -383,7 +262,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"entities\": [\n        {\n            \"general_data\": {\n                \"entity_id\": \"userC-{{randId}}\",\n                \"entity_type\": \"user\",\n                \"entity_subtype\": \"payments\",\n                \"status\": \"active\",\n                \"registered_at\": 1572673226,\n                \"parents\": [\n                    {\n                        \"entity_id\": \"userB-{{randId}}\",\n                        \"entity_type\": \"user\"\n                    }\n                ],\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"user_data\": {\n                \"first_name\": \"Camile\",\n                \"middle_name\": \"Joseph\",\n                \"last_name\": \"Smith\",\n                \"day_of_birth\": 14,\n                \"month_of_birth\": 1,\n                \"year_of_birth\": 1983,\n                \"gender\": \"male\",\n                \"ssn\": \"733-99-5921\"\n            },\n            \"document_data\": {\n                \"document_id\": \"G3352403F\",\n                \"document_type\": \"drivers_license\",\n                \"state\": \"CA\",\n                \"country\": \"US\"\n            },\n            \"communication_data\": {\n                \"email_addresses\": [\n                    \"jsmith47@email.com\"\n                ],\n                \"phone_numbers\": [\n                    \"+14159627132\"\n                ]\n            },\n            \"location_data\": {\n                \"building_number\": \"712\",\n                \"unit_number\": \"A\",\n                \"street_name\": \"California Ave\",\n                \"city\": \"Redmond\",\n                \"state\": \"WA\",\n                \"postal_code\": \"98008\",\n                \"country\": \"US\"\n            },\n            \"digital_data\": {\n                \"ip_addresses\": [\n                    {\n                        \"ip_address\": \"2.2.2.2\",\n                        \"first_seen\": 1572643226,\n                        \"last_seen\": 1572673226\n                    }\n                ],\n                \"client_fingerprints\": [\n                    {\n                        \"client_fingerprint\": \"fingerprintD-{{randId}}\",\n                        \"first_seen\": 1572643226,\n                        \"last_seen\": 1572673229\n                    }\n                ]\n            },\n            \"instrument_ids\": [\n                \"instrumentB-{{randId}}\"\n            ],\n            \"custom_data\": {\n                \"internal_notes\": \"Reviewed by aaa on 31 June 2019\"\n            },\n            \"options\": {\n                \"identity_verifications\": {\n                    \"run_verifications\": false\n                }\n            }\n        },\n        {\n            \"general_data\": {\n                \"entity_id\": \"userE-{{randId}}\",\n                \"entity_type\": \"user\",\n                \"entity_subtype\": \"payments\",\n                \"status\": \"active\",\n                \"registered_at\": 1572673226,\n                \"parents\": [\n                    {\n                        \"entity_id\": \"userF-{{randId}}\",\n                        \"entity_type\": \"user\"\n                    }\n                ],\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"user_data\": {\n                \"first_name\": \"Mariah\",\n                \"middle_name\": \"Joseph\",\n                \"last_name\": \"Smith\",\n                \"day_of_birth\": 14,\n                \"month_of_birth\": 1,\n                \"year_of_birth\": 1983,\n                \"gender\": \"female\",\n                \"ssn\": \"733-99-5921\"\n            },\n            \"document_data\": {\n                \"document_id\": \"G3342403F\",\n                \"document_type\": \"drivers_license\",\n                \"state\": \"CA\",\n                \"country\": \"US\"\n            },\n            \"communication_data\": {\n                \"email_addresses\": [\n                    \"jsmith47@email.com\"\n                ],\n                \"phone_numbers\": [\n                    \"+14159627132\"\n                ]\n            },\n            \"location_data\": {\n                \"building_number\": \"712\",\n                \"unit_number\": \"A\",\n                \"street_name\": \"California Ave\",\n                \"city\": \"Redmond\",\n                \"state\": \"WA\",\n                \"postal_code\": \"98008\",\n                \"country\": \"US\"\n            },\n            \"digital_data\": {\n                \"ip_addresses\": [\n                    {\n                        \"ip_address\": \"6.6.6.6\",\n                        \"first_seen\": 1572643226,\n                        \"last_seen\": 1572673226\n                    }\n                ],\n                \"client_fingerprints\": [\n                    {\n                        \"client_fingerprint\": \"fingerprintZ-{{randId}}\",\n                        \"first_seen\": 1572643226,\n                        \"last_seen\": 1572673229\n                    }\n                ]\n            },\n            \"instrument_ids\": [\n                \"instrumentF-{{randId}}\"\n            ],\n            \"custom_data\": {\n                \"internal_notes\": \"Reviewed by aaa on 31 June 2019\"\n            },\n            \"options\": {\n                \"identity_verifications\": {\n                    \"run_verifications\": false\n                }\n            }\n        }\n    ],\n    \"options\": {\n        \"identity_verifications\": {\n            \"run_verifications\": false\n        }\n    }\n}",
+							"raw": "{\n    \"entities\": [\n        {\n            \"general_data\": {\n                \"entity_id\": \"userC-{{randId}}\",\n                \"entity_type\": \"user\",\n                \"entity_subtype\": \"payments\",\n                \"status\": \"active\",\n                \"registered_at\": 1572673226,\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"user_data\": {\n                \"first_name\": \"Camile\",\n                \"middle_name\": \"Joseph\",\n                \"last_name\": \"Smith\",\n                \"day_of_birth\": 14,\n                \"month_of_birth\": 1,\n                \"year_of_birth\": 1983,\n                \"gender\": \"male\",\n                \"ssn\": \"733-99-5921\"\n            },\n            \"document_data\": [{\n                \"document_id\": \"G3352403F\",\n                \"document_type\": \"drivers_license\",\n                \"state\": \"CA\",\n                \"country\": \"US\"\n            }],\n            \"communication_data\": {\n                \"email_addresses\": [\n                    \"jsmith47@email.com\"\n                ],\n                \"phone_numbers\": [\n                    \"+14159627132\"\n                ]\n            },\n            \"location_data\": [{\n                \"building_number\": \"712\",\n                \"unit_number\": \"A\",\n                \"street_name\": \"California Ave\",\n                \"city\": \"Redmond\",\n                \"state\": \"WA\",\n                \"postal_code\": \"98008\",\n                \"country\": \"US\"\n            }],\n            \"custom_data\": {\n                \"internal_notes\": \"Reviewed by aaa on 31 June 2019\"\n            },\n            \"options\": {\n                \"identity_verifications\": {\n                    \"run_verifications\": false\n                }\n            }\n        },\n        {\n            \"general_data\": {\n                \"entity_id\": \"userE-{{randId}}\",\n                \"entity_type\": \"user\",\n                \"entity_subtype\": \"payments\",\n                \"status\": \"active\",\n                \"registered_at\": 1572673226,\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"user_data\": {\n                \"first_name\": \"Mariah\",\n                \"middle_name\": \"Joseph\",\n                \"last_name\": \"Smith\",\n                \"day_of_birth\": 14,\n                \"month_of_birth\": 1,\n                \"year_of_birth\": 1983,\n                \"gender\": \"female\",\n                \"ssn\": \"733-99-5921\"\n            },\n            \"document_data\": [{\n                \"document_id\": \"G3342403F\",\n                \"document_type\": \"drivers_license\",\n                \"state\": \"CA\",\n                \"country\": \"US\"\n            }],\n            \"communication_data\": {\n                \"email_addresses\": [\n                    \"jsmith47@email.com\"\n                ],\n                \"phone_numbers\": [\n                    \"+14159627132\"\n                ]\n            },\n            \"location_data\": [{\n                \"building_number\": \"712\",\n                \"unit_number\": \"A\",\n                \"street_name\": \"California Ave\",\n                \"city\": \"Redmond\",\n                \"state\": \"WA\",\n                \"postal_code\": \"98008\",\n                \"country\": \"US\"\n            }],\n            \"custom_data\": {\n                \"internal_notes\": \"Reviewed by aaa on 31 June 2019\"\n            },\n            \"options\": {\n            }\n        }\n    ],\n    \"options\": {\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -400,479 +279,6 @@
 								"v1",
 								"entities",
 								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update userA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"status\": \"watchlisted\",\n        \"parents\": [\n            {\n                \"entity_id\": \"userC-new-parent-{{randId}}\",\n                \"entity_type\": \"user\"\n            }\n        ],\n        \"tags\": [\n            \"updated:true\"\n        ]\n    },\n    \"user_data\": {\n        \"first_name\": \"Barack\",\n        \"middle_name\": \"Joseph\",\n        \"last_name\": \"Obama\",\n        \"day_of_birth\": 1,\n        \"month_of_birth\": 1,\n        \"year_of_birth\": 1900,\n        \"gender\": \"male\",\n        \"ssn\": \"000-00-0000\"\n    },\n    \"digital_data\": {\n        \"ip_addresses\": [\n            {\n                \"ip_address\": \"1.1.1.1\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673226\n            }\n        ]\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/{{userAId}}/update",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"{{userAId}}",
-								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update businessA",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"status\": \"inactive\",\n        \"registered_at\": 1572673226,\n        \"tags\": [\n            \"updated:true\"\n        ]\n    },\n    \"business_data\": {\n        \"business_name\": \"Global Solids LLC\",\n        \"corporate_tax_id\": \"000-000-0000\"\n    },\n    \"digital_data\": {\n        \"ip_addresses\": [\n            {\n                \"ip_address\": \"3.3.3.3\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673226\n            }\n        ],\n        \"client_fingerprints\": [\n            {\n                \"client_fingerprint\": \"fingerprintA-updated-{{randId}}\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673229\n            }\n        ]\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/{{businessAId}}/update",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"{{businessAId}}",
-								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create userX1 - geoip is true, valid ipv4 and ipv6",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody)",
-									"pm.environment.set('userX1Id', jsonData.unit21_id);",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "",
-								"type": "text",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"entity_id\": \"userX1-{{$randomInt}}\",\n        \"entity_type\": \"user\"\n    },\n    \"user_data\": {\n    \t\n    },\n      \"digital_data\": {\n      \"ip_addresses\": [\n        {\n          \"ip_address\": \"164.22.53.244\",\n          \"first_seen\": 1572643226,\n          \"last_seen\": 1572673226\n        },\n        {\n          \"ip_address\": \"0:0:0:0:0:ffff:8818:293a\",\n          \"first_seen\": 1572643225,\n          \"last_seen\": 1572673225\n        }\n      ],\n      \"client_fingerprints\": [\n        {\n          \"client_fingerprint\": \"4908hsdfknkd90432nj3k2kj2jk23kj2k3jk2j3\",\n          \"first_seen\": 1572643226,\n          \"last_seen\": 1572673229\n        }\n      ]\n    },\n    \"options\": {\n      \"resolve_geoip\": true\n    }\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/create",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create userX2 - fail csi verification workflow",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody)",
-									"pm.environment.set('userX2Id', jsonData.unit21_id);",
-									"",
-									"// pm.test(\"Status code is 200\", function () {",
-									"//     pm.response.to.have.status(200);",
-									"// });"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "",
-								"type": "text",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"entity_id\": \"userX2-{{$randomInt}}\",\n        \"entity_type\": \"user\"\n    },\n    \"user_data\": {\n    \t\"first_name\": \"Haji Abdul\",\n        \"last_name\": \"Sattar\",\n        \"day_of_birth\": 14,\n        \"month_of_birth\": 1,\n        \"year_of_birth\": 1983,\n        \"gender\": \"male\"\n    },\n    \"location_data\": {\n        \"city\": \"Baghdad\",\n        \"country\": \"AF\"\n    },\n    \"options\": {\n    \t\"identity_verifications\": {\n    \t\t\"workflow_id\": \"csi_sync\",\n    \t\t\"run_verifications\": true,\n    \t\t\"synchronous_response\": false\n    \t}\n    }\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/create",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create userX3 - pass verification workflow",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody)",
-									"pm.environment.set('userX3Id', jsonData.unit21_id);",
-									"",
-									"// pm.test(\"Status code is 200\", function () {",
-									"//     pm.response.to.have.status(200);",
-									"// });"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "",
-								"type": "text",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"entity_id\": \"userX3-{{$randomInt}}\",\n        \"entity_type\": \"user\"\n    },\n    \"user_data\": {\n    \t\"first_name\": \"Micholas\",\n    \t\"middle_name\": \"Eric\",\n        \"last_name\": \"Niller\",\n        \"day_of_birth\": 1,\n        \"month_of_birth\": 4,\n        \"year_of_birth\": 1992,\n        \"gender\": \"male\"\n    },\n    \"location_data\": {\n        \"building_number\": \"1355\",\n        \"unit_number\": \"2053\",\n        \"street_name\": \"University DR\",\n        \"city\": \"Tempe\",\n        \"state\": \"AZ\",\n        \"postal_code\": \"85181\",\n        \"country\": \"US\"\n    },\n    \"document_data\": {\n        \"document_id\": \"D07491346\",\n        \"document_type\": \"drivers_license\",\n        \"state\": \"AZ\",\n        \"country\": \"US\"\n    },\n    \"options\": {\n    \t\"identity_verifications\": {\n    \t\t\"workflow_id\": \"csi_sync\",\n    \t\t\"run_verifications\": true,\n    \t\t\"synchronous_response\": false\n    \t}\n    }\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/create",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create userX4 - geoip invalid ip",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody)",
-									"pm.environment.set('userX4Id', jsonData.unit21_id);",
-									"",
-									"// pm.test(\"Status code is 200\", function () {",
-									"//     pm.response.to.have.status(200);",
-									"// });"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "",
-								"type": "text",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"entity_id\": \"userX4-{{$randomInt}}\",\n        \"entity_type\": \"user\"\n    },\n    \"user_data\": {\n    \t\n    },\n      \"digital_data\": {\n      \"ip_addresses\": [\n        {\n          \"ip_address\": \"2.22.53.244\",\n          \"first_seen\": 1572643226,\n          \"last_seen\": 1572673226\n        }\n      ],\n      \"client_fingerprints\": [\n        {\n          \"client_fingerprint\": \"4908hsdfknkd90432nj3k2kj2jk23kj2k3jk2j3\",\n          \"first_seen\": 1572643226,\n          \"last_seen\": 1572673229\n        }\n      ]\n    },\n    \"options\": {\n    \t\"identity_verifications\": {\n    \t\t\"workflow_id\": \"csi_sync\",\n    \t\t\"run_verifications\": true,\n    \t\t\"synchronous_response\": false\n    \t},\n      \"resolve_geoip\": true\n    }\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/create",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create userX5 - geoip empty ip",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody)",
-									"pm.environment.set('userX5Id', jsonData.unit21_id);",
-									"",
-									"// pm.test(\"Status code is 200\", function () {",
-									"//     pm.response.to.have.status(200);",
-									"// });"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "",
-								"type": "text",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"entity_id\": \"userX5-{{$randomInt}}\",\n        \"entity_type\": \"user\"\n    },\n    \"user_data\": {\n    \t\n    },\n      \"digital_data\": {\n      \"ip_addresses\": [\n        {\n          \"ip_address\": \"1.2.3.4\",\n          \"first_seen\": 1572643226,\n          \"last_seen\": 1572673226\n        }\n      ],\n      \"client_fingerprints\": [\n        {\n          \"client_fingerprint\": \"4908hsdfknkd90432nj3k2kj2jk23kj2k3jk2j3\",\n          \"first_seen\": 1572643226,\n          \"last_seen\": 1572673229\n        }\n      ]\n    },\n    \"options\": {\n    \t\"identity_verifications\": {\n    \t\t\"workflow_id\": \"csi_sync\",\n    \t\t\"run_verifications\": true,\n    \t\t\"synchronous_response\": false\n    \t},\n      \"resolve_geoip\": true\n    }\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/create",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
 							]
 						}
 					},
@@ -914,7 +320,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"status\": \"watchlisted\",\n        \"parents\": [\n            {\n                \"entity_id\": \"userC-new-parent-{{randId}}\",\n                \"entity_type\": \"user\"\n            }\n        ],\n        \"tags\": [\n            \"updated:true\"\n        ]\n    },\n    \"user_data\": {\n        \"first_name\": \"Barack\",\n        \"middle_name\": \"Joseph\",\n        \"last_name\": \"Obama\",\n        \"day_of_birth\": 1,\n        \"month_of_birth\": 1,\n        \"year_of_birth\": 1900,\n        \"gender\": \"male\",\n        \"ssn\": \"000-00-0000\"\n    },\n    \"digital_data\": {\n        \"ip_addresses\": [\n            {\n                \"ip_address\": \"1.2.1.1\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673226\n            }\n        ]\n    }\n}",
+							"raw": "{\n    \"general_data\": {\n        \"status\": \"watchlisted\",\n        \"tags\": [\n            \"updated:true\"\n        ]\n    },\n    \"user_data\": {\n        \"first_name\": \"Barack\",\n        \"middle_name\": \"Joseph\",\n        \"last_name\": \"Obama\",\n        \"day_of_birth\": 1,\n        \"month_of_birth\": 1,\n        \"year_of_birth\": 1900,\n        \"gender\": \"male\",\n        \"ssn\": \"000-00-0000\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -922,47 +328,17 @@
 							}
 						},
 						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/unit21/entities/userA-{{randId}}/update",
+							"raw": "{{protocol}}://{{host}}/v1/{{org_name}}/entities/userA-{{randId}}/update",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"v1",
-								"unit21",
+								"{{org_name}}",
 								"entities",
 								"userA-{{randId}}",
 								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
 							]
 						}
 					},
@@ -1015,13 +391,14 @@
 							]
 						},
 						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/{{userAId}}/link-media",
+							"raw": "{{protocol}}://{{host}}/v1/{{org_name}}/entities/{{userAId}}/link-media",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"v1",
+								"{{org_name}}",
 								"entities",
 								"{{userAId}}",
 								"link-media"
@@ -1071,197 +448,17 @@
 							}
 						},
 						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/{{userAId}}/link-media",
+							"raw": "{{protocol}}://{{host}}/v1/{{org_name}}/entities/{{userAId}}/link-media",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"v1",
+								"{{org_name}}",
 								"entities",
 								"{{userAId}}",
 								"link-media"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "add instrument to userA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"instrument_ids\": [\n        \"instrumentC-{{randId}}\"\n    ]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/{{userAId}}/add-instruments",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"{{userAId}}",
-								"add-instruments"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get userA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/{{userAId}}",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"{{userAId}}"
 							]
 						}
 					},
@@ -1315,106 +512,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/unit21/entities/userA-{{randId}}",
+							"raw": "{{protocol}}://{{host}}/v1/{{org_name}}/entities/userA-{{randId}}",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"v1",
-								"unit21",
+								"{{org_name}}",
 								"entities",
 								"userA-{{randId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete userA media",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/{{userAId}}/delete-all-media",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"{{userAId}}",
-								"delete-all-media"
 							]
 						}
 					},
@@ -1455,7 +562,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n      \"event_id\": \"txnA-{{randId}}\",\n      \"event_type\": \"transaction\",\n      \"event_subtype\": \"ach\",\n      \"event_time\": 1572673226,\n      \"status\": \"incomplete\",\n      \"tags\": [\n        \"account_type:market2\",\n        \"sector:europe\"\n      ]\n    },\n    \"transaction_data\": {\n      \"sent_amount\": 43305.89,\n      \"sent_currency\": \"usd\",\n      \"sender_entity_id\": \"userA-{{randId}}\",\n      \"sender_entity_type\": \"user\",\n      \"sender_source\": \"internal\",\n      \"sender_instrument_id\": \"instrumentA-{{randId}}\",\n      \"received_amount\": 38923.33,\n      \"received_currency\": \"eur\",\n      \"receiver_entity_id\": \"userB-{{randId}}\",\n      \"receiver_entity_type\": \"user\",\n      \"receiver_source\": \"internal\",\n      \"receiver_instrument_id\": \"instrumentB-{{randId}}\",\n      \"amount\": 43305.89,\n      \"exchange_rate\": 1.11,\n      \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n      \"internal_fee\": 0,\n      \"external_fee\": 0\n    },\n    \"location_data\": {\n      \"building_number\": \"712\",\n      \"unit_number\": \"A\",\n      \"street_name\": \"California Ave\",\n      \"city\": \"Redmond\",\n      \"state\": \"WA\",\n      \"postal_code\": \"98008\",\n      \"country\": \"US\"\n    },\n    \"digital_data\": {\n      \"ip_address\": \"1.1.1.1\",\n      \"client_fingerprint\": \"fingerprintB-{{randId}}\"\n    },\n    \"custom_data\": {\n      \"internal_notes\": \"Reviewed by Tara on 31 May 2019\"\n    },\n    \"options\": {\n      \"monitor\": true\n    }\n  }",
+							"raw": "{\n    \"general_data\": {\n      \"event_id\": \"txnA-{{randId}}\",\n      \"event_type\": \"transaction\",\n      \"event_subtype\": \"ach\",\n      \"event_time\": 1572673226,\n      \"status\": \"incomplete\",\n      \"tags\": [\n        \"account_type:market2\",\n        \"sector:europe\"\n      ]\n    },\n    \"transaction_data\": {\n      \"sent_amount\": 43305.89,\n      \"sent_currency\": \"usd\",\n      \"sender_entity_id\": \"userA-{{randId}}\",\n      \"sender_entity_type\": \"user\",\n      \"sender_instrument_id\": \"instrumentA-{{randId}}\",\n      \"received_amount\": 38923.33,\n      \"received_currency\": \"eur\",\n      \"receiver_entity_id\": \"userB-{{randId}}\",\n      \"receiver_entity_type\": \"user\",\n      \"receiver_instrument_id\": \"instrumentB-{{randId}}\",\n      \"amount\": 43305.89,\n      \"exchange_rate\": 1.11,\n      \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n      \"internal_fee\": 0,\n      \"external_fee\": 0\n    },\n    \"location_data\": {\n      \"building_number\": \"712\",\n      \"unit_number\": \"A\",\n      \"street_name\": \"California Ave\",\n      \"city\": \"Redmond\",\n      \"state\": \"WA\",\n      \"postal_code\": \"98008\",\n      \"country\": \"US\"\n    },\n    \"digital_data\": {\n      \"ip_address\": \"1.1.1.1\",\n      \"client_fingerprint\": \"fingerprintB-{{randId}}\"\n    },\n    \"custom_data\": {\n      \"internal_notes\": \"Reviewed by Tara on 31 May 2019\"\n    },\n    \"options\": {\n    }\n  }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1559,7 +666,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n      \"event_id\": \"actionA-{{randId}}\",\n      \"event_type\": \"action\",\n      \"event_subtype\": \"mobile_app_event\",\n      \"event_time\": 1572679326,\n      \"tags\": [\n        \"account_type:market2\"\n      ]\n    },\n    \"action_data\": {\n      \"action_type\": \"LOGIN\",\n      \"action_details\": \"logged in through mobile app\",\n      \"entity_id\": \"userA-{{randId}}\",\n      \"entity_type\": \"user\",\n      \"instrument_id\": \"instrumentA-{{randId}}\"\n    },\n    \"location_data\": {\n      \"building_number\": \"713\",\n      \"unit_number\": \"B\",\n      \"street_name\": \"Oregon Street\",\n      \"city\": \"Portland\",\n      \"state\": \"OR\",\n      \"postal_code\": \"98108\",\n      \"country\": \"US\"\n    },\n    \"digital_data\": {\n      \"ip_address\": \"6.6.6.1\",\n      \"client_fingerprint\": \"fingerprintB-{{randId}}\"\n    },\n    \"custom_data\": {\n      \"internal_notes\": \"Reviewed by Matt on 31 May 2019\"\n    },\n    \"options\": {\n      \"monitor\": true\n    }\n  }",
+							"raw": "{\n    \"general_data\": {\n      \"event_id\": \"actionA-{{randId}}\",\n      \"event_type\": \"action\",\n      \"event_subtype\": \"mobile_app_event\",\n      \"event_time\": 1572679326,\n      \"tags\": [\n        \"account_type:market2\"\n      ]\n    },\n    \"action_data\": {\n      \"action_type\": \"LOGIN\",\n      \"action_details\": \"logged in through mobile app\",\n      \"entity_id\": \"userA-{{randId}}\",\n      \"entity_type\": \"user\",\n      \"instrument_id\": \"instrumentA-{{randId}}\"\n    },\n    \"location_data\": {\n      \"building_number\": \"713\",\n      \"unit_number\": \"B\",\n      \"street_name\": \"Oregon Street\",\n      \"city\": \"Portland\",\n      \"state\": \"OR\",\n      \"postal_code\": \"98108\",\n      \"country\": \"US\"\n    },\n    \"digital_data\": {\n      \"ip_address\": \"6.6.6.1\",\n      \"client_fingerprint\": \"fingerprintB-{{randId}}\"\n    },\n    \"custom_data\": {\n      \"internal_notes\": \"Reviewed by Matt on 31 May 2019\"\n    },\n    \"options\": {\n    }\n  }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1657,7 +764,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"events\": [\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-5-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"ach\",\n                \"event_time\": 1572713226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 3.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userA-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_source\": \"internal\",\n                \"sender_instrument_id\": \"instrumentA-{{randId}}\",\n                \"received_amount\": 9233.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userB-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_source\": \"internal\",\n                \"receiver_instrument_id\": \"instrumentB-{{randId}}\",\n                \"amount\": 30983.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-6-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"ach\",\n                \"event_time\": 1572723226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 22.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userB-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_source\": \"internal\",\n                \"sender_instrument_id\": \"instrumentB-{{randId}}\",\n                \"received_amount\": 9233.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userA-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_source\": \"internal\",\n                \"receiver_instrument_id\": \"instrumentA-{{randId}}\",\n                \"amount\": 67933.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-7-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"withdrawal\",\n                \"event_time\": 1572733226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 456853.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userA-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_source\": \"internal\",\n                \"sender_instrument_id\": \"instrumentA-{{randId}}\",\n                \"received_amount\": 34562.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userB-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_source\": \"internal\",\n                \"receiver_instrument_id\": \"instrumentB-{{randId}}\",\n                \"amount\": 89234.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-8-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"withdrawal\",\n                \"event_time\": 1572743226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 5676.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userA-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_source\": \"internal\",\n                \"sender_instrument_id\": \"instrumentA-{{randId}}\",\n                \"received_amount\": 9233.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userB-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_source\": \"internal\",\n                \"receiver_instrument_id\": \"instrumentB-{{randId}}\",\n                \"amount\": 56787,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-9-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"ach\",\n                \"event_time\": 1572753226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 234566.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userB-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_source\": \"internal\",\n                \"sender_instrument_id\": \"instrumentB-{{randId}}\",\n                \"received_amount\": 9233.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userA-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_source\": \"internal\",\n                \"receiver_instrument_id\": \"instrumentA-{{randId}}\",\n                \"amount\": 676444.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-13-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"p2p\",\n                \"event_time\": 1572763226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\",\n                    \"yolo:haha\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 434.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userA-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_source\": \"internal\",\n                \"sender_instrument_id\": \"instrumentA-{{randId}}\",\n                \"received_amount\": 333.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userB-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_source\": \"internal\",\n                \"receiver_instrument_id\": \"instrumentB-{{randId}}\",\n                \"amount\": 2222.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-11-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"rdc\",\n                \"event_time\": 1572773226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 56.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userA-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_source\": \"internal\",\n                \"sender_instrument_id\": \"instrumentA-{{randId}}\",\n                \"received_amount\": 234.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userB-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_source\": \"internal\",\n                \"receiver_instrument_id\": \"instrumentB-{{randId}}\",\n                \"amount\": 23456.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-12-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"ach\",\n                \"event_time\": 1572783226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 3654.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userB-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_source\": \"internal\",\n                \"sender_instrument_id\": \"instrumentB-{{randId}}\",\n                \"received_amount\": 9233.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userA-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_source\": \"internal\",\n                \"receiver_instrument_id\": \"instrumentA-{{randId}}\",\n                \"amount\": 3456.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        }\n    ]\n}",
+							"raw": "{\n    \"events\": [\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-5-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"ach\",\n                \"event_time\": 1572713226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 3.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userA-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_instrument_id\": \"instrumentA-{{randId}}\",\n                \"received_amount\": 9233.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userB-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_instrument_id\": \"instrumentB-{{randId}}\",\n                \"amount\": 30983.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-6-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"ach\",\n                \"event_time\": 1572723226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 22.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userB-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_instrument_id\": \"instrumentB-{{randId}}\",\n                \"received_amount\": 9233.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userA-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_instrument_id\": \"instrumentA-{{randId}}\",\n                \"amount\": 67933.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-7-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"withdrawal\",\n                \"event_time\": 1572733226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 456853.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userA-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_instrument_id\": \"instrumentA-{{randId}}\",\n                \"received_amount\": 34562.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userB-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_instrument_id\": \"instrumentB-{{randId}}\",\n                \"amount\": 89234.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-8-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"withdrawal\",\n                \"event_time\": 1572743226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 5676.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userA-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_instrument_id\": \"instrumentA-{{randId}}\",\n                \"received_amount\": 9233.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userB-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_instrument_id\": \"instrumentB-{{randId}}\",\n                \"amount\": 56787,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-9-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"ach\",\n                \"event_time\": 1572753226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 234566.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userB-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_instrument_id\": \"instrumentB-{{randId}}\",\n                \"received_amount\": 9233.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userA-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_instrument_id\": \"instrumentA-{{randId}}\",\n                \"amount\": 676444.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-13-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"p2p\",\n                \"event_time\": 1572763226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\",\n                    \"yolo:haha\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 434.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userA-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_instrument_id\": \"instrumentA-{{randId}}\",\n                \"received_amount\": 333.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userB-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_instrument_id\": \"instrumentB-{{randId}}\",\n                \"amount\": 2222.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-11-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"rdc\",\n                \"event_time\": 1572773226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 56.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userA-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_instrument_id\": \"instrumentA-{{randId}}\",\n                \"received_amount\": 234.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userB-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_instrument_id\": \"instrumentB-{{randId}}\",\n                \"amount\": 23456.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        },\n        {\n            \"general_data\": {\n                \"event_id\": \"txnBulk-12-{{randId}}\",\n                \"event_type\": \"transaction\",\n                \"event_subtype\": \"ach\",\n                \"event_time\": 1572783226,\n                \"status\": \"incomplete\",\n                \"tags\": [\n                    \"account_type:market2\",\n                    \"sector:europe\"\n                ]\n            },\n            \"transaction_data\": {\n                \"sent_amount\": 3654.48,\n                \"sent_currency\": \"usd\",\n                \"sender_entity_id\": \"userB-{{randId}}\",\n                \"sender_entity_type\": \"user\",\n                \"sender_instrument_id\": \"instrumentB-{{randId}}\",\n                \"received_amount\": 9233.33,\n                \"received_currency\": \"eur\",\n                \"receiver_entity_id\": \"userA-{{randId}}\",\n                \"receiver_entity_type\": \"user\",\n                \"receiver_instrument_id\": \"instrumentA-{{randId}}\",\n                \"amount\": 3456.48,\n                \"exchange_rate\": 1.11,\n                \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n                \"internal_fee\": 0,\n                \"external_fee\": 0\n            }\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1674,438 +781,6 @@
 								"v1",
 								"events",
 								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update actionA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"status\": \"complete\",\n        \"tags\": [\n            \"updated:true\"\n        ]\n    },\n    \"transaction_data\": {\n        \"sent_amount\": 1337,\n        \"received_amount\": 1337,\n        \"amount\": 1337\n    },\n    \"digital_data\": {\n        \"ip_address\": \"4.3.2.1\",\n        \"client_fingerprint\": \"fpB-new-{{randId}}\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/events/{{actionAId}}/update",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"events",
-								"{{actionAId}}",
-								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update txnA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"status\": \"complete\",\n        \"tags\": [\n            \"updated:true\"\n        ]\n    },\n    \"transaction_data\": {\n        \"sent_amount\": 1337,\n        \"received_amount\": 1337,\n        \"amount\": 1337\n    },\n    \"digital_data\": {\n        \"ip_address\": \"4.3.2.1\",\n        \"client_fingerprint\": \"fpB-new-{{randId}}\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/events/{{txnAId}}/update",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"events",
-								"{{txnAId}}",
-								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update txnA - change receiver to userC",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"status\": \"complete\",\n        \"tags\": [\n            \"updated:true\"\n        ],\n        \"event_time\": 1572675226\n    },\n    \"transaction_data\": {\n        \"sent_amount\": 1338,\n        \"received_amount\": 1338,\n        \"amount\": 1338,\n        \"receiver_entity_id\": \"userC-{{randId}}\",\n        \"receiver_entity_type\": \"user\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/events/{{txnAId}}/update",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"events",
-								"{{txnAId}}",
-								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update txnA - change receiver to external",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"status\": \"complete\",\n        \"tags\": [\n            \"updated:true\"\n        ]\n    },\n    \"transaction_data\": {\n        \"sent_amount\": 1339,\n        \"received_amount\": 1339,\n        \"amount\": 1339,\n        \"receiver_entity_id\": \"userExt-{{randId}}\",\n        \"receiver_entity_type\": \"user\",\n        \"receiver_source\": \"external\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/events/{{txnAId}}/update",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"events",
-								"{{txnAId}}",
-								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update txnA - change sender to instrumentC",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n        \"status\": \"complete\",\n        \"tags\": [\n            \"updated:true\"\n        ]\n    },\n    \"transaction_data\": {\n        \"sent_amount\": 1330,\n        \"received_amount\": 1330,\n        \"amount\": 1330,\n        \"sender_instrument_id\": \"instrumentC-{{randId}}\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/events/{{txnAId}}/update",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"events",
-								"{{txnAId}}",
-								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create txnX1 - resolve geoip true",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody)",
-									"pm.environment.set('txnX1Id', jsonData.unit21_id);",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general_data\": {\n      \"event_id\": \"txnX1-{{$randomInt}}\",\n      \"event_type\": \"transaction\",\n      \"event_subtype\": \"ach\",\n      \"event_time\": 1572673226,\n      \"status\": \"incomplete\",\n      \"tags\": [\n        \"account_type:market2\",\n        \"sector:europe\"\n      ]\n    },\n    \"transaction_data\": {\n      \"sent_amount\": 43305.89,\n      \"sent_currency\": \"usd\",\n      \"sender_entity_id\": \"userA-{{$randomInt}}\",\n      \"sender_entity_type\": \"user\",\n      \"sender_source\": \"internal\",\n      \"sender_instrument_id\": \"instrumentA-{{$randomInt}}\",\n      \"received_amount\": 38923.33,\n      \"received_currency\": \"eur\",\n      \"receiver_entity_id\": \"userB-{{$randomInt}}\",\n      \"receiver_entity_type\": \"user\",\n      \"receiver_source\": \"internal\",\n      \"receiver_instrument_id\": \"instrumentB-{{$randomInt}}\",\n      \"amount\": 43305.89,\n      \"exchange_rate\": 1.11,\n      \"usd_conversion_notes\": \"pulled from forex.com at 1572672226\",\n      \"internal_fee\": 0,\n      \"external_fee\": 0\n    },\n    \"location_data\": {\n      \"building_number\": \"712\",\n      \"unit_number\": \"A\",\n      \"street_name\": \"California Ave\",\n      \"city\": \"Redmond\",\n      \"state\": \"WA\",\n      \"postal_code\": \"98008\",\n      \"country\": \"US\"\n    },\n    \"digital_data\": {\n      \"ip_address\": \"136.24.41.58\",\n      \"client_fingerprint\": \"fingerprintB-{{$randomInt}}\"\n    },\n    \"custom_data\": {\n      \"internal_notes\": \"Reviewed by Tara on 31 May 2019\"\n    },\n    \"options\": {\n      \"monitor\": true,\n      \"resolve_geoip\": true\n    }\n  }"
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/events/create",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"events",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
 							]
 						}
 					},
@@ -2155,169 +830,17 @@
 							}
 						},
 						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/unit21/events/txnA-{{randId}}/update",
+							"raw": "{{protocol}}://{{host}}/v1/{{org_name}}/events/txnA-{{randId}}/update",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"v1",
-								"unit21",
+								"{{org_name}}",
 								"events",
 								"txnA-{{randId}}",
 								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get txnA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/events/{{txnAId}}",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"events",
-								"{{txnAId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "evaluate txnA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/events/{{txnAId}}/evaluate",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"events",
-								"{{txnAId}}",
-								"evaluate"
 							]
 						}
 					},
@@ -2371,46 +894,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/unit21/events/txnA-{{randId}}",
+							"raw": "{{protocol}}://{{host}}/v1/{{org_name}}/events/txnA-{{randId}}",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"v1",
-								"unit21",
+								"{{org_name}}",
 								"events",
 								"txnA-{{randId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
 							]
 						}
 					},
@@ -2513,56 +1006,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"instrument_id\": \"instrumentA-{{randId}}\",\n    \"instrument_type\": \"account\",\n    \"source\": \"internal\",\n    \"status\": \"activated_nitro\",\n    \"registered_at\": 1572672326,\n    \"location_data\": {\n        \"building_number\": \"222333\",\n        \"street_name\": \"Peachtree Place\",\n        \"city\": \"Atlanta\",\n        \"state\": \"GA\",\n        \"postal_code\": \"30318\",\n        \"country\": \"US\"\n    },\n    \"digital_data\": {\n        \"ip_addresses\": [\n            {\n                \"ip_address\": \"43.250.192.0\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673226\n            },\n            {\n                \"ip_address\": \"52.15.247.208\",\n                \"first_seen\": 1572643225,\n                \"last_seen\": 1572673225\n            }\n        ],\n        \"client_fingerprints\": [\n            {\n                \"client_fingerprint\": \"fingerprintA-{{randId}}\",\n                \"first_seen\": 1572643226,\n                \"last_seen\": 1572673229\n            }\n        ]\n    },\n    \"options\": {\n    \t\"resolve_geoip\": false\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/instruments/create",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"instruments",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "fail create instrumentA (upsert_on_conflict: false)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 409\", function () {",
-									"    pm.response.to.have.status(409);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"instrument_id\": \"instrumentA-{{randId}}\",\n    \"instrument_type\": \"account\",\n    \"source\": \"internal\",\n    \"status\": \"activated_nitro\",\n    \"registered_at\": 1572672326,\n    \"options\": {\n    \t\"upsert_on_conflict\": false\n    }\n}",
+							"raw": "{\n    \"instrument_id\": \"instrumentA-{{randId}}\",\n    \"instrument_type\": \"account\",\n    \"source\": \"internal\",\n    \"status\": \"activated_nitro\",\n    \"registered_at\": 1572672326,\n    \"location_data\": [{\n        \"building_number\": \"222333\",\n        \"street_name\": \"Peachtree Place\",\n        \"city\": \"Atlanta\",\n        \"state\": \"GA\",\n        \"postal_code\": \"30318\",\n        \"country\": \"US\"\n    }],\n    \"options\": {\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2634,125 +1078,6 @@
 					"response": []
 				},
 				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update instrumentA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"status\": \"blacklisted\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/instruments/{{instrumentAId}}/update",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"instruments",
-								"{{instrumentAId}}",
-								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "create instrumentC",
 					"event": [
 						{
@@ -2799,36 +1124,6 @@
 								"v1",
 								"instruments",
 								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
 							]
 						}
 					},
@@ -2889,36 +1184,6 @@
 								"instruments",
 								"instrumentA-{{randId}}",
 								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
 							]
 						}
 					},
@@ -2988,36 +1253,6 @@
 					"response": []
 				},
 				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "list instruments",
 					"request": {
 						"method": "POST",
@@ -3040,309 +1275,6 @@
 							"path": [
 								"v1",
 								"instruments",
-								"list"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Devices",
-			"item": [
-				{
-					"name": "create deviceA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody)",
-									"pm.environment.set('deviceAId', jsonData.unit21_id);",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"device_id\": \"11b72726-18d6-43b3-a0bf-b4adf6dfd2da\",\n    \"device_type\": \"mobile\",\n    \"device_subtype\": \"android\",\n    \"status\": \"active\",\n    \"registered_at\": 1572672326,\n    \"os_name\": \"Android\",\n    \"os_version\": \"10\",\n    \"app_version\": \"5.44.5\",\n    \"device_manufacturer\": \"samsung\",\n    \"device_model\": \"SM-N970U\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"network_carrier\": \"T-Mobile\",\n    \"network_cellular\": true,\n    \"entities\": [{\n        \"entity_id\": \"userA-11b72726-18d6-43b3-a0bf-b4adf6dfd2da\",\n        \"entity_type\": \"user\"\n      }],\n    \"phone_numbers\": [\"+1234567890\"],\n    \"digital_data\": {\n        \"ip_addresses\": [\"43.250.192.0\", \"52.15.247.208\"]\n    },\n    \"tags\": [\n        \"sector:europe\"\n    ],\n    \"options\": {\n      \"upsert_on_conflict\": true,\n      \"resolve_geoip\": false,\n      \"merge_custom_data\": true,\n      \"list_merge_strategy\": \"union\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/devices/create",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"devices",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update deviceA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"device_type\": \"mobile\",\n    \"device_subtype\": \"ios\",\n    \"network_carrier\": \"AT&T\",\n    \"network_cellular\": false\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/devices/{{deviceAId}}/update",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"devices",
-								"{{deviceAId}}",
-								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get deviceA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/devices/{{deviceAId}}",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"devices",
-								"{{deviceAId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get deviceA through external_id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/unit21/devices/11b72726-18d6-43b3-a0bf-b4adf6dfd2da",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"unit21",
-								"devices",
-								"11b72726-18d6-43b3-a0bf-b4adf6dfd2da"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list devices",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"offset\": 1, \n    \"limit\": 25\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/devices/list",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"devices",
 								"list"
 							]
 						}
@@ -3401,36 +1333,6 @@
 					"response": []
 				},
 				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "bulk create alerts",
 					"event": [
 						{
@@ -3477,36 +1379,6 @@
 					"response": []
 				},
 				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "update alertA",
 					"event": [
 						{
@@ -3545,36 +1417,6 @@
 								"alerts",
 								"{{alertAId}}",
 								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
 							]
 						}
 					},
@@ -3699,36 +1541,6 @@
 					"response": []
 				},
 				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "list alerts",
 					"event": [
 						{
@@ -3765,78 +1577,6 @@
 								"v1",
 								"alerts",
 								"list"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list alerts dets",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"offset\": 1, \n    \"limit\": 10,\n    \"options\": {\n        \"include_actions\": true,\n        \"include_associations\": true,\n        \"include_checklist\": true\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/alerts/list",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"alerts",
-								"list"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
 							]
 						}
 					},
@@ -4064,36 +1804,6 @@
 					"response": []
 				},
 				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "create bulk case",
 					"event": [
 						{
@@ -4139,36 +1849,6 @@
 					"response": []
 				},
 				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "update caseA",
 					"event": [
 						{
@@ -4206,36 +1886,6 @@
 								"cases",
 								"{{caseAId}}",
 								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
 							]
 						}
 					},
@@ -4360,36 +2010,6 @@
 					"response": []
 				},
 				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "get caseA",
 					"event": [
 						{
@@ -4446,36 +2066,6 @@
 								"v1",
 								"cases",
 								"{{caseAId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
 							]
 						}
 					},
@@ -4729,36 +2319,6 @@
 					"response": []
 				},
 				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "get datafile details",
 					"event": [
 						{
@@ -4786,79 +2346,6 @@
 								"v1",
 								"datafiles",
 								"{{datafileId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SLEEP 2 S",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"setTimeout(function(){}, 2000);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/status",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get datafile mappings",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"offset\": 1\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/datafiles/{{datafileId}}/mappings",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"datafiles",
-								"{{datafileId}}",
-								"mappings"
 							]
 						}
 					},
@@ -5796,121 +3283,6 @@
 			]
 		},
 		{
-			"name": "Tag Association",
-			"item": [
-				{
-					"name": "list tag-associations",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "",
-								"type": "text",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"limit\": 10,\n    \"offset\": 1,\n    \"object_types\": [\"alert\", \"rule\", \"case\"],\n    \"created_after\": 1597198562,\n    \"tag_filters\": [\"type\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/tag-associations/list",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"tag-associations",
-								"list"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list tag-associations object_id fail",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 400\", function () {",
-									"    pm.response.to.have.status(400);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "",
-								"type": "text",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"limit\": 10,\n    \"offset\": 1,\n    \"object_types\": [\"alert\", \"rule\", \"case\"],\n    \"object_id\": \"1\",\n    \"created_after\": 1597198562,\n    \"tag_filters\": [\"type\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/tag-associations/list",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"tag-associations",
-								"list"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Verification-Forms",
 			"item": [
 				{
@@ -6484,114 +3856,6 @@
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "Deprecated",
-			"item": [
-				{
-					"name": "delete userA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/entities/{{userAId}}",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"entities",
-								"{{userAId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "add object to alertA",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"instruments\": [\n        \"31415926535\"\n    ]\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}://{{host}}/v1/alerts/264615/add-objects",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"v1",
-								"alerts",
-								"264615",
-								"add-objects"
-							]
-						}
-					},
-					"response": []
-				}
-			]
 		}
 	],
 	"auth": {
@@ -6641,7 +3905,7 @@
 	"variable": [
 		{
 			"key": "randId",
-			"value": "a141fde1-6665-4d0e-b692-a5340472e13e"
+			"value": "f83b4564-79fb-4495-b6e4-63802aeed0ae"
 		},
 		{
 			"key": "host",
