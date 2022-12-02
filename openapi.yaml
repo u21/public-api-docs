@@ -635,6 +635,7 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/entityIds'
                 - $ref: '#/components/schemas/entityExportFilters'
+                - $ref: '#/components/schemas/csv'
       responses:
         '200':
           description: OK
@@ -943,6 +944,7 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/instrumentIds'
                 - $ref: '#/components/schemas/instrumentExportFilters'
+                - $ref: '#/components/schemas/csv'
       responses:
         '200':
           description: OK
@@ -1212,6 +1214,7 @@ paths:
                 - $ref: '#/components/schemas/agentEmail'
                 - $ref: '#/components/schemas/deviceIds'
                 - $ref: '#/components/schemas/deviceExportFilters'
+                - $ref: '#/components/schemas/csv'
       responses:
         '200':
           description: OK
@@ -1610,6 +1613,7 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/eventIds'
                 - $ref: '#/components/schemas/eventExportFilters'
+                - $ref: '#/components/schemas/csv'
       responses:
         '200':
           description: OK
@@ -1643,6 +1647,7 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/eventIds'
                 - $ref: '#/components/schemas/eventExportFilters'
+                - $ref: '#/components/schemas/csv'
       responses:
         '200':
           description: OK
@@ -1786,6 +1791,7 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/ruleIds'
                 - $ref: '#/components/schemas/ruleExportFilters'
+                - $ref: '#/components/schemas/csv'
       responses:
         '200':
           description: OK
@@ -2133,6 +2139,7 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/alertIds'
                 - $ref: '#/components/schemas/alertExportFilters'
+                - $ref: '#/components/schemas/csv'
       responses:
         '200':
           description: OK
@@ -2441,6 +2448,7 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/caseIds'
                 - $ref: '#/components/schemas/caseExportFilters'
+                - $ref: '#/components/schemas/csv'
       responses:
         '200':
           description: OK
@@ -2638,6 +2646,7 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/sarIds'
                 - $ref: '#/components/schemas/sarExportFilters'
+                - $ref: '#/components/schemas/csv'
       responses:
         '200':
           description: OK
@@ -3818,7 +3827,7 @@ components:
         type: string
         format: key-value pair
         example: 'Sector:Europe'
-    generalEntitiesProperties:
+    generalEntitiesListProperties:
       title: General entity data
       type: object
       description: >-
@@ -3837,17 +3846,36 @@ components:
           $ref: '#/components/schemas/objectStatus'
         registered_at:
           $ref: '#/components/schemas/registeredAt'
+        continuous_monitoring:
+          type: boolean
+          description: Is continuous monitoring turned on for this entity?
+          example: false
         parents:
           type: array
           description: >-
-            The parent object consists of two fields─`entity_id` for parent
-            unique identifier  and `entity_type`.
+            The parent object consists of two fields─`entity_id` for the
+            parent's unique identifier and `entity_type`.
           items:
             type: object
             properties:
               entity_id:
                 type: string
                 description: Parent unique identifier
+                maxLength: 128
+                example: entity-5500
+              entity_type:
+                $ref: '#/components/schemas/entityType'
+        children:
+          type: array
+          description: >-
+            The children object consists of two fields─`entity_id` for the
+            child's unique identifier and `entity_type`.
+          items:
+            type: object
+            properties:
+              entity_id:
+                type: string
+                description: Child unique identifier
                 maxLength: 128
                 example: entity-5500
               entity_type:
@@ -4039,7 +4067,7 @@ components:
         document_data:
           $ref: '#/components/schemas/documentDataArrayProperties'
         general_data:
-          $ref: '#/components/schemas/generalEntitiesProperties'
+          $ref: '#/components/schemas/generalEntitiesListProperties'
         instrument_ids:
           type: array
           description: List of instrument IDs.
@@ -4085,6 +4113,42 @@ components:
       properties:
         message:
           $ref: '#/components/schemas/message'
+    generalEntitiesProperties:
+      title: General entity data
+      type: object
+      description: >-
+        General information about the entity. With this object, you can link any
+        entity on Unit21's system to a user or business on your platform.
+      required:
+        - entity_id
+      properties:
+        entity_id:
+          $ref: '#/components/schemas/entityId'
+        entity_type:
+          $ref: '#/components/schemas/entityType'
+        entity_subtype:
+          $ref: '#/components/schemas/entitySubtype'
+        status:
+          $ref: '#/components/schemas/objectStatus'
+        registered_at:
+          $ref: '#/components/schemas/registeredAt'
+        parents:
+          type: array
+          description: >-
+            The parent object consists of two fields─`entity_id` for parent
+            unique identifier  and `entity_type`.
+          items:
+            type: object
+            properties:
+              entity_id:
+                type: string
+                description: Parent unique identifier
+                maxLength: 128
+                example: entity-5500
+              entity_type:
+                $ref: '#/components/schemas/entityType'
+        tags:
+          $ref: '#/components/schemas/Tags'
     riskScoresProperties:
       title: Risk scores
       required:
@@ -4570,6 +4634,12 @@ components:
               items:
                 type: integer
                 example: 85
+    csv:
+      properties:
+        use_csv:
+          type: boolean
+          description: Export as CSV file.
+          example: true
     listAlertRequest:
       type: object
       required:
