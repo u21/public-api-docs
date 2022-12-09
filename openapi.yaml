@@ -126,7 +126,8 @@ paths:
         Returns paginated list of of top-level information about entities. 
 
 
-        NOTICE: Entity Type is will be optional soon.
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        entities are not listed.
 
 
         Because the response is paginated, the request body has a `limit` and
@@ -211,7 +212,16 @@ paths:
         entity cannot be overwritten.
 
 
-        Updates to an entity's `general_data.entity_id` are not allowed.
+        To turn a
+        [placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        entity into an entity in the Unit21 system, use this endpoint.
+
+
+        Whitelisted entities cannot be updated through the `/entities/create`
+        endpoint. 
+
+
+        Updates to an entity's `general_data.entity_id` are not allowed.  
 
 
         Instruments can be associated with entities by providing the IDs of
@@ -219,10 +229,6 @@ paths:
         If the instrument doesn't already exist,  Unit21 creates a
         [placeholder](https://docs.unit21.ai/reference/placeholder-objects)
         instrument.
-
-
-        Whitelisted entities cannot be updated through the `/entities/create`
-        endpoint. 
 
 
         We recommend that you create entities prior to running verification. In
@@ -286,6 +292,10 @@ paths:
         `general_data`, `document_data`, etc.
 
 
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        entities will not be listed.
+
+
         This endpoint requires the `entity_id` which is a unique ID created by
         your organization to identify the entity. The `org_name` is your Unit21
         appointed organization name such as `google` or `acme`.
@@ -334,6 +344,10 @@ paths:
 
         Updating an entity has no required fields. You MAY send any  subset of
         the fields that the entities/create endpoint accepts.
+
+
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        entities cannot be updated.
 
 
         This endpoint requires the `entity_id` which is a unique ID created by
@@ -419,6 +433,10 @@ paths:
         instruments.
 
 
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        entities cannot be updated.
+
+
         If we do not find any instruments with a corresponding `instrument_id`
         in our system, we will create a
         [placeholder](https://docs.unit21.ai/reference/placeholder-objects) for
@@ -439,6 +457,9 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              example: {}
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -468,6 +489,10 @@ paths:
       summary: Add media to an entity
       description: >-
         Adds rich media objects (images, videos, etc.) to an existing entity. 
+
+
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        entities cannot be updated.
 
 
         This endpoint is useful for sending in rich media such as profile
@@ -517,9 +542,10 @@ paths:
             }
           }
         ```
-            
+
+
         `media` and `name` are the only required fields for each media object.
-        The `name`` must include the file extension such a `File.pdf`.
+        The `name` must include the file extension such a `File.pdf`.
         Supplementary form data is sent through the optional `custom_data`
         object.
 
@@ -550,6 +576,9 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              example: {}
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -578,8 +607,12 @@ paths:
         - Entities API
       summary: Delete entity media
       description: >-
-        Deletes rich media objects (images, videos, etc.) to an existing
-        entity. 
+        Deletes all rich media objects (images, videos, etc.) belonging to an
+        existing entity. 
+
+
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        entities cannot be updated.
       operationId: del_media_entity
       parameters:
         - $ref: '#/components/parameters/entity_id'
@@ -587,6 +620,9 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              example: {}
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -619,11 +655,15 @@ paths:
         as a CSV file.
 
 
-        Either the agent `ID` or `email` is required to begin the export.
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        entities are not exported.
 
 
-        Either the `filters` or the list of `entity IDs` are required for the
-        export.
+        Either the `filters` or the list of `entity_ids` are required for the
+        export. 
+
+
+        **Currently `entity_ids` should actually be `unit21_ids`.**
 
 
         Custom data filters are not supported for bulk exports at this time.
@@ -643,6 +683,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/messageResponse'
+              example:
+                message: File export has started
         '400':
           description: OK
           content:
@@ -976,252 +1018,6 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  /devices/list:
-    post:
-      tags:
-        - Devices API
-      summary: List devices
-      description: >
-        Returns paginated list of of top-level information about devices. 
-
-        Because the response is paginated, the request body has a `limit` and
-        `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many objects the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record. The offset is relative to
-        the number of pages (not the total count of objects).
-
-
-        The `total_count` field contains the total number of devices where the 
-        `response_count` field contains the number of devices included in the
-        response.
-      operationId: list_devices
-      requestBody:
-        $ref: '#/components/requestBodies/list'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/listResponse'
-              example:
-                devices:
-                  devices:
-                    - app_version: 5.44.5
-                      custom_data: null
-                      device_id: 11b72726-18d6-43b3-a0bf-b4adf6d576474
-                      device_manufacturer: samsung
-                      device_model: SM-N970U
-                      device_subtype: ios
-                      device_type: mobile
-                      entities:
-                        - entity_id: userA-11b72726-18d6-43b3-a0bf-b4adf6dfd2da
-                          entity_type: user
-                          unit21_id: 571485314
-                      is_spooled: false
-                      network_carrier: AT&T
-                      network_cellular: false
-                      os_name: Android
-                      os_version: '10'
-                      phone_numbers:
-                        - '+1234567890'
-                      registered_at: 1572672326
-                      status: active
-                      tags:
-                        - 'sector:europe'
-                      timezone: America/Los_Angeles
-                      unit21_id: '601'
-                    - app_version: 5.44.5
-                      custom_data:
-                        nft_asset_hash: 59790095
-                        nft_copies: 2250
-                        nft_creator: cryptocomnft
-                        nft_creator_id: '792843'
-                        nft_edition: 567
-                        nft_name: The 24/7 Trader
-                      device_id: 132926-18dewew6-43b3-a0bf-b1234
-                      device_manufacturer: samsung
-                      device_model: SM-N970U
-                      device_subtype: android
-                      device_type: mobile
-                      entities:
-                        - entity_id: userA-11b72726-18d6-43b3-a0bf-b4adf6dfd2da
-                          entity_type: user
-                          unit21_id: 571485314
-                      is_spooled: false
-                      network_carrier: KTV
-                      network_cellular: true
-                      os_name: Android
-                      os_version: '10'
-                      phone_numbers:
-                        - '+1234567890'
-                      registered_at: 1572672326
-                      status: active
-                      tags:
-                        - 'sector:korea'
-                      timezone: Seoul
-                      unit21_id: '436'
-                  response_count: 2
-                  total_count: 16
-  /devices/create:
-    post:
-      tags:
-        - Devices API
-      summary: Create a device
-      operationId: create_device
-      description: "Creates a new device, sending device data in the request body.\n\nRecommended values for `device_type` include: laptop, home_computer, work_laptop, phone, smartphone, scanner.\n\nIf the `/devices/create` API is called for an device that already exists in our system (i.e.  has an existing `device_id`, it is treated it as an  [upsert](https://docs.unit21.ai/u21/reference/should-i-update-or-upsert) and an update on the existing device is performed. The response to the request will then contain the entry `previously_existed: true`. \n\nUnit21 selectively ignores upserts if the request is identical to a previous request.  The response to any isgnored upsert will  contain the field `ignored: true`.\n\nUpdates to an device's `device_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/u21/reference/endpoint-options)\n  - [Custom data](https://docs.unit21.ai/u21/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/u21/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/u21/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                            |\n  |--------------------------|----------|--------------------------------------------------------|\n  | `device_id`\t             | String   | \tUnique identifier of the device on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the device within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `device_id`) already exists |\n"
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/Devices'
-              anyOf:
-                - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/locationDataArray'
-                - $ref: '#/components/schemas/digitalData'
-                - $ref: '#/components/schemas/customData'
-            example:
-              device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
-              device_type: mobile
-              device_subtype: android
-              status: active
-              registered_at: 1623365011
-              os_name: Android
-              os_version: 10.1.x
-              app_version: 5.44.4
-              device_manufacturer: samsung
-              device_model: SM-N970U
-              timezone: UTC-7
-              network_carrier: T-Mobile
-              network_cellular: true
-              phone_numbers:
-                - '+14159627132'
-              entities:
-                - entity_id: u-3593dece-6642-4cdc-8547-aafc1454e0a0
-                  entity_type: user
-              tags:
-                - 'Sector:Europe'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/createDeviceResponse'
-              example:
-                device_id: device-3232
-                previously_existed: true
-                unit21_id: '403746'
-  '/{org_name}/devices/{device_id}':
-    get:
-      tags:
-        - Devices API
-      summary: Get a device using external ID
-      description: >-
-        Returns all data objects belonging to a single device.
-
-
-        This endpoint requires the `device_id` which is a unique ID created by
-        your organization to identify the device. The `org_name` is your Unit21
-        appointed organization name such as `google` or `acme`.
-      operationId: get_device_by_external
-      parameters:
-        - $ref: '#/components/parameters/device_id'
-        - $ref: '#/components/parameters/org_name'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                app_version: 5.44.5
-                custom_data: null
-                device_id: 11b72726-18d6-43b3-a0bf-b4adf6d576474
-                device_manufacturer: samsung
-                device_model: SM-N970U
-                device_subtype: ios
-                device_type: mobile
-                entities:
-                  - entity_id: userA-11b72726-18d6-43b3-a0bf-b4adf6dfd2da
-                    entity_type: user
-                    unit21_id: 571485314
-                is_spooled: false
-                network_carrier: AT&T
-                network_cellular: false
-                os_name: Android
-                os_version: '10'
-                phone_numbers:
-                  - '+1234567890'
-                registered_at: 1572672326
-                status: active
-                tags:
-                  - 'sector:europe'
-                timezone: America/Los_Angeles
-                unit21_id: '601'
-  '/{org_name}/devices/{device_id}/update':
-    put:
-      tags:
-        - Devices API
-      summary: Update device using external ID
-      description: "Updates an device's information using the `device_id` from your platform. \n\nUpdating a device has no required fields. You MAY send any  subset of the fields that the `devices/create` endpoint accepts.\n\nThis endpoint requires the `device_id` which is a unique ID created by your organization to identify the device. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.\n\nNote that you can also update a device using an upsert through `/devices/create`.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/u21/reference/endpoint-options)\n  - [Custom data](https://docs.unit21.ai/u21/reference/best-practices-for-custom-data)\n  - [Batch uploads](https://docs.unit21.ai/u21/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/u21/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                            |\n  |--------------------------|----------|--------------------------------------------------------|\n  | `device_id`\t             | String   | \tUnique identifier of the device on your platform     |\n  | `unit21_id`\t             | String   | \tInternal ID of the device within Unit21's system     |\n  | `previously_existed`\t   | Boolean  | \tIf entity (with the same `device_id`) already exists |"
-      operationId: update_device_by_external
-      parameters:
-        - $ref: '#/components/parameters/device_id'
-        - $ref: '#/components/parameters/org_name'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              anyOf:
-                - $ref: '#/components/schemas/Devices'
-                - $ref: '#/components/schemas/customData'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                device_id: 3234-sdghfdf-3332
-                unit21_id: '49073'
-  /devices/bulk-export:
-    post:
-      tags:
-        - Devices API
-      summary: Bulk export devices
-      description: >
-        Initiates an email and dashboard export of devices. The export will be
-        as a CSV file.
-
-
-        Either the agent `ID` or `email` is required to begin the export.
-
-
-        Either the `filters` or the list of `device IDs` are required for the
-        export.
-      operationId: export_devices
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/agentId'
-                - $ref: '#/components/schemas/agentEmail'
-                - $ref: '#/components/schemas/deviceIds'
-                - $ref: '#/components/schemas/deviceExportFilters'
-                - $ref: '#/components/schemas/csv'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example:
-                message: File export has started
   /events/list:
     post:
       tags:
@@ -4013,7 +3809,8 @@ components:
     media:
       type: string
       description: Base64 encoded media file
-      example: RGlkIHlvdSByZWFsbHkgbG9vayB0aGlzIHVwPw==
+      example: >-
+        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
     mediaType:
       type: string
       enum:
@@ -4025,7 +3822,8 @@ components:
         - IMAGE_ID_CARD_BACK
         - IMAGE_FACE_IMAGE
       description: >
-        Type of media. The dropdown contains Unit21-recognized types.
+        Type of media. The dropdown contains Unit21-recognized types but all
+        types are accepted.
 
 
         Though you can provide any string, Unit21 processes and display
@@ -4502,7 +4300,7 @@ components:
           name:
             type: string
             description: name of media object
-            example: Drivers License
+            example: logo.png
           media_type:
             $ref: '#/components/schemas/mediaType'
           custom_data:
@@ -4511,17 +4309,7 @@ components:
               Any custom information that you want the Unit21 system to
               associate with this object (accepts any valid JSON object)
             example:
-              internal_notes: Reviewed by Mitchell on 31 June 2019
-              reviewers: 3
-              login: 1638384860
-              timestamp: '2012-03-40 05:12:41.000Z'
-              daily_email: true
-              employees:
-                - John
-                - Anna
-                - Peter
-              socure_device_session_id: '12121212121212112'
-            additionalProperties: true
+              type: logo
     linkMediaForm:
       title: Form data
       type: object
@@ -4917,177 +4705,6 @@ components:
           type: string
           description: Export success.
           example: File export has started
-    listRequest:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: Number of objects per page.
-          minimum: 0
-          maximum: 50
-          example: 2
-        offset:
-          type: integer
-          description: >-
-            Pagination offset. A value of 1 returns a response beginning with
-            the first record. The offset is relative to the number of pages (not
-            the total count of objects)
-          minimum: 1
-          default: 1
-    listResponse:
-      type: object
-      properties:
-        response_count:
-          type: integer
-          example: 10
-          description: Number of objects in the response
-        total_count:
-          type: integer
-          example: 100
-          description: Total number of objects in the platform.
-    deviceId:
-      type: string
-      description: Identifier of the device within your system
-      example: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
-      minLength: 1
-      maxLength: 128
-    Devices:
-      description: Top-level data about an instrument.
-      title: Device data
-      required:
-        - device_type
-        - device_id
-      properties:
-        device_id:
-          $ref: '#/components/schemas/deviceId'
-        device_type:
-          type: string
-          description: Type of device
-          maxLength: 128
-          example: mobile
-        device_subtype:
-          type: string
-          description: SubType of device
-          maxLength: 128
-          example: android
-        status:
-          $ref: '#/components/schemas/objectStatus'
-        registered_at:
-          $ref: '#/components/schemas/registeredAt'
-        os_name:
-          type: string
-          description: Operating system used by the device
-          maxLength: 128
-          example: Android
-        os_version:
-          type: string
-          description: Operating system version used by the device
-          maxLength: 128
-          example: 10.1.x
-        app_version:
-          type: string
-          description: Application version used by the device
-          maxLength: 128
-          example: 5.44.4
-        device_manufacturer:
-          type: string
-          description: Manufacturer of the device value
-          maxLength: 128
-          example: samsung
-        device_model:
-          type: string
-          description: Specific device model number value
-          maxLength: 128
-          example: SM-N970U
-        timezone:
-          type: string
-          description: Timezone configured by the device's application/OS
-          maxLength: 128
-          example: UTC-7
-        network_carrier:
-          type: string
-          description: 'Network carrier used by the device (T-Mobile, Verizon etc.)'
-          maxLength: 128
-          example: T-Mobile
-        network_cellular:
-          type: boolean
-          description: Whether or not the device has a cellular connection
-          example: true
-        phone_numbers:
-          $ref: '#/components/schemas/phoneNumbers'
-        tags:
-          $ref: '#/components/schemas/Tags'
-        options:
-          $ref: '#/components/schemas/Options'
-    entityArray:
-      title: Entities
-      properties:
-        entities:
-          description: List of the unique identifiers of the entity IDs.
-          type: array
-          items:
-            type: object
-            required:
-              - entity_id
-            properties:
-              entity_id:
-                $ref: '#/components/schemas/entityId'
-    digitalData:
-      title: Digital data
-      properties:
-        digital_data:
-          description: >-
-            Associated digital properties - IP, device, browser, client info
-            etc.
-          type: object
-          properties:
-            ip_address:
-              $ref: '#/components/schemas/ipAddressSimple'
-    createDeviceResponse:
-      title: Devices/create response
-      properties:
-        device_id:
-          $ref: '#/components/schemas/deviceId'
-        ignored:
-          $ref: '#/components/schemas/Ignored'
-        previously_existed:
-          $ref: '#/components/schemas/previouslyExisted'
-        unit21_id:
-          $ref: '#/components/schemas/unit21Id'
-    agentId:
-      properties:
-        agent_id:
-          type: string
-          description: Numerical identifier of an agent in your organization
-          example: 295
-    agentEmail:
-      properties:
-        agent_email:
-          type: string
-          description: Email of an agent in your organization
-          example: foobar@unit21.ai
-    deviceIds:
-      properties:
-        device_ids:
-          type: array
-          description: Array of the unique identifiers of the device IDs.
-          items:
-            type: integer
-          example:
-            - 136544
-            - 546456
-    deviceExportFilters:
-      properties:
-        filters:
-          type: object
-          description: Filter to narrow down devices in export
-          properties:
-            child_org_ids:
-              type: array
-              description: Devices that belong to this Child org (Numerical ID).
-              items:
-                type: integer
-                example: 85
     listDateRequest:
       type: object
       properties:
@@ -5121,6 +4738,17 @@ components:
           type: integer
           description: Associated alert ID filter
           example: 73913
+    listResponse:
+      type: object
+      properties:
+        response_count:
+          type: integer
+          example: 10
+          description: Number of objects in the response
+        total_count:
+          type: integer
+          example: 100
+          description: Total number of objects in the platform.
     eventId:
       type: string
       description: Unique identifier of the event on your platform
@@ -5365,6 +4993,17 @@ components:
                 section](ref:create_entity)
               maxLength: 128
               example: 238938823-34347686-39405443
+    digitalData:
+      title: Digital data
+      properties:
+        digital_data:
+          description: >-
+            Associated digital properties - IP, device, browser, client info
+            etc.
+          type: object
+          properties:
+            ip_address:
+              $ref: '#/components/schemas/ipAddressSimple'
     locationData:
       title: Location data
       properties:
@@ -5470,6 +5109,23 @@ components:
               items:
                 type: integer
                 example: 85
+    listRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: Number of objects per page.
+          minimum: 0
+          maximum: 50
+          example: 2
+        offset:
+          type: integer
+          description: >-
+            Pagination offset. A value of 1 returns a response beginning with
+            the first record. The offset is relative to the number of pages (not
+            the total count of objects)
+          minimum: 1
+          default: 1
     ruleIds:
       properties:
         rule_ids:
@@ -5734,6 +5390,19 @@ components:
           $ref: '#/components/schemas/dispositionNotes'
         tags:
           $ref: '#/components/schemas/Tags'
+    entityArray:
+      title: Entities
+      properties:
+        entities:
+          description: List of the unique identifiers of the entity IDs.
+          type: array
+          items:
+            type: object
+            required:
+              - entity_id
+            properties:
+              entity_id:
+                $ref: '#/components/schemas/entityId'
     eventArray:
       title: Events
       properties:
@@ -6562,6 +6231,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/createInstrumentRequest'
+    listDate:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/listDateRequest'
     list:
       description: ''
       required: true
@@ -6569,12 +6244,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/listRequest'
-    listDate:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/listDateRequest'
   responses:
     '400':
       description: Bad Request. Your request is invalid.
@@ -6628,14 +6297,6 @@ components:
       required: true
       description: Unique identifier of the instrument on your platform
       example: 1036492444
-    device_id:
-      in: path
-      name: device_id
-      schema:
-        type: string
-      required: true
-      description: Identifier of the device within your system
-      example: 601
     event_id:
       in: path
       name: event_id
