@@ -25,8 +25,10 @@ tags:
   - name: Instruments API
     description: >
       Instruments represent any physical, digital, or logical intermediary
-      between an entity and a transaction event. The `/instruments` endpoint can
-      create, list, and update instruments. 
+      between an entity and a transaction event. Instruments can also represent
+      digital or tech items such as phones, laptops, servers, printers or even
+      company cars. The `/instruments` endpoint can create, list, and update
+      instruments. 
   - name: Devices API
     description: >
       Devices representing any computer or physical device used to execute an
@@ -673,7 +675,7 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/entityIds'
+                - $ref: '#/components/schemas/entity-unit21-Ids'
                 - $ref: '#/components/schemas/entityExportFilters'
                 - $ref: '#/components/schemas/csv'
       responses:
@@ -716,6 +718,11 @@ paths:
       summary: List instruments
       description: >
         Returns paginated list of of top-level information about instruments. 
+
+
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        instruments are not listed.
+
 
         Because the response is paginated, the request body has a `limit` and
         `offset` field. At least one must be filled.
@@ -781,7 +788,7 @@ paths:
 
         Recommended values for `instrument_type` include: account,
         crypto_address,  digital_wallet, credit_card, debit_card, gift_card,
-        voucher, check.
+        voucher, check, laptop, company_computer, smartphone.
 
 
         If the `/instruments/create` API is called for an instrument that
@@ -795,6 +802,11 @@ paths:
         Unit21 selectively ignores upserts if the request is identical to a
         previous request. The response to any  ignored upsert will contain the
         field `ignored: true`. 
+
+
+        To turn a
+        [placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        instrument into an instrument in the Unit21 system, use this endpoint.
 
 
         Updates to an instrument's `instrument_id` are not allowed.
@@ -849,6 +861,10 @@ paths:
         Returns all data objects belonging to a single instrument.
 
 
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        instruments are not listed.
+
+
         This endpoint requires the `instrument_id` which is a unique ID created
         by your organization to identify the instrument. The `org_name` is your
         Unit21 appointed organization name such as `google` or `acme`.
@@ -897,6 +913,10 @@ paths:
 
         Updating an instrument has no required fields. You MAY send any  subset
         of the fields that the `instruments/create` endpoint accepts.
+
+
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        instruments cannot be updated.
 
 
         This endpoint requires the `instrument_id` which is a unique ID created
@@ -969,12 +989,20 @@ paths:
         be as a CSV file.
 
 
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
+        instruments are not exported.
+
+
         The agent making the request will need to have the correct permissions
         for the export to ensure success.
 
 
         Either the `filters` or the list of `instrument IDs` are required for
         the export.
+
+
+        **Currently `instrument_ids` should actually be `unit21_ids`.**
+
 
 
         Custom data filters are not supported for bulk exports at this time.
@@ -984,7 +1012,7 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/instrumentIds'
+                - $ref: '#/components/schemas/instrument-unit21-Ids'
                 - $ref: '#/components/schemas/instrumentExportFilters'
                 - $ref: '#/components/schemas/csv'
       responses:
@@ -3392,11 +3420,11 @@ components:
           description: Associated alert ID filter
           example: 73913
     unit21Id:
-      type: string
+      type: integer
       description: >-
         A Unit21 internally-assigned unique identifier for an object within the
         Unit21 system. 
-      example: '1237466'
+      example: 1237466
     businessName:
       type: string
       description: The registered name of the business
@@ -3591,6 +3619,7 @@ components:
         comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
       minLength: 1
       maxLength: 128
+      pattern: '-\_:.@a-zA-Z0-9!#\$%&\''\*+/=?^`{'
       example: u-3593dece-6642-4cdc-8547-aafc1454e0a0
     entityType:
       type: string
@@ -3683,6 +3712,7 @@ components:
       description: >-
         Unique identifier of the instrument. Intrument IDs must be unique and
         only comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
+      minLength: 1
       maxLength: 128
       pattern: '-\_:.@a-zA-Z0-9!#\$%&\''\*+/=?^`{'
       example: 3234-sdghfdf-3332
@@ -4354,16 +4384,13 @@ components:
             "source": "passport_app", "timestamp": 1572673229}'
 
             ```
-    entityIds:
+    entity-unit21-Ids:
       properties:
         entity_ids:
           type: array
-          description: Array of the unique identifiers of the entity IDs.
+          description: List of unit21 IDs.
           items:
-            type: integer
-          example:
-            - 82432
-            - 234234
+            $ref: '#/components/schemas/unit21Id'
     entityExportFilters:
       properties:
         filters:
@@ -4643,13 +4670,13 @@ components:
           $ref: '#/components/schemas/instrumentId'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
-    instrumentIds:
+    instrument-unit21-Ids:
       properties:
         instrument_ids:
           type: array
-          description: List of instrument_ids.
+          description: List of unit21 IDs.
           items:
-            $ref: '#/components/schemas/instrumentId'
+            $ref: '#/components/schemas/unit21Id'
     instrumentExportFilters:
       properties:
         filters:
@@ -5667,6 +5694,13 @@ components:
           $ref: '#/components/schemas/registeredAt'
         tags:
           $ref: '#/components/schemas/Tags'
+    entityIds:
+      properties:
+        entity_ids:
+          type: array
+          description: List of unique entity IDs.
+          items:
+            $ref: '#/components/schemas/entityId'
     createCaseResponse:
       title: Create case response
       properties:
