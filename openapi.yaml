@@ -163,7 +163,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/listEntityResponse'
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -753,7 +753,7 @@ paths:
                 allOf:
                   - $ref: '#/components/schemas/listInstrumentResponse'
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -829,7 +829,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/createInstrumentResponse'
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -880,7 +880,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/instrumentList'
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -1004,7 +1004,6 @@ paths:
         **Currently `instrument_ids` should actually be `unit21_ids`.**
 
 
-
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_instruments
       requestBody:
@@ -1091,75 +1090,15 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/listResponse'
-              example:
-                events:
-                  - custom_data: {}
-                    digital_data:
-                      client_fingerprint: null
-                      ip_address: null
-                    general_data:
-                      event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
-                      event_subtype: credit_card
-                      event_time: 1586950374
-                      event_type: transaction
-                      is_spooled: false
-                      status: complete
-                      tags: []
-                    is_cold_store: false
-                    location_data: null
-                    transaction_data:
-                      amount: 4646.34
-                      exchange_rate: null
-                      external_fee: null
-                      internal_fee: null
-                      received_amount: 4646.34
-                      received_currency: usd
-                      receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
-                      receiver_entity_type: user
-                      receiver_instrument_id: '30504733005354'
-                      sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
-                      sender_entity_type: user
-                      sender_instrument_id: '3560510398609341'
-                      sent_amount: 4646.34
-                      sent_currency: usd
-                      usd_conversion_notes: null
-                    unit21_id: '2633544'
-                  - custom_data: {}
-                    digital_data:
-                      client_fingerprint: null
-                      ip_address: null
-                    general_data:
-                      event_id: t-9030cdce-2b43-40f1-832a-2ee264a41945
-                      event_subtype: credit_card
-                      event_time: 1586779444
-                      event_type: transaction
-                      is_spooled: false
-                      status: complete
-                      tags: []
-                    is_cold_store: false
-                    location_data: null
-                    transaction_data:
-                      amount: 14524.1
-                      exchange_rate: null
-                      external_fee: null
-                      internal_fee: null
-                      received_amount: 14524.1
-                      received_currency: usd
-                      receiver_entity_id: u-7b517e52-3324-4722-a2ff-60779d43ec6d
-                      receiver_entity_type: user
-                      receiver_instrument_id: i-4f88438d-1c4a-4a06-a1f0-d692c0bb4baa
-                      sender_entity_id: u-eca597f1-9e7f-45ca-b635-48723f60feb7
-                      sender_entity_type: user
-                      sender_instrument_id: i-7b977420-976f-4714-93bf-379c4dd5732f
-                      sent_amount: 14524.1
-                      sent_currency: usd
-                      usd_conversion_notes: null
-                    unit21_id: '2633543'
-                    response_count: 2
-                    total_count: 2000
+                  - $ref: '#/components/schemas/listEventResponse'
         '400':
-          $ref: '#/components/responses/400'
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -1229,77 +1168,37 @@ paths:
                 - $ref: '#/components/schemas/locationData'
                 - $ref: '#/components/schemas/customData'
                 - $ref: '#/components/schemas/eventOptions'
-              example:
-                general_data:
-                  event_id: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
-                  event_type: transaction
-                  event_time: 1623365011
-                  event_subtype: payment
-                  status: active
-                  device_id: 11b72726-18d6-43b3-a0bf-b4adf6dfd2da
-                  parents:
-                    event_id: 123
-                    event_type: transaction
-                  tags:
-                    - 'Sector:Europe'
-                transaction_data:
-                  amount: 13562.83
-                  sent_amount: 13562.83
-                  sent_currency: USD
-                  sender_entity_id: u-371b5091-da30-48a8-936b-7600f9983e80
-                  sender_entity_type: user
-                  sender_instrument_id: string
-                  received_amount: 13562.83
-                  received_currency: USD
-                  receiver_entity_id: u-d8e1d453-c205-4996-a935-ff08be01bcd1
-                  receiver_entity_type: business
-                  receiver_instrument_id: t376839428256371
-                  exchange_rate: 1.0012
-                  usd_conversion_notes: N/A
-                  internal_fee: 5
-                  external_fee: 5
-                action_data:
-                  action_type: LOGIN
-                  action_details: Through mobile app v0.8.8
-                  entity_id: 371c4d7b-0563-4685-aab1
-                  entity_type: user
-                  instrument_id: 238938823-34347686-39405443
-                digital_data:
-                  ip_address: 255.255.255.255
-                location_data:
-                  type: SHIPPING
-                  building_number: 6c
-                  unit_number: 22a
-                  street_name: California Ave
-                  city: Redmond
-                  state: CA
-                  postal_code: 07710-0001
-                  country: US
-                custom_data:
-                  internal_notes: Reviewed by Mitchell on 31 June 2019
-                  reviewers: 3
-                  login: 1638384860
-                  timestamp: '2012-03-40 05:12:41.000Z'
-                  daily_email: true
-                  employees:
-                    - John
-                    - Anna
-                    - Peter
-                  socure_device_session_id: '12121212121212112'
-                options:
-                  monitor: true
-                  resolve_geoip: true
-                  link_digital_data_to_entity: true
-                  linked_entity: sender
-                  merge_custom_data: false
-                  upsert_on_conflict: true
       responses:
         '200':
           description: OK
           content:
             application/json:
-              example:
-                event_id: 40df948s-0563-aab1-4685
+              schema:
+                $ref: '#/components/schemas/createEventResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/{org_name}/events/{event_id}':
     get:
       tags:
@@ -1322,44 +1221,29 @@ paths:
           content:
             application/json:
               schema:
-                properties:
-                  is_cold_store:
-                    description: |
-                      `true` if the event has been migrated to coldstore
-                    type: boolean
-                    example: false
-              example:
-                general_data:
-                  event_id: t-b168d85a-c660-418e-94d8-f50eeb46057d
-                  event_subtype: credit_card
-                  event_time: 1586950374
-                  event_type: transaction
-                  is_spooled: false
-                  status: complete
-                  tags: []
-                transaction_data:
-                  amount: 4646.34
-                  exchange_rate: null
-                  external_fee: null
-                  internal_fee: null
-                  received_amount: 4646.34
-                  received_currency: usd
-                  receiver_entity_id: u-1745d3b5-ea12-4479-ba2d-18e2e8601042
-                  receiver_entity_type: user
-                  receiver_instrument_id: '30504733005354'
-                  sender_entity_id: u-b6df7ada-d644-41ec-af0b-7d5875336712
-                  sender_entity_type: user
-                  sender_instrument_id: '3560510398609341'
-                  sent_amount: 4646.34
-                  sent_currency: usd
-                  usd_conversion_notes: null
-                unit21_id: '2633544'
-                custom_data: {}
-                digital_data:
-                  client_fingerprint: null
-                  ip_address: null
-                is_cold_store: false
-                location_data: null
+                $ref: '#/components/schemas/eventList'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/{org_name}/events/{event_id}/update':
     put:
       tags:
@@ -1408,9 +1292,32 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                event_id: t-7d258c89-de60-4acd-acc8-db62506953d3
-                unit21_id: '2633554'
+              schema:
+                $ref: '#/components/schemas/updateEventResponse'
+        '400':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /events/bulk-export:
     post:
       tags:
@@ -1428,6 +1335,9 @@ paths:
         export.
 
 
+        **Currently `event_ids` should actually be `unit21_ids`.**
+
+
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_events
       requestBody:
@@ -1443,8 +1353,32 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                message: File export has started
+              schema:
+                $ref: '#/components/schemas/bulkExportResponse'
+        '400':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /txn-events/bulk-export:
     post:
       tags:
@@ -1462,6 +1396,9 @@ paths:
         export.
 
 
+        **Currently `event_ids` should actually be `unit21_ids`.**
+
+
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_transactions
       requestBody:
@@ -1477,8 +1414,32 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                message: File export has started
+              schema:
+                $ref: '#/components/schemas/bulkExportResponse'
+        '400':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /rules/list:
     post:
       tags:
@@ -4765,17 +4726,6 @@ components:
           type: integer
           description: Associated alert ID filter
           example: 73913
-    listResponse:
-      type: object
-      properties:
-        response_count:
-          type: integer
-          example: 10
-          description: Number of objects in the response
-        total_count:
-          type: integer
-          example: 100
-          description: Total number of objects in the platform.
     eventId:
       type: string
       description: Unique identifier of the event on your platform
@@ -4791,6 +4741,194 @@ components:
         `transaction` for monetary flows, `action` for other state changes, like
         new logins.
       example: transaction
+    event:
+      title: Event
+      description: Top-level data about an event.
+      properties:
+        event_id:
+          $ref: '#/components/schemas/eventId'
+        event_type:
+          $ref: '#/components/schemas/eventType'
+        event_time:
+          $ref: '#/components/schemas/registeredAt'
+        event_subtype:
+          type: string
+          description: >
+            Extra info about how your organization classifies the event. You MAY
+            enter any value. Useful for granular categories, e.g. if you have
+            two types of products and a transaction can be associated with
+            either.
+          maxLength: 128
+          example: payment
+        status:
+          $ref: '#/components/schemas/objectStatus'
+        parents:
+          description: >-
+            The parent object consists of two fields─`event_id` for parent
+            unique identifier  and `event_type`.
+          items:
+            type: object
+            properties:
+              event_id:
+                $ref: '#/components/schemas/eventId'
+              event_type:
+                $ref: '#/components/schemas/eventType'
+          example:
+            event_id: 123
+            event_type: transaction
+        tags:
+          $ref: '#/components/schemas/Tags'
+    transaction:
+      title: Transaction
+      description: Top-level data about a transaction.
+      properties:
+        amount:
+          type: number
+          description: >
+            The normalized monetary value of the transaction in customer's home
+            currency. This value MUST be greater than or equal to zero.
+            Direction of monetary flow should be entirely denoted by the
+            specifying sender/receiver entities and instruments appropriately.
+          example: 13562.83
+        sent_amount:
+          type: number
+          description: >
+            The monetary value of the transaction, specified in terms of the
+            currency set in the sent_currency field. This value must be positive
+            (greater or equal to zero). Denote by the specifying sender/receiver
+            entities and instruments appropriately.
+          example: 13562.83
+        sent_currency:
+          type: string
+          description: The currency that the sender sent
+          maxLength: 128
+          example: USD
+        sender_entity_id:
+          type: string
+          description: |
+            Identifier of the sender entity on your platform.
+          maxLength: 128
+          example: u-371b5091-da30-48a8-936b-7600f9983e80
+        sender_entity_type:
+          type: string
+          description: >
+            The entity type of the sender as defined in Entity's `general_data`
+            section.
+          example: user
+        sender_instrument_id:
+          type: string
+          description: |
+            Identifier of the sender's transaction instrument on your platform.
+          maxLength: 128
+          example: instrumentA-3967112
+        received_amount:
+          type: number
+          description: >-
+            The monetary value of the transaction, specified in terms of the
+            currency set in the `received_currency` field. This value must be
+            positive (greater or equal to zero). Direction of monetary flow
+            should be entirely denoted by the specifying sender/receiver
+            entities and instruments appropriately.
+          example: 13562.83
+        received_currency:
+          type: string
+          description: The currency that the receiver party received
+          maxLength: 128
+          example: USD
+        receiver_entity_id:
+          type: string
+          description: Identifier of the receiver entity on your platform
+          maxLength: 128
+          example: u-d8e1d453-c205-4996-a935-ff08be01bcd1
+        receiver_entity_type:
+          type: string
+          description: >
+            The entity type of the receiver as defined in Entity's general_data
+            section.
+          example: business
+        receiver_instrument_id:
+          type: string
+          description: >
+            Identifier of the receiver's transaction instrument on your
+            platform.
+          maxLength: 128
+          example: t376839428256371
+        exchange_rate:
+          type: number
+          description: >
+            If both `sent_currency` and `received_currency` are defined, and
+            neither of them are in the home currency, then this is defined as
+            `sent_amount/received_amount`.  If either `sent_currency` or
+            `received_currency` are in the home currency  (but not both), then
+            `exchange_rate` is defined as 
+            `home_currency_amount/non_home_currency_amount` (i.e exchange rate
+            to USD). If both `sent_currency` and `received_currency` are in the
+            home currency,  this is not required.
+          example: 1.0012
+        transaction_hash:
+          type: string
+          description: Used for chainalysis. Chanalysis transaction hash.
+          example: af830da0919f9d3ebbc413040460708c4107e77c83c1d1a56c6bc76a48d
+        usd_conversion_notes:
+          type: string
+          description: >-
+            Readable information associated with the exchange rate(s) used, e.g.
+            when the exchange rate was pulled, from what source it was obtained
+          example: pulled from forex.com at 1572672226
+        internal_fee:
+          type: number
+          description: >
+            The sum of all internal fees associated with the transaction,
+            specified in USD. Internal fees are collected by your platform e.g.
+            if users pay a fee to you for facilitating a transaction from user
+            to user. All other field amounts should not include the value of
+            these fees.
+          example: 5
+        external_fee:
+          type: number
+          description: >
+            The sum of all external fees associated with the transaction,
+            specified in USD. External fees are paid out to external parties
+            independent of your platform e.g. payment network fees, shipping
+            fees, cleaning fees. All other amount fields should not include the
+            value of these fees
+          example: 5
+    eventList:
+      title: Events
+      description: Top-level data about an event.
+      properties:
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        custom_data:
+          $ref: '#/components/schemas/customDataProperties'
+        digital_data:
+          $ref: '#/components/schemas/digitalDataArrayProperties'
+        general_data:
+          $ref: '#/components/schemas/event'
+        is_cold_store:
+          type: boolean
+          description: Storage location in Unit21 system
+          example: false
+        location_data:
+          $ref: '#/components/schemas/locationDataArrayProperties'
+        transaction_data:
+          $ref: '#/components/schemas/transaction'
+    listEventResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          description: List of event objects.
+          items:
+            $ref: '#/components/schemas/eventList'
+        response_count:
+          type: integer
+          example: 4
+          description: Number of objects in the paginated response
+        total_count:
+          type: integer
+          example: 204
+          description: Total number of objects in the platform.
     generalEvents:
       title: General event data
       properties:
@@ -5078,6 +5216,22 @@ components:
               $ref: '#/components/schemas/mergeCustomData'
             upsert_on_conflict:
               $ref: '#/components/schemas/upsertOnConflict'
+    createEventResponse:
+      title: Events/create response
+      properties:
+        event_id:
+          $ref: '#/components/schemas/eventId'
+        previously_existed:
+          $ref: '#/components/schemas/previouslyExisted'
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+    updateEventResponse:
+      title: Event create response
+      properties:
+        event_id:
+          $ref: '#/components/schemas/eventId'
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
     eventIds:
       properties:
         event_ids:
@@ -5361,6 +5515,17 @@ components:
                 the alert, including disposition changes, status changes,
                 reassignments, etcetera.
               example: false
+    listResponse:
+      type: object
+      properties:
+        response_count:
+          type: integer
+          example: 10
+          description: Number of objects in the response
+        total_count:
+          type: integer
+          example: 100
+          description: Total number of objects in the platform.
     alertId:
       type: string
       description: Unique identifier of the alert on the customer's platform.
