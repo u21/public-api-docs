@@ -261,7 +261,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/createEntityResponse'
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -313,7 +313,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/entityList'
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -399,7 +399,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/updateEntityResponse'
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -688,7 +688,7 @@ paths:
               example:
                 message: File export has started
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -956,7 +956,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/updateInstrumentResponse'
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -1022,7 +1022,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/bulkExportResponse'
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -1295,7 +1295,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/updateEventResponse'
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -1356,7 +1356,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/bulkExportResponse'
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -1417,7 +1417,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/bulkExportResponse'
         '400':
-          description: OK
+          description: Bad Request. Your request is invalid.
           content:
             application/json:
               schema:
@@ -1448,6 +1448,7 @@ paths:
       description: >-
         Returns paginated list of of top-level information about rules.     
 
+
         Because the response is paginated, the request body has a `limit` and
         `offset` field. At least one must be filled.
 
@@ -1470,37 +1471,17 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                response_count: 2
-                rules:
-                  - created_at: 1634336166
-                    deploy_end_date: null
-                    deploy_start_date: 1626307200
-                    description: test
-                    frequency: 1m
-                    lookback_period: 365d
-                    rule_type: standard
-                    source: INTERNAL
-                    status: ACTIVE
-                    tags: []
-                    title: tessst
-                    unit21_id: '9097753'
-                  - created_at: 1634328286
-                    deploy_end_date: 1634328000
-                    deploy_start_date: 1631736000
-                    description: test
-                    frequency: 1m
-                    lookback_period: 365d
-                    rule_type: standard
-                    source: INTERNAL
-                    status: INACTIVE
-                    tags:
-                      - 'account_type:market2'
-                    title: test
-                    unit21_id: '9097723'
-                total_count: 132
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/listRuleResponse'
         '400':
-          $ref: '#/components/responses/400'
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -1537,19 +1518,29 @@ paths:
           content:
             application/json:
               schema:
-                example:
-                  created_at: 1634336166
-                  deploy_end_date: null
-                  deploy_start_date: 1626307200
-                  description: test
-                  frequency: 1m
-                  lookback_period: 365d
-                  rule_type: standard
-                  source: INTERNAL
-                  status: ACTIVE
-                  tags: []
-                  title: tessst
-                  unit21_id: '9097753'
+                $ref: '#/components/schemas/ruleList'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /rules/bulk-export:
     post:
       tags:
@@ -1567,6 +1558,9 @@ paths:
         export.
 
 
+        **Currently `rule_ids` should actually be `unit21_ids`.**
+
+
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_rules
       requestBody:
@@ -1582,8 +1576,32 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                message: File export has started
+              schema:
+                $ref: '#/components/schemas/bulkExportResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /alerts/list:
     post:
       tags:
@@ -5307,6 +5325,82 @@ components:
             the total count of objects)
           minimum: 1
           default: 1
+    ruleList:
+      title: Rule
+      description: Top-level data about an rule.
+      properties:
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        created_at:
+          type: string
+          description: Rule creating date as epoch.
+          example: 1660620487
+        deploy_start_date:
+          type: string
+          description: Rule deployment start date as epoch.
+          example: 1661620487
+        deploy_end_date:
+          type: string
+          description: Rule deployment end date as epoch.
+          example: 1661630487
+        description:
+          type: string
+          description: Description for the rule.
+          example: This rule flags first party fraud
+        frequency:
+          type: string
+          description: How often the rule runs.
+          example: 1h
+        lookback_period:
+          type: string
+          description: The historic data set for the rule.
+          example: 24h
+        rule_type:
+          type: string
+          enum:
+            - BASIC
+            - ADVANCED
+          description: The validation type for the rule.
+          example: BASIC
+        source:
+          type: string
+          enum:
+            - internal
+            - external
+          description: >-
+            LEGACY. If your platform owns and administers this rule, the rule is
+            `internal`, otherwise it is `external`.
+          example: internal
+        status:
+          type: string
+          description: Status for the rule.
+          example: ACTIVE
+        tags:
+          type: array
+          description: Numerical IDs of the tags.
+          items:
+            type: integer
+            example: 9
+        title:
+          type: string
+          description: Name for the rule.
+          example: First party fraud simple count rule
+    listRuleResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          description: List of rule objects.
+          items:
+            $ref: '#/components/schemas/ruleList'
+        response_count:
+          type: integer
+          example: 4
+          description: Number of objects in the paginated response
+        total_count:
+          type: integer
+          example: 204
+          description: Total number of objects in the platform.
     ruleIds:
       properties:
         rule_ids:
