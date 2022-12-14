@@ -1568,7 +1568,7 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/ruleIds'
+                - $ref: '#/components/schemas/rule-unit21-Ids'
                 - $ref: '#/components/schemas/ruleExportFilters'
                 - $ref: '#/components/schemas/csv'
       responses:
@@ -1663,7 +1663,7 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/listCaseRequest'
+                - $ref: '#/components/schemas/listAlertRequest'
                 - $ref: '#/components/schemas/alertListFilters'
       responses:
         '200':
@@ -1672,71 +1672,71 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/listResponse'
-              example:
-                alerts:
-                  - alert_id: null
-                    alert_type: tm
-                    assigned_to: nicole@unit21.ai
-                    created_at: 1646698620
-                    descendant_cases: []
-                    description: >-
-                      Total of 3 events in group entities:
-                      8adc9ecc22854ce7b5453c82f0db9d17 found by rule: test.
-                    due_date_text: due 60 days ago
-                    due_date: 1648581392
-                    disposition: CLOSED
-                    dispositioned_at: 1648581392
-                    dispositioned_by: nicole@unit21.ai
-                    end_date: 1645463825
-                    entities: []
-                    events: []
-                    instruments: []
-                    rules:
-                      - rule_id: null
-                        unit21_id: 6608294
-                    source: INTERNAL
-                    start_date: 1645458482
-                    status: CLOSED
-                    tags:
-                      - 'sector:europe'
-                      - 'updated:true'
-                      - 'account_type:unverified'
-                      - 'account_type:verified'
-                    title: >-
-                      Rule #6608294 (test) triggered for entities:
-                      8adc9ecc22854ce7b5453c82f0db9d17
-                    unit21_id: '10080108'
-                response_count: 1
-                total_count: 379024
+                  - $ref: '#/components/schemas/listAlertResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /alerts/create:
     post:
       tags:
         - Alerts API
       summary: Create alerts
-      description: "Creates a new alert, sending alert data in the request body. \nTo create an Alert, you MUST include the following fields: `alert_id`, `alert_type`, `created_at`, `title`, and `status`. The other top-level fields are optional.\n\nIf we receive a request to create an alert for an `alert_id` that already exists in our system,  we will respond with a **409 error code** indicating that this alert cannot be created/updated. You must use the `/alert/update` endpoint to update an alert.\n\nYou can add the following objects to an alert:\n\n  | Field                    | Type     | Description                                                                                                           |\n  |--------------------------|----------|-----------------------------------------------------------------------------------------------------------------------|\n  | `rules`\t                 | String[] | Unique identifier of the rules/triggers/scenarios that triggered this alert                                           |\n  | `events`\t               | Object[] | Transactions affiliated with the alert. Each object must consist of a `event_id` and `event_type` field               |\n  | `entities`\t             | Object[] | Users or businesses affiliated with the alert. Each object must consist of an `entity_id` and `entity_type` field     |\n  | `instruments`\t           | String[] | Unique identifiers of any instruments affiliated with the alert                                                       |\n\n\nPlease note that if `verification_result_id` is included, it will link the entity that is associated  with the verification result with the alert.\n\nUpdates to an alert's `alert_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                             |\n  |--------------------------|----------|---------------------------------------------------------|\n  | `alert_id`\t             | String   | Unique identifier of the alert on your platform         |\n  | `unit21_id`\t             | String   | Internal ID of the alert within Unit21's system         |\n  | `previously_existed`\t   | Boolean  | If alert (with the same `alert_id`) already exists      |\n"
       operationId: create_alert
+      description: "Creates a new alert, sending alert data in the request body. \nTo create an Alert, you MUST include the following fields: `alert_id`, `alert_type`, `created_at`, `title`, and `status`. The other top-level fields are optional.\n\nIf we receive a request to create an alert for an `alert_id` that already exists in our system,  we will respond with a **409 error code** indicating that this alert cannot be created/updated. You must use the `/alert/update` endpoint to update an alert.\n\nYou can add the following objects to an alert:\n\n  | Field                    | Type     | Description                                                                                                           |\n  |--------------------------|----------|-----------------------------------------------------------------------------------------------------------------------|\n  | `rules`\t                 | String[] | Unique identifier of the rules/triggers/scenarios that triggered this alert                                           |\n  | `events`\t               | Object[] | Transactions affiliated with the alert. Each object must consist of a `event_id` and `event_type` field               |\n  | `entities`\t             | Object[] | Users or businesses affiliated with the alert. Each object must consist of an `entity_id` and `entity_type` field     |\n  | `instruments`\t           | String[] | Unique identifiers of any instruments affiliated with the alert                                                       |\n\n\nPlease note that if `verification_result_id` is included, it will link the entity that is associated  with the verification result with the alert.\n\nUpdates to an alert's `alert_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                             |\n  |--------------------------|----------|---------------------------------------------------------|\n  | `alert_id`\t             | String   | Unique identifier of the alert on your platform         |\n  | `unit21_id`\t             | String   | Internal ID of the alert within Unit21's system         |\n  | `previously_existed`\t   | Boolean  | If alert (with the same `alert_id`) already exists      |\n"
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/Alerts'
-                - $ref: '#/components/schemas/entityArray'
-                - $ref: '#/components/schemas/eventArray'
-                - $ref: '#/components/schemas/instrumentArray'
-                - $ref: '#/components/schemas/ruleArray'
+        $ref: '#/components/requestBodies/createAlert'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createAlertResponse'
-              example:
-                alert_id: alertA-028eb01a-f8d3-42fb-b398-785b596ee4cs
-                previously_existed: false
+                $ref: '#/components/schemas/createInstrumentResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/alerts/{unit21_id}':
     get:
       tags:
@@ -1757,62 +1757,29 @@ paths:
           content:
             application/json:
               schema:
-                example:
-                  alert_id: null
-                  alert_type: tm
-                  assigned_to: null
-                  created_at: 1616433282
-                  description: >-
-                    Period of no transaction activity for entity
-                    u-6833a351-ae5d-4911-a2ca-715294b8ef62 from on 03-25-2020
-                    09:47:54 to 04-24-2020 16:42:30
-                  disposition: UNRESOLVED
-                  dispositioned_at: null
-                  dispositioned_by: null
-                  entities:
-                    - entity_id: u-6833a351-ae5d-4911-a2ca-715294b8ef62
-                      entity_type: user
-                      resolution: UNRESOLVED
-                      unit21_id: 1237436
-                  events:
-                    - event_id: t-78a3561b-c9ed-4479-8e13-c8b536c44b6c
-                      event_type: transaction
-                      resolution: UNRESOLVED
-                      unit21_id: 2631941
-                    - event_id: t-67adf347-bb9d-4d5d-8086-231b9474250a
-                      event_type: transaction
-                      resolution: UNRESOLVED
-                      unit21_id: 2632821
-                    - event_id: t-c959cf38-195d-46e7-8f4c-8169de95c425
-                      event_type: transaction
-                      resolution: UNRESOLVED
-                      unit21_id: 2632874
-                    - event_id: t-699dd74d-0b5a-4471-ac18-1152a8c4aea4
-                      event_type: transaction
-                      resolution: UNRESOLVED
-                      unit21_id: 2633014
-                    - event_id: t-2d974efd-59e3-465b-a438-47a33443dbae
-                      event_type: transaction
-                      resolution: UNRESOLVED
-                      unit21_id: 2633205
-                    - event_id: t-82d9aa00-df0f-4999-b81c-84d3865eaf17
-                      event_type: transaction
-                      resolution: UNRESOLVED
-                      unit21_id: 2633222
-                  instruments: []
-                  rules:
-                    - rule_id: null
-                      unit21_id: 17517
-                  source: INTERNAL
-                  status: OPEN
-                  tags: []
-                  title: >-
-                    Rule #17517 (Account Takeover: Profile Deviation - Entities
-                    that have a significant period of inactivity and resume
-                    business activity with a large or high risk transaction)
-                    triggered for entities:
-                    u-6833a351-ae5d-4911-a2ca-715294b8ef62
-                  unit21_id: '17533'
+                $ref: '#/components/schemas/alertList'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/alerts/{unit21_id}/update':
     put:
       tags:
@@ -1835,9 +1802,31 @@ paths:
           content:
             application/json:
               schema:
-                example:
-                  unit21_id: '8483'
-                  alert_id: alertA-028eb01a-f8d3-42fb-b398-785b596ee4cb
+                $ref: '#/components/schemas/updateAlertResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/alerts/{unit21_id}/link-media':
     put:
       tags:
@@ -1916,6 +1905,31 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              example: {}
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /alerts/bulk-export:
     post:
       tags:
@@ -1933,6 +1947,9 @@ paths:
         export.
 
 
+        **Currently `alert_ids` should actually be `unit21_ids`.**
+
+
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_alerts
       requestBody:
@@ -1940,7 +1957,7 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/alertIds'
+                - $ref: '#/components/schemas/alert-unit21-Ids'
                 - $ref: '#/components/schemas/alertExportFilters'
                 - $ref: '#/components/schemas/csv'
       responses:
@@ -1948,8 +1965,32 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                message: File export has started
+              schema:
+                $ref: '#/components/schemas/bulkExportResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /cases/list:
     post:
       tags:
@@ -5401,18 +5442,13 @@ components:
           type: integer
           example: 204
           description: Total number of objects in the platform.
-    ruleIds:
+    rule-unit21-Ids:
       properties:
         rule_ids:
           type: array
-          description: Array of the unique identifiers of the rule IDs.
+          description: List of unit21 IDs.
           items:
-            type: integer
-          example:
-            - 82432
-            - 234234
-            - 6554654
-            - 654746
+            $ref: '#/components/schemas/unit21Id'
     ruleExportFilters:
       properties:
         filters:
@@ -5458,27 +5494,6 @@ components:
               items:
                 type: integer
                 example: 14
-    listCaseRequest:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: Number of objects per page.
-          minimum: 0
-          maximum: 50
-          example: 2
-        offset:
-          type: integer
-          description: >-
-            Pagination offset. A value of 1 returns a response beginning with
-            the first record. The offset is relative to the number of pages (not
-            the total count of objects)
-          minimum: 1
-          default: 1
-        case_id:
-          type: integer
-          description: Associated case ID filter
-          example: 10107269
     Disposition:
       type: string
       description: >-
@@ -5609,17 +5624,6 @@ components:
                 the alert, including disposition changes, status changes,
                 reassignments, etcetera.
               example: false
-    listResponse:
-      type: object
-      properties:
-        response_count:
-          type: integer
-          example: 10
-          description: Number of objects in the response
-        total_count:
-          type: integer
-          example: 100
-          description: Total number of objects in the platform.
     alertId:
       type: string
       description: Unique identifier of the alert on the customer's platform.
@@ -5629,6 +5633,144 @@ components:
       type: string
       description: Free form text documenting reasoning and investigation notes
       example: User confirmed that they did not initiate transaction
+    alertList:
+      title: Alert
+      description: Top-level data about an alert.
+      properties:
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        alert_id:
+          $ref: '#/components/schemas/alertId'
+        alert_type:
+          type: string
+          enum:
+            - tm
+            - kyc
+            - chainalysis
+          description: >-
+            Either transaction monitoring, `tm`, or know-your-customer `kyc`.
+            Default is `tm`
+          example: tm
+        assigned_to:
+          type: string
+          description: Agent email assigned to work the alert
+          example: laura@unit21.ai
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        custom_data:
+          $ref: '#/components/schemas/customDataProperties'
+        description:
+          type: string
+          description: Description of the alert
+          example: >-
+            Flagged 2 transactions in last hour that were 3 standard deviations
+            outside 3 month mean.
+        disposition:
+          $ref: '#/components/schemas/Disposition'
+        disposition_at:
+          type: string
+          description: Date the alert was dispositioned as epoch.
+          example: 1661630487
+        disposition_notes:
+          $ref: '#/components/schemas/dispositionNotes'
+        dispositioned_by:
+          type: string
+          description: Agent that disposed the alert
+          example: laura@unit21.ai
+        due_date:
+          type: string
+          description: Date the alert is due as epoch.
+          example: 1661630487
+        due_date_text:
+          type: string
+          description: Date the alert is due as text.
+          example: due 278 days ago
+        end_date:
+          type: string
+          description: Date the alert is closed as epoch.
+          example: 1661630487
+        rules:
+          type: array
+          description: List of rule objects.
+          items:
+            $ref: '#/components/schemas/ruleList'
+        entities:
+          type: array
+          description: List of entity objects.
+          items:
+            $ref: '#/components/schemas/entityList'
+        events:
+          type: array
+          description: List of event objects.
+          items:
+            $ref: '#/components/schemas/eventList'
+        instruments:
+          type: array
+          description: List of instrument objects.
+          items:
+            $ref: '#/components/schemas/instrumentList'
+        start_date:
+          type: string
+          description: Date the alert was first investigated as epoch.
+          example: 1661630487
+        status:
+          $ref: '#/components/schemas/investigationStatus'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        title:
+          type: string
+          description: Title of the alert
+          example: Account deviation for user T18029
+    listAlertResponse:
+      type: object
+      properties:
+        alerts:
+          type: array
+          description: List of alert objects.
+          items:
+            $ref: '#/components/schemas/alertList'
+        response_count:
+          type: integer
+          example: 4
+          description: Number of objects in the paginated response
+        total_count:
+          type: integer
+          example: 204
+          description: Total number of objects in the platform.
+    createAlertRequest:
+      title: Create an alert
+      required:
+        - title
+        - description
+      properties:
+        title:
+          type: string
+          description: Title of the alert
+          example: Account deviation for user T18029
+        description:
+          type: string
+          description: Description of the alert
+          example: >-
+            Flagged 2 transactions in last hour that were 3 standard deviations
+            outside 3 month mean.
+        entities:
+          type: array
+          description: List of entity objects.
+          items:
+            $ref: '#/components/schemas/entityList'
+        events:
+          type: array
+          description: List of event objects.
+          items:
+            $ref: '#/components/schemas/eventList'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        queue_id:
+          type: integer
+          description: Numerical IDs of the alert queue.
+          example: 125
+        custom_data:
+          $ref: '#/components/schemas/customDataProperties'
     Alerts:
       required:
         - alert_id
@@ -5676,65 +5818,20 @@ components:
           $ref: '#/components/schemas/dispositionNotes'
         tags:
           $ref: '#/components/schemas/Tags'
-    entityArray:
-      title: Entities
-      properties:
-        entities:
-          description: List of the unique identifiers of the entity IDs.
-          type: array
-          items:
-            type: object
-            required:
-              - entity_id
-            properties:
-              entity_id:
-                $ref: '#/components/schemas/entityId'
-    eventArray:
-      title: Events
-      properties:
-        events:
-          description: 'Array of event objects, consisting of `event_id` and `event_type`'
-          type: array
-          items:
-            type: object
-            required:
-              - event_id
-              - event_type
-            properties:
-              event_id:
-                example: event-1063e4e3e1
-                type: string
-              event_type:
-                $ref: '#/components/schemas/eventType'
-    ruleArray:
-      title: Rules
-      properties:
-        rules:
-          description: Array of "rule_id" strings
-          type: array
-          items:
-            type: string
-            example: r3-0ddfn3
-    createAlertResponse:
-      title: Create Alert response
+    updateAlertResponse:
+      title: Alert create response
       properties:
         alert_id:
           $ref: '#/components/schemas/alertId'
-        previously_existed:
-          $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
-    alertIds:
+    alert-unit21-Ids:
       properties:
         alert_ids:
           type: array
-          description: Array of the unique identifiers of the alert IDs.
+          description: List of unit21 IDs.
           items:
-            type: integer
-          example:
-            - 54657
-            - 13463453
-            - 543568
+            $ref: '#/components/schemas/unit21Id'
     alertExportFilters:
       description: To filter your response.
       properties:
@@ -5915,6 +6012,17 @@ components:
                 the case, including disposition changes, status changes,
                 reassignments, etcetera.
               example: false
+    listResponse:
+      type: object
+      properties:
+        response_count:
+          type: integer
+          example: 10
+          description: Number of objects in the response
+        total_count:
+          type: integer
+          example: 100
+          description: Total number of objects in the platform.
     caseId:
       type: string
       description: Unique identifier of the case on the customer's platform
@@ -5953,6 +6061,17 @@ components:
           $ref: '#/components/schemas/registeredAt'
         tags:
           $ref: '#/components/schemas/Tags'
+    alertIds:
+      properties:
+        alert_ids:
+          type: array
+          description: Array of the unique identifiers of the alert IDs.
+          items:
+            type: integer
+          example:
+            - 54657
+            - 13463453
+            - 543568
     entityIds:
       properties:
         entity_ids:
@@ -6537,6 +6656,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/listRequest'
+    createAlert:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/createAlertRequest'
   responses:
     '400':
       description: Bad Request. Your request is invalid.
