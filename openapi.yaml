@@ -1630,7 +1630,7 @@ paths:
           | Field                   | Type        | Description                                                                                                       |
           | ----------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- |
           | `case_id`               | Numeric     | Only alerts with the associated case ID will be shown.                                                            |
-          | `types`                 | String[]    | Must be list of alert types: `tm`, `kyc`, `chainalysis`                                                           |
+          | `types`                 | String[]    | Must be list of alert types: `tm`, `kyc`, `chainalysis`, `car, or `manual`                                        |
           | `created_after`         | Numeric     | Alerts created on or after this unix timestamp                                                                    |
           | `created_before`        | Numeric     | Alerts created before this unix timestamp                                                                         |
           | `dispositions`          | String[]    | List of alert disposition states (defined on an integration basis)                                                |
@@ -4495,10 +4495,10 @@ components:
             the total count of objects)
           minimum: 1
           default: 1
-        alert_id:
+        case_id:
           type: integer
-          description: Associated alert ID filter
-          example: 73913
+          description: Associated case ID filter
+          example: 12856
     instrumentList:
       title: Instrument
       description: Top-level data about an instrument.
@@ -5568,14 +5568,16 @@ components:
         types:
           type: array
           description: >-
-            The `alert_types` to include─any or all of `tm`, `chainalysis`, and
-            `kyc`
+            The `alert_types` to include─any or all of `tm`, `car`, `manual`,
+            `chainalysis`, and `kyc`
           items:
             type: string
             enum:
               - tm
               - kyc
               - chainalysis
+              - manual
+              - car
         created_after:
           $ref: '#/components/schemas/registeredAt'
         created_before:
@@ -5624,29 +5626,118 @@ components:
                 the alert, including disposition changes, status changes,
                 reassignments, etcetera.
               example: false
+            include_checklist:
+              type: boolean
+              description: >-
+                If `true`, the response includes list of all checklists items
+                taken on the alert.
+              example: false
+    dispositionNotes:
+      type: string
+      description: Free form text documenting reasoning and investigation notes
+      example: User confirmed that they did not initiate transaction
+    actions:
+      type: array
+      description: Actions agents have taken on this alert.
+      items:
+        type: object
+        properties:
+          action_time:
+            type: string
+            description: Action date as epoch.
+            example: 1661620487
+          author:
+            type: string
+            description: Agent email that performed the action.
+            example: laura@unit21.ai
+          disposition:
+            $ref: '#/components/schemas/Disposition'
+          disposition_notes:
+            $ref: '#/components/schemas/dispositionNotes'
+          reassigned_to:
+            type: string
+            description: Agent email that if action is reassignment.
+            example: laura@unit21.ai
+          status_changed_to:
+            type: string
+            description: New status for the alert.
+            example: OPEN
+          subdispositions:
+            type: array
+            description: List of subdispositions.
+            items:
+              type: object
+              properties:
+                subdisposition:
+                  type: string
+                  example: Reason for Dismissal
+                value:
+                  type: string
+                  example: False Positive
+          work_started_on:
+            type: string
+            description: Work counter trigger as epoch.
+            example: 1661620487
+    checklist:
+      type: array
+      description: Custom checklists on this alert.
+      items:
+        type: object
+        properties:
+          content:
+            type: string
+            description: Custom checklist content.
+            example: ''
+          checklist_name:
+            type: string
+            description: Name of the checklist.
+            example: P0 checklist
+          queue_name:
+            type: string
+            description: Name of the queue.
+            example: P0 queue
+    caseId:
+      type: string
+      description: Unique identifier of the case on the customer's platform
+      maxLength: 128
+      example: CaseA-123
+    descendantCases:
+      type: array
+      description: Cases created from the alert.
+      items:
+        type: object
+        properties:
+          case_id:
+            $ref: '#/components/schemas/caseId'
+          unit21_id:
+            $ref: '#/components/schemas/unit21Id'
     alertId:
       type: string
       description: Unique identifier of the alert on the customer's platform.
       maxLength: 128
       example: alertA-028eb01a-f8d3-42fb-b398-785b596ee4cb
-    dispositionNotes:
-      type: string
-      description: Free form text documenting reasoning and investigation notes
-      example: User confirmed that they did not initiate transaction
     alertList:
       title: Alert
       description: Top-level data about an alert.
       properties:
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+        actions:
+          $ref: '#/components/schemas/actions'
+        checklist:
+          $ref: '#/components/schemas/checklist'
+        descendant_cases:
+          $ref: '#/components/schemas/descendantCases'
         alert_id:
           $ref: '#/components/schemas/alertId'
         alert_type:
           type: string
           enum:
+            - chainlysis
             - tm
             - kyc
-            - chainalysis
+            - manual
+            - car
           description: >-
             Either transaction monitoring, `tm`, or know-your-customer `kyc`.
             Default is `tm`
@@ -5694,6 +5785,14 @@ components:
           description: List of rule objects.
           items:
             $ref: '#/components/schemas/ruleList'
+        sources:
+          type: array
+          description: Sources for the alerts.
+          items:
+            type: string
+            enum:
+              - INTERNAL
+              - EXTERNAL
         entities:
           type: array
           description: List of entity objects.
@@ -5784,9 +5883,11 @@ components:
         alert_type:
           type: string
           enum:
+            - chainlysis
             - tm
             - kyc
-            - chainalysis
+            - manual
+            - car
           description: >-
             Either transaction monitoring, `tm`, or know-your-customer `kyc`.
             Default is `tm`
@@ -5903,11 +6004,11 @@ components:
               items:
                 type: string
                 enum:
-                  - CHAINALYSIS
-                  - TM
-                  - KYC
-                  - MANUAL
-                  - CAR
+                  - chainlysis
+                  - tm
+                  - kyc
+                  - manual
+                  - car
             sources:
               type: array
               description: Sources for the alerts.
@@ -6023,11 +6124,6 @@ components:
           type: integer
           example: 100
           description: Total number of objects in the platform.
-    caseId:
-      type: string
-      description: Unique identifier of the case on the customer's platform
-      maxLength: 128
-      example: CaseA-123
     Cases:
       description: Top-level case data
       title: Case data
