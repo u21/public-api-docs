@@ -2887,17 +2887,26 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                - created_at: 1616432959
-                  email: Sallyallen@example.com
-                  full_name: Sally Allen
-                  status: ACTIVE
-                  unit21_id: 1264
-                - created_at: 1613604175
-                  email: JhonStrod@example.com
-                  full_name: Jhon Strod
-                  status: ACTIVE
-                  unit21_id: 1265
+              schema:
+                $ref: '#/components/schemas/listAgentResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/agents/{agent_email}/deactivate':
     put:
       tags:
@@ -2913,11 +2922,31 @@ paths:
           content:
             application/json:
               schema:
-                example:
-                  created_at: 1580423336
-                  email: nick@unit21.ai
-                  full_name: Nick Miller
-                  status: INACTIVE
+                $ref: '#/components/schemas/agentList'
+              example:
+                unit21_id: 1237466
+                email: laura@unit21.ai
+                full_name: Laura Kassovic
+                created_at: 1623365011
+                status: INACTIVE
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /tag-associations/list:
     post:
       tags:
@@ -6496,6 +6525,34 @@ components:
             - REQUESTED
           items:
             type: string
+    agentList:
+      title: Alert
+      description: Top-level data about an alert.
+      properties:
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        email:
+          type: string
+          description: Agent email.
+          example: laura@unit21.ai
+        full_name:
+          type: string
+          description: Agent name.
+          example: Laura Kassovic
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        status:
+          type: string
+          description: Agent status
+          enum:
+            - ACTIVE
+            - INACTIVE
+          example: ACTIVE
+    listAgentResponse:
+      type: array
+      description: List of agent objects.
+      items:
+        $ref: '#/components/schemas/agentList'
     tagFilters:
       description: >-
         To filter your response to a subset of tag associations, use these
