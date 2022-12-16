@@ -4868,19 +4868,6 @@ components:
             Identifier of the sender entity on your platform.
           maxLength: 128
           example: u-371b5091-da30-48a8-936b-7600f9983e80
-        sender_source:
-          type: string
-          enum:
-            - internal
-            - external
-          description: >
-            DEPRECATED. Either internal or external. Internal senders exist on
-            your platform (and on Unit21's system), external senders are
-            external to your ecosystem and do not exist on your platform.
-            Internal senders are matched with entities on Unit21's system;
-            external senders are not.
-          maxLength: 128
-          example: internal
         sender_entity_type:
           type: string
           description: >
@@ -4912,17 +4899,6 @@ components:
           description: Identifier of the receiver entity on your platform
           maxLength: 128
           example: u-d8e1d453-c205-4996-a935-ff08be01bcd1
-        receiver_source:
-          type: string
-          enum:
-            - internal
-            - external
-          description: >
-            DEPRECATED. Either internal or external. Internal receivers exist on
-            your platform (and on Unit21's system), external receivers are
-            external to your ecosystem and do not exist on your platform.
-            Internal receivers will be matched with entities on Unit21's system
-            while external receivers will not.
         receiver_entity_type:
           type: string
           description: >
@@ -5107,19 +5083,6 @@ components:
                 Identifier of the sender entity on your platform.
               maxLength: 128
               example: u-371b5091-da30-48a8-936b-7600f9983e80
-            sender_source:
-              type: string
-              enum:
-                - internal
-                - external
-              description: >
-                DEPRECATED. Either internal or external. Internal senders exist
-                on your platform (and on Unit21's system), external senders are
-                external to your ecosystem and do not exist on your platform.
-                Internal senders are matched with entities on Unit21's system;
-                external senders are not.
-              maxLength: 128
-              example: internal
             sender_entity_type:
               type: string
               description: >
@@ -5147,17 +5110,6 @@ components:
               description: The currency that the receiver party received
               maxLength: 128
               example: USD
-            receiver_source:
-              type: string
-              enum:
-                - internal
-                - external
-              description: >
-                DEPRECATED. Either internal or external. Internal receivers
-                exist on your platform (and on Unit21's system), external
-                receivers are external to your ecosystem and do not exist on
-                your platform. Internal receivers will be matched with entities
-                on Unit21's system while external receivers will not.
             receiver_entity_id:
               type: string
               description: Identifier of the receiver entity on your platform
