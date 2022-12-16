@@ -2993,44 +2993,31 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/listRequest'
                 - $ref: '#/components/schemas/tagFilters'
-              example:
-                created_after: 1597198562
-                created_before: 1598481792
-                object_types:
-                  - entity
-                  - event
-                  - instrument
-                  - alert
-                  - case
-                  - sar
-                  - agent
-                  - rule
-                tag_filters:
-                  - 'type:aml'
-                  - account_type
-                limit: 1000
-                offset: 1
       responses:
         '200':
           description: OK
           content:
             application/json:
-              example:
-                tag_associations:
-                  - created_at: 1598405517
-                    object_id: '351906'
-                    object_type: alert
-                    tag: 'account_type:market2'
-                  - created_at: 1598398976
-                    object_id: '351786'
-                    object_type: alert
-                    tag: 'account_type:market2'
-                  - created_at: 1598382408
-                    object_id: '346310'
-                    object_type: entity
-                    tag: 'type:aml'
-                response_count: 2
-                total_count: 29361
+              schema:
+                $ref: '#/components/schemas/listTagResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/webhooks/{unit21_id}/update':
     put:
       tags:
@@ -6600,6 +6587,47 @@ components:
             type: string
             format: key-value pair
             example: 'Sector:Europe'
+    tagList:
+      title: Alert
+      description: Top-level data about an alert.
+      properties:
+        object_id:
+          $ref: '#/components/schemas/unit21Id'
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        object_type:
+          type: string
+          enum:
+            - alert
+            - case
+            - sar
+            - rule
+            - agent
+            - event
+            - entity
+            - instrument
+          description: Type of object.
+          example: alert
+        tag:
+          type: string
+          description: Tag text.
+          example: 'sector:us'
+    listTagResponse:
+      type: object
+      properties:
+        tag_associations:
+          type: array
+          description: List of tag objects.
+          items:
+            $ref: '#/components/schemas/tagList'
+        response_count:
+          type: integer
+          example: 4
+          description: Number of objects in the paginated response
+        total_count:
+          type: integer
+          example: 204
+          description: Total number of objects in the platform.
     createBlacklist:
       properties:
         name:
