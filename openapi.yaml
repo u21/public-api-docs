@@ -298,6 +298,9 @@ paths:
         Please see the `/entity/create`
         [endpoint](https://docs.unit21.ai/reference/create_entity) for more
         information.
+
+
+        A successfull entry comes back `null`.
       requestBody:
         $ref: '#/components/requestBodies/createEntityDirect'
       responses:
@@ -305,7 +308,7 @@ paths:
           description: OK
           content:
             application/json:
-              example: {}
+              example: null
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -1752,7 +1755,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createInstrumentResponse'
+                $ref: '#/components/schemas/createAlertResponse'
         '400':
           description: Bad Request. Your request is invalid.
           content:
@@ -5930,39 +5933,6 @@ components:
     createAlertRequest:
       title: Create an alert
       required:
-        - title
-        - description
-      properties:
-        title:
-          type: string
-          description: Title of the alert
-          example: Account deviation for user T18029
-        description:
-          type: string
-          description: Description of the alert
-          example: >-
-            Flagged 2 transactions in last hour that were 3 standard deviations
-            outside 3 month mean.
-        entities:
-          type: array
-          description: List of entity objects.
-          items:
-            $ref: '#/components/schemas/entityList'
-        events:
-          type: array
-          description: List of event objects.
-          items:
-            $ref: '#/components/schemas/eventList'
-        tags:
-          $ref: '#/components/schemas/Tags'
-        queue_id:
-          type: integer
-          description: Numerical IDs of the alert queue.
-          example: 125
-        custom_data:
-          $ref: '#/components/schemas/customDataProperties'
-    Alerts:
-      required:
         - alert_id
         - alert_type
         - created_at
@@ -5979,6 +5949,86 @@ components:
             - kyc
             - manual
             - car
+        title:
+          type: string
+          description: Title of the alert
+          example: Account deviation for user T18029
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        status:
+          $ref: '#/components/schemas/investigationStatus'
+        description:
+          type: string
+          description: Description of the alert
+          example: >-
+            Flagged 2 transactions in last hour that were 3 standard deviations
+            outside 3 month mean.
+        disposition:
+          $ref: '#/components/schemas/Disposition'
+        disposition_notes:
+          $ref: '#/components/schemas/dispositionNotes'
+        entities:
+          type: array
+          description: List of entity objects.
+          items:
+            $ref: '#/components/schemas/entityList'
+        events:
+          type: array
+          description: List of event objects.
+          items:
+            $ref: '#/components/schemas/eventList'
+        instruments:
+          type: array
+          description: List of instrument objects.
+          items:
+            $ref: '#/components/schemas/instrumentList'
+        rules:
+          type: array
+          description: List of rule object.
+          items:
+            $ref: '#/components/schemas/ruleList'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        queue_id:
+          type: integer
+          description: Numerical IDs of the alert queue.
+          example: 125
+        verification_result_id:
+          type: integer
+          description: >-
+            Integer value greater than or equal to 1. Used when `alert_type` is
+            `kyc`.
+          minimum: 1
+          example: 42
+        custom_data:
+          $ref: '#/components/schemas/customDataProperties'
+    createAlertResponse:
+      title: Create Alert response
+      properties:
+        alert_id:
+          $ref: '#/components/schemas/alertId'
+        previously_existed:
+          $ref: '#/components/schemas/previouslyExisted'
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+    Alerts:
+      required:
+        - alert_id
+        - alert_type
+        - created_at
+        - title
+        - status
+      properties:
+        alert_id:
+          $ref: '#/components/schemas/alertId'
+        alert_type:
+          type: string
+          enum:
+            - tm
+            - kyc
+            - manual
+            - car
+            - chainlysis
           description: >-
             Either transaction monitoring, `tm`, or know-your-customer `kyc`.
             Default is `tm`
