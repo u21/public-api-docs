@@ -284,6 +284,46 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
+  /entities/create/direct:
+    post:
+      tags:
+        - Entities API
+      summary: Create an entity directly
+      operationId: create_entity_directly
+      description: >
+        Creates or updates an entity immediately, publishing directly to kafka.
+        This is a performance endpoint.
+
+
+        Please see the `/entity/create`
+        [endpoint](https://docs.unit21.ai/reference/create_entity) for more
+        information.
+      requestBody:
+        $ref: '#/components/requestBodies/createEntityDirect'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example: {}
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/{org_name}/entities/{entity_id}':
     get:
       tags:
@@ -4227,6 +4267,41 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    createEntityDirectRequest:
+      title: Create a user
+      required:
+        - general_data
+      properties:
+        general_data:
+          $ref: '#/components/schemas/generalEntitiesProperties'
+        user_data:
+          $ref: '#/components/schemas/userDataProperties'
+        business_data:
+          $ref: '#/components/schemas/businessDataProperties'
+        document_data:
+          $ref: '#/components/schemas/documentDataArrayProperties'
+        instrument_ids:
+          type: array
+          description: List of instrument_ids.
+          items:
+            $ref: '#/components/schemas/instrumentId'
+        communication_data:
+          $ref: '#/components/schemas/communicationDataProperties'
+        digital_data:
+          $ref: '#/components/schemas/digitalDataArrayProperties'
+        location_data:
+          $ref: '#/components/schemas/locationDataArrayProperties'
+        risk_scores:
+          type: array
+          description: Set of risk scores.
+          items:
+            $ref: '#/components/schemas/riskScoresProperties'
+        custom_data:
+          $ref: '#/components/schemas/customDataProperties'
+        relationships:
+          $ref: '#/components/schemas/relationshipsDataProperties'
+        options:
+          $ref: '#/components/schemas/entityOptionsProperties'
     generalEntitiesPropertiesBasic:
       title: General entity data
       type: object
@@ -6812,6 +6887,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/createEntityRequest'
+    createEntityDirect:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/createEntityDirectRequest'
     listAlertID:
       description: ''
       content:
