@@ -5930,6 +5930,45 @@ components:
           type: integer
           example: 204
           description: Total number of objects in the platform.
+    entityArray:
+      title: Entities
+      properties:
+        entities:
+          description: List of the unique identifiers of the entity IDs.
+          type: array
+          items:
+            type: object
+            required:
+              - entity_id
+            properties:
+              entity_id:
+                $ref: '#/components/schemas/entityId'
+    eventArray:
+      title: Events
+      properties:
+        events:
+          description: 'Array of event objects, consisting of `event_id` and `event_type`'
+          type: array
+          items:
+            type: object
+            required:
+              - event_id
+              - event_type
+            properties:
+              event_id:
+                example: event-1063e4e3e1
+                type: string
+              event_type:
+                $ref: '#/components/schemas/eventType'
+    ruleArray:
+      title: Rules
+      properties:
+        rules:
+          description: Array of "rule_id" strings
+          type: array
+          items:
+            type: string
+            example: r3-0ddfn3
     createAlertRequest:
       title: Create an alert
       required:
@@ -5971,22 +6010,22 @@ components:
           type: array
           description: List of entity objects.
           items:
-            $ref: '#/components/schemas/entityList'
+            $ref: '#/components/schemas/entityArray'
         events:
           type: array
           description: List of event objects.
           items:
-            $ref: '#/components/schemas/eventList'
+            $ref: '#/components/schemas/eventArray'
         instruments:
           type: array
           description: List of instrument objects.
           items:
-            $ref: '#/components/schemas/instrumentList'
+            $ref: '#/components/schemas/instrumentArray'
         rules:
           type: array
           description: List of rule object.
           items:
-            $ref: '#/components/schemas/ruleList'
+            $ref: '#/components/schemas/ruleArray'
         tags:
           $ref: '#/components/schemas/Tags'
         queue_id:
