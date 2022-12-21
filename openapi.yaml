@@ -5944,7 +5944,7 @@ components:
         alert_type:
           type: string
           enum:
-            - chainlysis
+            - chainalysis
             - tm
             - kyc
             - manual
@@ -6005,10 +6005,6 @@ components:
             $ref: '#/components/schemas/instrumentId'
         tags:
           $ref: '#/components/schemas/Tags'
-        queue_id:
-          type: integer
-          description: Numerical IDs of the alert queue.
-          example: 125
         verification_result_id:
           type: integer
           description: >-
