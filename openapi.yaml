@@ -5982,6 +5982,7 @@ components:
             type: object
             required:
               - event_id
+              - event_type
             properties:
               event_id:
                 example: event-1063e4e3e1
@@ -6081,6 +6082,7 @@ components:
             type: object
             required:
               - event_id
+              - event_type
             properties:
               event_id:
                 example: event-1063e4e3e1
