@@ -13,7 +13,9 @@ servers:
   - url: 'https://sandbox2-api.unit21.com/v1'
     description: Sandbox2 server for testing
   - url: 'https://api.unit21.com/v1'
-    description: Main production server
+    description: Production1 server
+  - url: 'https://api.prod2.unit21.com/v1'
+    description: Production2 server
 security:
   - ApiKeyAuth: []
 tags:
@@ -6072,6 +6074,19 @@ components:
           $ref: '#/components/schemas/dispositionNotes'
         tags:
           $ref: '#/components/schemas/Tags'
+        events:
+          description: 'Array of events, consisting of `event_id` and `event_type`'
+          type: array
+          items:
+            type: object
+            required:
+              - event_id
+            properties:
+              event_id:
+                example: event-1063e4e3e1
+                type: string
+              event_type:
+                $ref: '#/components/schemas/eventType'
     updateAlertResponse:
       title: Alert create response
       properties:
