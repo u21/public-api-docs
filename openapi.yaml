@@ -2103,42 +2103,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/listResponse'
-              example:
-                cases:
-                  - actions: []
-                    alerts: []
-                    assigned_to: peter@unit21.ai
-                    case_id: null
-                    checklist: {}
-                    created_at: 1600215971
-                    created_by: eric@unit21.ai
-                    descendant_sar_filing:
-                      - 536203
-                      - 536204
-                    description: >-
-                      Total of 5 events in group entities:
-                      userA-736890b7-9ca1-4edf-a48c-dd840adb5f55 found by rule:
-                      Low-valued transactions compared to merchant's average txn
-                      value.
-                    disposition: UNRESOLVED
-                    dispositioned_at: null
-                    dispositioned_by: null
-                    entities: []
-                    events: []
-                    rules:
-                      - rule_id: null
-                        unit21_id: 97970
-                    source: INTERNAL
-                    status: CLOSED
-                    tags: []
-                    title: >-
-                      Rule #97970 (Low-valued transactions compared to
-                      merchant's average txn value) triggered for entities:
-                      userA-736890b7-9ca1-4edf-a48c-dd840adb5f55
-                    unit21_id: '536202'
-                response_count: 1
-                total_count: 950
+                allOf:
+                  - $ref: '#/components/schemas/listCaseResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /cases/create:
     post:
       tags:
@@ -2163,10 +2153,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/createCaseResponse'
-              example:
-                case_id: CaseA-1234
-                previously_existed: false
-                unit21_id: '36858'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/cases/{unit21_id}':
     get:
       tags:
@@ -2187,22 +2197,15 @@ paths:
           content:
             application/json:
               schema:
-                example:
-                  alerts: []
-                  assigned_to: Alf@example.com
-                  case_id: null
-                  created_at: 1616433161
-                  description: Test Case Description
-                  disposition: UNRESOLVED
-                  dispositioned_at: null
-                  dispositioned_by: null
-                  entities: []
-                  events: []
-                  source: INTERNAL
-                  status: OPEN
-                  tags: []
-                  title: Test Case
-                  unit21_id: '17529'
+                $ref: '#/components/schemas/caseList'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
   '/cases/{unit21_id}/update':
     put:
       tags:
@@ -2225,8 +2228,31 @@ paths:
           content:
             application/json:
               schema:
-                example:
-                  case_id: caseA-123
+                $ref: '#/components/schemas/updateCaseResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/cases/{unit21_id}/link-media':
     put:
       tags:
@@ -2307,10 +2333,29 @@ paths:
           description: OK
           content:
             application/json:
+              example: {}
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          description: NOT FOUND
+          content:
+            application/json:
               schema:
-                example:
-                  unit21_id: '1423'
-                  case_id: caseA-123
+                $ref: '#/components/schemas/errorResponse'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /cases/bulk-export:
     post:
       tags:
@@ -2343,8 +2388,32 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                message: File export has started
+              schema:
+                $ref: '#/components/schemas/bulkExportResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /sars/list:
     post:
       tags:
@@ -6233,6 +6302,14 @@ components:
               items:
                 type: integer
                 example: 1
+    associatedAlerts:
+      type: array
+      description: Only objects associated with the listed case `unit21_id` values.
+      items:
+        type: integer
+      example:
+        - 564511
+        - 126546
     caseListFilters:
       description: 'To filter your response to a subset of alerts, use these fields.'
       properties:
@@ -6257,8 +6334,8 @@ components:
           $ref: '#/components/schemas/associatedEntities'
         associated_events:
           $ref: '#/components/schemas/associatedEvents'
-        associated_instruments:
-          $ref: '#/components/schemas/associatedInstruments'
+        associated_alerts:
+          $ref: '#/components/schemas/associatedAlerts'
         sources:
           $ref: '#/components/schemas/sourceArray'
         statuses:
@@ -6283,16 +6360,100 @@ components:
                 the case, including disposition changes, status changes,
                 reassignments, etcetera.
               example: false
-    listResponse:
+            include_checklist:
+              type: boolean
+              description: >-
+                If `true`, the response includes list of all checklists items
+                taken on the alert.
+              example: false
+    sarId:
+      type: string
+      description: Unique identifier of the SAR on the customer's platform.
+      maxLength: 128
+      example: sar-543439078
+    descendantSarFiling:
+      type: array
+      description: SARs created from the case.
+      items:
+        type: object
+        properties:
+          case_id:
+            $ref: '#/components/schemas/sarId'
+          unit21_id:
+            $ref: '#/components/schemas/unit21Id'
+    caseList:
+      title: Case
+      description: Top-level data about a case.
+      properties:
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        assigned_to:
+          type: string
+          description: Agent email assigned to work the case
+          example: laura@unit21.ai
+        case_id:
+          $ref: '#/components/schemas/caseId'
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        created_by:
+          type: string
+          description: Agent that created the case
+          example: laura@unit21.ai
+        custom_data:
+          $ref: '#/components/schemas/customDataProperties'
+        descendant_sar_filing:
+          $ref: '#/components/schemas/descendantSarFiling'
+        description:
+          type: string
+          description: Description of the case
+          maxLength: 1024
+          example: suspected money laundering example
+        disposition:
+          $ref: '#/components/schemas/Disposition'
+        disposition_at:
+          type: string
+          description: Date the case was dispositioned as epoch.
+          example: 1661630487
+        dispositioned_by:
+          type: string
+          description: Agent that disposed the case
+          example: laura@unit21.ai
+        rules:
+          type: array
+          description: List of rule objects.
+          items:
+            $ref: '#/components/schemas/ruleList'
+        source:
+          type: array
+          description: Sources for the case.
+          items:
+            type: string
+            enum:
+              - INTERNAL
+              - EXTERNAL
+        status:
+          $ref: '#/components/schemas/investigationStatus'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        title:
+          type: string
+          description: Title of the case
+          example: Account deviation for user T18029
+    listCaseResponse:
       type: object
       properties:
+        alerts:
+          type: array
+          description: List of case objects.
+          items:
+            $ref: '#/components/schemas/caseList'
         response_count:
           type: integer
-          example: 10
-          description: Number of objects in the response
+          example: 4
+          description: Number of objects in the paginated response
         total_count:
           type: integer
-          example: 100
+          example: 204
           description: Total number of objects in the platform.
     Cases:
       description: Top-level case data
@@ -6352,6 +6513,13 @@ components:
           $ref: '#/components/schemas/caseId'
         previously_existed:
           $ref: '#/components/schemas/previouslyExisted'
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+    updateCaseResponse:
+      title: Case create response
+      properties:
+        case_id:
+          $ref: '#/components/schemas/caseId'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
     caseIds:
@@ -6781,6 +6949,17 @@ components:
         total_count:
           type: integer
           example: 204
+          description: Total number of objects in the platform.
+    listResponse:
+      type: object
+      properties:
+        response_count:
+          type: integer
+          example: 10
+          description: Number of objects in the response
+        total_count:
+          type: integer
+          example: 100
           description: Total number of objects in the platform.
     createBlacklist:
       properties:
