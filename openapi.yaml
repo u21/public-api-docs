@@ -2191,21 +2191,6 @@ paths:
       operationId: get_case_by_unit21_id
       parameters:
         - $ref: '#/components/parameters/unit21_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/caseList'
-        '400':
-          description: Bad Request. Your request is invalid.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/errorResponse'
-                  - $ref: '#/components/schemas/messageResponse'
   '/cases/{unit21_id}/update':
     put:
       tags:
@@ -2460,69 +2445,28 @@ paths:
           
       operationId: list_sars
       requestBody:
-        $ref: '#/components/requestBodies/list'
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/listRequest'
+                - $ref: '#/components/schemas/sarListFilters'
       responses:
         '200':
           description: OK
           content:
             application/json:
-              example:
-                response_count: 2
-                sars:
-                  - amount_volume: 0
-                    created_at: 1578622336
-                    created_by: Clarence Chio
-                    description: ''
-                    entities: []
-                    events: []
-                    filing_type: Initial report
-                    lock: ''
-                    name: ''
-                    report_type: FINCEN_SAR
-                    status: PREFILING_VALIDATION_PENDING
-                    status_updated_at: 1597948038
-                    submitted: false
-                    submitted_at: N/A
-                    tags: []
-                    txn_count: 0
-                    unit21_id: 5
-                    updated_at: 1623283105
-                  - amount_volume: 0
-                    created_at: 1582233696
-                    created_by: Tyler Allen
-                    description: lkigkhjbjhbkjhbk
-                    entities:
-                      - entity_id: userA-c1e9dcca-e46a-42e9-bb9e-2208e30e49da
-                        entity_type: user
-                        unit21_id: 23518
-                    events:
-                      - event_id: txnBulk-11-9d67f84f-f232-41ec-bf77-f37fe8adfdb0
-                        event_type: transaction
-                        unit21_id: 14519
-                      - event_id: txnBulk-12-9d67f84f-f232-41ec-bf77-f37fe8adfdb0
-                        event_type: transaction
-                        unit21_id: 14520
-                      - event_id: txnBulk-11-3018aa2f-f91f-4dad-9a03-ac5b1b91fa11
-                        event_type: transaction
-                        unit21_id: 14581
-                      - event_id: txnBulk-12-3018aa2f-f91f-4dad-9a03-ac5b1b91fa11
-                        event_type: transaction
-                        unit21_id: 14582
-                    filing_type: Initial report
-                    lock: 'False'
-                    name: jghvkjhgkv
-                    report_type: FINCEN_SAR
-                    status: PREFILING_VALIDATION_PENDING
-                    status_updated_at: 1585937927
-                    submitted: false
-                    submitted_at: N/A
-                    tags: []
-                    txn_count: 0
-                    unit21_id: 93
-                    updated_at: 1623283105
-                total_count: 651
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/listSarResponse'
         '400':
-          $ref: '#/components/responses/400'
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -2559,25 +2503,15 @@ paths:
           content:
             application/json:
               schema:
-                example:
-                  amount_volume: 0
-                  created_at: 1583869433
-                  created_by: Zach Porteous
-                  description: case-2
-                  entities: []
-                  events: []
-                  filing_type: Initial report
-                  lock: 'False'
-                  name: case-2
-                  report_type: FINCEN_SAR
-                  status: PREFILING_VALIDATION_PENDING
-                  status_updated_at: 1583869435
-                  submitted: false
-                  submitted_at: N/A
-                  tags: []
-                  txn_count: 0
-                  unit21_id: 2966
-                  updated_at: 1623283105
+                $ref: '#/components/schemas/sarList'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
   /sars/bulk-export:
     post:
       tags:
@@ -2610,8 +2544,32 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                message: File export has started
+              schema:
+                $ref: '#/components/schemas/bulkExportResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/{org_name}/entities/{entity_id}/verify':
     post:
       tags:
@@ -6597,6 +6555,139 @@ components:
               items:
                 type: integer
                 example: 45
+    sarListFilters:
+      description: 'To filter your response to a subset of sars, use these fields.'
+      properties:
+        created_after:
+          $ref: '#/components/schemas/registeredAt'
+        created_before:
+          $ref: '#/components/schemas/registeredAt'
+        tag_filters:
+          $ref: '#/components/schemas/Tags'
+        options:
+          type: object
+          description: >-
+            Options for the data included in the returned case. Removing
+            unneeded options can improve response speed.
+          properties:
+            include_associations:
+              type: boolean
+              description: >-
+                If `true`, the response includes all rule IDs and SAR filing IDs
+                associated with the sar under `rules` and
+                `descendant_sar_filing`.
+              example: false
+    sarList:
+      title: Sar
+      description: Top-level data about a sar.
+      properties:
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        updated_at:
+          $ref: '#/components/schemas/registeredAt'
+        created_by:
+          type: string
+          description: Agent name that created the sar
+          example: Laura Kassovic
+        name:
+          type: string
+          description: A human-readable name for the report.
+          example: SAR Report 36586
+        description:
+          type: string
+          description: Description of the alert
+          example: >-
+            Flagged 2 transactions in last hour that were 3 standard deviations
+            outside 3 month mean.
+        lock:
+          type: boolean
+          description: Is the submission locked?
+          example: false
+        status:
+          type: string
+          description: Current filing status
+          enum:
+            - PREFILING_VALIDATION_PENDING
+            - PREFILING_VALIDATION_IN_PROCESS
+            - PREFILING_VALIDATION_FAILED
+            - PREFILING_VALIDATION_SUCCESS
+            - QUEUED_FOR_FILING
+            - READY_FOR_REVIEW
+            - SENDING_TO_FINCEN
+            - SENT_TO_FINCEN
+            - FILING_FAILED
+            - FILING_MAX_RETRIES_EXCEEDED
+            - FILING_SUCCESS
+            - FINCEN_VALIDATION_FAILED
+            - FINCEN_REJECTED
+            - FINCEN_STATUS_OTHER
+            - FINCEN_ACCEPTED
+          example: PREFILING_VALIDATION_PENDING
+        status_updated_at:
+          $ref: '#/components/schemas/registeredAt'
+        filing_type:
+          type: string
+          description: >-
+            INITIAL_REPORT, CORRECT_OR_AMEND_PRIOR_REPORT, or
+            CONTINUING_ACTIVITY_REPORT
+          enum:
+            - initial_report
+            - correct_or_amend_prior_report
+            - continuing_activity_report
+          example: continuing_activity_report
+        submitted:
+          type: boolean
+          description: Report submited?
+          example: true
+        submitted_at:
+          $ref: '#/components/schemas/registeredAt'
+        report_type:
+          type: string
+          description: 'GOAML_STR, FINCEN_SAR, ESTONIAN_FIU, or NCA_SAR'
+          enum:
+            - NCA_SAR
+            - FINCEN_SAR
+            - ESTONIAN_FIU
+            - GOAML_STR
+          example: GOAML_STR
+        tags:
+          $ref: '#/components/schemas/Tags'
+        amount_volume:
+          type: number
+          description: The total amount of the transactions
+          example: 13562.83
+        txn_count:
+          type: number
+          description: The number of transactions.
+          example: 15
+        entities:
+          type: array
+          description: List of entity objects.
+          items:
+            $ref: '#/components/schemas/entityList'
+        events:
+          type: array
+          description: List of event objects.
+          items:
+            $ref: '#/components/schemas/eventList'
+    listSarResponse:
+      type: object
+      properties:
+        sars:
+          type: array
+          description: List of sar objects.
+          items:
+            $ref: '#/components/schemas/sarList'
+        response_count:
+          type: integer
+          example: 4
+          description: Number of objects in the paginated response
+        total_count:
+          type: integer
+          example: 204
+          description: Total number of objects in the platform.
     sarIds:
       properties:
         sar_ids:
