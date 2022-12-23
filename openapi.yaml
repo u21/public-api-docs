@@ -2191,6 +2191,21 @@ paths:
       operationId: get_case_by_unit21_id
       parameters:
         - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/caseList'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
   '/cases/{unit21_id}/update':
     put:
       tags:
