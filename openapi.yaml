@@ -99,9 +99,9 @@ tags:
       webhook about the event to whatever URL you configure. Such events include
       entity verification results, generated alerts, case re-openings and
       closings, etcetera.
-  - name: Blacklists API
+  - name: Matchlists API
     description: |
-      Blacklists comprise one of the following categories:
+      Matchlists comprise one of the following categories:
         * of entities (users or business)
         * IPs (single or ranges)
         * strings
@@ -3155,10 +3155,10 @@ paths:
   /blacklists/list:
     post:
       tags:
-        - Blacklists API
-      summary: List blacklists
+        - Matchlists API
+      summary: List matchlists
       description: >
-        Returns an array of blacklist in your environment. 
+        Returns an array of matchlist in your environment. 
 
 
         Because the response is paginated, the request body has a `limit` and
@@ -3171,8 +3171,8 @@ paths:
         starts with the environment's first record.
 
 
-        The `total_count` field contains the total number of blacklists where
-        the  `response_count` field contains the number of blacklists included
+        The `total_count` field contains the total number of matchlists where
+        the  `response_count` field contains the number of matchlists included
         in the response.
       operationId: list_blacklists
       requestBody:
@@ -3184,22 +3184,37 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/listResponse'
-                example:
-                  blacklists:
-                    - unit21_id: '9'
-                      name: Full IP address blacklist A
-                      description: Internal blacklist of errant IP addresses
-                      type: IP_INET
-                      created_at: 1594219333
-                  response_count: 10
-                  total_count: 100
+                  - $ref: '#/components/schemas/listBlacklistResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /blacklists/create:
     post:
       tags:
-        - Blacklists API
-      summary: Create a blacklist
-      description: "Create a new blacklist sending blacklist data in the request body. \n\nUnit21 currently supports 5 types of blacklists:\n\n  * `STRING`: Plain strings to match against any text-type field.\n  * `IP_INET`: IPv4 or IPv6 IP addresses to blacklist.\n  * `IP_CIDR`: [Classless Inter-Domain Routing (CIDR) notation IP address ranges](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) to blacklist, \n  * `USER`: Series of fields that a Unit21 user entity will be matched against.\n  * `BUSINESS`: Series of fields that a Unit21 business entity will be matched against.\n\n\nIf the `/blacklists/create` API is called multiple times, it will create a new blacklist each time.  This endpoint does not support updates/upserts.\n\nThis endpoint does not support batch uploads.\n\nThe response will consist of the following fields:\n\n  | Field           | Type     | Description                                           |\n  |-----------------|----------|-------------------------------------------------------|\n  | `blacklist_id`  | String   | \tUnique identifier of the entity on your platform     |\n"
+        - Matchlists API
+      summary: Create a matchlist
+      description: "Create a new matchlist sending matchlist data in the request body. \n\nUnit21 currently supports 5 types of matchlists:\n\n  * `STRING`: Plain strings to match against any text-type field.\n  * `IP_INET`: IPv4 or IPv6 IP addresses to matchlist.\n  * `IP_CIDR`: [Classless Inter-Domain Routing (CIDR) notation IP address ranges](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) to blacklist, \n  * `USER`: Series of fields that a Unit21 user entity will be matched against.\n  * `BUSINESS`: Series of fields that a Unit21 business entity will be matched against.\n\n\nIf the `/blacklists/create` API is called multiple times, it will create a new matchlist each time.  This endpoint does not support updates/upserts.\n\nThis endpoint does not support batch uploads.\n\nThe response will consist of the following fields:\n\n  | Field           | Type     | Description                                           |\n  |-----------------|----------|-------------------------------------------------------|\n  | `blacklist_id`  | String   | \tUnique identifier of the entity on your platform     |\n"
       operationId: create_blacklist
       requestBody:
         required: true
@@ -3213,14 +3228,37 @@ paths:
           content:
             application/json:
               schema:
-                example:
-                  blacklist_id: '9'
+                $ref: '#/components/schemas/createBlacklistResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/blacklists/{unit21_id}/add-values':
     post:
       tags:
-        - Blacklists API
-      summary: Add items to a blacklist
-      description: "Add items to a blacklist, according to the blacklist's `type`.\n\nEach request must specify at least **1** object to blacklist. You may add up to **100**  values to an existing blacklist at once.\n\nThe `/blacklists/<blacklist-id>/add-values` API will ignore entries provided that already exist  in the blacklist. No error will be thrown when this occurs.\n\nThe response will consist of the following fields:\n\n  | Type       | Description                                                              | Example                           |\n  |------------|--------------------------------------------------------------------------|-----------------------------------|\n  | `STRING`\t | Plain strings to match against any text-type field.                      | \t\t\"blacklist_value\": \"abcde\"    |\n  | `IP_INET`\t | IPv4 or IPv6 IP addresses to blacklist.                                  | \t\"ip_address\": \"255.255.255.255\" |\n  | `IP_CIDR`\t | Classless Inter-Domain Routing (CIDR) [notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) IP address ranges to blacklist.  | \t\"cidr\": \"255.255.255.255/32\" |\n  | `USER`\t   | \tSeries of fields that a Unit21 user entity will be matched against.     | \tuser_data object                |\n  | `BUSINESS` | Series of fields that a Unit21 business entity will be matched against.  | \tbusiness_data object            |\n"
+        - Matchlists API
+      summary: Add items to a matchlist
+      description: "Add items to a matchlist, according to the matchist's `type`.\n\nEach request must specify at least **1** object to matchlist. You may add up to **100**  values to an existing matchlist at once.\n\nThe `/blacklists/<blacklist-id>/add-values` API will ignore entries provided that already exist  in the matchlist. No error will be thrown when this occurs.\n\nThe response will consist of the following fields:\n\n  | Type       | Description                                                              | Example                           |\n  |------------|--------------------------------------------------------------------------|-----------------------------------|\n  | `STRING`\t | Plain strings to match against any text-type field.                      |   \"blacklist_value\": \"abcde\"      |\n  | `IP_INET`\t | IPv4 or IPv6 IP addresses to matchlist.                                  | \t\"ip_address\": \"255.255.255.255\" |\n  | `IP_CIDR`\t | Classless Inter-Domain Routing (CIDR) [notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) IP address ranges to blacklist.  | \t\"cidr\": \"255.255.255.255/32\" |\n  | `USER`\t   | \tSeries of fields that a Unit21 user entity will be matched against.     | \tuser_data object                |\n  | `BUSINESS` | Series of fields that a Unit21 business entity will be matched against.  | \tbusiness_data object            |\n"
       operationId: add_blacklist_values
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -3237,6 +3275,34 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                example: {}
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /datafiles/create:
     post:
       tags:
@@ -7170,28 +7236,61 @@ components:
           type: integer
           example: 204
           description: Total number of objects in the platform.
-    listResponse:
+    blacklistList:
+      title: Blacklist export
+      description: Top-level data about a matchlist.
+      properties:
+        created_at:
+          type: string
+          description: Matchlist creation date.
+          example: '2022-08-09T18:24:27+00:00'
+        description:
+          type: string
+          description: Matchlist description
+          example: List of VIP Clients that are Fortune 500 companies
+        name:
+          type: string
+          description: Matchlist name
+          example: Fortune 500 List
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        type:
+          type: string
+          enum:
+            - IP_CIDR
+            - IP_INET
+            - STRING
+            - USER
+            - BUSINESS
+          description: Describes the type of matchlist.
+          example: BUSINESS
+    listBlacklistResponse:
       type: object
       properties:
+        blacklists:
+          type: array
+          description: List of matchlist objects.
+          items:
+            $ref: '#/components/schemas/blacklistList'
         response_count:
           type: integer
-          example: 10
-          description: Number of objects in the response
+          example: 4
+          description: Number of objects in the paginated response
         total_count:
           type: integer
-          example: 100
+          example: 204
           description: Total number of objects in the platform.
     createBlacklist:
       properties:
         name:
           type: string
-          description: A human-readable name for the blacklist.
+          description: A human-readable name for the matchlist.
           maxLength: 512
-          example: New Blacklist
+          example: New Matchlist
         description:
           type: string
           description: >-
-            A descriptive text field for the blacklist, maximum 512 characters
+            A descriptive text field for the matchlist, maximum 512 characters
             in length.
           maxLength: 512
           example: Unit21 rules will check against items in this list
@@ -7204,15 +7303,24 @@ components:
             - USER
             - BUSINESS
           description: >-
-            A value indicating what type of fields the blacklist will contain.
+            A value indicating what type of fields the matchlist will contain.
             One of `STRING`, `IP_INET`, `IP_CIDR`, `USER`, or `BUSINESS`.
+    blacklistId:
+      type: number
+      description: Unique identifier for the matchlist.
+      example: 3593
+    createBlacklistResponse:
+      title: Create Matchlist response
+      properties:
+        blacklist_id:
+          $ref: '#/components/schemas/blacklistId'
     streetAddress:
       type: string
       description: Street name and address number
       maxLength: 128
       example: 2365 Peachtree
     blacklistUser:
-      title: User blacklist
+      title: User matchlist
       description: >-
         Array of user objects. No field is required, but each object MUST
         contain at least one field.
@@ -7283,7 +7391,7 @@ components:
           entity_subtype:
             $ref: '#/components/schemas/entitySubtype'
     blacklistBusiness:
-      title: Business blacklist
+      title: Business matchlist
       type: array
       description: >-
         Array of business objects. No field is required, but each object MUST
@@ -7323,7 +7431,7 @@ components:
             description: Origin of IP
             example: Internal list
     blacklistCIDR:
-      title: Blacklist of IP CIDR
+      title: Matchlist of IP CIDR
       type: array
       description: Array of IP ranges
       items:
@@ -7342,7 +7450,7 @@ components:
             description: Origin of IP range
             example: USA
     blacklistString:
-      title: Blacklist string
+      title: Matchlist string
       type: array
       description: Array of text strings in key value pairs
       items:
@@ -7350,7 +7458,7 @@ components:
         properties:
           blacklist_value:
             type: string
-            description: string value to upload to blacklist
+            description: string value to upload to matchlist
             example: Anything
   requestBodies:
     listEntities:
