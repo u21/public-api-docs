@@ -2904,36 +2904,27 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                file_exports:
-                  - created_at: '2022-07-11T22:10:19+00:00'
-                    export_type: ALERTS
-                    external_ids: null
-                    file_name: ''
-                    file_size: 100
-                    id: 4
-                    request_source: Dashboard
-                    status: GENERATING
-                    status_message: ''
-                  - created_at: '2022-08-09T18:24:27+00:00'
-                    export_type: ALERT
-                    external_ids: []
-                    file_name: prod1/org_Unit21/1660069841000_bulk_Alert.xlsx
-                    file_size: 45393365
-                    id: 257031
-                    request_source: Dashboard
-                    status: READY_FOR_DOWNLOAD
-                    status_message: ''
-                response_count: 2
-                total_count: 2
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/listExportResponse'
         '400':
-          $ref: '#/components/responses/400'
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
         '401':
           $ref: '#/components/responses/401'
         '403':
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
         '429':
           $ref: '#/components/responses/429'
         '500':
@@ -2954,9 +2945,33 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                url: >-
-                  https://dashboard-file-exports.s3.amazonaws.com/20201105-200246_Intuit_BULK_ALERT.xlsx?AWSAccessKeyId=AKIA4GCWZN4AWKTTJM7N&Signature=0jfhY%2FvVGZMpAYrlhWEwhzLt1bw%3D&Expires=1656675423
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/listExportURLResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /agents/list:
     get:
       tags:
@@ -6940,6 +6955,101 @@ components:
             - REQUESTED
           items:
             type: string
+    fileId:
+      type: number
+      description: Unique numerical identifier of the file.
+      example: 45
+    externalId:
+      type: string
+      description: >-
+        Unique identifier of the file. File IDs must be unique and only comprise
+        of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
+      minLength: 1
+      maxLength: 128
+      pattern: '-\_:.@a-zA-Z0-9!#\$%&\''\*+/=?^`{'
+      example: alert-export-company-audit
+    externalIds:
+      type: array
+      description: List of unique file IDs.
+      items:
+        $ref: '#/components/schemas/externalId'
+    fileList:
+      title: File export
+      description: Top-level data about a file export.
+      properties:
+        created_at:
+          type: string
+          description: File creation date.
+          example: '2022-08-09T18:24:27+00:00'
+        id:
+          $ref: '#/components/schemas/fileId'
+        export_type:
+          type: string
+          enum:
+            - ALERT
+            - CASE
+            - RULE
+            - ENTITY
+          description: Describes the type of export.
+          example: ENTITY
+        external_ids:
+          $ref: '#/components/schemas/externalIds'
+        file_name:
+          type: string
+          description: File name
+          example: 660069841000_bulk_Alert.xlsx
+        file_size:
+          type: number
+          description: size of the file in bytes
+          example: 45393365
+        request_source:
+          type: string
+          enum:
+            - MANUAL
+            - SYSTEM
+            - OTHER
+          description: Describes the way the export was created
+          example: SYSTEM
+        status:
+          type: string
+          enum:
+            - READY_FOR_DOWNLOAD
+            - GENERATING
+            - FAILED
+            - REQUESTED
+          description: >-
+            Status for the files to export. One of READY_FOR_DOWNLOAD,
+            GENERATING, FAILED, REQUESTED
+          example: REQUESTED
+        status_message:
+          type: string
+          description: Message from the system
+          example: ''
+    listExportResponse:
+      type: object
+      properties:
+        file_exports:
+          type: array
+          description: List of file export objects.
+          items:
+            $ref: '#/components/schemas/fileList'
+        response_count:
+          type: integer
+          example: 4
+          description: Number of objects in the paginated response
+        total_count:
+          type: integer
+          example: 204
+          description: Total number of objects in the platform.
+    listExportURLResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL where the file can be downloaded
+      example:
+        url: >-
+          https://dashboard-file-exports.s3.amazonaws.com/20201105-200246_Intuit_BULK_ALERT.xlsx?AWSAccessKeyId=AKIA4GCWZN4AWKTTJM7N&Signature=0jfhY%2FvVGZMpAYrlhWEwhzLt1bw%3D&Expires=1656675423
     agentList:
       title: Alert
       description: Top-level data about an alert.
