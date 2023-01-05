@@ -7281,7 +7281,7 @@ components:
                 description: type of verification.
                 example: 'UNIT21:LOGIC'
               generate_alert_actions:
-                $description: Alert
+                description: Alert
                 type: array
                 items:
                   type: string
