@@ -2704,13 +2704,30 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                created_at: 1591992745
-                entity_id: 856
-                source: IDOLOGY
-                type: DOC_VERIFICATION
-                verification_workflow_execution_id: 59
-                full_response: {}
+              schema:
+                $ref: '#/components/schemas/verificationResult'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/entities/{unit21_id}/continuous-monitoring':
     post:
       tags:
@@ -2747,6 +2764,9 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              example: {}
   '/entities/{unit21_id}/suppress-provider-entity':
     post:
       tags:
@@ -2766,6 +2786,9 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              example: {}
   '/entities/{unit21_id}/verification_workflow_executions':
     get:
       tags:
@@ -2785,13 +2808,30 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                - created_at: 1644533569
-                  end_action: $ACCEPT
-                  verification_workflow_execution_id: 132423
-                - created_at: 1644533538
-                  end_action: $EXCEPTION
-                  verification_workflow_execution_id: 132413
+              schema:
+                $ref: '#/components/schemas/verificationList'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/verification/verification-workflow-execution/{verification_workflow_execution_id}':
     get:
       tags:
@@ -2808,20 +2848,30 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                alert_id: 9739988
-                created_at: 1642443889
-                end_action: $ACCEPT
-                end_time: 1642443889
-                entity_id: 594242743
-                id: 130622
-                is_success: true
-                message: null
-                org_id: 1
-                start_time: 1642443889
-                unit_id: 1
-                verification_form_id: null
-                verification_workflow_id: 1283
+              schema:
+                $ref: '#/components/schemas/verification'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/verification/verification-workflow-execution/{verification_workflow_execution_id}/results':
     get:
       tags:
@@ -2838,15 +2888,30 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                id: 765
-                created_at: 1591992745
-                source: IDOLOGY
-                content: {}
-                entity_id: 856
-                type: DOC_VERIFICATION
-                verification_workflow_execution_id: 59
-                continuous_monitoring: false
+              schema:
+                $ref: '#/components/schemas/verificationResultList'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /verification-forms/create:
     post:
       tags:
@@ -3150,8 +3215,7 @@ paths:
           description: OK
           content:
             application/json:
-              schema:
-                example: {}
+              example: {}
   /blacklists/list:
     post:
       tags:
@@ -3569,6 +3633,9 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              example: {}
   '/imports/{file_id}':
     get:
       tags:
@@ -6999,6 +7066,59 @@ components:
           description: >-
             Full response from the verification provider running the
             verification
+    verificationWorkflowExecutionId:
+      type: number
+      description: Unique ID for the verification workflow execution.
+      example: 239192
+    verificationResult:
+      title: Verification result
+      description: Verification workflow execution result.
+      type: object
+      properties:
+        continuous_monitoring:
+          type: boolean
+          description: >
+            Enable or disable continuous monitoring. Use `true` to turn on and
+            `false` to turn off.
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        entity_id:
+          $ref: '#/components/schemas/entityId'
+        source:
+          type: string
+          enum:
+            - AU10TIX
+            - CHAINALYSIS
+            - CSI
+            - DOW_JONES
+            - IDOLOGY
+            - MITEK
+            - SMILE_IDENTITY
+            - TRULIOO
+            - UNIT21
+            - EMAILAGE
+            - MIDDESK
+            - SOCURE
+            - NAME_DOB_MATCH
+            - DOWJONES
+          description: source of the verification.
+          example: UNIT21
+        type:
+          type: string
+          enum:
+            - ID_VERIFICATION
+            - IDOC_VERIFICATION
+            - IBUSINESS_VERIFICATION
+            - ILOGIC
+            - IWATCHLIST_SCREENING
+            - IADVERSE_MEDIA
+          description: type of verification.
+          example: UNIT21
+        verification_workflow_execution_id:
+          $ref: '#/components/schemas/verificationWorkflowExecutionId'
+        full_response:
+          type: object
+          example: {}
     synchronousResponses:
       type: boolean
       description: >-
@@ -7040,6 +7160,185 @@ components:
           example:
             - '5676572343'
             - '4657605135'
+    verificationList:
+      title: Verification
+      description: list of verification executions.
+      type: array
+      items:
+        type: object
+        properties:
+          created_at:
+            $ref: '#/components/schemas/registeredAt'
+          end_action:
+            type: string
+            enum:
+              - $REJECT
+              - $OTHER
+              - $MANUAL_VERIFICATION
+              - $RESUBMIT
+              - $ACCEPT
+            description: Outcome of the verification.
+            example: $REJECT
+          verification_workflow_execution_id:
+            $ref: '#/components/schemas/verificationWorkflowExecutionId'
+    verificationId:
+      type: number
+      description: Unique numerical identifier of the verification workflow.
+      example: 451699
+    orgId:
+      type: integer
+      description: A Unit21 internally-assigned unique identifier for your organization.
+      example: 273
+    verificationFormId:
+      type: number
+      description: Unique ID for the verification form.
+      example: 239192
+    verificationWorkflowId:
+      type: number
+      description: Unique ID for the verification workflow.
+      example: 1316
+    verification:
+      title: Verification Workflow Execution
+      description: Top-level data about an execution of a verification workflow.
+      properties:
+        alert_id:
+          $ref: '#/components/schemas/alertId'
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        end_action:
+          type: string
+          enum:
+            - $REJECT
+            - $OTHER
+            - $MANUAL_VERIFICATION
+            - $RESUBMIT
+            - $ACCEPT
+          description: Outcome of the verification.
+          example: $REJECT
+        end_time:
+          type: string
+          description: Verification workflow execution end date as epoch.
+          example: 1661620487
+        entity_id:
+          $ref: '#/components/schemas/entityId'
+        id:
+          $ref: '#/components/schemas/verificationId'
+        is_success:
+          type: boolean
+          description: Whether or not the workflow successful completed.
+        message:
+          $ref: '#/components/schemas/message'
+        org_id:
+          $ref: '#/components/schemas/orgId'
+        start_time:
+          type: string
+          description: Verification workflow execution start date as epoch.
+          example: 1661620487
+        unit_id:
+          $ref: '#/components/schemas/orgId'
+        verification_form_id:
+          $ref: '#/components/schemas/verificationFormId'
+        verification_workflow_id:
+          $ref: '#/components/schemas/verificationWorkflowId'
+    verificationResultList:
+      title: Verification results
+      description: list of verification workflow execution results.
+      type: array
+      items:
+        type: object
+        properties:
+          content:
+            type: object
+            properties:
+              actions:
+                type: object
+                description: See example.
+                example:
+                  'UNIT21:ID_VERIFICATION':
+                    - conditions: $OTHER
+                      next_action: $ACCEPT
+              start_action:
+                type: string
+                enum:
+                  - 'TRULIOO:ID_VERIFICATION'
+                  - 'CSI:WATCHLIST_SCREENING'
+                  - 'IDOLOGY:ID_VERIFICATION'
+                  - 'IDOLOGY:DOC_VERIFICATION'
+                  - 'JUMIO:DOC_VERIFICATION'
+                  - 'IDOLOGY:WATCHLIST_SCREENING'
+                  - 'EMAILAGE:ID_VERIFICATION'
+                  - 'UNIT21:BUSINESS_VERIFICATION'
+                  - 'UNIT21:ID_VERIFICATION'
+                  - 'AU10TIX:DOC_VERIFICATION'
+                  - 'MIDDESK:BUSINESS_VERIFICATION'
+                  - 'SOCURE:ID_VERIFICATION'
+                  - 'SOCURE:DOC_VERIFICATION'
+                  - 'SOCURE:WATCHLIST_EVENT'
+                  - 'NAME_DOB_MATCH:ID_VERIFICATION'
+                  - 'EXISTING_VERIFICATION:ID_VERIFICATION'
+                  - 'UNIT21:LOGIC'
+                  - 'DOW_JONES:ADVERSE_MEDIA'
+                description: type of verification.
+                example: 'UNIT21:LOGIC'
+              generate_alert_actions:
+                $description: Alert
+                type: array
+                items:
+                  type: string
+                  enum:
+                    - $REJECT
+                    - $OTHER
+                    - $MANUAL_VERIFICATION
+                    - $RESUBMIT
+                    - $ACCEPT
+                  description: Outcome of the verification.
+                  example: $RESUBMIT
+                example:
+                  - $REJECT
+                  - $MANUAL_VERIFICATION
+          continuous_monitoring:
+            type: boolean
+            description: >
+              Enable or disable continuous monitoring. Use `true` to turn on and
+              `false` to turn off.
+          created_at:
+            $ref: '#/components/schemas/registeredAt'
+          alert_id:
+            $ref: '#/components/schemas/alertId'
+          id:
+            $ref: '#/components/schemas/verificationId'
+          source:
+            type: string
+            enum:
+              - AU10TIX
+              - CHAINALYSIS
+              - CSI
+              - DOW_JONES
+              - IDOLOGY
+              - MITEK
+              - SMILE_IDENTITY
+              - TRULIOO
+              - UNIT21
+              - EMAILAGE
+              - MIDDESK
+              - SOCURE
+              - NAME_DOB_MATCH
+              - DOWJONES
+            description: source of the verification.
+            example: UNIT21
+          type:
+            type: string
+            enum:
+              - ID_VERIFICATION
+              - IDOC_VERIFICATION
+              - IBUSINESS_VERIFICATION
+              - ILOGIC
+              - IWATCHLIST_SCREENING
+              - IADVERSE_MEDIA
+            description: type of verification.
+            example: UNIT21
+          verification_workflow_execution_id:
+            $ref: '#/components/schemas/verificationWorkflowExecutionId'
     listExports:
       type: object
       properties:
