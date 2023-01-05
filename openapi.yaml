@@ -3342,9 +3342,32 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                file_name: file1.txt
-                unit21_id: 440
+              schema:
+                $ref: '#/components/schemas/createDatafileResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/datafiles/{unit21_id}':
     get:
       tags:
@@ -3364,15 +3387,30 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                file_name: <filename>
-                status: VALIDATION_PENDING
-                unit21_id: <unit21_id>
-                uploaded_at: '2020-06-01 01:42:07'
-                uploaded_by: jsmith@email.com
-                entity_count: 123
-                event_count: 123
-                instrument_count: 123
+              schema:
+                $ref: '#/components/schemas/datafileList'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   '/datafiles/{unit21_id}/mappings':
     post:
       tags:
@@ -3408,18 +3446,32 @@ paths:
           description: OK
           content:
             application/json:
-              example:
-                entity_list:
-                  - entity_id: external_id_123
-                    unit21_id: 82
-                  - entity_id: external_id_222
-                    unit21_id: 80
-                event_list:
-                  - event_id: 721-id
-                    unit21_id: 49
-                instrument_list:
-                  - instrument_id: BTC-123
-                    unit21_id: 10
+              schema:
+                $ref: '#/components/schemas/datafileMappingResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /imports/pre-signed-url/create:
     post:
       tags:
@@ -7460,6 +7512,92 @@ components:
             type: string
             description: string value to upload to matchlist
             example: Anything
+    createDatafileResponse:
+      title: Create datafile response
+      properties:
+        file_name:
+          type: string
+          description: File name
+          example: file1.txt
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+    datafileList:
+      title: Datafile import
+      description: Top-level data about a datafile import.
+      properties:
+        file_name:
+          type: string
+          description: File name
+          example: 660069841000_bulk_Alert.xlsx
+        status:
+          type: string
+          enum:
+            - AWAITING_TRIGGER
+            - VALIDATION_PENDING
+            - VALIDATION_FAILED
+            - PROCESS_PENDING
+            - PROCESS_SUCCESS
+            - PROCESS_FAILED
+            - PROCESS_ABORTED
+            - OTHER_FAILED
+            - UPLOADING
+          description: Status for the files to import.
+          example: UPLOADING
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        uploaded_at:
+          type: string
+          description: File upload date.
+          example: '2020-06-01 01:42:07'
+        uploaded_by:
+          type: string
+          description: Agent email.
+          example: laura@unit21.ai
+        entity_count:
+          type: number
+          description: number of entities found in the file.
+          example: 56
+        event_count:
+          type: number
+          description: number of events found in the file.
+          example: 123
+        instrument_count:
+          type: number
+          description: number of instruments found in the file.
+          example: 3
+    datafileMappingResponse:
+      type: object
+      properties:
+        entity_list:
+          type: array
+          description: List of entities found in the datafile
+          items:
+            type: object
+            properties:
+              entity_id:
+                $ref: '#/components/schemas/entityId'
+              unit21_id:
+                $ref: '#/components/schemas/unit21Id'
+        event_list:
+          type: array
+          description: List of events found in the datafile
+          items:
+            type: object
+            properties:
+              event_id:
+                $ref: '#/components/schemas/eventId'
+              unit21_id:
+                $ref: '#/components/schemas/unit21Id'
+        instrument_list:
+          type: array
+          description: List of instruments found in the datafile
+          items:
+            type: object
+            properties:
+              instrument_id:
+                $ref: '#/components/schemas/instrumentId'
+              unit21_id:
+                $ref: '#/components/schemas/unit21Id'
   requestBodies:
     listEntities:
       description: ''
