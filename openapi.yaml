@@ -4151,8 +4151,17 @@ components:
         only comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
       minLength: 1
       maxLength: 128
-      pattern: '-\_:.@a-zA-Z0-9!#\$%&\''\*+/=?^`{'
       example: 3234-sdghfdf-3332
+    instrumentIds:
+      properties:
+        instrument_ids:
+          type: array
+          description: List of unique instrument IDs.
+          items:
+            $ref: '#/components/schemas/instrumentId'
+          example:
+            - instrumentA
+            - instrumentB
     City:
       type: string
       description: Associated city (max 128 characters)
@@ -4334,10 +4343,7 @@ components:
         general_data:
           $ref: '#/components/schemas/generalEntitiesListProperties'
         instrument_ids:
-          type: array
-          description: List of instrument IDs.
-          items:
-            $ref: '#/components/schemas/instrumentId'
+          $ref: '#/components/schemas/instrumentIds'
         location_data:
           $ref: '#/components/schemas/locationDataArrayProperties'
         user_data:
@@ -4585,10 +4591,7 @@ components:
         document_data:
           $ref: '#/components/schemas/documentDataArrayProperties'
         instrument_ids:
-          type: array
-          description: List of instrument_ids.
-          items:
-            $ref: '#/components/schemas/instrumentId'
+          $ref: '#/components/schemas/instrumentIds'
         communication_data:
           $ref: '#/components/schemas/communicationDataProperties'
         digital_data:
@@ -4642,10 +4645,7 @@ components:
         document_data:
           $ref: '#/components/schemas/documentDataArrayProperties'
         instrument_ids:
-          type: array
-          description: List of instrument_ids.
-          items:
-            $ref: '#/components/schemas/instrumentId'
+          $ref: '#/components/schemas/instrumentIds'
         communication_data:
           $ref: '#/components/schemas/communicationDataProperties'
         digital_data:
@@ -4777,17 +4777,7 @@ components:
       description: 'Associate an instrument directly with an object, like an Entity or Case.'
       properties:
         instrument_ids:
-          description: >-
-            an array of instruments specified by their `instrument_id`. See
-            [instruments](https://guide.unit21.ai/reference#instruments-1)
-            section to update.
-          type: array
-          items:
-            type: string
-      example:
-        instrument_ids:
-          - 3234-sdghfdf-3332
-          - 1234-hjytaeh-7733
+          $ref: '#/components/schemas/instrumentIds'
     linkMediaJSON:
       title: Base 64 media
       type: array
@@ -4906,7 +4896,10 @@ components:
               description: Numerical IDs of the entities.
               items:
                 type: integer
-                example: 1894
+                example: 15453219
+              example:
+                - 3242342
+                - 3423432
             internal_entity_type:
               type: array
               description: Type of entity.
@@ -5193,6 +5186,9 @@ components:
               items:
                 type: integer
                 example: 15453219
+              example:
+                - 3242342
+                - 3423432
             instrument_type:
               type: string
               description: Type of instrument.
@@ -5797,10 +5793,13 @@ components:
               example: USD
             entity_ids:
               type: array
-              description: Numerical IDs of the entities in the event.
+              description: Numerical IDs of the entities.
               items:
                 type: integer
-                example: 85
+                example: 15453219
+              example:
+                - 3242342
+                - 3423432
     listRequest:
       type: object
       properties:
@@ -6557,6 +6556,9 @@ components:
               items:
                 type: integer
                 example: 15453219
+              example:
+                - 3242342
+                - 3423432
             phrase:
               type: string
               description: ID or title of the alert.
@@ -6797,6 +6799,9 @@ components:
           description: List of unique entity IDs.
           items:
             $ref: '#/components/schemas/entityId'
+          example:
+            - entityA
+            - entityB
     createCaseResponse:
       title: Create case response
       properties:
@@ -7501,13 +7506,15 @@ components:
         of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
       minLength: 1
       maxLength: 128
-      pattern: '-\_:.@a-zA-Z0-9!#\$%&\''\*+/=?^`{'
       example: alert-export-company-audit
     externalIds:
       type: array
       description: List of unique file IDs.
       items:
         $ref: '#/components/schemas/externalId'
+      example:
+        - fileA
+        - fileB
     fileList:
       title: File export
       description: Top-level data about a file export.
