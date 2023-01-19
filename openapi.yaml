@@ -5676,6 +5676,8 @@ components:
           properties:
             ip_address:
               $ref: '#/components/schemas/ipAddressSimple'
+            client_fingerprint:
+              $ref: '#/components/schemas/clientFingerprintSimple'
     locationData:
       title: Location data
       properties:
