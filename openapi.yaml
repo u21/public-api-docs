@@ -151,9 +151,9 @@ paths:
         will be shown.
 
 
-        The `total_count` field contains the total number of entities where the 
-        `response_count` field contains the number of entities included in the
-        response.
+        The `total_count` field is set to 0. Please call this paginated
+        endpoint, increasing the offset,  until you receive fewer than the
+        maximum number of objects per call.
       operationId: list_entities
       requestBody:
         $ref: '#/components/requestBodies/listEntities'
@@ -783,9 +783,9 @@ paths:
         will be shown.
 
 
-        The `total_count` field contains the total number of instruments where
-        the  `response_count` field contains the number of instruments included
-        in the response.
+        The `total_count` field is set to 0. Please call this paginated
+        endpoint, increasing the offset,  until you receive fewer than the
+        maximum number of objects per call.
       operationId: list_instruments
       requestBody:
         $ref: '#/components/requestBodies/listAlertID'
@@ -1122,9 +1122,9 @@ paths:
         will be shown.
 
 
-        The `total_count` field contains the total number of events where the 
-        `response_count` field contains the number of events included in the
-        response.
+        The `total_count` field is set to 0. Please call this paginated
+        endpoint, increasing the offset,  until you receive fewer than the
+        maximum number of objects per call.
       operationId: list_events
       requestBody:
         $ref: '#/components/requestBodies/listDate'
