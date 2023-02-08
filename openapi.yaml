@@ -1683,9 +1683,9 @@ paths:
           | `dispositioned_before`  | Numeric     | Alerts with a disposition most recently updated before this unix timestamp                                        |
           | `dispositioned_by`      | String[]    | List of agent emails. Returns alerts with a disposition most recently changed by agents in the list               |
           | `rules`                 | Numeric[]   | List of Unit21 rule ids that are associated with the alert                                                        |
-          | `associated_entities`   | Numeric[]   | List of Unit21 entity ids associated with this alert                                                              |
-          | `associated_events`     | Numeric[]   | List of Unit21 event ids associated with this alert                                                               |
-          | `associated_instruments`| Numeric[]   | List of Unit21 instrument ids associated with this alert                                                          |
+          | `associated_entities`   | String[]    | List of Unit21 entity ids associated with this alert                                                              |
+          | `associated_events`     | String[]    | List of Unit21 event ids associated with this alert                                                               |
+          | `associated_instruments`| String[]    | List of Unit21 instrument ids associated with this alert                                                          |
           | `sources`               | String[]    | Must be list of alert sources: `INTERNAL`, `EXTERNAL`                                                             |
           | `statuses`              | String[]    | Must be list of alert statuses: `OPEN`, `CLOSED`                                                                  |
           | `tag_filters`           | String[]    | List of string tags (`key:value`) or keys to associate this alert with (e.g. `alert_type:high_velocity` or `alert_type`). If only the key is provided, we will match against all tags with that key        |
@@ -2070,9 +2070,9 @@ paths:
           | `dispositioned_before`  | Numeric     | Cases with a disposition most recently updated before this unix timestamp                                         |
           | `dispositioned_by`      | String[]    | List of agent emails. Returns alerts with a disposition most recently changed by agents in the list               |
           | `rules`                 | Numeric[]   | List of Unit21 rule ids that are associated with the case                                                         |
-          | `associated_entities`   | Numeric[]   | List of Unit21 entity ids associated with this case                                                               |
-          | `associated_events`     | Numeric[]   | List of Unit21 event ids associated with this case                                                                |
-          | `associated_alerts`     | Numeric[]   | List of Unit21 alert ids associated with this case                                                                |
+          | `associated_entities`   | String[]    | List of Unit21 entity ids associated with this case                                                               |
+          | `associated_events`     | String[]    | List of Unit21 event ids associated with this case                                                                |
+          | `associated_alerts`     | String[]    | List of Unit21 alert ids associated with this case                                                                |
           | `sources`               | String[]    | Must be list of alert sources: `INTERNAL`, `EXTERNAL`                                                             |
           | `statuses`              | String[]    | Must be list of alert statuses: `OPEN`, `CLOSED`                                                                  |
           | `tag_filters`           | String[]    | List of string tags (`key:value`) or keys to associate this case with (e.g. `case_type:high_velocity` or `case_type`). If only the key is provided, we will match against all tags with that key        |
@@ -5973,28 +5973,30 @@ components:
         - 21
     associatedEntities:
       type: array
-      description: Only objects associated with the listed entities' `unit21_id` values.
+      description: Only objects associated with the listed entities' `entity_id` values.
       items:
-        type: integer
+        type: string
       example:
-        - 1011
-        - 1012
+        - 1011-hgfdg
+        - 1012-aedsf
     associatedEvents:
       type: array
-      description: Only objects associated with the listed events' `unit21_id` values.
+      description: Only objects associated with the listed events' `event_id` values.
       items:
-        type: integer
+        type: string
       example:
-        - 30120
-        - 30130
+        - 30120-dg
+        - 30130-kl
     associatedInstruments:
       type: array
-      description: Only objects associated with the listed instruments' `unit21_id` values.
+      description: >-
+        Only objects associated with the listed instruments' `instrument_id`
+        values.
       items:
-        type: integer
+        type: string
       example:
-        - 11
-        - 12
+        - 11-account
+        - 12-card
     sourceArray:
       type: array
       description: 'Only `INTERNAL`, only `EXTERNAL`, or both.'
