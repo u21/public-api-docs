@@ -4008,7 +4008,9 @@ components:
       example: u-3593dece-6642-4cdc-8547-aafc1454e0a0
     entityType:
       type: string
-      description: Describes a user such as `employee` or `business`
+      description: >-
+        Describes a user such as `employee` or `business`. Required for new
+        entities.
       example: user
     entitySubtype:
       type: string
@@ -5577,9 +5579,12 @@ components:
               * Logins from disparate locations
               * Linking or unlinking instruments at an unusual frequency
               * Finding users frequently using referral codes, potentially signally fake referral schemes.
+
+            Action events only require `entity_type` if the entity referenced
+            doesn't already exist in the system (and hence a placeholder entity
+            needs to be created).
           required:
             - entity_id
-            - entity_type
           properties:
             action_type:
               type: string
