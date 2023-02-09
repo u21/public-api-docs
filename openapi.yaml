@@ -3490,6 +3490,7 @@ paths:
         - Datafiles API
       operationId: create_datafiles
       summary: Upload datafiles
+      deprecated: true
       description: >
         Bulk upload multiple objects of the same type. Can be entities, events,
         or instruments.
@@ -3555,6 +3556,7 @@ paths:
         - Datafiles API
       operationId: get_datafile_by_unit21_id
       summary: Get datafile
+      deprecated: true
       description: >-
         Get details about a datafile.
 
@@ -3586,67 +3588,6 @@ paths:
           $ref: '#/components/responses/404'
         '409':
           $ref: '#/components/responses/409'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-        '503':
-          $ref: '#/components/responses/503'
-  '/datafiles/{unit21_id}/mappings':
-    post:
-      tags:
-        - Datafiles API
-      operationId: get_datafile_mappings
-      summary: Retrieve datafile mappings
-      description: >
-        Retrieve datafile mapping of objects uploaded with a datafile. 
-
-
-        Includes 3 arrays: entities, events, instruments. Each list is limited
-        to a maximum of 500 items. 
-
-
-        The total number of items can be retrieved from the GET endpoint.
-
-
-        Please note that an empty response `{}` will be returned if the datafile
-        is not yet processed.
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              properties:
-                offset:
-                  type: integer
-                  description: offset for pagination
-                  example: 1
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/datafileMappingResponse'
-        '400':
-          description: Bad Request. Your request is invalid.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/errorResponse'
-                  - $ref: '#/components/schemas/messageResponse'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '409':
-          $ref: '#/components/responses/409'
-        '423':
-          $ref: '#/components/responses/423'
         '429':
           $ref: '#/components/responses/429'
         '500':
@@ -8004,39 +7945,6 @@ components:
           type: number
           description: number of instruments found in the file.
           example: 3
-    datafileMappingResponse:
-      type: object
-      properties:
-        entity_list:
-          type: array
-          description: List of entities found in the datafile
-          items:
-            type: object
-            properties:
-              entity_id:
-                $ref: '#/components/schemas/entityId'
-              unit21_id:
-                $ref: '#/components/schemas/unit21Id'
-        event_list:
-          type: array
-          description: List of events found in the datafile
-          items:
-            type: object
-            properties:
-              event_id:
-                $ref: '#/components/schemas/eventId'
-              unit21_id:
-                $ref: '#/components/schemas/unit21Id'
-        instrument_list:
-          type: array
-          description: List of instruments found in the datafile
-          items:
-            type: object
-            properties:
-              instrument_id:
-                $ref: '#/components/schemas/instrumentId'
-              unit21_id:
-                $ref: '#/components/schemas/unit21Id'
   requestBodies:
     listEntities:
       description: ''
