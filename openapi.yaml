@@ -3123,6 +3123,13 @@ paths:
               schema:
                 allOf:
                   - $ref: '#/components/schemas/listExportURLResponse'
+        '202':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/listExportNotReadyResponse'
         '400':
           description: Bad Request. Your request is invalid.
           content:
@@ -7596,6 +7603,14 @@ components:
       example:
         url: >-
           https://dashboard-file-exports.s3.amazonaws.com/20201105-200246_Intuit_BULK_ALERT.xlsx?AWSAccessKeyId=AKIA4GCWZN4AWKTTJM7N&Signature=0jfhY%2FvVGZMpAYrlhWEwhzLt1bw%3D&Expires=1656675423
+    listExportNotReadyResponse:
+      properties:
+        message:
+          type: string
+          example: >-
+            File export with id 22 is in PENDING status and is not ready for
+            download.
+          description: File is not yet ready to download response
     agentList:
       title: Alert
       description: Top-level data about an alert.
