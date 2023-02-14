@@ -3984,13 +3984,6 @@ components:
             Date when document expires, in seconds since 1 Jan 1970 00:00:00 UTC
             (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
           example: 1572673227
-        verified_on:
-          type: integer
-          description: >-
-            Date when document was verified, in seconds since 1 Jan 1970
-            00:00:00 UTC (i.e. in [Unix
-            time](https://en.wikipedia.org/wiki/Unix_time))".
-          example: 1572673227
     documentDataArrayProperties:
       title: Document data array
       description: Array of document data objects.
@@ -4167,13 +4160,6 @@ components:
           $ref: '#/components/schemas/zipCode'
         country:
           $ref: '#/components/schemas/Country'
-        verified_on:
-          type: integer
-          description: >-
-            Date when location was verified, in seconds since 1 Jan 1970
-            00:00:00 UTC (i.e. in [Unix
-            time](https://en.wikipedia.org/wiki/Unix_time))".
-          example: 1572673227
     locationDataArrayProperties:
       title: Location data array
       description: Array of location data objects.
