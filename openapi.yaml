@@ -88,11 +88,6 @@ tags:
       With verification forms, you can automate ID verification and user
       collection. To gather user input, the `verification forms` endpoint
       creates a URL. This URL is only valid for a specified period of time.
-  - name: Tag Associations API
-    description: >
-      Tags provide a flexible means of linking objects together in the Unit21
-      system. You can use the `/tag-associations` endpoint to explore these
-      associations.
   - name: Webhooks API
     description: >
       Whenever an event happens on the Unit21 platform, Unit21 can send a
@@ -3213,77 +3208,6 @@ paths:
                 full_name: Laura Kassovic
                 created_at: 1623365011
                 status: INACTIVE
-        '400':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '409':
-          $ref: '#/components/responses/409'
-        '423':
-          $ref: '#/components/responses/423'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-        '503':
-          $ref: '#/components/responses/503'
-  /tag-associations/list:
-    post:
-      tags:
-        - Tag Associations API
-      summary: List tags
-      description: >
-        Returns an array of objects associated with a set of tags in your
-        environment.     
-
-
-        Because the response is paginated, the request body has a `limit` and
-        `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many objects the request returns (the page
-        maximum is 1000)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
-
-
-        To narrow down your tag association search, we provide filter parameters
-        to this endpoint.
-
-          | Field                   | Type        | Description                                                                                                       |
-          | ----------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- |
-          | `created_after`         | Numeric     | Tag associations created on or after this unix timestamp                                                          |
-          | `created_before`        | Numeric     | Tag associations created before this unix timestamp                                                               |
-          | `object_types`          | String[]    | List of object types to match against. Supported values are `alert`, `case`, `sar`, `rule`, `agent`, `event`, `entity`, and `instrument`. Specifying [`entity`, `alert`] means that we will only match against tags associated with entities and alerts in the system, and will not return results of tags associated with rules, events etc. If more than one value is provided to `object_types` and `object_id` is specified, an error will be thrown.     |
-          | `object_id`             | String      | String representing the unit21 ID of the object you want to get tag associations for. If this is specified and `object_types` contains more than one value, an error will be thrown.                    |
-          | `tag_filters`           | String[]    | List of string tags (`key:value`) or keys to associate this case with (e.g. `case_type:high_velocity` or `case_type`). If only the key is provided, we will match against all tags with that key        |
-          | `limit`                 | Numeric     | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10          |
-          | `offset`                | Numeric     | The offset for pagination. Default is 1                                                                           |
-          | `options`               | Object      | Options for the data included in the returned cases. Removing unneeded options can improve response speed         |
-
-
-        The `total_count` field contains the total number of tags where the 
-        `response_count` field contains the number of tags included in the
-        response.
-      operationId: list_tags
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/listRequest'
-                - $ref: '#/components/schemas/tagFilters'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/listTagResponse'
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -7571,94 +7495,6 @@ components:
       description: List of agent objects.
       items:
         $ref: '#/components/schemas/agentList'
-    tagFilters:
-      description: >-
-        To filter your response to a subset of tag associations, use these
-        fields.
-      properties:
-        created_after:
-          $ref: '#/components/schemas/registeredAt'
-        created_before:
-          $ref: '#/components/schemas/registeredAt'
-        object_types:
-          type: array
-          description: >-
-            Limit response to only tags associated with the set of listed Unit21
-            objects. The accepted values are `alert`, `case`, `sar`, `rule`,
-            `agent`, `event`, `entity`, and `instrument`. If an `object_id` is
-            specified,  and more than one value is provided to `object_types`,
-            the API returns an error.
-          items:
-            type: string
-            enum:
-              - alert
-              - case
-              - sar
-              - rule
-              - agent
-              - event
-              - entity
-              - instrument
-          example:
-            - alert
-            - case
-        object_id:
-          type: integer
-          description: >
-            String representing the `unit21_id` of the object you want to get
-            tag associations for. If this is specified and `object_types`
-            contains more than one value, the API returns an error.
-        tag_filters:
-          type: array
-          description: >-
-            List of string tags in the format `key:value` or `key` to match
-            against (e.g. `alert_type:high_velocity` or `alert_type`). If only
-            the key is provided, the API matches against all tags with that key.
-          items:
-            type: string
-            format: key-value pair
-            example: 'Sector:Europe'
-    tagList:
-      title: Alert
-      description: Top-level data about an alert.
-      properties:
-        object_id:
-          $ref: '#/components/schemas/unit21Id'
-        created_at:
-          $ref: '#/components/schemas/registeredAt'
-        object_type:
-          type: string
-          enum:
-            - alert
-            - case
-            - sar
-            - rule
-            - agent
-            - event
-            - entity
-            - instrument
-          description: Type of object.
-          example: alert
-        tag:
-          type: string
-          description: Tag text.
-          example: 'sector:us'
-    listTagResponse:
-      type: object
-      properties:
-        tag_associations:
-          type: array
-          description: List of tag objects.
-          items:
-            $ref: '#/components/schemas/tagList'
-        response_count:
-          type: integer
-          example: 4
-          description: Number of objects in the paginated response
-        total_count:
-          type: integer
-          example: 204
-          description: Total number of objects in the platform.
     blacklistList:
       title: Blacklist export
       description: Top-level data about a matchlist.
