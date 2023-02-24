@@ -3560,14 +3560,14 @@ paths:
           content:
             application/json:
               example:
+                file_id: '166'
                 form_fields:
-                  AWSAccessKeyId: AKIA4GCWZN4AXH2YUZXB
-                  key: local/org_unit21/1662150515000_custom_data.csv
+                  AWSAccessKeyId: AKIA4GCWZN4AUYY52BAU
+                  key: dev/org_unit21/1677016250000_foobar.json
                   policy: >-
-                    eyJleHBpcmF0aW9uIjogIjIwMjItMDktMDJUMjI6Mjg6MzVaIiwgImNvbmRpdGlvbnMiOiBbWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsIDAsIDMxNDU3MjgwMF0sIHsiYnVja2V0IjogImxvY2FsLXRtLXVwbG9hZHMifSwgeyJrZXkiOiAibG9jYWwvb3JnX3VuaXQyMS8xNjYyMTUwNTE1MDAwX2N1c3RvbV9kYXRhLmNzdiJ9XX0=
-                  signature: c3nvYeLthbKYx4n6lfo1LCVbpno=
-                url: 'https://local-tm-uploads.s3.amazonaws.com/'
-                file_id: 12
+                    eyJleHBpcmF0aW9uIjogIjIwMjMtMDItMjFUMjM6NTA6NTBaIiwgImNvbmRpdGlvbnMiOiBbWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsIDAsIDMxNDU3MjgwMF0sIHsiYnVja2V0IjogIm11bHRpdGVuYW50LXVzLXdlc3QtMi1kZXYtdG0tdXBsb2FkcyJ9LCB7ImtleSI6ICJkZXYvb3JnX3VuaXQyMS8xNjc3MDE2MjUwMDAwX2Zvb2Jhci5qc29uIn1dfQ==
+                  signature: b+tguqfylMCXytxtXMwAY7jLdPw=
+                url: 'https://multitenant-us-west-2-dev-tm-uploads.s3.amazonaws.com/'
   '/{pre_signed_url}':
     post:
       servers:
@@ -5667,6 +5667,9 @@ components:
                 - 3423432
     listRequest:
       type: object
+      required:
+        - limit
+        - offset
       properties:
         limit:
           type: integer
