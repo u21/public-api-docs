@@ -4490,7 +4490,10 @@ components:
         previously_existed:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
-          $ref: '#/components/schemas/unit21Id'
+          type: integer
+          description: Field should be ignored. It is under deprecation.
+          example: 1237466
+          deprecated: true
     createEntityDirectRequest:
       title: Create a user
       required:
@@ -4930,7 +4933,10 @@ components:
         previously_existed:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
-          $ref: '#/components/schemas/unit21Id'
+          type: integer
+          description: Field should be ignored. It is under deprecation.
+          example: 1237466
+          deprecated: true
     InstrumentBasic:
       title: Instrument
       description: Top-level data about an instrument.
@@ -5596,7 +5602,10 @@ components:
         previously_existed:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
-          $ref: '#/components/schemas/unit21Id'
+          type: integer
+          description: Field should be ignored. It is under deprecation.
+          example: 1237466
+          deprecated: true
     updateEventResponse:
       title: Event create response
       properties:
