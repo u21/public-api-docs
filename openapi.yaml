@@ -3594,7 +3594,7 @@ paths:
 
 
         Only one file can be uploaded in a request, with a file size maximum of
-        1GB. Please add a waiting time of two seconds between requests.
+        300MB. Please add a waiting time of two seconds between requests.
 
 
         Use `--form file` to specify the file.
