@@ -1999,6 +1999,7 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/alert-unit21-Ids'
                 - $ref: '#/components/schemas/alertExportFilters'
+                - $ref: '#/components/schemas/summary'
                 - $ref: '#/components/schemas/csv'
       responses:
         '200':
@@ -6445,6 +6446,14 @@ components:
               items:
                 type: integer
                 example: 1
+    summary:
+      properties:
+        is_summary:
+          type: boolean
+          description: >-
+            FALSE will generate the detailed version of report. Otherwise, TRUE
+            is the default which generates the summary
+          example: true
     associatedAlerts:
       type: array
       description: Only objects associated with the listed case `unit21_id` values.
