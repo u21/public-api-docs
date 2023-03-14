@@ -10,10 +10,14 @@ info:
 servers:
   - url: 'https://sandbox1-api.unit21.com/v1'
     description: Sandbox1 server for testing
+  - url: 'https://rtr.sandbox1-api.unit21.com/v1'
+    description: Sandbox1 server for RTR testing
   - url: 'https://sandbox2-api.unit21.com/v1'
     description: Sandbox2 server for testing
   - url: 'https://api.unit21.com/v1'
     description: Production1 server
+  - url: 'https://rtr.api.unit21.com/v1'
+    description: Production1 RTR server
   - url: 'https://api.prod2.unit21.com/v1'
     description: Production2 server
 security:
@@ -1215,6 +1219,95 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/createEventResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+  /evaluate:
+    post:
+      tags:
+        - Events API
+      summary: Create an RTR event
+      operationId: create_rtr_event
+      description: >
+        Creates a new RTR event, sending event data in the request body. 
+
+
+        You **must** send this request to the RTR endpoint
+        `https://rtr.{env}.unit21.com/evaluate`.  Please see the Sandbox RTR 1
+        endpoint in the dropbox as an example.
+
+
+        Two objects are required: `general_data` and either `transaction_data`
+        or `action_data`. `general_data` requires the fields: `event_id`,
+        `event_type`, and `event_time`. `transaction_data` requires only the
+        field `amount`.
+
+
+        Unlike entities, events on our system are cannot be explicitly updated.
+        However, they can be  overwritten in a naive upsert-overwrite fashion. 
+
+
+        If we receive a request to create an event for an `event_id` that
+        already exists in our system,  we will simply overwrite that previous
+        entry with the newly provided data if this transaction  is not already
+        associated with other articles in our system. 
+
+
+        For instance, if a transaction is flagged in an alert and we receive a
+        request to overwrite  the details of this transaction, we will respond
+        with a **409 error code** indicating that this  event cannot be
+        overwritten.
+
+
+        Updates to an event's `general_data.event_id` are not allowed.
+
+
+        Follow the links for more information:
+          - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
+          - [Verification options](https://docs.unit21.ai/reference/identity-verification-options)
+          - [Custom data](https://docs.unit21.ai/reference/best-practices-for-custom-data)
+          - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)
+          - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/generalEvents'
+                - $ref: '#/components/schemas/transactionData'
+                - $ref: '#/components/schemas/actionData'
+                - $ref: '#/components/schemas/digitalData'
+                - $ref: '#/components/schemas/locationData'
+                - $ref: '#/components/schemas/customData'
+                - $ref: '#/components/schemas/eventOptions'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rtrEventResponse'
         '400':
           description: Bad Request. Your request is invalid.
           content:
@@ -5607,6 +5700,55 @@ components:
           description: Field should be ignored. It is under deprecation.
           example: 1237466
           deprecated: true
+    rtrEventResponse:
+      title: Events/create response
+      properties:
+        evaluation_id:
+          type: string
+          description: The ID of the execution
+          example: 9be1c429-f3ce-413a-9775-f27d2018a3d8
+        endpoint:
+          type: string
+          description: The endpoint name
+          example: /evaluate
+        timestamp:
+          type: integer
+          description: The timestamp the event was received
+          example: 1674594517.649061
+        event_id:
+          $ref: '#/components/schemas/eventId'
+        rule_executions:
+          type: object
+          description: >-
+            All of the RTR rules ordered by ID that ran against this event and
+            their reponses
+          properties:
+            rule_id:
+              description: The ID of the RTR rule
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                    - PASS
+                    - FAIL
+                    - ERROR
+                  description: '`PASS`, `FAIL`, or `ERROR` response'
+                  example: PASS
+                rule_name:
+                  type: string
+                  description: The name of the RTR rule
+                  example: Check Risk score rule
+          example:
+            '1166':
+              status: FAIL
+              rule_name: High risk senders
+            '1170':
+              status: PASS
+              rule_name: Velocity - 10K ACH in the last 4 hours
+            '1291':
+              status: FAIL
+              rule_name: 'New Account Fraud - Risk:88'
     updateEventResponse:
       title: Event create response
       properties:
