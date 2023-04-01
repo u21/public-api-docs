@@ -3869,9 +3869,7 @@ components:
           $ref: '#/components/schemas/state'
         registered_country:
           type: string
-          description: >-
-            Country where the business is registered. Provided acording to the
-            ISO 3166-1 alpha-2 standard.
+          description: Country where the business is registered.
           maxLength: 2
           example: US
         doing_business_as:
@@ -3985,9 +3983,7 @@ components:
           $ref: '#/components/schemas/State'
         country:
           type: string
-          description: >-
-            provided acording to the [ISO 3166-1 alpha-2
-            standard](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2].
+          description: Can be full country name or abbreviation.
           maxLength: 128
           example: US
         issued_at:
@@ -4491,8 +4487,8 @@ components:
       description: >-
         Only relevant for updates/upserts, ignored otherwise. See [custom data
         merge
-        strategy](doc:how-data-merges-on-updates#custom-data-merge-strategy) for
-        more details. **Default**: `false`
+        strategy](https://docs.unit21.ai/reference/how-data-merges-on-updates#custom-data-merge-strategy)
+        for more details. **Default**: `false`
       default: false
     upsertOnConflict:
       type: boolean
@@ -6367,7 +6363,7 @@ components:
               event_type:
                 $ref: '#/components/schemas/eventType'
         entities:
-          description: 'Array of entities, consisting of `event_id` and `event_type`'
+          description: 'Array of entities, consisting of `entity_id` and `entity_type`'
           type: array
           items:
             type: object
