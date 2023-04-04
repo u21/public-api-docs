@@ -4011,7 +4011,7 @@ components:
         comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
       minLength: 1
       maxLength: 128
-      pattern: '-\_:.@a-zA-Z0-9!#\$%&\''\*+/=?^`{'
+      pattern: '[-\_:.@a-zA-Z0-9!#\$%&\''\*+/=?^`{]+'
       example: u-3593dece-6642-4cdc-8547-aafc1454e0a0
     entityType:
       type: string
