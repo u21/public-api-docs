@@ -6,98 +6,61 @@ info:
   version: '1.0'
   contact:
     name: Unit21
-    url: 'https://unit21.ai'
+    url: https://unit21.ai
 servers:
-  - url: 'https://sandbox1-api.unit21.com/v1'
+  - url: https://sandbox1-api.unit21.com/v1
     description: Sandbox1 server for testing
-  - url: 'https://rtr.sandbox1-api.unit21.com/v1'
+  - url: https://rtr.sandbox1-api.unit21.com/v1
     description: Sandbox1 server for RTR testing
-  - url: 'https://sandbox2-api.unit21.com/v1'
+  - url: https://sandbox2-api.unit21.com/v1
     description: Sandbox2 server for testing
-  - url: 'https://api.unit21.com/v1'
+  - url: https://api.unit21.com/v1
     description: Production1 server
-  - url: 'https://rtr.api.unit21.com/v1'
+  - url: https://rtr.api.unit21.com/v1
     description: Production1 RTR server
-  - url: 'https://api.prod2.unit21.com/v1'
+  - url: https://api.prod2.unit21.com/v1
     description: Production2 server
 security:
   - ApiKeyAuth: []
 tags:
   - name: Entities API
-    description: >
-      _Entities_ are typically businesses or users that have transactions on
-      your platform.  The `/entities` endpoint can create, list, and update
-      entities.
+    description: |
+      _Entities_ are typically businesses or users that have transactions on your platform.  The `/entities` endpoint can create, list, and update entities.
   - name: Instruments API
-    description: >
-      Instruments represent any physical, digital, or logical intermediary
-      between an entity and a transaction event. Instruments can also represent
-      digital or tech items such as phones, laptops, servers, printers or even
-      company cars. The `/instruments` endpoint can create, list, and update
-      instruments. 
+    description: |
+      Instruments represent any physical, digital, or logical intermediary between an entity and a transaction event. Instruments can also represent digital or tech items such as phones, laptops, servers, printers or even company cars. The `/instruments` endpoint can create, list, and update instruments. 
   - name: Devices API
-    description: >
-      Devices representing any computer or physical device used to execute an
-      event. Devices are most suitable when events can be traced back to a
-      specific device fingerprint. The `/devices` endpoint can create, list, and
-      update instruments. 
+    description: |
+      Devices representing any computer or physical device used to execute an event. Devices are most suitable when events can be traced back to a specific device fingerprint. The `/devices` endpoint can create, list, and update instruments. 
   - name: Events API
-    description: >
+    description: |
       Events have two types, _transaction events_  and _action events_:
-
-      * Transaction events are any monetary flow that is sent or received by an
-      entity on your system.
-
-      * Action events are non-monetary changes of state that occur on your
-      system, e.g. user logins. The `/events` endpoint sends and receives data
-      about significant actions that occur with an entity or instrument on your
-      system.  
+      * Transaction events are any monetary flow that is sent or received by an entity on your system.
+      * Action events are non-monetary changes of state that occur on your system, e.g. user logins. The `/events` endpoint sends and receives data about significant actions that occur with an entity or instrument on your system.  
   - name: Agents API
-    description: >
-      Agents are your organization's members who use the Unit21 system to
-      investigate suspicious objects and events. The `/agents` endpoint can list
-      your agents. 
+    description: |
+      Agents are your organization's members who use the Unit21 system to investigate suspicious objects and events. The `/agents` endpoint can list your agents. 
   - name: Rules API
-    description: >
-      Rules are the model logic that will find fraudulent and suspicious
-      transactions and actions. Rules create alerts that can turn into cases
-      with flagged entities, transactions and instruments. The `/rules` endpoint
-      can get and list rules. 
+    description: |
+      Rules are the model logic that will find fraudulent and suspicious transactions and actions. Rules create alerts that can turn into cases with flagged entities, transactions and instruments. The `/rules` endpoint can get and list rules. 
   - name: Alerts API
-    description: >
-      Alerts have two origins. Typically, alerts are generated whenever a Unit21
-      detection tool (like a rule) flags an object, like an entity. However,
-      your organization can also send alerts generated from your in-house
-      detection systems. The `/alerts` endpoint can create, list, and update
-      alerts. 
+    description: |
+      Alerts have two origins. Typically, alerts are generated whenever a Unit21 detection tool (like a rule) flags an object, like an entity. However, your organization can also send alerts generated from your in-house detection systems. The `/alerts` endpoint can create, list, and update alerts. 
   - name: Cases API
-    description: >
-      Cases are usually active investigations, which may span multiple events,
-      entities and documents. They can be directly escalated into a suspicious
-      activity report. The `/cases` endpoint can create, list, and update
-      cases. 
+    description: |
+      Cases are usually active investigations, which may span multiple events, entities and documents. They can be directly escalated into a suspicious activity report. The `/cases` endpoint can create, list, and update cases. 
   - name: Sars API
-    description: >
-      Sars are cases that have been investigated and turned into a Suspicious
-      Activity report with the intent to file it to FinCen. The `/sars` endpoint
-      can get and list sars. 
+    description: |
+      Sars are cases that have been investigated and turned into a Suspicious Activity report with the intent to file it to FinCen. The `/sars` endpoint can get and list sars. 
   - name: Entity Verification API
-    description: >
-      Unit21 can execute entity verifications according to steps defined in
-      system workflows. They can run when a new entity is added to the system,
-      an update is made to an existing entity, or by directly triggering an API
-      endpoint.
+    description: |
+      Unit21 can execute entity verifications according to steps defined in system workflows. They can run when a new entity is added to the system, an update is made to an existing entity, or by directly triggering an API endpoint.
   - name: Verification Forms API
-    description: >
-      With verification forms, you can automate ID verification and user
-      collection. To gather user input, the `verification forms` endpoint
-      creates a URL. This URL is only valid for a specified period of time.
+    description: |
+      With verification forms, you can automate ID verification and user collection. To gather user input, the `verification forms` endpoint creates a URL. This URL is only valid for a specified period of time.
   - name: Webhooks API
-    description: >
-      Whenever an event happens on the Unit21 platform, Unit21 can send a
-      webhook about the event to whatever URL you configure. Such events include
-      entity verification results, generated alerts, case re-openings and
-      closings, etcetera.
+    description: |
+      Whenever an event happens on the Unit21 platform, Unit21 can send a webhook about the event to whatever URL you configure. Such events include entity verification results, generated alerts, case re-openings and closings, etcetera.
   - name: Matchlists API
     description: |
       Matchlists comprise one of the following categories:
@@ -105,54 +68,32 @@ tags:
         * IPs (single or ranges)
         * strings
   - name: Exports API
-    description: >
-      If you want to download files requested via the dashboard or the bulk
-      export endpoints. The `/file-exports` endpoint can get and list sars. 
+    description: |
+      If you want to download files requested via the dashboard or the bulk export endpoints. The `/file-exports` endpoint can get and list sars. 
   - name: Datafiles API
-    description: >
-      If you want to bulk upload multiple objects, you can send them via a POST
-      to the `/datafiles` endpoint. For the fastest processing, the datafile
-      SHOULD be a JSON file in the format of a typical POST request to this API.
+    description: |
+      If you want to bulk upload multiple objects, you can send them via a POST to the `/datafiles` endpoint. For the fastest processing, the datafile SHOULD be a JSON file in the format of a typical POST request to this API.
   - name: Import API
-    description: >
-      If you want to upload a file with a lot of information in it, you can send
-      them via a POST to a custom URL. You can request this URL via a POST to
-      the `/datafiles` endpoint.  For the fastest processing, the file SHOULD be
-      JSON or CSV.
+    description: |
+      If you want to upload a file with a lot of information in it, you can send them via a POST to a custom URL. You can request this URL via a POST to the `/datafiles` endpoint.  For the fastest processing, the file SHOULD be JSON or CSV.
 paths:
   /entities/list:
     post:
       tags:
         - Entities API
       summary: List entities
-      description: >-
+      description: |-
         Returns paginated list of of top-level information about entities. 
 
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities are not listed.
 
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        entities are not listed.
+        Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
+        * `limit`  indicates how many objects the request returns (the page maximum is 50)
+        * `offset` indicates the offset for pagination. An `offset` value of 1 starts with the environment's first record. The offset is relative to the number of pages (not the total count of objects).
+        * `case_id`  is a filter. Only entities with the associated case ID will be shown.
+        * `alert_id` is a filter. Only entities with the associated alert ID will be shown.
 
-
-        Because the response is paginated, the request body has a `limit` and
-        `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many objects the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record. The offset is relative to
-        the number of pages (not the total count of objects).
-
-        * `case_id`  is a filter. Only entities with the associated case ID will
-        be shown.
-
-        * `alert_id` is a filter. Only entities with the associated alert ID
-        will be shown.
-
-
-        The `total_count` field is set to 0. Please call this paginated
-        endpoint, increasing the offset,  until you receive fewer than the
-        maximum number of objects per call.
+        The `total_count` field is set to 0. Please call this paginated endpoint, increasing the offset,  until you receive fewer than the maximum number of objects per call.
       operationId: list_entities
       requestBody:
         $ref: '#/components/requestBodies/listEntities'
@@ -193,57 +134,24 @@ paths:
         - Entities API
       summary: Create an entity
       operationId: create_entity
-      description: >
+      description: |
         Creates a new entity, sending entity data in the request body. 
 
+        If the `/entities/create` API is called for an entity that already exists in our system, it is treated it as an  [upsert](https://docs.unit21.ai/reference/should-i-update-or-upsert) and an update on the existing entity is performed. The response to the request will then contain the entry `previously_existed: true`. 
 
-        If the `/entities/create` API is called for an entity that already
-        exists in our system, it is treated it as an 
-        [upsert](https://docs.unit21.ai/reference/should-i-update-or-upsert) and
-        an update on the existing entity is performed. The response to the
-        request will then contain the entry `previously_existed: true`. 
+        Unit21 selectively ignores upserts if the request is identical to a previous request. The response to any  ignored upsert will contain the field `ignored: true`. 
 
+        If you want to perform strict validation and not perform an upsert on conflict, specifying  `options.upsert_on_conflict: false` will result in the API responding with a **409 error code** indicating  that this entity cannot be overwritten.
 
-        Unit21 selectively ignores upserts if the request is identical to a
-        previous request. The response to any  ignored upsert will contain the
-        field `ignored: true`. 
+        To turn a [placeholder](https://docs.unit21.ai/reference/placeholder-objects) entity into an entity in the Unit21 system, use this endpoint.
 
-
-        If you want to perform strict validation and not perform an upsert on
-        conflict, specifying  `options.upsert_on_conflict: false` will result in
-        the API responding with a **409 error code** indicating  that this
-        entity cannot be overwritten.
-
-
-        To turn a
-        [placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        entity into an entity in the Unit21 system, use this endpoint.
-
-
-        Whitelisted entities cannot be updated through the `/entities/create`
-        endpoint. 
-
+        Whitelisted entities cannot be updated through the `/entities/create` endpoint. 
 
         Updates to an entity's `general_data.entity_id` are not allowed.  
 
+        Instruments can be associated with entities by providing the IDs of these  instruments within the `instrument_ids` section of the request. If the instrument doesn't already exist,  Unit21 creates a [placeholder](https://docs.unit21.ai/reference/placeholder-objects) instrument.
 
-        Instruments can be associated with entities by providing the IDs of
-        these  instruments within the `instrument_ids` section of the request.
-        If the instrument doesn't already exist,  Unit21 creates a
-        [placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        instrument.
-
-
-        We recommend that you create entities prior to running verification. In
-        the event you wish to run a  verification on an entity immediately,
-        Unit21 recommends that you wait at-least 2 minutes for your entity  data
-        to be fully processed. You will receive a **423 error code** if an
-        entity is *busy*. When a 200 response is received,  the data has been
-        successfully stored on the Unit21 backend; however, it may take a few
-        additional seconds to process that data  so that it becomes available in
-        subsequent API calls, in the frontend UI, and/or for verification
-        purposes.
-
+        We recommend that you create entities prior to running verification. In the event you wish to run a  verification on an entity immediately, Unit21 recommends that you wait at-least 2 minutes for your entity  data to be fully processed. You will receive a **423 error code** if an entity is *busy*. When a 200 response is received,  the data has been successfully stored on the Unit21 backend; however, it may take a few additional seconds to process that data  so that it becomes available in subsequent API calls, in the frontend UI, and/or for verification purposes.
 
         Follow the links for more information:
           - [Relationships](https://docs.unit21.ai/reference/relationships)
@@ -291,15 +199,10 @@ paths:
         - Entities API
       summary: Create an entity directly
       operationId: create_entity_directly
-      description: >
-        Creates or updates an entity immediately, publishing directly to kafka.
-        This is a performance endpoint.
+      description: |
+        Creates or updates an entity immediately, publishing directly to kafka. This is a performance endpoint.
 
-
-        Please see the `/entity/create`
-        [endpoint](https://docs.unit21.ai/reference/create_entity) for more
-        information.
-
+        Please see the `/entity/create` [endpoint](https://docs.unit21.ai/reference/create_entity) for more information.
 
         A successfull entry comes back `null`.
       requestBody:
@@ -328,23 +231,17 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/{org_name}/entities/{entity_id}':
+  /{org_name}/entities/{entity_id}:
     get:
       tags:
         - Entities API
       summary: Get an entity
-      description: >-
-        Returns all data objects belonging to a single entity, including
-        `general_data`, `document_data`, etc.
+      description: |-
+        Returns all data objects belonging to a single entity, including `general_data`, `document_data`, etc.
 
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities will not be listed.
 
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        entities will not be listed.
-
-
-        This endpoint requires the `entity_id` which is a unique ID created by
-        your organization to identify the entity. The `org_name` is your Unit21
-        appointed organization name such as `google` or `acme`.
+        This endpoint requires the `entity_id` which is a unique ID created by your organization to identify the entity. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
       operationId: get_entity
       parameters:
         - $ref: '#/components/parameters/entity_id'
@@ -355,7 +252,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/entityList'
+                allOf:
+                  - $ref: '#/components/schemas/entityList'
+                  - properties:
+                      relationships:
+                        $ref: '#/components/schemas/relationshipsDataProperties'
         '400':
           description: Bad Request. Your request is invalid.
           content:
@@ -378,32 +279,21 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/{org_name}/entities/{entity_id}/update':
+  /{org_name}/entities/{entity_id}/update:
     put:
       tags:
         - Entities API
       summary: Update entity
-      description: >-
-        Updates an entity's information using the `entity_id` from your
-        platform. 
+      description: |-
+        Updates an entity's information using the `entity_id` from your platform. 
 
+        Updating an entity has no required fields. You MAY send any  subset of the fields that the entities/create endpoint accepts.
 
-        Updating an entity has no required fields. You MAY send any  subset of
-        the fields that the entities/create endpoint accepts.
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities cannot be updated.
 
+        This endpoint requires the `entity_id` which is a unique ID created by your organization to identify the entity. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
 
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        entities cannot be updated.
-
-
-        This endpoint requires the `entity_id` which is a unique ID created by
-        your organization to identify the entity. The `org_name` is your Unit21
-        appointed organization name such as `google` or `acme`.
-
-
-        Note that you can also update an entity using an upsert through
-        `/entities/create`.
-
+        Note that you can also update an entity using an upsert through `/entities/create`.
 
         Follow the links for more information:
           - [Relationships](https://docs.unit21.ai/reference/relationships)
@@ -466,31 +356,21 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/{org_name}/entities/{entity_id}/add-instruments':
+  /{org_name}/entities/{entity_id}/add-instruments:
     put:
       tags:
         - Entities API
       summary: Add instruments to entity
-      description: >-
+      description: |-
         Associate an entity with an array of instruments.
 
+        Specify the `instrument_id` of the instrument when associating instruments.
 
-        Specify the `instrument_id` of the instrument when associating
-        instruments.
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities cannot be updated.
 
+        If we do not find any instruments with a corresponding `instrument_id` in our system, we will create a [placeholder](https://docs.unit21.ai/reference/placeholder-objects) for it.
 
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        entities cannot be updated.
-
-
-        If we do not find any instruments with a corresponding `instrument_id`
-        in our system, we will create a
-        [placeholder](https://docs.unit21.ai/reference/placeholder-objects) for
-        it.
-
-
-        Instrument details can then be supplemented through the
-        `/instruments/create` or `/instruments/update` endpoints.
+        Instrument details can then be supplemented through the `/instruments/create` or `/instruments/update` endpoints.
       operationId: add_instruments
       parameters:
         - $ref: '#/components/parameters/entity_id'
@@ -528,49 +408,30 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/{org_name}/entities/{entity_id}/link-media':
+  /{org_name}/entities/{entity_id}/link-media:
     put:
       tags:
         - Entities API
       summary: Add media to an entity
-      description: >-
+      description: |-
         Adds rich media objects (images, videos, etc.) to an existing entity. 
 
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities cannot be updated.
 
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        entities cannot be updated.
+        This endpoint is useful for sending in rich media such as profile pictures, ID card scans, official documents etc.  that you want available for investigative and verification purposes.
 
+        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv), images (png, jpg, tiff, gif, raw, eps).
 
-        This endpoint is useful for sending in rich media such as profile
-        pictures, ID card scans, official documents etc.  that you want
-        available for investigative and verification purposes.
+        The payload to this endpoint can either be a **form-data** or a **base64** encoded media file via the requests JSON body.
 
-
-        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv),
-        images (png, jpg, tiff, gif, raw, eps).
-
-
-        The payload to this endpoint can either be a **form-data** or a
-        **base64** encoded media file via the requests JSON body.
-
-
-        **Form-data** sent to this endpoint must use the key `media_key` and the
-        `value` as the media file.  If you wish to provide optional information,
-        use the `media_key` and provide stringified JSON data as the value. 
-        There are no required fields in each media file's supplementary form
-        data. However, if a recognized `media_type` value is provided,  the
-        Unit21 system will be able to use the media object for purposes such as
-        document verification.
-
+        **Form-data** sent to this endpoint must use the key `media_key` and the `value` as the media file.  If you wish to provide optional information, use the `media_key` and provide stringified JSON data as the value.  There are no required fields in each media file's supplementary form data. However, if a recognized `media_type` value is provided,  the Unit21 system will be able to use the media object for purposes such as document verification.
 
         ```
           --form 'document_front=@/src/103031/images/document_front.jpg' \
           --form 'document_front={"media_type": "IMAGE_ID_CARD_FRONT", "source": "passport_app", "timestamp": 1572673229}'
         ```
 
-
         **Base64** encoded media objects must follow the format:
-
 
         ```json
           {
@@ -589,12 +450,7 @@ paths:
           }
         ```
 
-
-        `media` and `name` are the only required fields for each media object.
-        The `name` must include the file extension such a `File.pdf`.
-        Supplementary form data is sent through the optional `custom_data`
-        object.
-
+        `media` and `name` are the only required fields for each media object. The `name` must include the file extension such a `File.pdf`. Supplementary form data is sent through the optional `custom_data` object.
 
         For verification purposes, recognized values of `media_type` are: 
 
@@ -647,18 +503,15 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/{org_name}/entities/{entity_id}/delete-all-media':
+  /{org_name}/entities/{entity_id}/delete-all-media:
     put:
       tags:
         - Entities API
       summary: Delete entity media
-      description: >-
-        Deletes all rich media objects (images, videos, etc.) belonging to an
-        existing entity. 
+      description: |-
+        Deletes all rich media objects (images, videos, etc.) belonging to an existing entity. 
 
-
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        entities cannot be updated.
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities cannot be updated.
       operationId: del_media_entity
       parameters:
         - $ref: '#/components/parameters/entity_id'
@@ -696,21 +549,14 @@ paths:
       tags:
         - Entities API
       summary: Bulk export entities
-      description: >
-        Initiates an email and dashboard export of entities. The export will be
-        as a CSV file.
+      description: |
+        Initiates an email and dashboard export of entities. The export will be as a CSV file.
 
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities are not exported.
 
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        entities are not exported.
-
-
-        Either the `filters` or the list of `entity_ids` are required for the
-        export. 
-
+        Either the `filters` or the list of `entity_ids` are required for the export. 
 
         **Currently `entity_ids` should actually be `unit21_ids`.**
-
 
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_entities
@@ -760,31 +606,17 @@ paths:
       tags:
         - Instruments API
       summary: List instruments
-      description: >
+      description: |
         Returns paginated list of of top-level information about instruments. 
 
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) instruments are not listed.
 
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        instruments are not listed.
+        Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
+        * `limit`  indicates how many objects the request returns (the page maximum is 50)
+        * `offset` indicates the offset for pagination. An `offset` value of 1 starts with the environment's first record. The offset is relative to the number of pages (not the total count of objects).
+        * `alert_id` is a filter. Only instruments with the associated alert ID will be shown.
 
-
-        Because the response is paginated, the request body has a `limit` and
-        `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many objects the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record. The offset is relative to
-        the number of pages (not the total count of objects).
-
-        * `alert_id` is a filter. Only instruments with the associated alert ID
-        will be shown.
-
-
-        The `total_count` field is set to 0. Please call this paginated
-        endpoint, increasing the offset,  until you receive fewer than the
-        maximum number of objects per call.
+        The `total_count` field is set to 0. Please call this paginated endpoint, increasing the offset,  until you receive fewer than the maximum number of objects per call.
       operationId: list_instruments
       requestBody:
         $ref: '#/components/requestBodies/listAlertID'
@@ -826,35 +658,18 @@ paths:
         - Instruments API
       summary: Create an instrument
       operationId: create_instrument
-      description: >
+      description: |
         Creates a new instrument, sending instrument data in the request body.
 
+        Recommended values for `instrument_type` include: account, crypto_address,  digital_wallet, credit_card, debit_card, gift_card, voucher, check, laptop, company_computer, smartphone.
 
-        Recommended values for `instrument_type` include: account,
-        crypto_address,  digital_wallet, credit_card, debit_card, gift_card,
-        voucher, check, laptop, company_computer, smartphone.
+        If the `/instruments/create` API is called for an instrument that already exists in our system (i.e.  has an existing `instrument_id`, it is treated it as an  [upsert](https://docs.unit21.ai/reference/should-i-update-or-upsert) and an update on the existing  instrument is performed. The response to the request will then contain the entry `previously_existed: true`. 
 
+        Unit21 selectively ignores upserts if the request is identical to a previous request. The response to any  ignored upsert will contain the field `ignored: true`. 
 
-        If the `/instruments/create` API is called for an instrument that
-        already exists in our system (i.e.  has an existing `instrument_id`, it
-        is treated it as an 
-        [upsert](https://docs.unit21.ai/reference/should-i-update-or-upsert) and
-        an update on the existing  instrument is performed. The response to the
-        request will then contain the entry `previously_existed: true`. 
-
-
-        Unit21 selectively ignores upserts if the request is identical to a
-        previous request. The response to any  ignored upsert will contain the
-        field `ignored: true`. 
-
-
-        To turn a
-        [placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        instrument into an instrument in the Unit21 system, use this endpoint.
-
+        To turn a [placeholder](https://docs.unit21.ai/reference/placeholder-objects) instrument into an instrument in the Unit21 system, use this endpoint.
 
         Updates to an instrument's `instrument_id` are not allowed.
-
 
         Follow the links for more information:
           - [Relationships](https://docs.unit21.ai/reference/relationships)
@@ -896,22 +711,17 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/{org_name}/instruments/{instrument_id}':
+  /{org_name}/instruments/{instrument_id}:
     get:
       tags:
         - Instruments API
       summary: Get an instrument
-      description: >-
+      description: |-
         Returns all data objects belonging to a single instrument.
 
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) instruments are not listed.
 
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        instruments are not listed.
-
-
-        This endpoint requires the `instrument_id` which is a unique ID created
-        by your organization to identify the instrument. The `org_name` is your
-        Unit21 appointed organization name such as `google` or `acme`.
+        This endpoint requires the `instrument_id` which is a unique ID created by your organization to identify the instrument. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
       operationId: get_instrument
       parameters:
         - $ref: '#/components/parameters/instrument_id'
@@ -945,32 +755,21 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/{org_name}/instruments/{instrument_id}/update':
+  /{org_name}/instruments/{instrument_id}/update:
     put:
       tags:
         - Instruments API
       summary: Update instrument
-      description: >-
-        Updates an instrument's information using the `instrument_id` from your
-        platform. 
+      description: |-
+        Updates an instrument's information using the `instrument_id` from your platform. 
 
+        Updating an instrument has no required fields. You MAY send any  subset of the fields that the `instruments/create` endpoint accepts.
 
-        Updating an instrument has no required fields. You MAY send any  subset
-        of the fields that the `instruments/create` endpoint accepts.
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) instruments cannot be updated.
 
+        This endpoint requires the `instrument_id` which is a unique ID created by your organization to identify the instrument. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
 
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        instruments cannot be updated.
-
-
-        This endpoint requires the `instrument_id` which is a unique ID created
-        by your organization to identify the instrument. The `org_name` is your
-        Unit21 appointed organization name such as `google` or `acme`.
-
-
-        Note that you can also update an instrument using an upsert through
-        `/instruments/create`.
-
+        Note that you can also update an instrument using an upsert through `/instruments/create`.
 
         Follow the links for more information:
           - [Relationships](https://docs.unit21.ai/reference/relationships)
@@ -1028,25 +827,16 @@ paths:
       tags:
         - Instruments API
       summary: Bulk export instruments
-      description: >
-        Initiates an email and dashboard export of instruments. The export will
-        be as a CSV file.
+      description: |
+        Initiates an email and dashboard export of instruments. The export will be as a CSV file.
 
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) instruments are not exported.
 
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects)
-        instruments are not exported.
+        The agent making the request will need to have the correct permissions for the export to ensure success.
 
-
-        The agent making the request will need to have the correct permissions
-        for the export to ensure success.
-
-
-        Either the `filters` or the list of `instrument IDs` are required for
-        the export.
-
+        Either the `filters` or the list of `instrument IDs` are required for the export.
 
         **Currently `instrument_ids` should actually be `unit21_ids`.**
-
 
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_instruments
@@ -1094,36 +884,18 @@ paths:
       tags:
         - Events API
       summary: List events
-      description: >
-        Returns an array of top-level information about events in your
-        environment.
+      description: |
+        Returns an array of top-level information about events in your environment.
 
+        Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
+        * `limit`  indicates how many objects the request returns (the page maximum is 50)
+        * `offset` indicates the offset for pagination. An `offset` value of 1 starts with the environment's first record.
+        * `case_id`  is a filter. Only events with the associated case ID will be shown.
+        * `alert_id` is a filter. Only events with the associated alert ID will be shown.
+        * `start_date`  is a filter. Only events that started on or after this date will be shown.
+        * `end_date` is a filter. Only events that ended on or before this date will be shown.
 
-        Because the response is paginated, the request body has a `limit` and
-        `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many objects the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
-
-        * `case_id`  is a filter. Only events with the associated case ID will
-        be shown.
-
-        * `alert_id` is a filter. Only events with the associated alert ID will
-        be shown.
-
-        * `start_date`  is a filter. Only events that started on or after this
-        date will be shown.
-
-        * `end_date` is a filter. Only events that ended on or before this date
-        will be shown.
-
-
-        The `total_count` field is set to 0. Please call this paginated
-        endpoint, increasing the offset,  until you receive fewer than the
-        maximum number of objects per call.
+        The `total_count` field is set to 0. Please call this paginated endpoint, increasing the offset,  until you receive fewer than the maximum number of objects per call.
       operationId: list_events
       requestBody:
         $ref: '#/components/requestBodies/listDate'
@@ -1165,34 +937,18 @@ paths:
         - Events API
       summary: Create an event
       operationId: create_event
-      description: >
+      description: |
         Creates a new event, sending event data in the request body. 
 
+        Two objects are required: `general_data` and either `transaction_data` or `action_data`. `general_data` requires the fields: `event_id`, `event_type`, and `event_time`. `transaction_data` requires only the field `amount`.
 
-        Two objects are required: `general_data` and either `transaction_data`
-        or `action_data`. `general_data` requires the fields: `event_id`,
-        `event_type`, and `event_time`. `transaction_data` requires only the
-        field `amount`.
+        Unlike entities, events on our system are cannot be explicitly updated. However, they can be  overwritten in a naive upsert-overwrite fashion. 
 
+        If we receive a request to create an event for an `event_id` that already exists in our system,  we will simply overwrite that previous entry with the newly provided data if this transaction  is not already associated with other articles in our system. 
 
-        Unlike entities, events on our system are cannot be explicitly updated.
-        However, they can be  overwritten in a naive upsert-overwrite fashion. 
-
-
-        If we receive a request to create an event for an `event_id` that
-        already exists in our system,  we will simply overwrite that previous
-        entry with the newly provided data if this transaction  is not already
-        associated with other articles in our system. 
-
-
-        For instance, if a transaction is flagged in an alert and we receive a
-        request to overwrite  the details of this transaction, we will respond
-        with a **409 error code** indicating that this  event cannot be
-        overwritten.
-
+        For instance, if a transaction is flagged in an alert and we receive a request to overwrite  the details of this transaction, we will respond with a **409 error code** indicating that this  event cannot be overwritten.
 
         Updates to an event's `general_data.event_id` are not allowed.
-
 
         Follow the links for more information:
           - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
@@ -1249,39 +1005,20 @@ paths:
         - Events API
       summary: Create an RTR event
       operationId: create_rtr_event
-      description: >
+      description: |
         Creates a new RTR event, sending event data in the request body. 
 
+        You **must** send this request to the RTR endpoint `https://rtr.{env}.unit21.com/evaluate`.  Please see the Sandbox RTR 1 endpoint in the dropbox as an example.
 
-        You **must** send this request to the RTR endpoint
-        `https://rtr.{env}.unit21.com/evaluate`.  Please see the Sandbox RTR 1
-        endpoint in the dropbox as an example.
+        Two objects are required: `general_data` and either `transaction_data` or `action_data`. `general_data` requires the fields: `event_id`, `event_type`, and `event_time`. `transaction_data` requires only the field `amount`.
 
+        Unlike entities, events on our system are cannot be explicitly updated. However, they can be  overwritten in a naive upsert-overwrite fashion. 
 
-        Two objects are required: `general_data` and either `transaction_data`
-        or `action_data`. `general_data` requires the fields: `event_id`,
-        `event_type`, and `event_time`. `transaction_data` requires only the
-        field `amount`.
+        If we receive a request to create an event for an `event_id` that already exists in our system,  we will simply overwrite that previous entry with the newly provided data if this transaction  is not already associated with other articles in our system. 
 
-
-        Unlike entities, events on our system are cannot be explicitly updated.
-        However, they can be  overwritten in a naive upsert-overwrite fashion. 
-
-
-        If we receive a request to create an event for an `event_id` that
-        already exists in our system,  we will simply overwrite that previous
-        entry with the newly provided data if this transaction  is not already
-        associated with other articles in our system. 
-
-
-        For instance, if a transaction is flagged in an alert and we receive a
-        request to overwrite  the details of this transaction, we will respond
-        with a **409 error code** indicating that this  event cannot be
-        overwritten.
-
+        For instance, if a transaction is flagged in an alert and we receive a request to overwrite  the details of this transaction, we will respond with a **409 error code** indicating that this  event cannot be overwritten.
 
         Updates to an event's `general_data.event_id` are not allowed.
-
 
         Follow the links for more information:
           - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
@@ -1332,18 +1069,15 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/{org_name}/events/{event_id}':
+  /{org_name}/events/{event_id}:
     get:
       tags:
         - Events API
       summary: Get an event
-      description: >-
+      description: |-
         Returns all data objects belonging to a single event.
 
-
-        This endpoint requires the `events_id` which is a unique ID created by
-        your organization to identify the event. The `org_name` is your Unit21
-        appointed organization name such as `google` or `acme`.
+        This endpoint requires the `events_id` which is a unique ID created by your organization to identify the event. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
       operationId: get_event
       parameters:
         - $ref: '#/components/parameters/event_id'
@@ -1377,27 +1111,19 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/{org_name}/events/{event_id}/update':
+  /{org_name}/events/{event_id}/update:
     put:
       tags:
         - Events API
       summary: Update event
-      description: >-
+      description: |-
         Update an event using the `event_id` from your platform. 
 
+        Updating an event has no required fields. You MAY send any  subset of the fields that the events/create endpoint accepts.
 
-        Updating an event has no required fields. You MAY send any  subset of
-        the fields that the events/create endpoint accepts.
+        This endpoint requires the `event_id` which is a unique ID created by your organization to identify the event. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
 
-
-        This endpoint requires the `event_id` which is a unique ID created by
-        your organization to identify the event. The `org_name` is your Unit21
-        appointed organization name such as `google` or `acme`.
-
-
-        Note that you can also update an event using an upsert through
-        `/events/create`.
-
+        Note that you can also update an event using an upsert through `/events/create`.
 
         Follow the links for more information:
           - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
@@ -1456,20 +1182,14 @@ paths:
       tags:
         - Events API
       summary: Bulk export events
-      description: >
-        Initiates an email and dashboard export of events. The export will be as
-        a CSV file.
-
+      description: |
+        Initiates an email and dashboard export of events. The export will be as a CSV file.
 
         Either the agent `ID` or `email` is required to begin the export.
 
-
-        Either the `filters` or the list of `event IDs` are required for the
-        export.
-
+        Either the `filters` or the list of `event IDs` are required for the export.
 
         **Currently `event_ids` should actually be `unit21_ids`.**
-
 
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_events
@@ -1517,20 +1237,14 @@ paths:
       tags:
         - Events API
       summary: Bulk export transactions
-      description: >
-        Initiates an email and dashboard export of events. The export will be as
-        a CSV file.
-
+      description: |
+        Initiates an email and dashboard export of events. The export will be as a CSV file.
 
         Either the agent `ID` or `email` is required to begin the export.
 
-
-        Either the `filters` or the list of `event IDs` are required for the
-        export.
-
+        Either the `filters` or the list of `event IDs` are required for the export.
 
         **Currently `event_ids` should actually be `unit21_ids`.**
-
 
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_transactions
@@ -1578,24 +1292,14 @@ paths:
       tags:
         - Rules API
       summary: List rules
-      description: >-
+      description: |-
         Returns paginated list of of top-level information about rules.     
 
+        Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
+        * `limit`  indicates how many objects the request returns (the page maximum is 50)
+        * `offset` indicates the offset for pagination. An `offset` value of 1 starts with the environment's first record. The offset is relative to the number of pages (not the total count of objects).
 
-        Because the response is paginated, the request body has a `limit` and
-        `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many objects the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record. The offset is relative to
-        the number of pages (not the total count of objects).
-
-
-        The `total_count` field contains the total number of rules where the 
-        `response_count` field contains the number of rules included in the
-        response.
+        The `total_count` field contains the total number of rules where the  `response_count` field contains the number of rules included in the response.
       operationId: list_rules
       requestBody:
         $ref: '#/components/requestBodies/list'
@@ -1631,17 +1335,15 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/rules/{unit21_id}':
+  /rules/{unit21_id}:
     get:
       tags:
         - Rules API
       summary: Get a rule
-      description: >-
+      description: |-
         Returns all data objects belonging to a single rule.
 
-
-        This endpoint requires the `unit21_id` which is a unique ID created by
-        Unit21 when the rule is first created.
+        This endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the rule is first created.
       operationId: read_one_rule
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -1679,20 +1381,14 @@ paths:
       tags:
         - Rules API
       summary: Bulk export rules
-      description: >
-        Initiates an email and dashboard export of rules. The export will be as
-        a CSV file.
-
+      description: |
+        Initiates an email and dashboard export of rules. The export will be as a CSV file.
 
         Either the agent `ID` or `email` is required to begin the export.
 
-
-        Either the `filters` or the list of `rule IDs` are required for the
-        export.
-
+        Either the `filters` or the list of `rule IDs` are required for the export.
 
         **Currently `rule_ids` should actually be `unit21_ids`.**
-
 
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_rules
@@ -1740,24 +1436,14 @@ paths:
       tags:
         - Alerts API
       summary: List alerts
-      description: >
-        Returns an array of top-level information about alerts in your
-        environment.
+      description: |
+        Returns an array of top-level information about alerts in your environment.
 
+        Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
+        * `limit`  indicates how many objects the request returns (the page maximum is 50)
+        * `offset` indicates the offset for pagination. An `offset` value of 1 starts with the environment's first record.
 
-        Because the response is paginated, the request body has a `limit` and
-        `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many objects the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
-
-
-        To narrow down your alert search, we provide filter parameters to this
-        endpoint. Note that all list inputs function as an "or" filter, as in
-        any one of the values must match the selected alert(s):
+        To narrow down your alert search, we provide filter parameters to this endpoint. Note that all list inputs function as an "or" filter, as in any one of the values must match the selected alert(s):
 
 
           | Field                   | Type        | Description                                                                                                       |
@@ -1782,10 +1468,7 @@ paths:
           | `options`               | Object      | Options for the data included in the returned alerts. Removing unneeded options can improve response speed        |
 
 
-        The `total_count` field contains the total number of alerts where the 
-        `response_count` field contains the number of alerts included in the
-        response.
-
+        The `total_count` field contains the total number of alerts where the  `response_count` field contains the number of alerts included in the response.
 
         Follow the links for more information:
           - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
@@ -1870,17 +1553,15 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/alerts/{unit21_id}':
+  /alerts/{unit21_id}:
     get:
       tags:
         - Alerts API
       summary: Get an alert
-      description: >-
+      description: |-
         Returns all data objects belonging to a single alert.
 
-
-        This endpoint requires the `unit21_id` which is a unique ID created by
-        Unit21 when the entity is first created.
+        This endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the entity is first created.
       operationId: get_alert_by_unit21_id
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -1890,7 +1571,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/alertList'
+                $ref: '#/components/schemas/getAlertResponse'
         '400':
           description: Bad Request. Your request is invalid.
           content:
@@ -1913,7 +1594,7 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/alerts/{unit21_id}/update':
+  /alerts/{unit21_id}/update:
     put:
       tags:
         - Alerts API
@@ -1960,45 +1641,28 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/alerts/{unit21_id}/link-media':
+  /alerts/{unit21_id}/link-media:
     put:
       tags:
         - Alerts API
       summary: Add media to an alert
-      description: >-
+      description: |-
         Adds rich media objects (images, videos, etc.) to an existing alert. 
 
+        This endpoint is useful for sending in rich media such as profile pictures, ID card scans, official documents etc.  that you want available for investigative and verification purposes.
 
-        This endpoint is useful for sending in rich media such as profile
-        pictures, ID card scans, official documents etc.  that you want
-        available for investigative and verification purposes.
+        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv), images (png, jpg, tiff, gif, raw, eps).
 
+        The payload to this endpoint can either be a **form-data** or a **base64** encoded media file via the requests JSON body.
 
-        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv),
-        images (png, jpg, tiff, gif, raw, eps).
-
-
-        The payload to this endpoint can either be a **form-data** or a
-        **base64** encoded media file via the requests JSON body.
-
-
-        **Form-data** sent to this endpoint must use the key `media_key` and the
-        `value` as the media file.  If you wish to provide optional information,
-        use the `media_key` and provide stringified JSON data as the value. 
-        There are no required fields in each media file's supplementary form
-        data. However, if a recognized `media_type` value is provided,  the
-        Unit21 system will be able to use the media object for purposes such as
-        document verification.
-
+        **Form-data** sent to this endpoint must use the key `media_key` and the `value` as the media file.  If you wish to provide optional information, use the `media_key` and provide stringified JSON data as the value.  There are no required fields in each media file's supplementary form data. However, if a recognized `media_type` value is provided,  the Unit21 system will be able to use the media object for purposes such as document verification.
 
         ```
             --form 'document_front=@/src/103031/images/document_front.jpg' \
             --form 'document_front={"media_type": "IMAGE_ID_CARD_FRONT", "source": "passport_app", "timestamp": 1572673229}'
         ```
 
-
         **Base64** encoded media objects must follow the format:
-
 
         ```json
           {
@@ -2008,11 +1672,7 @@ paths:
           }
         ```
             
-        `media` and `name` are the only required fields for each media object.
-        The `name`` must include the file extension such a `File.pdf`.
-        Supplementary form data is sent through the optional `custom_data`
-        object.
-
+        `media` and `name` are the only required fields for each media object. The `name`` must include the file extension such a `File.pdf`. Supplementary form data is sent through the optional `custom_data` object.
 
         Recognized values of `media_type` are: 
 
@@ -2068,20 +1728,14 @@ paths:
       tags:
         - Alerts API
       summary: Bulk export alerts
-      description: >
-        Initiates an email and dashboard export of alerts. The export will be as
-        a CSV file.
-
+      description: |
+        Initiates an email and dashboard export of alerts. The export will be as a CSV file.
 
         Either the agent `ID` or `email` is required to begin the export.
 
-
-        Either the `filters` or the list of `alert IDs` are required for the
-        export.
-
+        Either the `filters` or the list of `alert IDs` are required for the export.
 
         **Currently `alert_ids` should actually be `unit21_ids`.**
-
 
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_alerts
@@ -2130,24 +1784,14 @@ paths:
       tags:
         - Cases API
       summary: List cases
-      description: >
-        Returns an array of top-level information about cases in your
-        environment.
+      description: |
+        Returns an array of top-level information about cases in your environment.
 
+        Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
+        * `limit`  indicates how many objects the request returns (the page maximum is 50)
+        * `offset` indicates the offset for pagination. An `offset` value of 1 starts with the environment's first record.
 
-        Because the response is paginated, the request body has a `limit` and
-        `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many objects the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
-
-
-        To narrow down your case search, we provide filter parameters to this
-        endpoint. Note that all list inputs function as an "or" filter, as in
-        any one of the values must match the selected case(s):
+        To narrow down your case search, we provide filter parameters to this endpoint. Note that all list inputs function as an "or" filter, as in any one of the values must match the selected case(s):
 
 
           | Field                   | Type        | Description                                                                                                       |
@@ -2170,10 +1814,7 @@ paths:
           | `options`               | Object      | Options for the data included in the returned cases. Removing unneeded options can improve response speed         |
 
 
-        The `total_count` field contains the total number of case where the 
-        `response_count` field contains the number of cases included in the
-        response.
-
+        The `total_count` field contains the total number of case where the  `response_count` field contains the number of cases included in the response.
 
         Follow the links for more information:
           - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
@@ -2266,17 +1907,15 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/cases/{unit21_id}':
+  /cases/{unit21_id}:
     get:
       tags:
         - Cases API
       summary: Get a case
-      description: >-
+      description: |-
         Returns all data objects belonging to a single case.
 
-
-        This endpoint requires the `unit21_id` which is a unique ID created by
-        Unit21 when the case is first created.
+        This endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the case is first created.
       operationId: get_case_by_unit21_id
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -2286,7 +1925,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/caseList'
+                $ref: '#/components/schemas/getCaseResponse'
         '400':
           description: Bad Request. Your request is invalid.
           content:
@@ -2295,7 +1934,7 @@ paths:
                 allOf:
                   - $ref: '#/components/schemas/errorResponse'
                   - $ref: '#/components/schemas/messageResponse'
-  '/cases/{unit21_id}/update':
+  /cases/{unit21_id}/update:
     put:
       tags:
         - Cases API
@@ -2342,45 +1981,28 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/cases/{unit21_id}/link-media':
+  /cases/{unit21_id}/link-media:
     put:
       tags:
         - Cases API
       summary: Add media to a case
-      description: >-
+      description: |-
         Adds rich media objects (images, videos, etc.) to an existing case. 
 
+        This endpoint is useful for sending in rich media such as profile pictures, ID card scans, official documents etc.  that you want available for investigative and verification purposes.
 
-        This endpoint is useful for sending in rich media such as profile
-        pictures, ID card scans, official documents etc.  that you want
-        available for investigative and verification purposes.
+        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv), images (png, jpg, tiff, gif, raw, eps).
 
+        The payload to this endpoint can either be a **form-data** or a **base64** encoded media file via the requests JSON body.
 
-        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv),
-        images (png, jpg, tiff, gif, raw, eps).
-
-
-        The payload to this endpoint can either be a **form-data** or a
-        **base64** encoded media file via the requests JSON body.
-
-
-        **Form-data** sent to this endpoint must use the key `media_key` and the
-        `value` as the media file.  If you wish to provide optional information,
-        use the `media_key` and provide stringified JSON data as the value. 
-        There are no required fields in each media file's supplementary form
-        data. However, if a recognized `media_type` value is provided,  the
-        Unit21 system will be able to use the media object for purposes such as
-        document verification.
-
+        **Form-data** sent to this endpoint must use the key `media_key` and the `value` as the media file.  If you wish to provide optional information, use the `media_key` and provide stringified JSON data as the value.  There are no required fields in each media file's supplementary form data. However, if a recognized `media_type` value is provided,  the Unit21 system will be able to use the media object for purposes such as document verification.
 
         ```
             --form 'document_front=@/src/103031/images/document_front.jpg' \
             --form 'document_front={"media_type": "IMAGE_ID_CARD_FRONT", "source": "passport_app", "timestamp": 1572673229}'
         ```
 
-
         **Base64** encoded media objects must follow the format:
-
 
         ```json
           {
@@ -2390,11 +2012,7 @@ paths:
           }
         ```
             
-        `media` and `name` are the only required fields for each media object.
-        The `name`` must include the file extension such a `File.pdf`.
-        Supplementary form data is sent through the optional `custom_data`
-        object.
-
+        `media` and `name` are the only required fields for each media object. The `name`` must include the file extension such a `File.pdf`. Supplementary form data is sent through the optional `custom_data` object.
 
         Recognized values of `media_type` are: 
 
@@ -2450,17 +2068,12 @@ paths:
       tags:
         - Cases API
       summary: Bulk export cases
-      description: >
-        Initiates an email and dashboard export of cases. The export will be as
-        a CSV file.
-
+      description: |
+        Initiates an email and dashboard export of cases. The export will be as a CSV file.
 
         Either the agent `ID` or `email` is required to begin the export.
 
-
-        Either the `filters` or the list of `case IDs` are required for the
-        export.
-
+        Either the `filters` or the list of `case IDs` are required for the export.
 
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_cases
@@ -2508,25 +2121,14 @@ paths:
       tags:
         - Sars API
       summary: List sars
-      description: >-
-        Returns paginated list of of top-level information about
-        paths/sars@list.yaml    
+      description: |-
+        Returns paginated list of of top-level information about paths/sars@list.yaml    
 
+        Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
+        * `limit`  indicates how many objects the request returns (the page maximum is 50)
+        * `offset` indicates the offset for pagination. An `offset` value of 1 starts with the environment's first record. The offset is relative to the number of pages (not the total count of objects).
 
-        Because the response is paginated, the request body has a `limit` and
-        `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many objects the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record. The offset is relative to
-        the number of pages (not the total count of objects).
-
-
-        To narrow down your sars search, we provide filter parameters to this
-        endpoint. Note that all list inputs function as an "or" filter, as in
-        any one of the values must match the selected sar(s):
+        To narrow down your sars search, we provide filter parameters to this endpoint. Note that all list inputs function as an "or" filter, as in any one of the values must match the selected sar(s):
 
 
           | Field                   | Type        | Description                                                                                                       |
@@ -2539,10 +2141,7 @@ paths:
           | `options`               | Object      | Options for the data included in the returned SARs. Removing unneeded options can improve response speed          |
 
 
-        The `total_count` field contains the total number of sars where the 
-        `response_count` field contains the number of sars included in the
-        response.
-
+        The `total_count` field contains the total number of sars where the  `response_count` field contains the number of sars included in the response.
 
         Follow the links for more information:
           - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
@@ -2587,17 +2186,15 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/sars/{unit21_id}':
+  /sars/{unit21_id}:
     get:
       tags:
         - Sars API
       summary: Get a sars
-      description: >-
+      description: |-
         Returns all data objects belonging to a single SAR.
 
-
-        This endpoint requires the `unit21_id` which is a unique ID created by
-        Unit21 when the sar is first created.
+        This endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the sar is first created.
       operationId: read_one_sar
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -2621,17 +2218,12 @@ paths:
       tags:
         - Sars API
       summary: Bulk export sars
-      description: >
-        Initiates an email and dashboard export of sars. The export will be as a
-        CSV file.
-
+      description: |
+        Initiates an email and dashboard export of sars. The export will be as a CSV file.
 
         Either the agent `ID` or `email` is required to begin the export.
 
-
-        Either the `filters` or the list of `sar IDs` are required for the
-        export.
-
+        Either the `filters` or the list of `sar IDs` are required for the export.
 
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_sars
@@ -2674,23 +2266,17 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/{org_name}/entities/{entity_id}/verify':
+  /{org_name}/entities/{entity_id}/verify:
     post:
       tags:
         - Entity Verification API
       summary: Verify an entity
-      description: >
-        Run a verification workflow on an entity using the `entity_id` from your
-        platform. 
+      description: |
+        Run a verification workflow on an entity using the `entity_id` from your platform. 
 
+        Requires a `workflow_id`. You can create a verification workflow from the Unit21 dashboard.
 
-        Requires a `workflow_id`. You can create a verification workflow from
-        the Unit21 dashboard.
-
-
-        This endpoint requires the `entity_id` which is a unique ID created by
-        your organization to identify the entity. The `org_name` is your Unit21
-        appointed organization name such as `google` or `acme`.
+        This endpoint requires the `entity_id` which is a unique ID created by your organization to identify the entity. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
       operationId: run_verifications_workflow_through_external_id
       parameters:
         - $ref: '#/components/parameters/entity_id'
@@ -2711,36 +2297,27 @@ paths:
                 properties:
                   end_action:
                     type: string
-                    description: >-
-                      The end result of the workflow, one of a set of end
-                      results defined by the workflow
+                    description: The end result of the workflow, one of a set of end results defined by the workflow
                   is_success:
                     type: boolean
-                    description: >-
-                      Whether or not the workflow successful completed.
-                      Workflows rely on external services, which may at times
-                      fail
+                    description: Whether or not the workflow successful completed. Workflows rely on external services, which may at times fail
                   results:
                     type: object
-                    description: >-
-                      Object mapping from the executed verifications (e.g.
-                      IDOLOGY:DOC_VERIFICATION)
+                    description: Object mapping from the executed verifications (e.g. IDOLOGY:DOC_VERIFICATION)
                   full_response:
                     type: object
-                    description: >-
-                      The raw response from the verification provider. Contents
-                      depend on the verification source and type.
+                    description: The raw response from the verification provider. Contents depend on the verification source and type.
               example:
                 end_action: $REJECT
                 is_success: true
                 results:
-                  'IDOLOGY:DOC_VERIFICATION':
+                  IDOLOGY:DOC_VERIFICATION:
                     parsed_result: CAPTURE_NOT_APPROVED
                     verification_result_id: 73
-                  'IDOLOGY:ID_VERIFICATION':
+                  IDOLOGY:ID_VERIFICATION:
                     parsed_result: ID_NON_MATCH
                     verification_result_id: 71
-                  'IDOLOGY:WATCHLIST_SCREENING':
+                  IDOLOGY:WATCHLIST_SCREENING:
                     parsed_result: NO_RESTRICTION
                     verification_result_id: 72
                 full_response:
@@ -2767,15 +2344,13 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/entities/{unit21_id}/link-verification-result':
+  /entities/{unit21_id}/link-verification-result:
     post:
       tags:
         - Entity Verification API
       summary: Link external verification
-      description: >-
-        Add the verification result from an external ID provider to an entity on
-        the Unit21 system.
-
+      description: |-
+        Add the verification result from an external ID provider to an entity on the Unit21 system.
         You can only send 1 result per request.
       operationId: add_verification_result_to_entity
       parameters:
@@ -2823,7 +2398,7 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/verification/result/{result_id}':
+  /verification/result/{result_id}:
     get:
       tags:
         - Entity Verification API
@@ -2861,24 +2436,17 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/entities/{unit21_id}/continuous-monitoring':
+  /entities/{unit21_id}/continuous-monitoring:
     post:
       tags:
         - Entity Verification API
       summary: Update continuous monitoring
-      description: >
-        Fetch status and enables/disables Socure continuous monitoring for an
-        entity.
+      description: |
+        Fetch status and enables/disables Socure continuous monitoring for an entity.
 
+        For asynchronous continuous monitoring, the endpoint will always return a 200 success status response.
 
-        For asynchronous continuous monitoring, the endpoint will always return
-        a 200 success status response.
-
-
-        For synchronous continous monitoring, the endpoint will always return a
-        200 success status response  but you should look at the `is_success =
-        true` field to check if the result was actually successful: 
-
+        For synchronous continous monitoring, the endpoint will always return a 200 success status response  but you should look at the `is_success = true` field to check if the result was actually successful: 
 
         `
           {
@@ -2922,14 +2490,13 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/entities/{unit21_id}/suppress-provider-entity':
+  /entities/{unit21_id}/suppress-provider-entity:
     post:
       tags:
         - Entity Verification API
       summary: Suppress provider entity
-      description: >
-        Mute Socure continuous monitoring for an entity. 1 - Suppress 0 -
-        Unsuppress
+      description: |
+        Mute Socure continuous monitoring for an entity. 1 - Suppress 0 - Unsuppress
       operationId: update_suppressed_provider_entities
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -2966,17 +2533,15 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/entities/{unit21_id}/verification_workflow_executions':
+  /entities/{unit21_id}/verification_workflow_executions:
     get:
       tags:
         - Entity Verification API
       summary: Get entity verification workflow IDs
-      description: >-
+      description: |-
         Returns the verification workflow IDs for an entity.
 
-
-        This endpoint requires the `unit21_id` which is a unique ID created by
-        Unit21 when the entity is first created.
+        This endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the entity is first created.
       operationId: get_entity_verification_workflow_executions
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -3009,14 +2574,12 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/verification/verification-workflow-execution/{verification_workflow_execution_id}':
+  /verification/verification-workflow-execution/{verification_workflow_execution_id}:
     get:
       tags:
         - Entity Verification API
       summary: Get verification workflow execution details
-      description: >-
-        Returns all the data associated with a
-        verification_workflow_execution_id
+      description: Returns all the data associated with a verification_workflow_execution_id
       operationId: get_verification_workflow_execution
       parameters:
         - $ref: '#/components/parameters/verification_workflow_execution_id'
@@ -3049,14 +2612,12 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/verification/verification-workflow-execution/{verification_workflow_execution_id}/results':
+  /verification/verification-workflow-execution/{verification_workflow_execution_id}/results:
     get:
       tags:
         - Entity Verification API
       summary: Get verification results from workflow
-      description: >-
-        Returns all the information from the verification workflow execution for
-        a specific entity.
+      description: Returns all the information from the verification workflow execution for a specific entity.
       operationId: get_verification_result_from_workflow_execution
       parameters:
         - $ref: '#/components/parameters/verification_workflow_execution_id'
@@ -3094,9 +2655,7 @@ paths:
       tags:
         - Verification Forms API
       summary: Verification Forms API
-      description: >-
-        If you are verifying IDs and collecting user data, this endpoint creates
-        a temporary URL to which you can redirect users.
+      description: If you are verifying IDs and collecting user data, this endpoint creates a temporary URL to which you can redirect users.
       operationId: create_verification_form
       requestBody:
         required: true
@@ -3108,10 +2667,8 @@ paths:
               properties:
                 session_length_minutes:
                   type: integer
-                  description: >
-                    Time in minutes that form will be valid. Once this expires,
-                    the user can no longer submit or view the form. Max is 10080
-                    minutes (one week). Default is 1440 minutes (one day)
+                  description: |
+                    Time in minutes that form will be valid. Once this expires, the user can no longer submit or view the form. Max is 10080 minutes (one week). Default is 1440 minutes (one day)
                   minimum: 1
                   maximum: 10080
                   default: 1440
@@ -3195,7 +2752,7 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/file-exports/download/{file_export_id}':
+  /file-exports/download/{file_export_id}:
     get:
       tags:
         - Exports API
@@ -3248,12 +2805,9 @@ paths:
       tags:
         - Agents API
       summary: List agents
-      description: >-
-        Returns an array of all agents in your organization who are using the
-        environment.
-
-        There are no options or filters for this endpoint. The request will
-        return ALL agents.
+      description: |-
+        Returns an array of all agents in your organization who are using the environment.
+        There are no options or filters for this endpoint. The request will return ALL agents.
       operationId: list_agents
       responses:
         '200':
@@ -3280,7 +2834,7 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/agents/{agent_email}/deactivate':
+  /agents/{agent_email}/deactivate:
     put:
       tags:
         - Agents API
@@ -3320,17 +2874,15 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/webhooks/{unit21_id}/update':
+  /webhooks/{unit21_id}/update:
     put:
       tags:
         - Webhooks API
       summary: Update webhook URL
-      description: >-
+      description: |-
         Change the URL of an existing webhook from Unit21.
 
-
-        This endpoint requires the `unit21_id` which is a unique ID created by
-        Unit21 when the webhook is first created.
+        This endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the webhook is first created.
       operationId: update_webhook
       parameters:
         - $ref: '#/components/parameters/unit21_id'
@@ -3344,7 +2896,7 @@ paths:
                   type: string
                   format: URL
                   description: The URL that you want to send the webhook too.
-                  example: 'https://example.com'
+                  example: https://example.com
       responses:
         '200':
           description: OK
@@ -3356,23 +2908,14 @@ paths:
       tags:
         - Matchlists API
       summary: List matchlists
-      description: >
+      description: |
         Returns an array of matchlist in your environment. 
 
+        Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
+        * `limit`  indicates how many objects the request returns (the page maximum is 50)
+        * `offset` indicates the offset for pagination. An `offset` value of 1 starts with the environment's first record.
 
-        Because the response is paginated, the request body has a `limit` and
-        `offset` field. At least one must be filled.
-
-        * `limit`  indicates how many objects the request returns (the page
-        maximum is 50)
-
-        * `offset` indicates the offset for pagination. An `offset` value of 1
-        starts with the environment's first record.
-
-
-        The `total_count` field contains the total number of matchlists where
-        the  `response_count` field contains the number of matchlists included
-        in the response.
+        The `total_count` field contains the total number of matchlists where the  `response_count` field contains the number of matchlists included in the response.
       operationId: list_blacklists
       requestBody:
         $ref: '#/components/requestBodies/list'
@@ -3452,7 +2995,7 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/blacklists/{unit21_id}/add-values':
+  /blacklists/{unit21_id}/add-values:
     post:
       tags:
         - Matchlists API
@@ -3509,19 +3052,12 @@ paths:
       operationId: create_datafiles
       summary: Upload datafiles
       deprecated: true
-      description: >
-        Bulk upload multiple objects of the same type. Can be entities, events,
-        or instruments.
+      description: |
+        Bulk upload multiple objects of the same type. Can be entities, events, or instruments.
 
+        Only one file can be uploaded in a request, with a file size maximum of 1GB. Please add a waiting time of two seconds between requests.
 
-        Only one file can be uploaded in a request, with a file size maximum of
-        1GB. Please add a waiting time of two seconds between requests.
-
-
-        Use `--form datafile` to specify the datafile, and `run_rules` to
-        configure whether to run Unit21 rules on the datafile after it's
-        processed.
-
+        Use `--form datafile` to specify the datafile, and `run_rules` to configure whether to run Unit21 rules on the datafile after it's processed.
 
         We support JSON format only.
       requestBody:
@@ -3568,19 +3104,17 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  '/datafiles/{unit21_id}':
+  /datafiles/{unit21_id}:
     get:
       tags:
         - Datafiles API
       operationId: get_datafile_by_unit21_id
       summary: Get datafile
       deprecated: true
-      description: >-
+      description: |-
         Get details about a datafile.
 
-
-        This endpoint requires the `unit21_id` which is a unique ID created by
-        Unit21 when the datafile is first created.
+        This endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the datafile is first created.
       parameters:
         - $ref: '#/components/parameters/unit21_id'
       responses:
@@ -3618,14 +3152,10 @@ paths:
         - Import API
       operationId: get_pre_signed_url
       summary: Get pre-signed URL
-      description: >-
-        Get details your unique URL you can use to import data into the Unit21
-        system.
+      description: |-
+        Get details your unique URL you can use to import data into the Unit21 system.
 
-
-        The response will include a URL which you must use to upload your
-        datafile. In the example below, your datafile will be uploaded to
-        https://local-tm-uploads.s3.amazonaws.com/.
+        The response will include a URL which you must use to upload your datafile. In the example below, your datafile will be uploaded to https://local-tm-uploads.s3.amazonaws.com/.
       requestBody:
         content:
           application/json:
@@ -3644,9 +3174,7 @@ paths:
                   example: custom_data.csv
                 md5_hash:
                   type: string
-                  description: >-
-                    Unique hash. Requires UUID format. Used if filename is not
-                    unique.
+                  description: Unique hash. Requires UUID format. Used if filename is not unique.
                   example: 352bfecf-ce8e-4c3d-64b9-ba0707fc2496
       responses:
         '200':
@@ -3658,41 +3186,30 @@ paths:
                 form_fields:
                   AWSAccessKeyId: AKIA4GCWZN4AUYY52BAU
                   key: dev/org_unit21/1677016250000_foobar.json
-                  policy: >-
-                    eyJleHBpcmF0aW9uIjogIjIwMjMtMDItMjFUMjM6NTA6NTBaIiwgImNvbmRpdGlvbnMiOiBbWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsIDAsIDMxNDU3MjgwMF0sIHsiYnVja2V0IjogIm11bHRpdGVuYW50LXVzLXdlc3QtMi1kZXYtdG0tdXBsb2FkcyJ9LCB7ImtleSI6ICJkZXYvb3JnX3VuaXQyMS8xNjc3MDE2MjUwMDAwX2Zvb2Jhci5qc29uIn1dfQ==
+                  policy: eyJleHBpcmF0aW9uIjogIjIwMjMtMDItMjFUMjM6NTA6NTBaIiwgImNvbmRpdGlvbnMiOiBbWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsIDAsIDMxNDU3MjgwMF0sIHsiYnVja2V0IjogIm11bHRpdGVuYW50LXVzLXdlc3QtMi1kZXYtdG0tdXBsb2FkcyJ9LCB7ImtleSI6ICJkZXYvb3JnX3VuaXQyMS8xNjc3MDE2MjUwMDAwX2Zvb2Jhci5qc29uIn1dfQ==
                   signature: b+tguqfylMCXytxtXMwAY7jLdPw=
-                url: 'https://multitenant-us-west-2-dev-tm-uploads.s3.amazonaws.com/'
-  '/{pre_signed_url}':
+                url: https://multitenant-us-west-2-dev-tm-uploads.s3.amazonaws.com/
+  /{pre_signed_url}:
     post:
       servers:
-        - url: 'https://'
+        - url: https://
       security: []
       tags:
         - Import API
       operationId: upload_datafiles
       summary: Upload data to URL
-      description: >
-        Upload your file to our S3 bucket using the pre signed AWS URL you
-        received in the `create` endpoint.
+      description: |
+        Upload your file to our S3 bucket using the pre signed AWS URL you received in the `create` endpoint.
 
+        **PLEASE NOTE THAT THE URL FOR THIS POST REQUEST IS THE `pre_signed_url` ONLY.** YOU MUST REMOVE `https://sandbox1-api.unit21.com/v1`.
 
-        **PLEASE NOTE THAT THE URL FOR THIS POST REQUEST IS THE `pre_signed_url`
-        ONLY.** YOU MUST REMOVE `https://sandbox1-api.unit21.com/v1`.
-
-
-        Documentation shows an incorrect example:
-        https://sandbox1-api.unit21.com/v1/local-tm-uploads.s3.amazonaws.com/.
-
+        Documentation shows an incorrect example: https://sandbox1-api.unit21.com/v1/local-tm-uploads.s3.amazonaws.com/.
 
         The correct URL would be: https://local-tm-uploads.s3.amazonaws.com/
 
-
-        Only one file can be uploaded in a request, with a file size maximum of
-        300MB. Please add a waiting time of two seconds between requests.
-
+        Only one file can be uploaded in a request, with a file size maximum of 300MB. Please add a waiting time of two seconds between requests.
 
         Use `--form file` to specify the file.
-
 
         We support JSON, JSONL, CSV format only.
       parameters:
@@ -3712,7 +3229,7 @@ paths:
           content:
             application/json:
               example: {}
-  '/imports/{file_id}':
+  /imports/{file_id}:
     get:
       tags:
         - Import API
@@ -3743,13 +3260,10 @@ paths:
         - Import API
       operationId: list_datafiles
       summary: Retrieve datafiles list
-      description: >
+      description: |
         Retrieve list of datafiles.
 
-
-        Note `file_id` will be included in the initial request to get a
-        presigned_url.
-
+        Note `file_id` will be included in the initial request to get a presigned_url.
 
         This route will be limited to 1000 records ordered by upload time.
       requestBody:
@@ -3759,15 +3273,11 @@ paths:
               properties:
                 created_after:
                   type: integer
-                  description: >-
-                    Unix timestamp for the time range at which the
-                    pre-signed-url was requested.
+                  description: Unix timestamp for the time range at which the pre-signed-url was requested.
                   example: 1623365011
                 created_before:
                   type: integer
-                  description: >-
-                    Unix timestamp for the time range at which the
-                    pre-signed-url was requested.
+                  description: Unix timestamp for the time range at which the pre-signed-url was requested.
                   example: 1621365011
       responses:
         '200':
@@ -3808,10 +3318,7 @@ components:
           example: 2
         offset:
           type: integer
-          description: >-
-            Pagination offset. A value of 1 returns a response beginning with
-            the first record. The offset is relative to the number of pages (not
-            the total count of objects)
+          description: Pagination offset. A value of 1 returns a response beginning with the first record. The offset is relative to the number of pages (not the total count of objects)
           minimum: 1
           default: 1
         case_id:
@@ -3824,9 +3331,7 @@ components:
           example: 73913
     unit21Id:
       type: integer
-      description: >-
-        A Unit21 internally-assigned unique identifier for an object within the
-        Unit21 system. 
+      description: 'A Unit21 internally-assigned unique identifier for an object within the Unit21 system. '
       example: 1237466
     businessName:
       type: string
@@ -3850,10 +3355,8 @@ components:
       example: Global Liquids
     businessDataProperties:
       title: Business data
-      description: >
-        Business data - business name, TIN/EIN etc. None of the fields in
-        business_data are required. You may send in an empty array:
-        `"business_data": {}`.
+      description: |
+        Business data - business name, TIN/EIN etc. None of the fields in business_data are required. You may send in an empty array: `"business_data": {}`.
       type: object
       properties:
         business_name:
@@ -3881,19 +3384,14 @@ components:
           example: www.google.com
     phoneNumbers:
       type: array
-      description: >-
-        List of phone numbers associated with the entity in [E.164
-        format](https://en.wikipedia.org/wiki/E.164)─e.g. +12125551395 (
-        '[+][country code][area code][local phone number]' )
+      description: List of phone numbers associated with the entity in [E.164 format](https://en.wikipedia.org/wiki/E.164)─e.g. +12125551395 ( '[+][country code][area code][local phone number]' )
       items:
         type: string
         example: '+14159627132'
     communicationDataProperties:
       title: Communication data
       type: object
-      description: >-
-        An entity's associated means of communication, like emails and phone
-        numbers.
+      description: An entity's associated means of communication, like emails and phone numbers.
       properties:
         email_addresses:
           type: array
@@ -3906,11 +3404,7 @@ components:
     customDataProperties:
       title: Custom_data
       type: object
-      description: >-
-        Any custom information that you wish our system to associate with this
-        object  (accepts any valid JSON object -- up to 3 layers deep -- in
-        key:value format --  `string:string`, `string:int`, `string:bool` -- no
-        arrays)
+      description: Any custom information that you wish our system to associate with this object  (accepts any valid JSON object -- up to 3 layers deep -- in key:value format --  `string:string`, `string:int`, `string:bool` -- no arrays)
       example:
         internal_notes: Reviewed by Mitchell on 31 June 2019
         reviewers: 3
@@ -3924,9 +3418,7 @@ components:
         socure_device_session_id: '12121212121212112'
         CITY: Philadelphia
         CURRENT_SIGN_IN_IP: 23.24.34.1
-        DEVICE_INFO: >-
-          Carrier: Metro by T-Mobile, Mac address: dc:9b:d6:7f:6d:40, Device
-          name: TCL 5007Z
+        DEVICE_INFO: 'Carrier: Metro by T-Mobile, Mac address: dc:9b:d6:7f:6d:40, Device name: TCL 5007Z'
         PREVENT_LOGIN_REASON: Login Not blocked
         SUSPENDED: 'TRUE'
       additionalProperties: true
@@ -3944,7 +3436,7 @@ components:
       example: 5454-ahfd-4531d-f4il
     digitalDataArrayProperties:
       title: Digital data
-      description: 'Associated digital properties - IP, device, browser, client info etc.'
+      description: Associated digital properties - IP, device, browser, client info etc.
       type: object
       properties:
         ip_addresses:
@@ -3988,15 +3480,11 @@ components:
           example: US
         issued_at:
           type: integer
-          description: >-
-            Date when document was created, in seconds since 1 Jan 1970 00:00:00
-            UTC (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
+          description: Date when document was created, in seconds since 1 Jan 1970 00:00:00 UTC (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
           example: 1572673226
         expires_at:
           type: integer
-          description: >-
-            Date when document expires, in seconds since 1 Jan 1970 00:00:00 UTC
-            (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
+          description: Date when document expires, in seconds since 1 Jan 1970 00:00:00 UTC (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time))".
           example: 1572673227
     documentDataArrayProperties:
       title: Document data array
@@ -4006,24 +3494,19 @@ components:
         $ref: '#/components/schemas/documentDataProperties'
     entityId:
       type: string
-      description: >-
-        Unique identifier of the entity. Entity IDs must be unique and only
-        comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
+      description: Unique identifier of the entity. Entity IDs must be unique and only comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
       minLength: 1
       maxLength: 128
       pattern: '-\_:.@a-zA-Z0-9!#\$%&\''\*+/=?^`{'
       example: u-3593dece-6642-4cdc-8547-aafc1454e0a0
     entityType:
       type: string
-      description: >-
-        Describes a user such as `employee` or `business`. Required for new
-        entities.
+      description: Describes a user such as `employee` or `business`. Required for new entities.
       example: user
     entitySubtype:
       type: string
-      description: >
-        Extra information how your organization classifies the entity. You MAY
-        enter any value.
+      description: |
+        Extra information how your organization classifies the entity. You MAY enter any value.
       maxLength: 128
       example: contractor
     objectStatus:
@@ -4033,25 +3516,19 @@ components:
       example: active
     registeredAt:
       type: integer
-      description: >-
-        Date in seconds since 1 Jan 1970 00:00:00 UTC (i.e. in [Unix
-        time](https://en.wikipedia.org/wiki/Unix_time)).
+      description: Date in seconds since 1 Jan 1970 00:00:00 UTC (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time)).
       example: 1623365011
     Tags:
       type: array
-      description: >-
-        List of string tags, in the format `keyString:valueString` (note that
-        the Key strings are NOT enclosed in `"`)
+      description: List of string tags, in the format `keyString:valueString` (note that the Key strings are NOT enclosed in `"`)
       items:
         type: string
         format: key-value pair
-        example: 'Sector:Europe'
+        example: Sector:Europe
     generalEntitiesListProperties:
       title: General entity data
       type: object
-      description: >-
-        General information about the entity. With this object, you can link any
-        entity on Unit21's system to a user or business on your platform.
+      description: General information about the entity. With this object, you can link any entity on Unit21's system to a user or business on your platform.
       required:
         - entity_id
       properties:
@@ -4071,9 +3548,7 @@ components:
           example: false
         parents:
           type: array
-          description: >-
-            The parent object consists of two fields─`entity_id` for the
-            parent's unique identifier and `entity_type`.
+          description: The parent object consists of two fields─`entity_id` for the parent's unique identifier and `entity_type`.
           items:
             type: object
             properties:
@@ -4086,9 +3561,7 @@ components:
                 $ref: '#/components/schemas/entityType'
         children:
           type: array
-          description: >-
-            The children object consists of two fields─`entity_id` for the
-            child's unique identifier and `entity_type`.
+          description: The children object consists of two fields─`entity_id` for the child's unique identifier and `entity_type`.
           items:
             type: object
             properties:
@@ -4103,9 +3576,7 @@ components:
           $ref: '#/components/schemas/Tags'
     instrumentId:
       type: string
-      description: >-
-        Unique identifier of the instrument. Intrument IDs must be unique and
-        only comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
+      description: Unique identifier of the instrument. Intrument IDs must be unique and only comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
       minLength: 1
       maxLength: 128
       example: 3234-sdghfdf-3332
@@ -4126,15 +3597,11 @@ components:
       example: Redmond
     zipCode:
       type: string
-      description: >-
-        Associated ZIP code or postal code. For US addresses, can be either
-        5-digit ZIP Code (99999) or ZIP+4 Code (99999-9999) formats
+      description: Associated ZIP code or postal code. For US addresses, can be either 5-digit ZIP Code (99999) or ZIP+4 Code (99999-9999) formats
       example: 07710-0001
     Country:
       type: string
-      description: >-
-        Country of primary residence such as "USA", "United States", "US", "The
-        United States of America"
+      description: Country of primary residence such as "USA", "United States", "US", "The United States of America"
       maxLength: 2
       example: US
     locationDataProperties:
@@ -4144,9 +3611,7 @@ components:
       properties:
         type:
           type: string
-          description: >-
-            A string field indicating the type of address e.g. `SHIPPING`,
-            `BILLING` (max 24 characters)
+          description: A string field indicating the type of address e.g. `SHIPPING`, `BILLING` (max 24 characters)
           maxLength: 24
           example: SHIPPING
         building_number:
@@ -4156,9 +3621,7 @@ components:
           example: 6c
         unit_number:
           type: string
-          description: >-
-            Flat/unit/apartment number of the location associated with the event
-            (max 24 characters)
+          description: Flat/unit/apartment number of the location associated with the event (max 24 characters)
           maxLength: 24
           example: 22a
         street_name:
@@ -4183,9 +3646,8 @@ components:
     userDataProperties:
       title: User data
       type: object
-      description: >
-        Personal data - name, birthday, SSN etc. None of the fields in user_data
-        are required. You may send in an empty array: `"user_data": {}`.
+      description: |
+        Personal data - name, birthday, SSN etc. None of the fields in user_data are required. You may send in an empty array: `"user_data": {}`.
       properties:
         first_name:
           type: string
@@ -4216,7 +3678,7 @@ components:
           example: 1990
         gender:
           type: string
-          description: 'MALE, FEMALE, or OTHER'
+          description: MALE, FEMALE, or OTHER
           enum:
             - male
             - female
@@ -4224,8 +3686,8 @@ components:
           example: female
         ssn:
           type: string
-          pattern: '^\d{3}-\d{2}-\d{4}$'
-          description: 'Social security number of the user, in the format xxx-xx-xxxx'
+          pattern: ^\d{3}-\d{2}-\d{4}$
+          description: Social security number of the user, in the format xxx-xx-xxxx
           maxLength: 64
           example: 733-99-5921
     createdAt:
@@ -4235,8 +3697,7 @@ components:
     media:
       type: string
       description: Base64 encoded media file
-      example: >-
-        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
+      example: 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
     mediaType:
       type: string
       enum:
@@ -4247,15 +3708,10 @@ components:
         - IMAGE_ID_CARD_FRONT
         - IMAGE_ID_CARD_BACK
         - IMAGE_FACE_IMAGE
-      description: >
-        Type of media. The dropdown contains Unit21-recognized types but all
-        types are accepted.
+      description: |
+        Type of media. The dropdown contains Unit21-recognized types but all types are accepted.
 
-
-        Though you can provide any string, Unit21 processes and display
-        recognized `media_type` values with custom formatting. Unit21 can also
-        use recognized media object types for dedicated requests, like document
-        verification.
+        Though you can provide any string, Unit21 processes and display recognized `media_type` values with custom formatting. Unit21 can also use recognized media object types for dedicated requests, like document verification.
       example: IMAGE_DRIVERS_LICENSE_FRONT
     name:
       type: string
@@ -4337,9 +3793,7 @@ components:
     generalEntitiesProperties:
       title: General entity data
       type: object
-      description: >-
-        General information about the entity. With this object, you can link any
-        entity on Unit21's system to a user or business on your platform.
+      description: General information about the entity. With this object, you can link any entity on Unit21's system to a user or business on your platform.
       required:
         - entity_id
       properties:
@@ -4355,9 +3809,7 @@ components:
           $ref: '#/components/schemas/registeredAt'
         parents:
           type: array
-          description: >-
-            The parent object consists of two fields─`entity_id` for parent
-            unique identifier  and `entity_type`.
+          description: The parent object consists of two fields─`entity_id` for parent unique identifier  and `entity_type`.
           items:
             type: object
             properties:
@@ -4388,20 +3840,15 @@ components:
           example: 65
         denominator:
           type: integer
-          description: >
-            Number by which `score`can be divided. If no value is given, Unit21
-            sets the denominator as 10^n, where `n`is the number of characters
-            in the value. E.G. a value of 50 has a denominator of 10², a value
-            of 501 has a denominator of 10³.
+          description: |
+            Number by which `score`can be divided. If no value is given, Unit21 sets the denominator as 10^n, where `n`is the number of characters in the value. E.G. a value of 50 has a denominator of 10², a value of 501 has a denominator of 10³.
           example: 100
     relatedEntity:
       type: object
       description: Filter to narrow down entities in export
       properties:
         entity_id:
-          description: >-
-            Unique identifier of the entity. Entity IDs must be unique and only
-            comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'.
+          description: Unique identifier of the entity. Entity IDs must be unique and only comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'.
           type: string
           example: roster-1894
         relationship_id:
@@ -4423,9 +3870,7 @@ components:
     relationshipsDataProperties:
       title: Relationship data
       type: object
-      description: >-
-        An entity's associated intruments and entities (also called
-        relationships)
+      description: An entity's associated intruments and entities (also called relationships)
       properties:
         parents:
           type: array
@@ -4454,21 +3899,14 @@ components:
       example: sanctions_check_1
     synchronousResponse:
       type: boolean
-      description: >-
-        **Default**: `false`. If `true`,  the APU immediately executes the
-        workflow, and sends the verification result with the API response. If
-        `true` and the workflow doesn't allow synchronous responses, the API
-        returns an error.
-
-        **Note**: Using synchronous calls may cause the API to return a `423`
-        error. If that happens, try switching `synchronous_response` to `false`.
+      description: |-
+        **Default**: `false`. If `true`,  the APU immediately executes the workflow, and sends the verification result with the API response. If `true` and the workflow doesn't allow synchronous responses, the API returns an error.
+        **Note**: Using synchronous calls may cause the API to return a `423` error. If that happens, try switching `synchronous_response` to `false`.
       default: false
       example: false
     includeFullResponse:
       type: boolean
-      description: >-
-        Include the full, raw, verification results. Can be used only if
-        `synchronous_response` is `true`. Default is `false`.
+      description: Include the full, raw, verification results. Can be used only if `synchronous_response` is `true`. Default is `false`.
       default: false
     socureKey:
       type: string
@@ -4476,26 +3914,16 @@ components:
       example: 4543h90fdm3-02r8fgdgfd-78gf7tdg
     resolveGeoIp:
       type: boolean
-      description: >-
-        If `false`, does not resolve the geographic location from the provided
-        IP. If `true` and `digital_data.ip_addresses` is empty, Unit21 ignores
-        the field. **Default**: `true`
+      description: 'If `false`, does not resolve the geographic location from the provided IP. If `true` and `digital_data.ip_addresses` is empty, Unit21 ignores the field. **Default**: `true`'
       default: true
       example: true
     mergeCustomData:
       type: boolean
-      description: >-
-        Only relevant for updates/upserts, ignored otherwise. See [custom data
-        merge
-        strategy](https://docs.unit21.ai/reference/how-data-merges-on-updates#custom-data-merge-strategy)
-        for more details. **Default**: `false`
+      description: 'Only relevant for updates/upserts, ignored otherwise. See [custom data merge strategy](https://docs.unit21.ai/reference/how-data-merges-on-updates#custom-data-merge-strategy) for more details. **Default**: `false`'
       default: false
     upsertOnConflict:
       type: boolean
-      description: >-
-        If POST request includes an object that already exists when 
-        `upsert_on_conflict` is `false`, API returns a 409 error code and the
-        object is not overwritten. **Default**: `true`
+      description: 'If POST request includes an object that already exists when  `upsert_on_conflict` is `false`, API returns a 409 error code and the object is not overwritten. **Default**: `true`'
       default: true
       example: true
     entityOptionsProperties:
@@ -4510,9 +3938,7 @@ components:
               $ref: '#/components/schemas/workflowId'
             run_verifications:
               type: boolean
-              description: >-
-                Whether or not to execute a verification workflow for the
-                uploaded entity/entities. **Default**: `false`
+              description: 'Whether or not to execute a verification workflow for the uploaded entity/entities. **Default**: `false`'
               default: false
               example: false
             synchronous_response:
@@ -4562,14 +3988,10 @@ components:
     Ignored:
       type: boolean
       example: true
-      description: >-
-        OPTIONAL. During upserts, `true` if all fields are identical to already
-        existing fields for that object
+      description: OPTIONAL. During upserts, `true` if all fields are identical to already existing fields for that object
     previouslyExisted:
       type: boolean
-      description: >-
-        During upserts, `true` when object already existed at the ID field
-        specified in the POST.
+      description: During upserts, `true` when object already existed at the ID field specified in the POST.
     createEntityResponse:
       title: Entity create response
       properties:
@@ -4619,9 +4041,7 @@ components:
     generalEntitiesPropertiesBasic:
       title: General entity data
       type: object
-      description: >-
-        General information about the entity. With this object, you can link any
-        entity on Unit21's system to a user or business on your platform.
+      description: General information about the entity. With this object, you can link any entity on Unit21's system to a user or business on your platform.
       properties:
         entity_type:
           $ref: '#/components/schemas/entityType'
@@ -4633,9 +4053,7 @@ components:
           $ref: '#/components/schemas/registeredAt'
         parents:
           type: array
-          description: >-
-            The parent object consists of two fields─`entity_id` for parent
-            unique identifier  and `entity_type`.
+          description: The parent object consists of two fields─`entity_id` for parent unique identifier  and `entity_type`.
           items:
             type: object
             properties:
@@ -4727,7 +4145,7 @@ components:
           $ref: '#/components/schemas/unit21Id'
     linkInstrument:
       type: object
-      description: 'Associate an instrument directly with an object, like an Entity or Case.'
+      description: Associate an instrument directly with an object, like an Entity or Case.
       properties:
         instrument_ids:
           $ref: '#/components/schemas/instrumentIds'
@@ -4750,9 +4168,7 @@ components:
             $ref: '#/components/schemas/mediaType'
           custom_data:
             type: object
-            description: >-
-              Any custom information that you want the Unit21 system to
-              associate with this object (accepts any valid JSON object)
+            description: Any custom information that you want the Unit21 system to associate with this object (accepts any valid JSON object)
             example:
               type: logo
     linkMediaForm:
@@ -4760,44 +4176,25 @@ components:
       type: object
       properties:
         form_data:
-          description: >
-            To send media through form data, set `Content-Type` as
-            `multipart/form-data`.
-
+          description: |
+            To send media through form data, set `Content-Type` as `multipart/form-data`.
 
             This request has three possible components:
-
-            * A media key name, any alphanumeric string (e.g. `profile_picture`
-            in the following code snippet).
-
-            * A value, indicating the path to the media (e.g. the paths
-            specified after `@` in the following code snippet).
-
-            * Optional media metadata. Stringified JSON data, sent as a value
-            for the media key name.
+            * A media key name, any alphanumeric string (e.g. `profile_picture` in the following code snippet).
+            * A value, indicating the path to the media (e.g. the paths specified after `@` in the following code snippet).
+            * Optional media metadata. Stringified JSON data, sent as a value for the media key name.
 
              Here's an example request. In the path, replace `<OBJECT>` with whatever endpoint you want to reach, e.g. `entities`, `alerts`, etc.
 
             ```shell
-
             curl -X PUT \
-
             'https://{url}/v1/<OBJECT>/{unit21_id}/link-media' \
-
             -H 'Content-Type: multipart/form-data' \
-
             -H 'u21-key: <YOUR_API_KEY>' \
-
             --form 'profile_picture=@/src/103031/images/profile_picture.jpg' \
-
-            --form 'profile_picture={"media_type": "IMAGE_FACE_IMAGE", "source":
-            "iPhone_selfie", "timestamp": 1572673229}'
-
+            --form 'profile_picture={"media_type": "IMAGE_FACE_IMAGE", "source": "iPhone_selfie", "timestamp": 1572673229}'
             --form 'document_front=@/src/103031/images/document_front.jpg' \
-
-            --form 'document_front={"media_type": "IMAGE_ID_CARD_FRONT",
-            "source": "passport_app", "timestamp": 1572673229}'
-
+            --form 'document_front={"media_type": "IMAGE_ID_CARD_FRONT", "source": "passport_app", "timestamp": 1572673229}'
             ```
     entity-unit21-Ids:
       properties:
@@ -4887,10 +4284,7 @@ components:
           example: 2
         offset:
           type: integer
-          description: >-
-            Pagination offset. A value of 1 returns a response beginning with
-            the first record. The offset is relative to the number of pages (not
-            the total count of objects)
+          description: Pagination offset. A value of 1 returns a response beginning with the first record. The offset is relative to the number of pages (not the total count of objects)
           minimum: 1
           default: 1
         case_id:
@@ -4907,9 +4301,7 @@ components:
           $ref: '#/components/schemas/instrumentId'
         instrument_type:
           type: string
-          description: >-
-            Type of instrument. Common examples include `bank`, `cash`, and
-            `credit card`
+          description: Type of instrument. Common examples include `bank`, `cash`, and `credit card`
           example: bank-account
         is_spooled:
           type: boolean
@@ -4920,9 +4312,7 @@ components:
           enum:
             - internal
             - external
-          description: >-
-            LEGACY. If your platform owns and administers this instrument, the
-            instrument is `internal`, otherwise it is `external`.
+          description: LEGACY. If your platform owns and administers this instrument, the instrument is `internal`, otherwise it is `external`.
           example: internal
         status:
           $ref: '#/components/schemas/objectStatus'
@@ -4970,24 +4360,18 @@ components:
           $ref: '#/components/schemas/instrumentId'
         instrument_type:
           type: string
-          description: >-
-            Type of instrument. Common examples include `bank`, `cash`, and
-            `credit card`
+          description: Type of instrument. Common examples include `bank`, `cash`, and `credit card`
           example: account
         instrument_subtype:
           type: string
-          description: >-
-            A more detailed type of instrument. Common examples include `visa`,
-            `mastercard` or `american-express` if type is `cc`
+          description: A more detailed type of instrument. Common examples include `visa`, `mastercard` or `american-express` if type is `cc`
           example: visa
         source:
           type: string
           enum:
             - internal
             - external
-          description: >-
-            LEGACY. If your platform owns and administers this instrument, the
-            instrument is `internal`, otherwise it is `external`.
+          description: LEGACY. If your platform owns and administers this instrument, the instrument is `internal`, otherwise it is `external`.
           example: internal
         status:
           $ref: '#/components/schemas/objectStatus'
@@ -5033,24 +4417,18 @@ components:
       properties:
         instrument_type:
           type: string
-          description: >-
-            Type of instrument. Common examples include `bank`, `cash`, and
-            `credit card`
+          description: Type of instrument. Common examples include `bank`, `cash`, and `credit card`
           example: account
         instrument_subtype:
           type: string
-          description: >-
-            A more detailed type of instrument. Common examples include `visa`,
-            `mastercard` or `american-express` if type is `cc`
+          description: A more detailed type of instrument. Common examples include `visa`, `mastercard` or `american-express` if type is `cc`
           example: visa
         source:
           type: string
           enum:
             - internal
             - external
-          description: >-
-            LEGACY. If your platform owns and administers this instrument, the
-            instrument is `internal`, otherwise it is `external`.
+          description: LEGACY. If your platform owns and administers this instrument, the instrument is `internal`, otherwise it is `external`.
           example: internal
         status:
           $ref: '#/components/schemas/objectStatus'
@@ -5167,20 +4545,17 @@ components:
           example: 2
         offset:
           type: integer
-          description: >-
-            Pagination offset. A value of 1 returns a response beginning with
-            the first record. The offset is relative to the number of pages (not
-            the total count of objects)
+          description: Pagination offset. A value of 1 returns a response beginning with the first record. The offset is relative to the number of pages (not the total count of objects)
           minimum: 1
           default: 1
         start_date:
           type: string
           description: Start date
-          example: 2019-11-05T04:13:46.000Z
+          example: '2019-11-05 04:13:46'
         end_date:
           type: string
           description: End date
-          example: 2021-11-05T04:13:46.000Z
+          example: '2021-11-05 04:13:46'
         case_id:
           type: integer
           description: Associated case ID filter
@@ -5200,9 +4575,8 @@ components:
       enum:
         - transaction
         - action
-      description: >
-        `transaction` for monetary flows, `action` for other state changes, like
-        new logins.
+      description: |
+        `transaction` for monetary flows, `action` for other state changes, like new logins.
       example: transaction
     event:
       title: Event
@@ -5216,19 +4590,14 @@ components:
           $ref: '#/components/schemas/registeredAt'
         event_subtype:
           type: string
-          description: >
-            Extra info about how your organization classifies the event. You MAY
-            enter any value. Useful for granular categories, e.g. if you have
-            two types of products and a transaction can be associated with
-            either.
+          description: |
+            Extra info about how your organization classifies the event. You MAY enter any value. Useful for granular categories, e.g. if you have two types of products and a transaction can be associated with either.
           maxLength: 128
           example: payment
         status:
           $ref: '#/components/schemas/objectStatus'
         parents:
-          description: >-
-            The parent object consists of two fields─`event_id` for parent
-            unique identifier  and `event_type`.
+          description: The parent object consists of two fields─`event_id` for parent unique identifier  and `event_type`.
           items:
             type: object
             properties:
@@ -5247,19 +4616,13 @@ components:
       properties:
         amount:
           type: number
-          description: >
-            The normalized monetary value of the transaction in customer's home
-            currency. This value MUST be greater than or equal to zero.
-            Direction of monetary flow should be entirely denoted by the
-            specifying sender/receiver entities and instruments appropriately.
+          description: |
+            The normalized monetary value of the transaction in customer's home currency. This value MUST be greater than or equal to zero. Direction of monetary flow should be entirely denoted by the specifying sender/receiver entities and instruments appropriately.
           example: 13562.83
         sent_amount:
           type: number
-          description: >
-            The monetary value of the transaction, specified in terms of the
-            currency set in the sent_currency field. This value must be positive
-            (greater or equal to zero). Denote by the specifying sender/receiver
-            entities and instruments appropriately.
+          description: |
+            The monetary value of the transaction, specified in terms of the currency set in the sent_currency field. This value must be positive (greater or equal to zero). Denote by the specifying sender/receiver entities and instruments appropriately.
           example: 13562.83
         sent_currency:
           type: string
@@ -5274,9 +4637,8 @@ components:
           example: u-371b5091-da30-48a8-936b-7600f9983e80
         sender_entity_type:
           type: string
-          description: >
-            The entity type of the sender as defined in Entity's `general_data`
-            section.
+          description: |
+            The entity type of the sender as defined in Entity's `general_data` section.
           example: user
         sender_instrument_id:
           type: string
@@ -5286,12 +4648,7 @@ components:
           example: instrumentA-3967112
         received_amount:
           type: number
-          description: >-
-            The monetary value of the transaction, specified in terms of the
-            currency set in the `received_currency` field. This value must be
-            positive (greater or equal to zero). Direction of monetary flow
-            should be entirely denoted by the specifying sender/receiver
-            entities and instruments appropriately.
+          description: The monetary value of the transaction, specified in terms of the currency set in the `received_currency` field. This value must be positive (greater or equal to zero). Direction of monetary flow should be entirely denoted by the specifying sender/receiver entities and instruments appropriately.
           example: 13562.83
         received_currency:
           type: string
@@ -5305,28 +4662,19 @@ components:
           example: u-d8e1d453-c205-4996-a935-ff08be01bcd1
         receiver_entity_type:
           type: string
-          description: >
-            The entity type of the receiver as defined in Entity's general_data
-            section.
+          description: |
+            The entity type of the receiver as defined in Entity's general_data section.
           example: business
         receiver_instrument_id:
           type: string
-          description: >
-            Identifier of the receiver's transaction instrument on your
-            platform.
+          description: |
+            Identifier of the receiver's transaction instrument on your platform.
           maxLength: 128
           example: t376839428256371
         exchange_rate:
           type: number
-          description: >
-            If both `sent_currency` and `received_currency` are defined, and
-            neither of them are in the home currency, then this is defined as
-            `sent_amount/received_amount`.  If either `sent_currency` or
-            `received_currency` are in the home currency  (but not both), then
-            `exchange_rate` is defined as 
-            `home_currency_amount/non_home_currency_amount` (i.e exchange rate
-            to USD). If both `sent_currency` and `received_currency` are in the
-            home currency,  this is not required.
+          description: |
+            If both `sent_currency` and `received_currency` are defined, and neither of them are in the home currency, then this is defined as `sent_amount/received_amount`.  If either `sent_currency` or `received_currency` are in the home currency  (but not both), then `exchange_rate` is defined as  `home_currency_amount/non_home_currency_amount` (i.e exchange rate to USD). If both `sent_currency` and `received_currency` are in the home currency,  this is not required.
           example: 1.0012
         transaction_hash:
           type: string
@@ -5334,27 +4682,17 @@ components:
           example: af830da0919f9d3ebbc413040460708c4107e77c83c1d1a56c6bc76a48d
         usd_conversion_notes:
           type: string
-          description: >-
-            Readable information associated with the exchange rate(s) used, e.g.
-            when the exchange rate was pulled, from what source it was obtained
+          description: Readable information associated with the exchange rate(s) used, e.g. when the exchange rate was pulled, from what source it was obtained
           example: pulled from forex.com at 1572672226
         internal_fee:
           type: number
-          description: >
-            The sum of all internal fees associated with the transaction,
-            specified in USD. Internal fees are collected by your platform e.g.
-            if users pay a fee to you for facilitating a transaction from user
-            to user. All other field amounts should not include the value of
-            these fees.
+          description: |
+            The sum of all internal fees associated with the transaction, specified in USD. Internal fees are collected by your platform e.g. if users pay a fee to you for facilitating a transaction from user to user. All other field amounts should not include the value of these fees.
           example: 5
         external_fee:
           type: number
-          description: >
-            The sum of all external fees associated with the transaction,
-            specified in USD. External fees are paid out to external parties
-            independent of your platform e.g. payment network fees, shipping
-            fees, cleaning fees. All other amount fields should not include the
-            value of these fees
+          description: |
+            The sum of all external fees associated with the transaction, specified in USD. External fees are paid out to external parties independent of your platform e.g. payment network fees, shipping fees, cleaning fees. All other amount fields should not include the value of these fees
           example: 5
     eventList:
       title: Events
@@ -5401,11 +4739,8 @@ components:
             - event_id
             - event_type
             - event_time
-          description: >
-            General data is required for any request made to the
-            v1/events/create endpoint. This defines any pieces of information
-            that allows you to link up any event on Unit21's system to
-            transactions or user activities on your platform.
+          description: |
+            General data is required for any request made to the v1/events/create endpoint. This defines any pieces of information that allows you to link up any event on Unit21's system to transactions or user activities on your platform.
           properties:
             event_id:
               $ref: '#/components/schemas/eventId'
@@ -5415,19 +4750,14 @@ components:
               $ref: '#/components/schemas/registeredAt'
             event_subtype:
               type: string
-              description: >
-                Extra info about how your organization classifies the event. You
-                MAY enter any value. Useful for granular categories, e.g. if you
-                have two types of products and a transaction can be associated
-                with either.
+              description: |
+                Extra info about how your organization classifies the event. You MAY enter any value. Useful for granular categories, e.g. if you have two types of products and a transaction can be associated with either.
               maxLength: 128
               example: payment
             status:
               $ref: '#/components/schemas/objectStatus'
             parents:
-              description: >-
-                The parent object consists of two fields─`event_id` for parent
-                unique identifier  and `event_type`.
+              description: The parent object consists of two fields─`event_id` for parent unique identifier  and `event_type`.
               items:
                 type: object
                 properties:
@@ -5444,16 +4774,11 @@ components:
       title: Transaction data
       properties:
         transaction_data:
-          description: >
-            In addition to the required `amount` field, must include at least
-            one of:
-
+          description: |
+            In addition to the required `amount` field, must include at least one of:
             * `sender_entity_id`
-
             * `sender_instrument_id`
-
             * `receiver_entity_id`
-
             * `receiver_instrument_id`
           type: object
           required:
@@ -5461,20 +4786,13 @@ components:
           properties:
             amount:
               type: number
-              description: >
-                The normalized monetary value of the transaction in customer's
-                home currency. This value MUST be greater than or equal to zero.
-                Direction of monetary flow should be entirely denoted by the
-                specifying sender/receiver entities and instruments
-                appropriately.
+              description: |
+                The normalized monetary value of the transaction in customer's home currency. This value MUST be greater than or equal to zero. Direction of monetary flow should be entirely denoted by the specifying sender/receiver entities and instruments appropriately.
               example: 13562.83
             sent_amount:
               type: number
-              description: >
-                The monetary value of the transaction, specified in terms of the
-                currency set in the sent_currency field. This value must be
-                positive (greater or equal to zero). Denote by the specifying
-                sender/receiver entities and instruments appropriately.
+              description: |
+                The monetary value of the transaction, specified in terms of the currency set in the sent_currency field. This value must be positive (greater or equal to zero). Denote by the specifying sender/receiver entities and instruments appropriately.
               example: 13562.83
             sent_currency:
               type: string
@@ -5489,25 +4807,18 @@ components:
               example: u-371b5091-da30-48a8-936b-7600f9983e80
             sender_entity_type:
               type: string
-              description: >
-                The entity type of the sender as defined in Entity's
-                `general_data` section.
+              description: |
+                The entity type of the sender as defined in Entity's `general_data` section.
               example: user
             sender_instrument_id:
               type: string
-              description: >
-                Identifier of the sender's transaction instrument on your
-                platform.
+              description: |
+                Identifier of the sender's transaction instrument on your platform.
               maxLength: 128
               example: instrumentA-3967112
             received_amount:
               type: number
-              description: >-
-                The monetary value of the transaction, specified in terms of the
-                currency set in the `received_currency` field. This value must
-                be positive (greater or equal to zero). Direction of monetary
-                flow should be entirely denoted by the specifying
-                sender/receiver entities and instruments appropriately.
+              description: The monetary value of the transaction, specified in terms of the currency set in the `received_currency` field. This value must be positive (greater or equal to zero). Direction of monetary flow should be entirely denoted by the specifying sender/receiver entities and instruments appropriately.
               example: 13562.83
             received_currency:
               type: string
@@ -5521,28 +4832,19 @@ components:
               example: u-d8e1d453-c205-4996-a935-ff08be01bcd1
             receiver_entity_type:
               type: string
-              description: >
-                The entity type of the receiver as defined in Entity's
-                general_data section.
+              description: |
+                The entity type of the receiver as defined in Entity's general_data section.
               example: business
             receiver_instrument_id:
               type: string
-              description: >
-                Identifier of the receiver's transaction instrument on your
-                platform.
+              description: |
+                Identifier of the receiver's transaction instrument on your platform.
               maxLength: 128
               example: t376839428256371
             exchange_rate:
               type: number
-              description: >
-                If both `sent_currency` and `received_currency` are defined, and
-                neither of them are in the home currency, then this is defined
-                as `sent_amount/received_amount`.  If either `sent_currency` or
-                `received_currency` are in the home currency  (but not both),
-                then `exchange_rate` is defined as 
-                `home_currency_amount/non_home_currency_amount` (i.e exchange
-                rate to USD). If both `sent_currency` and `received_currency`
-                are in the home currency,  this is not required.
+              description: |
+                If both `sent_currency` and `received_currency` are defined, and neither of them are in the home currency, then this is defined as `sent_amount/received_amount`.  If either `sent_currency` or `received_currency` are in the home currency  (but not both), then `exchange_rate` is defined as  `home_currency_amount/non_home_currency_amount` (i.e exchange rate to USD). If both `sent_currency` and `received_currency` are in the home currency,  this is not required.
               example: 1.0012
             transaction_hash:
               type: string
@@ -5550,53 +4852,38 @@ components:
               example: af830da0919f9d3ebbc413040460708c4107e77c83c1d1a56c6bc76a48d
             usd_conversion_notes:
               type: string
-              description: >-
-                Readable information associated with the exchange rate(s) used,
-                e.g. when the exchange rate was pulled, from what source it was
-                obtained
+              description: Readable information associated with the exchange rate(s) used, e.g. when the exchange rate was pulled, from what source it was obtained
               example: pulled from forex.com at 1572672226
             internal_fee:
               type: number
-              description: >
-                The sum of all internal fees associated with the transaction,
-                specified in USD. Internal fees are collected by your platform
-                e.g. if users pay a fee to you for facilitating a transaction
-                from user to user. All other field amounts should not include
-                the value of these fees.
+              description: |
+                The sum of all internal fees associated with the transaction, specified in USD. Internal fees are collected by your platform e.g. if users pay a fee to you for facilitating a transaction from user to user. All other field amounts should not include the value of these fees.
               example: 5
             external_fee:
               type: number
-              description: >
-                The sum of all external fees associated with the transaction,
-                specified in USD. External fees are paid out to external parties
-                independent of your platform e.g. payment network fees, shipping
-                fees, cleaning fees. All other amount fields should not include
-                the value of these fees
+              description: |
+                The sum of all external fees associated with the transaction, specified in USD. External fees are paid out to external parties independent of your platform e.g. payment network fees, shipping fees, cleaning fees. All other amount fields should not include the value of these fees
               example: 5
     actionData:
       title: Action data
       properties:
         action_data:
           type: object
-          description: >
-            Information about any notable actions that a user takes on your
-            system. Examples of actions that may be worth tracking are:
+          description: |
+            Information about any notable actions that a user takes on your system. Examples of actions that may be worth tracking are:
               * Password changes from new IP addresses
               * Logins from disparate locations
               * Linking or unlinking instruments at an unusual frequency
               * Finding users frequently using referral codes, potentially signally fake referral schemes.
 
-            Action events only require `entity_type` if the entity referenced
-            doesn't already exist in the system (and hence a placeholder entity
-            needs to be created).
+            Action events only require `entity_type` if the entity referenced doesn't already exist in the system (and hence a placeholder entity needs to be created).
           required:
             - entity_id
           properties:
             action_type:
               type: string
-              description: >
-                A keyword (of your choosing) that describes an action event,
-                e.g. `LOGIN`, `SIGNUP`, `PASSWORD_RESET`.
+              description: |
+                A keyword (of your choosing) that describes an action event, e.g. `LOGIN`, `SIGNUP`, `PASSWORD_RESET`.
               maxLength: 512
               example: LOGIN
             action_details:
@@ -5606,31 +4893,21 @@ components:
               example: Through mobile app v0.8.8
             entity_id:
               type: string
-              description: >-
-                Identifier of the entity on your platform that is associated
-                with this action event─should correspond to the `entity_id`
-                field in an [entity's `general_data`
-                section](ref:create_entity).
+              description: Identifier of the entity on your platform that is associated with this action event─should correspond to the `entity_id` field in an [entity's `general_data` section](ref:create_entity).
               maxLength: 128
               example: 371c4d7b-0563-4685-aab1
             entity_type:
               $ref: '#/components/schemas/entityType'
             instrument_id:
               type: string
-              description: >-
-                Identifier of the transaction instrument on your platform that
-                is associated with this action event - should correspond to the
-                `instrument_id` field in an [entity's `instrument_data`
-                section](ref:create_entity)
+              description: Identifier of the transaction instrument on your platform that is associated with this action event - should correspond to the `instrument_id` field in an [entity's `instrument_data` section](ref:create_entity)
               maxLength: 128
               example: 238938823-34347686-39405443
     digitalData:
       title: Digital data
       properties:
         digital_data:
-          description: >-
-            Associated digital properties - IP, device, browser, client info
-            etc.
+          description: Associated digital properties - IP, device, browser, client info etc.
           type: object
           properties:
             ip_address:
@@ -5650,21 +4927,13 @@ components:
           properties:
             monitor:
               type: boolean
-              description: >-
-                Whether or not to monitor this event (defaults to `true`).
-                Typically used to signal Unit21 to not flag such events or
-                include them in calculations i.e. to prevent double counting, or
-                to ignore applying monitoring to unimportant events that you
-                still want to associate with users
+              description: Whether or not to monitor this event (defaults to `true`). Typically used to signal Unit21 to not flag such events or include them in calculations i.e. to prevent double counting, or to ignore applying monitoring to unimportant events that you still want to associate with users
               default: true
             resolve_geoip:
               $ref: '#/components/schemas/resolveGeoIp'
             link_digital_data_to_entity:
               type: boolean
-              description: >-
-                Whether or not to link the included `digital_data` with the
-                related entities. Includes geoip information if resolve_geoip is
-                enabled as well. On action events, defaults to `true`
+              description: Whether or not to link the included `digital_data` with the related entities. Includes geoip information if resolve_geoip is enabled as well. On action events, defaults to `true`
               example: true
             linked_entity:
               type: string
@@ -5673,12 +4942,7 @@ components:
                 - receiver
                 - both
               default: both
-              description: >-
-                Possible values are `sender`, `receiver`, and `both`. Defaults
-                to `both`. If `link_digital_data_to_entity` is flagged on
-                transaction events, this specifies which entities to associate
-                the `digital_data` to. If there is no `digital_data` or
-                entities, no exception is thrown.
+              description: Possible values are `sender`, `receiver`, and `both`. Defaults to `both`. If `link_digital_data_to_entity` is flagged on transaction events, this specifies which entities to associate the `digital_data` to. If there is no `digital_data` or entities, no exception is thrown.
               example: sender
             merge_custom_data:
               $ref: '#/components/schemas/mergeCustomData'
@@ -5715,9 +4979,7 @@ components:
           $ref: '#/components/schemas/eventId'
         rule_executions:
           type: object
-          description: >-
-            All of the RTR rules ordered by ID that ran against this event and
-            their reponses
+          description: All of the RTR rules ordered by ID that ran against this event and their reponses
           properties:
             rule_id:
               description: The ID of the RTR rule
@@ -5744,7 +5006,7 @@ components:
               rule_name: Velocity - 10K ACH in the last 4 hours
             '1291':
               status: FAIL
-              rule_name: 'New Account Fraud - Risk:88'
+              rule_name: New Account Fraud - Risk:88
     updateEventResponse:
       title: Event create response
       properties:
@@ -5827,10 +5089,7 @@ components:
           example: 2
         offset:
           type: integer
-          description: >-
-            Pagination offset. A value of 1 returns a response beginning with
-            the first record. The offset is relative to the number of pages (not
-            the total count of objects)
+          description: Pagination offset. A value of 1 returns a response beginning with the first record. The offset is relative to the number of pages (not the total count of objects)
           minimum: 1
           default: 1
     ruleList:
@@ -5875,9 +5134,7 @@ components:
           enum:
             - internal
             - external
-          description: >-
-            LEGACY. If your platform owns and administers this rule, the rule is
-            `internal`, otherwise it is `external`.
+          description: LEGACY. If your platform owns and administers this rule, the rule is `internal`, otherwise it is `external`.
           example: internal
         status:
           type: string
@@ -5963,17 +5220,12 @@ components:
                 example: 14
     Disposition:
       type: string
-      description: >-
-        Labels that describe the outcome of an alert or case investigation. More
-        info in [this knowledge base article about
-        dispositions](https://docs.unit21.ai/docs/concept-dispositions).
+      description: Labels that describe the outcome of an alert or case investigation. More info in [this knowledge base article about dispositions](https://docs.unit21.ai/docs/concept-dispositions).
       maxLength: 128
       example: TRUE_POSITIVE
     dispositionedBy:
       type: array
-      description: >-
-        List of agent emails. Returns only objects whose dispositions were most
-        recently changed by listed agents.
+      description: List of agent emails. Returns only objects whose dispositions were most recently changed by listed agents.
       items:
         type: string
         example: agent1@example.com
@@ -6003,9 +5255,7 @@ components:
         - 30130-kl
     associatedInstruments:
       type: array
-      description: >-
-        Only objects associated with the listed instruments' `instrument_id`
-        values.
+      description: Only objects associated with the listed instruments' `instrument_id` values.
       items:
         type: string
       example:
@@ -6013,7 +5263,7 @@ components:
         - 12-card
     sourceArray:
       type: array
-      description: 'Only `INTERNAL`, only `EXTERNAL`, or both.'
+      description: Only `INTERNAL`, only `EXTERNAL`, or both.
       items:
         type: string
         enum:
@@ -6021,7 +5271,7 @@ components:
           - EXTERNAL
     investigationStatus:
       type: string
-      description: 'Investigation status, either `OPEN` or `ClOSED`'
+      description: Investigation status, either `OPEN` or `ClOSED`
       enum:
         - OPEN
         - CLOSED
@@ -6032,13 +5282,11 @@ components:
       items:
         $ref: '#/components/schemas/investigationStatus'
     alertListFilters:
-      description: 'To filter your response to a subset of alerts, use these fields.'
+      description: To filter your response to a subset of alerts, use these fields.
       properties:
         types:
           type: array
-          description: >-
-            The `alert_types` to include─any or all of `tm`, `car`, `manual`,
-            `chainalysis`, and `kyc`
+          description: The `alert_types` to include─any or all of `tm`, `car`, `manual`, `chainalysis`, and `kyc`
           items:
             type: string
             enum:
@@ -6078,28 +5326,19 @@ components:
           $ref: '#/components/schemas/Tags'
         options:
           type: object
-          description: >-
-            Options for the data included in the returned alerts. Removing
-            unneeded options can improve response speed.
+          description: Options for the data included in the returned alerts. Removing unneeded options can improve response speed.
           properties:
             include_associations:
               type: boolean
-              description: >-
-                If `true`, the response includes all cases associated with the
-                alert under `descendant_cases`.
+              description: If `true`, the response includes all cases associated with the alert under `descendant_cases`.
               example: false
             include_actions:
               type: boolean
-              description: >-
-                If `true`, the response includes list of all actions taken on
-                the alert, including disposition changes, status changes,
-                reassignments, etcetera.
+              description: If `true`, the response includes list of all actions taken on the alert, including disposition changes, status changes, reassignments, etcetera.
               example: false
             include_checklist:
               type: boolean
-              description: >-
-                If `true`, the response includes list of all checklists items
-                taken on the alert.
+              description: If `true`, the response includes list of all checklists items taken on the alert.
               example: false
     dispositionNotes:
       type: string
@@ -6107,7 +5346,7 @@ components:
       example: User confirmed that they did not initiate transaction
     actions:
       type: array
-      description: Actions agents have taken on this alert.
+      description: A list of actions that agents have taken.
       items:
         type: object
         properties:
@@ -6125,11 +5364,11 @@ components:
             $ref: '#/components/schemas/dispositionNotes'
           reassigned_to:
             type: string
-            description: Agent email that if action is reassignment.
+            description: Agent email if action is reassignment.
             example: laura@unit21.ai
           status_changed_to:
             type: string
-            description: New status for the alert.
+            description: New status resulting from the action.
             example: OPEN
           subdispositions:
             type: array
@@ -6149,7 +5388,7 @@ components:
             example: 1661620487
     checklist:
       type: array
-      description: Custom checklists on this alert.
+      description: List of custom checklists
       items:
         type: object
         properties:
@@ -6207,9 +5446,7 @@ components:
             - kyc
             - manual
             - car
-          description: >-
-            Either transaction monitoring, `tm`, or know-your-customer `kyc`.
-            Default is `tm`
+          description: Either transaction monitoring, `tm`, or know-your-customer `kyc`. Default is `tm`
           example: tm
         assigned_to:
           type: string
@@ -6222,9 +5459,7 @@ components:
         description:
           type: string
           description: Description of the alert
-          example: >-
-            Flagged 2 transactions in last hour that were 3 standard deviations
-            outside 3 month mean.
+          example: Flagged 2 transactions in last hour that were 3 standard deviations outside 3 month mean.
         disposition:
           $ref: '#/components/schemas/Disposition'
         disposition_at:
@@ -6335,21 +5570,19 @@ components:
         description:
           type: string
           description: Description of the alert
-          example: >-
-            Flagged 2 transactions in last hour that were 3 standard deviations
-            outside 3 month mean.
+          example: Flagged 2 transactions in last hour that were 3 standard deviations outside 3 month mean.
         disposition:
           $ref: '#/components/schemas/Disposition'
         disposition_notes:
           $ref: '#/components/schemas/dispositionNotes'
         rules:
-          description: 'Array of rules, consisting of `rule_id`'
+          description: Array of rules, consisting of `rule_id`
           type: array
           items:
             type: string
             example: r3-0ddfn3
         events:
-          description: 'Array of events, consisting of `event_id` and `event_type`'
+          description: Array of events, consisting of `event_id` and `event_type`
           type: array
           items:
             type: object
@@ -6363,7 +5596,7 @@ components:
               event_type:
                 $ref: '#/components/schemas/eventType'
         entities:
-          description: 'Array of entities, consisting of `entity_id` and `entity_type`'
+          description: Array of entities, consisting of `entity_id` and `entity_type`
           type: array
           items:
             type: object
@@ -6375,7 +5608,7 @@ components:
               entity_type:
                 $ref: '#/components/schemas/entityType'
         instruments:
-          description: 'Array of instruments, consisting of `instrument_id`'
+          description: Array of instruments, consisting of `instrument_id`
           type: array
           items:
             $ref: '#/components/schemas/instrumentId'
@@ -6383,9 +5616,7 @@ components:
           $ref: '#/components/schemas/Tags'
         verification_result_id:
           type: integer
-          description: >-
-            Integer value greater than or equal to 1. Used when `alert_type` is
-            `kyc`.
+          description: Integer value greater than or equal to 1. Used when `alert_type` is `kyc`.
           minimum: 1
           example: 42
         custom_data:
@@ -6399,6 +5630,84 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    getAlertResponse:
+      title: Get Alert response
+      properties:
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        actions:
+          $ref: '#/components/schemas/actions'
+        checklist:
+          $ref: '#/components/schemas/checklist'
+        descendant_cases:
+          $ref: '#/components/schemas/descendantCases'
+        alert_id:
+          $ref: '#/components/schemas/alertId'
+        alert_type:
+          type: string
+          enum:
+            - chainlysis
+            - tm
+            - kyc
+            - manual
+            - car
+          description: Either transaction monitoring, `tm`, or know-your-customer `kyc`. Default is `tm`
+          example: tm
+        assigned_to:
+          type: string
+          description: Agent email assigned to work the alert
+          example: laura@unit21.ai
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        custom_data:
+          $ref: '#/components/schemas/customDataProperties'
+        description:
+          type: string
+          description: Description of the alert
+          example: Flagged 2 transactions in last hour that were 3 standard deviations outside 3 month mean.
+        disposition:
+          $ref: '#/components/schemas/Disposition'
+        dispositioned_by:
+          type: string
+          description: Agent that disposed the alert
+          example: laura@unit21.ai
+        due_date:
+          type: string
+          description: Date the alert is due as epoch.
+          example: 1661630487
+        due_date_text:
+          type: string
+          description: Date the alert is due as text.
+          example: due 278 days ago
+        end_date:
+          type: string
+          description: Date the alert is closed as epoch.
+          example: 1661630487
+        rules:
+          type: array
+          description: List of rule objects.
+          items:
+            $ref: '#/components/schemas/ruleList'
+        sources:
+          type: array
+          description: Sources for the alerts.
+          items:
+            type: string
+            enum:
+              - INTERNAL
+              - EXTERNAL
+        start_date:
+          type: string
+          description: Date the alert was first investigated as epoch.
+          example: 1661630487
+        status:
+          $ref: '#/components/schemas/investigationStatus'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        title:
+          type: string
+          description: Title of the alert
+          example: Account deviation for user T18029
     AlertsUpdate:
       properties:
         created_at:
@@ -6410,9 +5719,7 @@ components:
         description:
           type: string
           description: Description of the alert
-          example: >-
-            Flagged 2 transactions in last hour that were 3 standard deviations
-            outside 3 month mean.
+          example: Flagged 2 transactions in last hour that were 3 standard deviations outside 3 month mean.
         status:
           $ref: '#/components/schemas/investigationStatus'
         disposition:
@@ -6422,9 +5729,7 @@ components:
         tags:
           $ref: '#/components/schemas/Tags'
         events:
-          description: >-
-            Array of flagged events, consisting of `event_id` and `event_type`.
-            This will create a placeholder event if one does not exist.
+          description: Array of flagged events, consisting of `event_id` and `event_type`. This will create a placeholder event if one does not exist.
           type: array
           items:
             type: object
@@ -6588,9 +5893,7 @@ components:
       properties:
         is_summary:
           type: boolean
-          description: >-
-            FALSE will generate the detailed version of report. Otherwise, TRUE
-            is the default which generates the summary
+          description: FALSE will generate the detailed version of report. Otherwise, TRUE is the default which generates the summary
           example: true
     associatedAlerts:
       type: array
@@ -6601,7 +5904,7 @@ components:
         - 564511
         - 126546
     caseListFilters:
-      description: 'To filter your response to a subset of alerts, use these fields.'
+      description: To filter your response to a subset of alerts, use these fields.
       properties:
         created_after:
           $ref: '#/components/schemas/registeredAt'
@@ -6632,29 +5935,19 @@ components:
           $ref: '#/components/schemas/statusArray'
         options:
           type: object
-          description: >-
-            Options for the data included in the returned case. Removing
-            unneeded options can improve response speed.
+          description: Options for the data included in the returned case. Removing unneeded options can improve response speed.
           properties:
             include_associations:
               type: boolean
-              description: >-
-                If `true`, the response includes all rule IDs and SAR filing IDs
-                associated with the case under `rules` and
-                `descendant_sar_filing`.
+              description: If `true`, the response includes all rule IDs and SAR filing IDs associated with the case under `rules` and `descendant_sar_filing`.
               example: false
             include_actions:
               type: boolean
-              description: >-
-                If `true`, the response includes list of all actions taken on
-                the case, including disposition changes, status changes,
-                reassignments, etcetera.
+              description: If `true`, the response includes list of all actions taken on the case, including disposition changes, status changes, reassignments, etcetera.
               example: false
             include_checklist:
               type: boolean
-              description: >-
-                If `true`, the response includes list of all checklists items
-                taken on the alert.
+              description: If `true`, the response includes list of all checklists items taken on the alert.
               example: false
     sarId:
       type: string
@@ -6812,6 +6105,60 @@ components:
           $ref: '#/components/schemas/previouslyExisted'
         unit21_id:
           $ref: '#/components/schemas/unit21Id'
+    getCaseResponse:
+      title: Get Case response
+      description: Top-level data about a case.
+      properties:
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        actions:
+          $ref: '#/components/schemas/actions'
+        case_id:
+          $ref: '#/components/schemas/caseId'
+        checklist:
+          $ref: '#/components/schemas/checklist'
+        created_at:
+          $ref: '#/components/schemas/registeredAt'
+        created_by:
+          type: string
+          description: Agent that created the case
+          example: laura@unit21.ai
+        descendant_sar_filing:
+          $ref: '#/components/schemas/descendantSarFiling'
+        description:
+          type: string
+          description: Description of the case
+          maxLength: 1024
+          example: suspected money laundering example
+        disposition:
+          $ref: '#/components/schemas/Disposition'
+        disposition_at:
+          type: string
+          description: Date the case was dispositioned as epoch.
+          example: 1661630487
+        dispositioned_by:
+          type: string
+          description: Agent that disposed the case
+          example: laura@unit21.ai
+        rules:
+          type: array
+          description: List of rule objects.
+          items:
+            $ref: '#/components/schemas/ruleList'
+        source:
+          type: array
+          description: Sources for the case.
+          items:
+            type: string
+            enum:
+              - INTERNAL
+              - EXTERNAL
+        status:
+          $ref: '#/components/schemas/investigationStatus'
+        title:
+          type: string
+          description: Title of the case
+          example: Account deviation for user T18029
     updateCaseResponse:
       title: Case create response
       properties:
@@ -6895,7 +6242,7 @@ components:
                 type: integer
                 example: 45
     sarListFilters:
-      description: 'To filter your response to a subset of sars, use these fields.'
+      description: To filter your response to a subset of sars, use these fields.
       properties:
         created_after:
           $ref: '#/components/schemas/registeredAt'
@@ -6905,16 +6252,11 @@ components:
           $ref: '#/components/schemas/Tags'
         options:
           type: object
-          description: >-
-            Options for the data included in the returned case. Removing
-            unneeded options can improve response speed.
+          description: Options for the data included in the returned case. Removing unneeded options can improve response speed.
           properties:
             include_associations:
               type: boolean
-              description: >-
-                If `true`, the response includes all rule IDs and SAR filing IDs
-                associated with the sar under `rules` and
-                `descendant_sar_filing`.
+              description: If `true`, the response includes all rule IDs and SAR filing IDs associated with the sar under `rules` and `descendant_sar_filing`.
               example: false
     sarList:
       title: Sar
@@ -6937,9 +6279,7 @@ components:
         description:
           type: string
           description: Description of the alert
-          example: >-
-            Flagged 2 transactions in last hour that were 3 standard deviations
-            outside 3 month mean.
+          example: Flagged 2 transactions in last hour that were 3 standard deviations outside 3 month mean.
         lock:
           type: boolean
           description: Is the submission locked?
@@ -6968,9 +6308,7 @@ components:
           $ref: '#/components/schemas/registeredAt'
         filing_type:
           type: string
-          description: >-
-            INITIAL_REPORT, CORRECT_OR_AMEND_PRIOR_REPORT, or
-            CONTINUING_ACTIVITY_REPORT
+          description: INITIAL_REPORT, CORRECT_OR_AMEND_PRIOR_REPORT, or CONTINUING_ACTIVITY_REPORT
           enum:
             - initial_report
             - correct_or_amend_prior_report
@@ -6984,7 +6322,7 @@ components:
           $ref: '#/components/schemas/registeredAt'
         report_type:
           type: string
-          description: 'GOAML_STR, FINCEN_SAR, ESTONIAN_FIU, or NCA_SAR'
+          description: GOAML_STR, FINCEN_SAR, ESTONIAN_FIU, or NCA_SAR
           enum:
             - NCA_SAR
             - FINCEN_SAR
@@ -7127,9 +6465,7 @@ components:
           $ref: '#/components/schemas/includeFullResponse'
     linkVerificationResult:
       title: Link verification result
-      description: >-
-        Fields to link external verification results to entity in the Unit21
-        system
+      description: Fields to link external verification results to entity in the Unit21 system
       required:
         - verification_type
         - provider_name
@@ -7144,9 +6480,7 @@ components:
             - WATCHLIST_SCREENING
             - ADVERSE_MEDIA_SCREENING
             - CRYPTO_FORENSICS
-          description: >-
-            Type of verification, in one of the categories that the Unit21
-            system recognizes
+          description: Type of verification, in one of the categories that the Unit21 system recognizes
         provider_name:
           type: string
           description: name of KYC provider
@@ -7172,20 +6506,16 @@ components:
           description: Unit21 ID of the entity that the verification was run on.
         source:
           type: string
-          description: 'Provider that ran the verification (IDOLOGY, TRULIOO, etc.)'
+          description: Provider that ran the verification (IDOLOGY, TRULIOO, etc.)
         type:
           type: string
-          description: >-
-            Type of verification executed (DOC_VERIFICATION, ID_VERIFICATION,
-            etc.)
+          description: Type of verification executed (DOC_VERIFICATION, ID_VERIFICATION, etc.)
         verification_workflow_execution_id:
           type: number
           description: ID of the workflow execution
         full_response:
           type: object
-          description: >-
-            Full response from the verification provider running the
-            verification
+          description: Full response from the verification provider running the verification
     verificationWorkflowExecutionId:
       type: number
       description: Unique ID for the verification workflow execution.
@@ -7197,9 +6527,8 @@ components:
       properties:
         continuous_monitoring:
           type: boolean
-          description: >
-            Enable or disable continuous monitoring. Use `true` to turn on and
-            `false` to turn off.
+          description: |
+            Enable or disable continuous monitoring. Use `true` to turn on and `false` to turn off.
         created_at:
           $ref: '#/components/schemas/registeredAt'
         entity_id:
@@ -7241,9 +6570,7 @@ components:
           example: {}
     synchronousResponses:
       type: boolean
-      description: >-
-        Default: `false`. If `true`,  the response is returned in the request
-        but may take slightly longer to complete.
+      description: 'Default: `false`. If `true`,  the response is returned in the request but may take slightly longer to complete.'
       default: false
       example: false
     continuousMonitoring:
@@ -7253,9 +6580,8 @@ components:
       properties:
         continuous_monitoring:
           type: boolean
-          description: >
-            Enable or disable continuous monitoring. Use `true` to turn on and
-            `false` to turn off.
+          description: |
+            Enable or disable continuous monitoring. Use `true` to turn on and `false` to turn off.
         synchronous_response:
           $ref: '#/components/schemas/synchronousResponses'
     suppressProviderEntity:
@@ -7266,9 +6592,8 @@ components:
       properties:
         suppress:
           type: boolean
-          description: >
-            Enable or disable the silencing of the entity. Use `true` to turn on
-            and `false` to turn off.
+          description: |
+            Enable or disable the silencing of the entity. Use `true` to turn on and `false` to turn off.
         synchronous_response:
           $ref: '#/components/schemas/synchronousResponses'
         provider_entity_ids:
@@ -7374,32 +6699,32 @@ components:
                 type: object
                 description: See example.
                 example:
-                  'UNIT21:ID_VERIFICATION':
+                  UNIT21:ID_VERIFICATION:
                     - conditions: $OTHER
                       next_action: $ACCEPT
               start_action:
                 type: string
                 enum:
-                  - 'TRULIOO:ID_VERIFICATION'
-                  - 'CSI:WATCHLIST_SCREENING'
-                  - 'IDOLOGY:ID_VERIFICATION'
-                  - 'IDOLOGY:DOC_VERIFICATION'
-                  - 'JUMIO:DOC_VERIFICATION'
-                  - 'IDOLOGY:WATCHLIST_SCREENING'
-                  - 'EMAILAGE:ID_VERIFICATION'
-                  - 'UNIT21:BUSINESS_VERIFICATION'
-                  - 'UNIT21:ID_VERIFICATION'
-                  - 'AU10TIX:DOC_VERIFICATION'
-                  - 'MIDDESK:BUSINESS_VERIFICATION'
-                  - 'SOCURE:ID_VERIFICATION'
-                  - 'SOCURE:DOC_VERIFICATION'
-                  - 'SOCURE:WATCHLIST_EVENT'
-                  - 'NAME_DOB_MATCH:ID_VERIFICATION'
-                  - 'EXISTING_VERIFICATION:ID_VERIFICATION'
-                  - 'UNIT21:LOGIC'
-                  - 'DOW_JONES:ADVERSE_MEDIA'
+                  - TRULIOO:ID_VERIFICATION
+                  - CSI:WATCHLIST_SCREENING
+                  - IDOLOGY:ID_VERIFICATION
+                  - IDOLOGY:DOC_VERIFICATION
+                  - JUMIO:DOC_VERIFICATION
+                  - IDOLOGY:WATCHLIST_SCREENING
+                  - EMAILAGE:ID_VERIFICATION
+                  - UNIT21:BUSINESS_VERIFICATION
+                  - UNIT21:ID_VERIFICATION
+                  - AU10TIX:DOC_VERIFICATION
+                  - MIDDESK:BUSINESS_VERIFICATION
+                  - SOCURE:ID_VERIFICATION
+                  - SOCURE:DOC_VERIFICATION
+                  - SOCURE:WATCHLIST_EVENT
+                  - NAME_DOB_MATCH:ID_VERIFICATION
+                  - EXISTING_VERIFICATION:ID_VERIFICATION
+                  - UNIT21:LOGIC
+                  - DOW_JONES:ADVERSE_MEDIA
                 description: type of verification.
-                example: 'UNIT21:LOGIC'
+                example: UNIT21:LOGIC
               generate_alert_actions:
                 description: Alert
                 type: array
@@ -7418,9 +6743,8 @@ components:
                   - $MANUAL_VERIFICATION
           continuous_monitoring:
             type: boolean
-            description: >
-              Enable or disable continuous monitoring. Use `true` to turn on and
-              `false` to turn off.
+            description: |
+              Enable or disable continuous monitoring. Use `true` to turn on and `false` to turn off.
           created_at:
             $ref: '#/components/schemas/registeredAt'
           alert_id:
@@ -7470,10 +6794,7 @@ components:
           example: 2
         offset:
           type: integer
-          description: >-
-            Pagination offset. A value of 1 returns a response beginning with
-            the first record. The offset is relative to the number of pages (not
-            the total count of objects)
+          description: Pagination offset. A value of 1 returns a response beginning with the first record. The offset is relative to the number of pages (not the total count of objects)
           minimum: 1
           default: 1
         file_export_ids:
@@ -7486,9 +6807,7 @@ components:
             type: integer
         statuses:
           type: array
-          description: >-
-            Statuses for the files to export. One of READY_FOR_DOWNLOAD,
-            GENERATING, FAILED, REQUESTED
+          description: Statuses for the files to export. One of READY_FOR_DOWNLOAD, GENERATING, FAILED, REQUESTED
           example:
             - READY_FOR_DOWNLOAD
             - GENERATING
@@ -7502,9 +6821,7 @@ components:
       example: 45
     externalId:
       type: string
-      description: >-
-        Unique identifier of the file. File IDs must be unique and only comprise
-        of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
+      description: Unique identifier of the file. File IDs must be unique and only comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
       minLength: 1
       maxLength: 128
       example: alert-export-company-audit
@@ -7560,9 +6877,7 @@ components:
             - GENERATING
             - FAILED
             - REQUESTED
-          description: >-
-            Status for the files to export. One of READY_FOR_DOWNLOAD,
-            GENERATING, FAILED, REQUESTED
+          description: Status for the files to export. One of READY_FOR_DOWNLOAD, GENERATING, FAILED, REQUESTED
           example: REQUESTED
         status_message:
           type: string
@@ -7591,15 +6906,12 @@ components:
           type: string
           description: URL where the file can be downloaded
       example:
-        url: >-
-          https://dashboard-file-exports.s3.amazonaws.com/20201105-200246_Intuit_BULK_ALERT.xlsx?AWSAccessKeyId=AKIA4GCWZN4AWKTTJM7N&Signature=0jfhY%2FvVGZMpAYrlhWEwhzLt1bw%3D&Expires=1656675423
+        url: https://dashboard-file-exports.s3.amazonaws.com/20201105-200246_Intuit_BULK_ALERT.xlsx?AWSAccessKeyId=AKIA4GCWZN4AWKTTJM7N&Signature=0jfhY%2FvVGZMpAYrlhWEwhzLt1bw%3D&Expires=1656675423
     listExportNotReadyResponse:
       properties:
         message:
           type: string
-          example: >-
-            File export with id 22 is in PENDING status and is not ready for
-            download.
+          example: File export with id 22 is in PENDING status and is not ready for download.
           description: File is not yet ready to download response
     agentList:
       title: Alert
@@ -7682,9 +6994,7 @@ components:
           example: New Matchlist
         description:
           type: string
-          description: >-
-            A descriptive text field for the matchlist, maximum 512 characters
-            in length.
+          description: A descriptive text field for the matchlist, maximum 512 characters in length.
           maxLength: 512
           example: Unit21 rules will check against items in this list
         type:
@@ -7695,9 +7005,7 @@ components:
             - IP_CIDR
             - USER
             - BUSINESS
-          description: >-
-            A value indicating what type of fields the matchlist will contain.
-            One of `STRING`, `IP_INET`, `IP_CIDR`, `USER`, or `BUSINESS`.
+          description: A value indicating what type of fields the matchlist will contain. One of `STRING`, `IP_INET`, `IP_CIDR`, `USER`, or `BUSINESS`.
     blacklistId:
       type: number
       description: Unique identifier for the matchlist.
@@ -7714,9 +7022,7 @@ components:
       example: 2365 Peachtree
     blacklistUser:
       title: User matchlist
-      description: >-
-        Array of user objects. No field is required, but each object MUST
-        contain at least one field.
+      description: Array of user objects. No field is required, but each object MUST contain at least one field.
       type: array
       items:
         type: object
@@ -7747,8 +7053,8 @@ components:
             example: 12/25/1989
           ssn:
             type: string
-            pattern: '^\d{3}-\d{2}-\d{4}$'
-            description: 'Social security number of the user, in the format xxx-xx-xxxx'
+            pattern: ^\d{3}-\d{2}-\d{4}$
+            description: Social security number of the user, in the format xxx-xx-xxxx
             example: 733-99-5921
           street:
             $ref: '#/components/schemas/streetAddress'
@@ -7761,9 +7067,7 @@ components:
           country:
             $ref: '#/components/schemas/Country'
           client_fingerprint:
-            description: >-
-              Digital fingerprints(browser, os, device) associated with the
-              entity.
+            description: Digital fingerprints(browser, os, device) associated with the entity.
             type: string
             example: 4908hsdfknkd90432nj3k2kj2jk23kj2k3jk2j3
           ip_address:
@@ -7773,10 +7077,7 @@ components:
             type: string
             example: JohnJay@example.com
           phone_number:
-            description: >-
-              List of phone numbers associated with the entity in [E.164
-              format](https://en.wikipedia.org/wiki/E.164)─e.g. +12125551395 (
-              '[+][country code][area code][local phone number]' )
+            description: List of phone numbers associated with the entity in [E.164 format](https://en.wikipedia.org/wiki/E.164)─e.g. +12125551395 ( '[+][country code][area code][local phone number]' )
             type: string
             example: '+14159627132'
           entity_status:
@@ -7786,9 +7087,7 @@ components:
     blacklistBusiness:
       title: Business matchlist
       type: array
-      description: >-
-        Array of business objects. No field is required, but each object MUST
-        contain at least one field.
+      description: Array of business objects. No field is required, but each object MUST contain at least one field.
       items:
         type: object
         properties:
@@ -7834,9 +7133,7 @@ components:
         properties:
           cidr:
             type: string
-            description: >-
-              CIDR IP range. Check ranges with [this
-              calculator](https://www.ipaddressguide.com/cidr)
+            description: CIDR IP range. Check ranges with [this calculator](https://www.ipaddressguide.com/cidr)
             example: 255.255.255.255/24
           source:
             type: string
@@ -7960,31 +7257,21 @@ components:
     '400':
       description: Bad Request. Your request is invalid.
     '401':
-      description: 'Unauthorized. Your client_id, client_secret, or access_token is invalid.'
+      description: Unauthorized. Your client_id, client_secret, or access_token is invalid.
     '403':
-      description: >-
-        Forbidden. You do not have the permissions to access the requested
-        resource.
+      description: Forbidden. You do not have the permissions to access the requested resource.
     '404':
       description: Not Found. The specified resource could not be found.
     '409':
-      description: >-
-        Conflict. You tried to insert or overwrite a system resource that cannot
-        be overwritten.
+      description: Conflict. You tried to insert or overwrite a system resource that cannot be overwritten.
     '423':
       description: Locked. Object updates in progress. Please try again later.
     '429':
-      description: >-
-        Rate Limit Reached. You have reached the request rate limit. Try your
-        request again later.
+      description: Rate Limit Reached. You have reached the request rate limit. Try your request again later.
     '500':
-      description: >-
-        Internal Server Error. We had a problem with our server. Try again
-        later.
+      description: Internal Server Error. We had a problem with our server. Try again later.
     '503':
-      description: >-
-        Service Unavailable. We're temporarily offline for maintenance. Please
-        try again later.
+      description: Service Unavailable. We're temporarily offline for maintenance. Please try again later.
   parameters:
     entity_id:
       in: path
@@ -8023,10 +7310,7 @@ components:
       schema:
         type: string
       required: true
-      description: >-
-        A Unit21 internally-assigned unique identifier for an object within the
-        Unit21 system. Depending on the endpoint, `unit21_id` can refer to an
-        entity, an event, a case, an alert, a device, etc.
+      description: A Unit21 internally-assigned unique identifier for an object within the Unit21 system. Depending on the endpoint, `unit21_id` can refer to an entity, an event, a case, an alert, a device, etc.
       example: 571485314
     result_id:
       in: path
@@ -8034,9 +7318,7 @@ components:
       schema:
         type: string
       required: true
-      description: >-
-        A Unit21 internally-assigned unique identifier for the verification
-        workflow of the entity.
+      description: A Unit21 internally-assigned unique identifier for the verification workflow of the entity.
       example: verified-customer-onboarding
     verification_workflow_execution_id:
       in: path
@@ -8044,9 +7326,7 @@ components:
       schema:
         type: integer
       required: true
-      description: >-
-        A Unit21 internally-assigned unique identifier for the verification
-        workflow execution.
+      description: A Unit21 internally-assigned unique identifier for the verification workflow execution.
       example: 14823
     export_id:
       in: path
@@ -8070,10 +7350,8 @@ components:
       schema:
         type: string
       required: true
-      description: >-
-        A Unit21 internally-assigned unique url for an AWS S3 bucket where your
-        organization can upload data.
-      example: 'https://local-tm-uploads.s3.amazonaws.com/'
+      description: A Unit21 internally-assigned unique url for an AWS S3 bucket where your organization can upload data.
+      example: https://local-tm-uploads.s3.amazonaws.com/
     file_id:
       in: path
       name: file_id
