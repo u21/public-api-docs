@@ -4373,6 +4373,10 @@ components:
             - external
           description: LEGACY. If your platform owns and administers this instrument, the instrument is `internal`, otherwise it is `external`.
           example: internal
+        name:
+          type: string
+          description: The name of the instrument, typically in a human readable format.
+          example: Real Company Bank Account
         status:
           $ref: '#/components/schemas/objectStatus'
         registered_at:
@@ -4430,6 +4434,10 @@ components:
             - external
           description: LEGACY. If your platform owns and administers this instrument, the instrument is `internal`, otherwise it is `external`.
           example: internal
+        name:
+          type: string
+          description: The name of the instrument, typically in a human readable format.
+          example: Real Company Bank Account
         status:
           $ref: '#/components/schemas/objectStatus'
         registered_at:
