@@ -8,7 +8,7 @@ info:
     name: Unit21
     url: https://unit21.ai
 x-readme:
-  proxy-enabled: true
+  proxy-enabled: false
 servers:
   - url: https://sandbox1-api.unit21.com/v1
     description: Sandbox1 server for testing
