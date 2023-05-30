@@ -73,57 +73,6 @@ tags:
     description: |
       If you want to upload a file with a lot of information in it, you can send them via a POST to a custom URL. You can request this URL via a POST to the `/datafiles` endpoint.  For the fastest processing, the file SHOULD be JSON or CSV.
 paths:
-  /entities/list:
-    post:
-      tags:
-        - Entities API
-      summary: List entities
-      description: |-
-        Returns paginated list of of top-level information about entities. 
-
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities are not listed.
-
-        Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
-        * `limit`  indicates how many objects the request returns (the page maximum is 50)
-        * `offset` indicates the offset for pagination. An `offset` value of 1 starts with the environment's first record. The offset is relative to the number of pages (not the total count of objects).
-        * `case_id`  is a filter. Only entities with the associated case ID will be shown.
-        * `alert_id` is a filter. Only entities with the associated alert ID will be shown.
-
-        The `total_count` field is set to 0. Please call this paginated endpoint, increasing the offset,  until you receive fewer than the maximum number of objects per call.
-      operationId: list_entities
-      requestBody:
-        $ref: '#/components/requestBodies/listEntities'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/listEntityResponse'
-        '400':
-          description: Bad Request. Your request is invalid.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/errorResponse'
-                  - $ref: '#/components/schemas/messageResponse'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '409':
-          $ref: '#/components/responses/409'
-        '423':
-          $ref: '#/components/responses/423'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-        '503':
-          $ref: '#/components/responses/503'
   /entities/create:
     post:
       tags:
@@ -597,57 +546,6 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  /instruments/list:
-    post:
-      tags:
-        - Instruments API
-      summary: List instruments
-      description: |
-        Returns paginated list of of top-level information about instruments. 
-
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) instruments are not listed.
-
-        Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
-        * `limit`  indicates how many objects the request returns (the page maximum is 50)
-        * `offset` indicates the offset for pagination. An `offset` value of 1 starts with the environment's first record. The offset is relative to the number of pages (not the total count of objects).
-        * `alert_id` is a filter. Only instruments with the associated alert ID will be shown.
-
-        The `total_count` field is set to 0. Please call this paginated endpoint, increasing the offset,  until you receive fewer than the maximum number of objects per call.
-      operationId: list_instruments
-      requestBody:
-        $ref: '#/components/requestBodies/listAlertID'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/listInstrumentResponse'
-        '400':
-          description: Bad Request. Your request is invalid.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/errorResponse'
-                  - $ref: '#/components/schemas/messageResponse'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '409':
-          $ref: '#/components/responses/409'
-        '423':
-          $ref: '#/components/responses/423'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-        '503':
-          $ref: '#/components/responses/503'
   /instruments/create:
     post:
       tags:
@@ -851,58 +749,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/bulkExportResponse'
-        '400':
-          description: Bad Request. Your request is invalid.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/errorResponse'
-                  - $ref: '#/components/schemas/messageResponse'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '409':
-          $ref: '#/components/responses/409'
-        '423':
-          $ref: '#/components/responses/423'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-        '503':
-          $ref: '#/components/responses/503'
-  /events/list:
-    post:
-      tags:
-        - Events API
-      summary: List events
-      description: |
-        Returns an array of top-level information about events in your environment.
-
-        Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
-        * `limit`  indicates how many objects the request returns (the page maximum is 50)
-        * `offset` indicates the offset for pagination. An `offset` value of 1 starts with the environment's first record.
-        * `case_id`  is a filter. Only events with the associated case ID will be shown.
-        * `alert_id` is a filter. Only events with the associated alert ID will be shown.
-        * `start_date`  is a filter. Only events that started on or after this date will be shown.
-        * `end_date` is a filter. Only events that ended on or before this date will be shown.
-
-        The `total_count` field is set to 0. Please call this paginated endpoint, increasing the offset,  until you receive fewer than the maximum number of objects per call.
-      operationId: list_events
-      requestBody:
-        $ref: '#/components/requestBodies/listDate'
-      responses:
-        '200':
-          description: Successfully returned events
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/listEventResponse'
         '400':
           description: Bad Request. Your request is invalid.
           content:
@@ -3300,35 +3146,118 @@ components:
       in: header
       name: u21-key
   schemas:
-    listEntityRequest:
-      type: object
-      required:
-        - limit
-        - offset
-      properties:
-        limit:
-          type: integer
-          description: Number of objects per page.
-          minimum: 0
-          maximum: 50
-          example: 2
-        offset:
-          type: integer
-          description: Pagination offset. A value of 1 returns a response beginning with the first record. The offset is relative to the number of pages (not the total count of objects)
-          minimum: 1
-          default: 1
-        case_id:
-          type: integer
-          description: Associated case ID filter
-          example: 10107269
-        alert_id:
-          type: integer
-          description: Associated alert ID filter
-          example: 73913
-    unit21Id:
+    entityId:
+      type: string
+      description: Unique identifier of the entity. Entity IDs must be unique and only comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
+      minLength: 1
+      maxLength: 128
+      pattern: '-\_:.@a-zA-Z0-9!#\$%&\''\*+/=?^`{'
+      example: u-3593dece-6642-4cdc-8547-aafc1454e0a0
+    entityType:
+      type: string
+      description: Describes a user such as `employee` or `business`. Required for new entities.
+      example: user
+    entitySubtype:
+      type: string
+      description: |
+        Extra information how your organization classifies the entity. You MAY enter any value.
+      maxLength: 128
+      example: contractor
+    objectStatus:
+      type: string
+      description: Status of the object on your system. You MAY enter any string value.
+      maxLength: 128
+      example: active
+    registeredAt:
       type: integer
-      description: 'A Unit21 internally-assigned unique identifier for an object within the Unit21 system. '
-      example: 1237466
+      description: Date in seconds since 1 Jan 1970 00:00:00 UTC (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time)).
+      example: 1623365011
+    Tags:
+      type: array
+      description: List of string tags, in the format `keyString:valueString` (note that the Key strings are NOT enclosed in `"`)
+      items:
+        type: string
+        format: key-value pair
+        example: Sector:Europe
+    generalEntitiesProperties:
+      title: General entity data
+      type: object
+      description: General information about the entity. With this object, you can link any entity on Unit21's system to a user or business on your platform.
+      required:
+        - entity_id
+      properties:
+        entity_id:
+          $ref: '#/components/schemas/entityId'
+        entity_type:
+          $ref: '#/components/schemas/entityType'
+        entity_subtype:
+          $ref: '#/components/schemas/entitySubtype'
+        status:
+          $ref: '#/components/schemas/objectStatus'
+        registered_at:
+          $ref: '#/components/schemas/registeredAt'
+        parents:
+          type: array
+          description: The parent object consists of two fields─`entity_id` for parent unique identifier  and `entity_type`.
+          items:
+            type: object
+            properties:
+              entity_id:
+                type: string
+                description: Parent unique identifier
+                maxLength: 128
+                example: entity-5500
+              entity_type:
+                $ref: '#/components/schemas/entityType'
+        tags:
+          $ref: '#/components/schemas/Tags'
+    userDataProperties:
+      title: User data
+      type: object
+      description: |
+        Personal data - name, birthday, SSN etc. None of the fields in user_data are required. You may send in an empty array: `"user_data": {}`.
+      properties:
+        first_name:
+          type: string
+          description: User's associated first name
+          maxLength: 128
+          example: John
+        middle_name:
+          type: string
+          description: User's associated middle name
+          maxLength: 128
+          example: Joseph
+        last_name:
+          type: string
+          description: User's associated last name
+          maxLength: 128
+          example: Smith
+        day_of_birth:
+          type: integer
+          description: Day of user's date of birth (e.g. 23)
+          example: 23
+        month_of_birth:
+          type: integer
+          description: Month of user's date of birth (e.g. 12 for December)
+          example: 12
+        year_of_birth:
+          type: integer
+          description: Year of the user's date of birth (e.g. 1990)
+          example: 1990
+        gender:
+          type: string
+          description: MALE, FEMALE, or OTHER
+          enum:
+            - male
+            - female
+            - other
+          example: female
+        ssn:
+          type: string
+          pattern: ^\d{3}-\d{2}-\d{4}$
+          description: Social security number of the user, in the format xxx-xx-xxxx
+          maxLength: 64
+          example: 733-99-5921
     businessName:
       type: string
       description: The registered name of the business
@@ -3378,73 +3307,6 @@ components:
           description: The website or associated URL for the business
           maxLength: 612
           example: www.google.com
-    phoneNumbers:
-      type: array
-      description: List of phone numbers associated with the entity in [E.164 format](https://en.wikipedia.org/wiki/E.164)─e.g. +12125551395 ( '[+][country code][area code][local phone number]' )
-      items:
-        type: string
-        example: '+14159627132'
-    communicationDataProperties:
-      title: Communication data
-      type: object
-      description: An entity's associated means of communication, like emails and phone numbers.
-      properties:
-        email_addresses:
-          type: array
-          description: List of emails associated with an entity.
-          items:
-            type: string
-            example: JohnJay@example.com
-        phone_numbers:
-          $ref: '#/components/schemas/phoneNumbers'
-    customDataProperties:
-      title: Custom_data
-      type: object
-      description: Any custom information that you wish our system to associate with this object  (accepts any valid JSON object -- up to 3 layers deep -- in key:value format --  `string:string`, `string:int`, `string:bool` -- no arrays)
-      example:
-        internal_notes: Reviewed by Mitchell on 31 June 2019
-        reviewers: 3
-        login: 1638384860
-        timestamp: '2012-03-40 05:12:41.000Z'
-        daily_email: true
-        employees:
-          - John
-          - Anna
-          - Peter
-        socure_device_session_id: '12121212121212112'
-        CITY: Philadelphia
-        CURRENT_SIGN_IN_IP: 23.24.34.1
-        DEVICE_INFO: 'Carrier: Metro by T-Mobile, Mac address: dc:9b:d6:7f:6d:40, Device name: TCL 5007Z'
-        PREVENT_LOGIN_REASON: Login Not blocked
-        SUSPENDED: 'TRUE'
-      additionalProperties: true
-    ipAddressSimple:
-      title: IP address
-      type: string
-      description: Either IPv4 or IPv6
-      maxLength: 128
-      example: 255.255.255.255
-    clientFingerprintSimple:
-      title: Client fingerprint
-      type: string
-      description: A Unique address
-      maxLength: 128
-      example: 5454-ahfd-4531d-f4il
-    digitalDataArrayProperties:
-      title: Digital data
-      description: Associated digital properties - IP, device, browser, client info etc.
-      type: object
-      properties:
-        ip_addresses:
-          type: array
-          description: List of IP addresses. MUST be in either IPv4 or IPv6 format.
-          items:
-            $ref: '#/components/schemas/ipAddressSimple'
-        client_fingerprints:
-          type: array
-          description: List of unique addresses.
-          items:
-            $ref: '#/components/schemas/clientFingerprintSimple'
     State:
       type: string
       description: Any string representing a state such as "CA" or "California"
@@ -3488,88 +3350,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/documentDataProperties'
-    entityId:
-      type: string
-      description: Unique identifier of the entity. Entity IDs must be unique and only comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
-      minLength: 1
-      maxLength: 128
-      pattern: '-\_:.@a-zA-Z0-9!#\$%&\''\*+/=?^`{'
-      example: u-3593dece-6642-4cdc-8547-aafc1454e0a0
-    entityType:
-      type: string
-      description: Describes a user such as `employee` or `business`. Required for new entities.
-      example: user
-    entitySubtype:
-      type: string
-      description: |
-        Extra information how your organization classifies the entity. You MAY enter any value.
-      maxLength: 128
-      example: contractor
-    objectStatus:
-      type: string
-      description: Status of the object on your system. You MAY enter any string value.
-      maxLength: 128
-      example: active
-    registeredAt:
-      type: integer
-      description: Date in seconds since 1 Jan 1970 00:00:00 UTC (i.e. in [Unix time](https://en.wikipedia.org/wiki/Unix_time)).
-      example: 1623365011
-    Tags:
-      type: array
-      description: List of string tags, in the format `keyString:valueString` (note that the Key strings are NOT enclosed in `"`)
-      items:
-        type: string
-        format: key-value pair
-        example: Sector:Europe
-    generalEntitiesListProperties:
-      title: General entity data
-      type: object
-      description: General information about the entity. With this object, you can link any entity on Unit21's system to a user or business on your platform.
-      required:
-        - entity_id
-      properties:
-        entity_id:
-          $ref: '#/components/schemas/entityId'
-        entity_type:
-          $ref: '#/components/schemas/entityType'
-        entity_subtype:
-          $ref: '#/components/schemas/entitySubtype'
-        status:
-          $ref: '#/components/schemas/objectStatus'
-        registered_at:
-          $ref: '#/components/schemas/registeredAt'
-        continuous_monitoring:
-          type: boolean
-          description: Is continuous monitoring turned on for this entity?
-          example: false
-        parents:
-          type: array
-          description: The parent object consists of two fields─`entity_id` for the parent's unique identifier and `entity_type`.
-          items:
-            type: object
-            properties:
-              entity_id:
-                type: string
-                description: Parent unique identifier
-                maxLength: 128
-                example: entity-5500
-              entity_type:
-                $ref: '#/components/schemas/entityType'
-        children:
-          type: array
-          description: The children object consists of two fields─`entity_id` for the child's unique identifier and `entity_type`.
-          items:
-            type: object
-            properties:
-              entity_id:
-                type: string
-                description: Child unique identifier
-                maxLength: 128
-                example: entity-5500
-              entity_type:
-                $ref: '#/components/schemas/entityType'
-        tags:
-          $ref: '#/components/schemas/Tags'
     instrumentId:
       type: string
       description: Unique identifier of the instrument. Intrument IDs must be unique and only comprise of the characters -_:.@a-zA-Z0-9!#$%&*+/=?^`{'
@@ -3586,6 +3366,52 @@ components:
           example:
             - instrumentA
             - instrumentB
+    phoneNumbers:
+      type: array
+      description: List of phone numbers associated with the entity in [E.164 format](https://en.wikipedia.org/wiki/E.164)─e.g. +12125551395 ( '[+][country code][area code][local phone number]' )
+      items:
+        type: string
+        example: '+14159627132'
+    communicationDataProperties:
+      title: Communication data
+      type: object
+      description: An entity's associated means of communication, like emails and phone numbers.
+      properties:
+        email_addresses:
+          type: array
+          description: List of emails associated with an entity.
+          items:
+            type: string
+            example: JohnJay@example.com
+        phone_numbers:
+          $ref: '#/components/schemas/phoneNumbers'
+    ipAddressSimple:
+      title: IP address
+      type: string
+      description: Either IPv4 or IPv6
+      maxLength: 128
+      example: 255.255.255.255
+    clientFingerprintSimple:
+      title: Client fingerprint
+      type: string
+      description: A Unique address
+      maxLength: 128
+      example: 5454-ahfd-4531d-f4il
+    digitalDataArrayProperties:
+      title: Digital data
+      description: Associated digital properties - IP, device, browser, client info etc.
+      type: object
+      properties:
+        ip_addresses:
+          type: array
+          description: List of IP addresses. MUST be in either IPv4 or IPv6 format.
+          items:
+            $ref: '#/components/schemas/ipAddressSimple'
+        client_fingerprints:
+          type: array
+          description: List of unique addresses.
+          items:
+            $ref: '#/components/schemas/clientFingerprintSimple'
     City:
       type: string
       description: Associated city (max 128 characters)
@@ -3639,185 +3465,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/locationDataProperties'
-    userDataProperties:
-      title: User data
-      type: object
-      description: |
-        Personal data - name, birthday, SSN etc. None of the fields in user_data are required. You may send in an empty array: `"user_data": {}`.
-      properties:
-        first_name:
-          type: string
-          description: User's associated first name
-          maxLength: 128
-          example: John
-        middle_name:
-          type: string
-          description: User's associated middle name
-          maxLength: 128
-          example: Joseph
-        last_name:
-          type: string
-          description: User's associated last name
-          maxLength: 128
-          example: Smith
-        day_of_birth:
-          type: integer
-          description: Day of user's date of birth (e.g. 23)
-          example: 23
-        month_of_birth:
-          type: integer
-          description: Month of user's date of birth (e.g. 12 for December)
-          example: 12
-        year_of_birth:
-          type: integer
-          description: Year of the user's date of birth (e.g. 1990)
-          example: 1990
-        gender:
-          type: string
-          description: MALE, FEMALE, or OTHER
-          enum:
-            - male
-            - female
-            - other
-          example: female
-        ssn:
-          type: string
-          pattern: ^\d{3}-\d{2}-\d{4}$
-          description: Social security number of the user, in the format xxx-xx-xxxx
-          maxLength: 64
-          example: 733-99-5921
-    createdAt:
-      type: string
-      description: Epoch
-      example: 1661620487
-    media:
-      type: string
-      description: Base64 encoded media file
-      example: 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
-    mediaType:
-      type: string
-      enum:
-        - IMAGE_PROFILE_PICTURE
-        - IMAGE_DRIVERS_LICENSE_FRONT
-        - IMAGE_DRIVERS_LICENSE_BACK
-        - IMAGE_PASSPORT_FRONT
-        - IMAGE_ID_CARD_FRONT
-        - IMAGE_ID_CARD_BACK
-        - IMAGE_FACE_IMAGE
-      description: |
-        Type of media. The dropdown contains Unit21-recognized types but all types are accepted.
-
-        Though you can provide any string, Unit21 processes and display recognized `media_type` values with custom formatting. Unit21 can also use recognized media object types for dedicated requests, like document verification.
-      example: IMAGE_DRIVERS_LICENSE_FRONT
-    name:
-      type: string
-      description: Media file name
-      example: I-9
-    mediaDataProperties:
-      title: media data properties
-      type: object
-      description: Media data. See `/link-media` endpoint
-      properties:
-        created_at:
-          $ref: '#/components/schemas/createdAt'
-        media:
-          $ref: '#/components/schemas/media'
-        media_type:
-          $ref: '#/components/schemas/mediaType'
-        name:
-          $ref: '#/components/schemas/name'
-    entityList:
-      title: Entity
-      description: Top-level data about an entity.
-      properties:
-        unit21_id:
-          $ref: '#/components/schemas/unit21Id'
-        business_data:
-          $ref: '#/components/schemas/businessDataProperties'
-        communication_data:
-          $ref: '#/components/schemas/communicationDataProperties'
-        custom_data:
-          $ref: '#/components/schemas/customDataProperties'
-        digital_data:
-          $ref: '#/components/schemas/digitalDataArrayProperties'
-        document_data:
-          $ref: '#/components/schemas/documentDataArrayProperties'
-        general_data:
-          $ref: '#/components/schemas/generalEntitiesListProperties'
-        instrument_ids:
-          $ref: '#/components/schemas/instrumentIds'
-        location_data:
-          $ref: '#/components/schemas/locationDataArrayProperties'
-        user_data:
-          $ref: '#/components/schemas/userDataProperties'
-        media_data:
-          $ref: '#/components/schemas/mediaDataProperties'
-    listEntityResponse:
-      type: object
-      properties:
-        entities:
-          type: array
-          description: List of entity objects.
-          items:
-            $ref: '#/components/schemas/entityList'
-        response_count:
-          type: integer
-          example: 4
-          description: Number of objects in the paginated response
-        total_count:
-          type: integer
-          example: 204
-          description: Total number of objects in the platform.
-    errorCode:
-      type: string
-      description: Error message
-      example: resource_not_found
-    errorResponse:
-      title: Error general response
-      properties:
-        error_code:
-          $ref: '#/components/schemas/errorCode'
-    message:
-      type: string
-      description: Detailed message
-      example: Entity already exists
-    messageResponse:
-      title: Message general response
-      properties:
-        message:
-          $ref: '#/components/schemas/message'
-    generalEntitiesProperties:
-      title: General entity data
-      type: object
-      description: General information about the entity. With this object, you can link any entity on Unit21's system to a user or business on your platform.
-      required:
-        - entity_id
-      properties:
-        entity_id:
-          $ref: '#/components/schemas/entityId'
-        entity_type:
-          $ref: '#/components/schemas/entityType'
-        entity_subtype:
-          $ref: '#/components/schemas/entitySubtype'
-        status:
-          $ref: '#/components/schemas/objectStatus'
-        registered_at:
-          $ref: '#/components/schemas/registeredAt'
-        parents:
-          type: array
-          description: The parent object consists of two fields─`entity_id` for parent unique identifier  and `entity_type`.
-          items:
-            type: object
-            properties:
-              entity_id:
-                type: string
-                description: Parent unique identifier
-                maxLength: 128
-                example: entity-5500
-              entity_type:
-                $ref: '#/components/schemas/entityType'
-        tags:
-          $ref: '#/components/schemas/Tags'
     riskScoresProperties:
       title: Risk scores
       required:
@@ -3839,6 +3486,27 @@ components:
           description: |
             Number by which `score`can be divided. If no value is given, Unit21 sets the denominator as 10^n, where `n`is the number of characters in the value. E.G. a value of 50 has a denominator of 10², a value of 501 has a denominator of 10³.
           example: 100
+    customDataProperties:
+      title: Custom_data
+      type: object
+      description: Any custom information that you wish our system to associate with this object  (accepts any valid JSON object -- up to 3 layers deep -- in key:value format --  `string:string`, `string:int`, `string:bool` -- no arrays)
+      example:
+        internal_notes: Reviewed by Mitchell on 31 June 2019
+        reviewers: 3
+        login: 1638384860
+        timestamp: '2012-03-40 05:12:41.000Z'
+        daily_email: true
+        employees:
+          - John
+          - Anna
+          - Peter
+        socure_device_session_id: '12121212121212112'
+        CITY: Philadelphia
+        CURRENT_SIGN_IN_IP: 23.24.34.1
+        DEVICE_INFO: 'Carrier: Metro by T-Mobile, Mac address: dc:9b:d6:7f:6d:40, Device name: TCL 5007Z'
+        PREVENT_LOGIN_REASON: Login Not blocked
+        SUSPENDED: 'TRUE'
+      additionalProperties: true
     relatedEntity:
       type: object
       description: Filter to narrow down entities in export
@@ -4002,6 +3670,24 @@ components:
           description: Field should be ignored. It is under deprecation.
           example: 1237466
           deprecated: true
+    errorCode:
+      type: string
+      description: Error message
+      example: resource_not_found
+    errorResponse:
+      title: Error general response
+      properties:
+        error_code:
+          $ref: '#/components/schemas/errorCode'
+    message:
+      type: string
+      description: Detailed message
+      example: Entity already exists
+    messageResponse:
+      title: Message general response
+      properties:
+        message:
+          $ref: '#/components/schemas/message'
     createEntityDirectRequest:
       title: Create a user
       required:
@@ -4034,6 +3720,125 @@ components:
           $ref: '#/components/schemas/relationshipsDataProperties'
         options:
           $ref: '#/components/schemas/entityOptionsProperties'
+    unit21Id:
+      type: integer
+      description: 'A Unit21 internally-assigned unique identifier for an object within the Unit21 system. '
+      example: 1237466
+    generalEntitiesListProperties:
+      title: General entity data
+      type: object
+      description: General information about the entity. With this object, you can link any entity on Unit21's system to a user or business on your platform.
+      required:
+        - entity_id
+      properties:
+        entity_id:
+          $ref: '#/components/schemas/entityId'
+        entity_type:
+          $ref: '#/components/schemas/entityType'
+        entity_subtype:
+          $ref: '#/components/schemas/entitySubtype'
+        status:
+          $ref: '#/components/schemas/objectStatus'
+        registered_at:
+          $ref: '#/components/schemas/registeredAt'
+        continuous_monitoring:
+          type: boolean
+          description: Is continuous monitoring turned on for this entity?
+          example: false
+        parents:
+          type: array
+          description: The parent object consists of two fields─`entity_id` for the parent's unique identifier and `entity_type`.
+          items:
+            type: object
+            properties:
+              entity_id:
+                type: string
+                description: Parent unique identifier
+                maxLength: 128
+                example: entity-5500
+              entity_type:
+                $ref: '#/components/schemas/entityType'
+        children:
+          type: array
+          description: The children object consists of two fields─`entity_id` for the child's unique identifier and `entity_type`.
+          items:
+            type: object
+            properties:
+              entity_id:
+                type: string
+                description: Child unique identifier
+                maxLength: 128
+                example: entity-5500
+              entity_type:
+                $ref: '#/components/schemas/entityType'
+        tags:
+          $ref: '#/components/schemas/Tags'
+    createdAt:
+      type: string
+      description: Epoch
+      example: 1661620487
+    media:
+      type: string
+      description: Base64 encoded media file
+      example: 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
+    mediaType:
+      type: string
+      enum:
+        - IMAGE_PROFILE_PICTURE
+        - IMAGE_DRIVERS_LICENSE_FRONT
+        - IMAGE_DRIVERS_LICENSE_BACK
+        - IMAGE_PASSPORT_FRONT
+        - IMAGE_ID_CARD_FRONT
+        - IMAGE_ID_CARD_BACK
+        - IMAGE_FACE_IMAGE
+      description: |
+        Type of media. The dropdown contains Unit21-recognized types but all types are accepted.
+
+        Though you can provide any string, Unit21 processes and display recognized `media_type` values with custom formatting. Unit21 can also use recognized media object types for dedicated requests, like document verification.
+      example: IMAGE_DRIVERS_LICENSE_FRONT
+    name:
+      type: string
+      description: Media file name
+      example: I-9
+    mediaDataProperties:
+      title: media data properties
+      type: object
+      description: Media data. See `/link-media` endpoint
+      properties:
+        created_at:
+          $ref: '#/components/schemas/createdAt'
+        media:
+          $ref: '#/components/schemas/media'
+        media_type:
+          $ref: '#/components/schemas/mediaType'
+        name:
+          $ref: '#/components/schemas/name'
+    entityList:
+      title: Entity
+      description: Top-level data about an entity.
+      properties:
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        business_data:
+          $ref: '#/components/schemas/businessDataProperties'
+        communication_data:
+          $ref: '#/components/schemas/communicationDataProperties'
+        custom_data:
+          $ref: '#/components/schemas/customDataProperties'
+        digital_data:
+          $ref: '#/components/schemas/digitalDataArrayProperties'
+        document_data:
+          $ref: '#/components/schemas/documentDataArrayProperties'
+        general_data:
+          $ref: '#/components/schemas/generalEntitiesListProperties'
+        instrument_ids:
+          $ref: '#/components/schemas/instrumentIds'
+        location_data:
+          $ref: '#/components/schemas/locationDataArrayProperties'
+        user_data:
+          $ref: '#/components/schemas/userDataProperties'
+        media_data:
+          $ref: '#/components/schemas/mediaDataProperties'
     generalEntitiesPropertiesBasic:
       title: General entity data
       type: object
@@ -4266,79 +4071,6 @@ components:
           type: boolean
           description: Export as CSV file.
           example: true
-    listAlertRequest:
-      type: object
-      required:
-        - limit
-        - offset
-      properties:
-        limit:
-          type: integer
-          description: Number of objects per page.
-          minimum: 0
-          maximum: 50
-          example: 2
-        offset:
-          type: integer
-          description: Pagination offset. A value of 1 returns a response beginning with the first record. The offset is relative to the number of pages (not the total count of objects)
-          minimum: 1
-          default: 1
-        case_id:
-          type: integer
-          description: Associated case ID filter
-          example: 12856
-    instrumentList:
-      title: Instrument
-      description: Top-level data about an instrument.
-      properties:
-        unit21_id:
-          $ref: '#/components/schemas/unit21Id'
-        instrument_id:
-          $ref: '#/components/schemas/instrumentId'
-        instrument_type:
-          type: string
-          description: Type of instrument. Common examples include `bank`, `cash`, and `credit card`
-          example: bank-account
-        is_spooled:
-          type: boolean
-          description: Is the instrument buffered?
-          example: false
-        source:
-          type: string
-          enum:
-            - internal
-            - external
-          description: LEGACY. If your platform owns and administers this instrument, the instrument is `internal`, otherwise it is `external`.
-          example: internal
-        status:
-          $ref: '#/components/schemas/objectStatus'
-        registered_at:
-          $ref: '#/components/schemas/registeredAt'
-        parent_instrument_id:
-          type: string
-          description: Unique identifier of the parent instrument.
-          maxLength: 128
-          example: 3234-sdghfdf-3331
-        custom_data:
-          $ref: '#/components/schemas/customData'
-        tags:
-          $ref: '#/components/schemas/Tags'
-    listInstrumentResponse:
-      type: object
-      properties:
-        instruments:
-          type: array
-          description: List of instrument objects.
-          items:
-            $ref: '#/components/schemas/instrumentList'
-        response_count:
-          type: integer
-          example: 4
-          description: Number of objects in the paginated response
-        total_count:
-          type: integer
-          example: 204
-          description: Total number of objects in the platform.
     Options:
       properties:
         upsert_on_conflict:
@@ -4411,6 +4143,42 @@ components:
           description: Field should be ignored. It is under deprecation.
           example: 1237466
           deprecated: true
+    instrumentList:
+      title: Instrument
+      description: Top-level data about an instrument.
+      properties:
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        instrument_id:
+          $ref: '#/components/schemas/instrumentId'
+        instrument_type:
+          type: string
+          description: Type of instrument. Common examples include `bank`, `cash`, and `credit card`
+          example: bank-account
+        is_spooled:
+          type: boolean
+          description: Is the instrument buffered?
+          example: false
+        source:
+          type: string
+          enum:
+            - internal
+            - external
+          description: LEGACY. If your platform owns and administers this instrument, the instrument is `internal`, otherwise it is `external`.
+          example: internal
+        status:
+          $ref: '#/components/schemas/objectStatus'
+        registered_at:
+          $ref: '#/components/schemas/registeredAt'
+        parent_instrument_id:
+          type: string
+          description: Unique identifier of the parent instrument.
+          maxLength: 128
+          example: 3234-sdghfdf-3331
+        custom_data:
+          $ref: '#/components/schemas/customData'
+        tags:
+          $ref: '#/components/schemas/Tags'
     InstrumentBasic:
       title: Instrument
       description: Top-level data about an instrument.
@@ -4538,36 +4306,6 @@ components:
           type: string
           description: Export success.
           example: File export has started
-    listDateRequest:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: Number of objects per page.
-          minimum: 0
-          maximum: 50
-          example: 2
-        offset:
-          type: integer
-          description: Pagination offset. A value of 1 returns a response beginning with the first record. The offset is relative to the number of pages (not the total count of objects)
-          minimum: 1
-          default: 1
-        start_date:
-          type: string
-          description: Start date
-          example: '2019-11-05 04:13:46'
-        end_date:
-          type: string
-          description: End date
-          example: '2021-11-05 04:13:46'
-        case_id:
-          type: integer
-          description: Associated case ID filter
-          example: 10107269
-        alert_id:
-          type: integer
-          description: Associated alert ID filter
-          example: 73913
     eventId:
       type: string
       description: Unique identifier of the event on your platform
@@ -4582,158 +4320,6 @@ components:
       description: |
         `transaction` for monetary flows, `action` for other state changes, like new logins.
       example: transaction
-    event:
-      title: Event
-      description: Top-level data about an event.
-      properties:
-        event_id:
-          $ref: '#/components/schemas/eventId'
-        event_type:
-          $ref: '#/components/schemas/eventType'
-        event_time:
-          $ref: '#/components/schemas/registeredAt'
-        event_subtype:
-          type: string
-          description: |
-            Extra info about how your organization classifies the event. You MAY enter any value. Useful for granular categories, e.g. if you have two types of products and a transaction can be associated with either.
-          maxLength: 128
-          example: payment
-        status:
-          $ref: '#/components/schemas/objectStatus'
-        parents:
-          description: The parent object consists of two fields─`event_id` for parent unique identifier  and `event_type`.
-          items:
-            type: object
-            properties:
-              event_id:
-                $ref: '#/components/schemas/eventId'
-              event_type:
-                $ref: '#/components/schemas/eventType'
-          example:
-            event_id: 123
-            event_type: transaction
-        tags:
-          $ref: '#/components/schemas/Tags'
-    transaction:
-      title: Transaction
-      description: Top-level data about a transaction.
-      properties:
-        amount:
-          type: number
-          description: |
-            The normalized monetary value of the transaction in customer's home currency. This value MUST be greater than or equal to zero. Direction of monetary flow should be entirely denoted by the specifying sender/receiver entities and instruments appropriately.
-          example: 13562.83
-        sent_amount:
-          type: number
-          description: |
-            The monetary value of the transaction, specified in terms of the currency set in the sent_currency field. This value must be positive (greater or equal to zero). Denote by the specifying sender/receiver entities and instruments appropriately.
-          example: 13562.83
-        sent_currency:
-          type: string
-          description: The currency that the sender sent
-          maxLength: 128
-          example: USD
-        sender_entity_id:
-          type: string
-          description: |
-            Identifier of the sender entity on your platform.
-          maxLength: 128
-          example: u-371b5091-da30-48a8-936b-7600f9983e80
-        sender_entity_type:
-          type: string
-          description: |
-            The entity type of the sender as defined in Entity's `general_data` section.
-          example: user
-        sender_instrument_id:
-          type: string
-          description: |
-            Identifier of the sender's transaction instrument on your platform.
-          maxLength: 128
-          example: instrumentA-3967112
-        received_amount:
-          type: number
-          description: The monetary value of the transaction, specified in terms of the currency set in the `received_currency` field. This value must be positive (greater or equal to zero). Direction of monetary flow should be entirely denoted by the specifying sender/receiver entities and instruments appropriately.
-          example: 13562.83
-        received_currency:
-          type: string
-          description: The currency that the receiver party received
-          maxLength: 128
-          example: USD
-        receiver_entity_id:
-          type: string
-          description: Identifier of the receiver entity on your platform
-          maxLength: 128
-          example: u-d8e1d453-c205-4996-a935-ff08be01bcd1
-        receiver_entity_type:
-          type: string
-          description: |
-            The entity type of the receiver as defined in Entity's general_data section.
-          example: business
-        receiver_instrument_id:
-          type: string
-          description: |
-            Identifier of the receiver's transaction instrument on your platform.
-          maxLength: 128
-          example: t376839428256371
-        exchange_rate:
-          type: number
-          description: |
-            If both `sent_currency` and `received_currency` are defined, and neither of them are in the home currency, then this is defined as `sent_amount/received_amount`.  If either `sent_currency` or `received_currency` are in the home currency  (but not both), then `exchange_rate` is defined as  `home_currency_amount/non_home_currency_amount` (i.e exchange rate to USD). If both `sent_currency` and `received_currency` are in the home currency,  this is not required.
-          example: 1.0012
-        transaction_hash:
-          type: string
-          description: Used for chainalysis. Chanalysis transaction hash.
-          example: af830da0919f9d3ebbc413040460708c4107e77c83c1d1a56c6bc76a48d
-        usd_conversion_notes:
-          type: string
-          description: Readable information associated with the exchange rate(s) used, e.g. when the exchange rate was pulled, from what source it was obtained
-          example: pulled from forex.com at 1572672226
-        internal_fee:
-          type: number
-          description: |
-            The sum of all internal fees associated with the transaction, specified in USD. Internal fees are collected by your platform e.g. if users pay a fee to you for facilitating a transaction from user to user. All other field amounts should not include the value of these fees.
-          example: 5
-        external_fee:
-          type: number
-          description: |
-            The sum of all external fees associated with the transaction, specified in USD. External fees are paid out to external parties independent of your platform e.g. payment network fees, shipping fees, cleaning fees. All other amount fields should not include the value of these fees
-          example: 5
-    eventList:
-      title: Events
-      description: Top-level data about an event.
-      properties:
-        unit21_id:
-          $ref: '#/components/schemas/unit21Id'
-        custom_data:
-          $ref: '#/components/schemas/customDataProperties'
-        digital_data:
-          $ref: '#/components/schemas/digitalDataArrayProperties'
-        general_data:
-          $ref: '#/components/schemas/event'
-        is_cold_store:
-          type: boolean
-          description: Storage location in Unit21 system
-          example: false
-        location_data:
-          $ref: '#/components/schemas/locationDataArrayProperties'
-        transaction_data:
-          $ref: '#/components/schemas/transaction'
-    listEventResponse:
-      type: object
-      properties:
-        events:
-          type: array
-          description: List of event objects.
-          items:
-            $ref: '#/components/schemas/eventList'
-        response_count:
-          type: integer
-          example: 4
-          description: Number of objects in the paginated response
-        total_count:
-          type: integer
-          example: 204
-          description: Total number of objects in the platform.
     generalEvents:
       title: General event data
       properties:
@@ -5011,6 +4597,142 @@ components:
             '1291':
               status: FAIL
               rule_name: New Account Fraud - Risk:88
+    event:
+      title: Event
+      description: Top-level data about an event.
+      properties:
+        event_id:
+          $ref: '#/components/schemas/eventId'
+        event_type:
+          $ref: '#/components/schemas/eventType'
+        event_time:
+          $ref: '#/components/schemas/registeredAt'
+        event_subtype:
+          type: string
+          description: |
+            Extra info about how your organization classifies the event. You MAY enter any value. Useful for granular categories, e.g. if you have two types of products and a transaction can be associated with either.
+          maxLength: 128
+          example: payment
+        status:
+          $ref: '#/components/schemas/objectStatus'
+        parents:
+          description: The parent object consists of two fields─`event_id` for parent unique identifier  and `event_type`.
+          items:
+            type: object
+            properties:
+              event_id:
+                $ref: '#/components/schemas/eventId'
+              event_type:
+                $ref: '#/components/schemas/eventType'
+          example:
+            event_id: 123
+            event_type: transaction
+        tags:
+          $ref: '#/components/schemas/Tags'
+    transaction:
+      title: Transaction
+      description: Top-level data about a transaction.
+      properties:
+        amount:
+          type: number
+          description: |
+            The normalized monetary value of the transaction in customer's home currency. This value MUST be greater than or equal to zero. Direction of monetary flow should be entirely denoted by the specifying sender/receiver entities and instruments appropriately.
+          example: 13562.83
+        sent_amount:
+          type: number
+          description: |
+            The monetary value of the transaction, specified in terms of the currency set in the sent_currency field. This value must be positive (greater or equal to zero). Denote by the specifying sender/receiver entities and instruments appropriately.
+          example: 13562.83
+        sent_currency:
+          type: string
+          description: The currency that the sender sent
+          maxLength: 128
+          example: USD
+        sender_entity_id:
+          type: string
+          description: |
+            Identifier of the sender entity on your platform.
+          maxLength: 128
+          example: u-371b5091-da30-48a8-936b-7600f9983e80
+        sender_entity_type:
+          type: string
+          description: |
+            The entity type of the sender as defined in Entity's `general_data` section.
+          example: user
+        sender_instrument_id:
+          type: string
+          description: |
+            Identifier of the sender's transaction instrument on your platform.
+          maxLength: 128
+          example: instrumentA-3967112
+        received_amount:
+          type: number
+          description: The monetary value of the transaction, specified in terms of the currency set in the `received_currency` field. This value must be positive (greater or equal to zero). Direction of monetary flow should be entirely denoted by the specifying sender/receiver entities and instruments appropriately.
+          example: 13562.83
+        received_currency:
+          type: string
+          description: The currency that the receiver party received
+          maxLength: 128
+          example: USD
+        receiver_entity_id:
+          type: string
+          description: Identifier of the receiver entity on your platform
+          maxLength: 128
+          example: u-d8e1d453-c205-4996-a935-ff08be01bcd1
+        receiver_entity_type:
+          type: string
+          description: |
+            The entity type of the receiver as defined in Entity's general_data section.
+          example: business
+        receiver_instrument_id:
+          type: string
+          description: |
+            Identifier of the receiver's transaction instrument on your platform.
+          maxLength: 128
+          example: t376839428256371
+        exchange_rate:
+          type: number
+          description: |
+            If both `sent_currency` and `received_currency` are defined, and neither of them are in the home currency, then this is defined as `sent_amount/received_amount`.  If either `sent_currency` or `received_currency` are in the home currency  (but not both), then `exchange_rate` is defined as  `home_currency_amount/non_home_currency_amount` (i.e exchange rate to USD). If both `sent_currency` and `received_currency` are in the home currency,  this is not required.
+          example: 1.0012
+        transaction_hash:
+          type: string
+          description: Used for chainalysis. Chanalysis transaction hash.
+          example: af830da0919f9d3ebbc413040460708c4107e77c83c1d1a56c6bc76a48d
+        usd_conversion_notes:
+          type: string
+          description: Readable information associated with the exchange rate(s) used, e.g. when the exchange rate was pulled, from what source it was obtained
+          example: pulled from forex.com at 1572672226
+        internal_fee:
+          type: number
+          description: |
+            The sum of all internal fees associated with the transaction, specified in USD. Internal fees are collected by your platform e.g. if users pay a fee to you for facilitating a transaction from user to user. All other field amounts should not include the value of these fees.
+          example: 5
+        external_fee:
+          type: number
+          description: |
+            The sum of all external fees associated with the transaction, specified in USD. External fees are paid out to external parties independent of your platform e.g. payment network fees, shipping fees, cleaning fees. All other amount fields should not include the value of these fees
+          example: 5
+    eventList:
+      title: Events
+      description: Top-level data about an event.
+      properties:
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        custom_data:
+          $ref: '#/components/schemas/customDataProperties'
+        digital_data:
+          $ref: '#/components/schemas/digitalDataArrayProperties'
+        general_data:
+          $ref: '#/components/schemas/event'
+        is_cold_store:
+          type: boolean
+          description: Storage location in Unit21 system
+          example: false
+        location_data:
+          $ref: '#/components/schemas/locationDataArrayProperties'
+        transaction_data:
+          $ref: '#/components/schemas/transaction'
     updateEventResponse:
       title: Event create response
       properties:
@@ -5222,6 +4944,27 @@ components:
               items:
                 type: integer
                 example: 14
+    listAlertRequest:
+      type: object
+      required:
+        - limit
+        - offset
+      properties:
+        limit:
+          type: integer
+          description: Number of objects per page.
+          minimum: 0
+          maximum: 50
+          example: 2
+        offset:
+          type: integer
+          description: Pagination offset. A value of 1 returns a response beginning with the first record. The offset is relative to the number of pages (not the total count of objects)
+          minimum: 1
+          default: 1
+        case_id:
+          type: integer
+          description: Associated case ID filter
+          example: 12856
     Disposition:
       type: string
       description: Labels that describe the outcome of an alert or case investigation. More info in [this knowledge base article about dispositions](https://docs.unit21.ai/docs/concept-dispositions).
@@ -7208,12 +6951,6 @@ components:
           description: number of instruments found in the file.
           example: 3
   requestBodies:
-    listEntities:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/listEntityRequest'
     createEntity:
       description: ''
       content:
@@ -7226,24 +6963,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/createEntityDirectRequest'
-    listAlertID:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/listAlertRequest'
     createInstrument:
       description: ''
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/createInstrumentRequest'
-    listDate:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/listDateRequest'
     list:
       description: ''
       required: true
