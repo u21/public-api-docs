@@ -16,6 +16,12 @@ servers:
     description: Sandbox1 server for RTR testing
   - url: https://sandbox2-api.unit21.com/v1
     description: Sandbox2 server for testing
+  - url: https://api.unit21.com/v1
+    description: Production1 server
+  - url: https://rtr.api.unit21.com/v1
+    description: Production1 RTR server
+  - url: https://api.prod2.unit21.com/v1
+    description: Production2 server
 security:
   - ApiKeyAuth: []
 tags:
