@@ -2192,7 +2192,7 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  /entities/{unit21_id}/link-verification-result:
+  /{org_name}/entities/{entity_id}/link-verification-result:
     post:
       tags:
         - Entity Verification API
@@ -2202,7 +2202,7 @@ paths:
         You can only send 1 result per request.
       operationId: add_verification_result_to_entity
       parameters:
-        - $ref: '#/components/parameters/unit21_id'
+        - $ref: '#/components/parameters/entity_id'
       requestBody:
         content:
           application/json:
@@ -2284,7 +2284,7 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  /entities/{unit21_id}/continuous-monitoring:
+  /{org_name}/entities/{entity_id}/continuous-monitoring:
     post:
       tags:
         - Entity Verification API
@@ -2304,7 +2304,7 @@ paths:
         `
       operationId: update_continuous_monitoring
       parameters:
-        - $ref: '#/components/parameters/unit21_id'
+        - $ref: '#/components/parameters/entity_id'
       requestBody:
         content:
           application/json:
@@ -2338,50 +2338,7 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  /entities/{unit21_id}/suppress-provider-entity:
-    post:
-      tags:
-        - Entity Verification API
-      summary: Suppress provider entity
-      description: |
-        Mute Socure continuous monitoring for an entity. 1 - Suppress 0 - Unsuppress
-      operationId: update_suppressed_provider_entities
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/suppressProviderEntity'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              example: {}
-        '400':
-          description: Bad Request. Your request is invalid.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/errorResponse'
-                  - $ref: '#/components/schemas/messageResponse'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '409':
-          $ref: '#/components/responses/409'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-        '503':
-          $ref: '#/components/responses/503'
-  /entities/{unit21_id}/verification_workflow_executions:
+  /{org_name}/entities/{entity_id}/verification_workflow_executions:
     get:
       tags:
         - Entity Verification API
@@ -2389,10 +2346,10 @@ paths:
       description: |-
         Returns the verification workflow IDs for an entity.
 
-        This endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the entity is first created.
+        This endpoint requires the `entity_id` which is the unique identifier of the entity in your system
       operationId: get_entity_verification_workflow_executions
       parameters:
-        - $ref: '#/components/parameters/unit21_id'
+        - $ref: '#/components/parameters/entity_id'
       responses:
         '200':
           description: OK
@@ -6337,27 +6294,6 @@ components:
             Enable or disable continuous monitoring. Use `true` to turn on and `false` to turn off.
         synchronous_response:
           $ref: '#/components/schemas/synchronousResponses'
-    suppressProviderEntity:
-      type: object
-      required:
-        - suppress
-        - provider_entity_ids
-      properties:
-        suppress:
-          type: boolean
-          description: |
-            Enable or disable the silencing of the entity. Use `true` to turn on and `false` to turn off.
-        synchronous_response:
-          $ref: '#/components/schemas/synchronousResponses'
-        provider_entity_ids:
-          type: array
-          description: |
-            Array of entity ID strings
-          items:
-            type: string
-          example:
-            - '5676572343'
-            - '4657605135'
     verificationList:
       title: Verification
       description: list of verification executions.
@@ -7014,6 +6950,7 @@ components:
       schema:
         $ref: '#/components/schemas/entityId'
       required: true
+      description: Unique identifier of the entity in your system
       example: userA-38f8e0Rwdf63nld71112345132UeUKFWE123
     org_name:
       in: path
