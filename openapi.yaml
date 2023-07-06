@@ -2203,6 +2203,7 @@ paths:
       operationId: add_verification_result_to_entity
       parameters:
         - $ref: '#/components/parameters/entity_id'
+        - $ref: '#/components/parameters/org_name'
       requestBody:
         content:
           application/json:
@@ -2305,6 +2306,7 @@ paths:
       operationId: update_continuous_monitoring
       parameters:
         - $ref: '#/components/parameters/entity_id'
+        - $ref: '#/components/parameters/org_name'
       requestBody:
         content:
           application/json:
@@ -2350,6 +2352,7 @@ paths:
       operationId: get_entity_verification_workflow_executions
       parameters:
         - $ref: '#/components/parameters/entity_id'
+        - $ref: '#/components/parameters/org_name'
       responses:
         '200':
           description: OK
