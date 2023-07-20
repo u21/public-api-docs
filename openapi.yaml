@@ -790,13 +790,7 @@ paths:
 
         Two objects are required: `general_data` and either `transaction_data` or `action_data`. `general_data` requires the fields: `event_id`, `event_type`, and `event_time`. `transaction_data` requires only the field `amount`.
 
-        Unlike entities, events on our system are cannot be explicitly updated. However, they can be  overwritten in a naive upsert-overwrite fashion. 
-
-        If we receive a request to create an event for an `event_id` that already exists in our system,  we will simply overwrite that previous entry with the newly provided data if this transaction  is not already associated with other articles in our system. 
-
-        For instance, if a transaction is flagged in an alert and we receive a request to overwrite  the details of this transaction, we will respond with a **409 error code** indicating that this  event cannot be overwritten.
-
-        Updates to an event's `general_data.event_id` are not allowed.
+        If we receive a request to create an event with an `event_id` that already exists in our system,  we treat it as an [upsert](https://docs.unit21.ai/reference/should-i-update-or-upsert) and perform  an update on the existing event. It is not possible to update `general_data.event_id` once the event has been created. All other values can be overwritten. 
 
         Follow the links for more information:
           - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
