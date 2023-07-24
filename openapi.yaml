@@ -1493,7 +1493,7 @@ paths:
 
         This endpoint is useful for sending in rich media such as profile pictures, ID card scans, official documents etc.  that you want available for investigative and verification purposes.
 
-        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv), images (png, jpg, tiff, gif, raw, eps).
+        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv), images (png, jpg, tiff, gif, raw, eps). The max file size is 5 MB per file. 
 
         The payload to this endpoint can either be a **form-data** or a **base64** encoded media file via the requests JSON body.
 
