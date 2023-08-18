@@ -5778,10 +5778,6 @@ components:
           $ref: '#/components/schemas/registeredAt'
         tags:
           $ref: '#/components/schemas/Tags'
-        queue_id:
-          description: Numerical ID of the case queue
-          type: integer
-          example: 6
     alertIds:
       properties:
         alert_ids:
