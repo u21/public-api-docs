@@ -190,6 +190,10 @@ paths:
         - Entities API
       summary: Get an entity
       description: |-
+        > 🚧 
+        > 
+        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` will fail, and `unit21_id` will no longer be returned in the response body. Please use `entity_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)
+
         Returns all data objects belonging to a single entity, including `general_data`, `document_data`, etc.
 
         [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities will not be listed.
@@ -3693,10 +3697,6 @@ components:
           $ref: '#/components/schemas/relationshipsDataProperties'
         options:
           $ref: '#/components/schemas/entityOptionsProperties'
-    unit21Id:
-      type: integer
-      description: 'A Unit21 internally-assigned unique identifier for an object within the Unit21 system. '
-      example: 1237466
     generalEntitiesListProperties:
       title: General entity data
       type: object
@@ -3791,7 +3791,7 @@ components:
       description: Top-level data about an entity.
       properties:
         unit21_id:
-          $ref: '#/components/schemas/unit21Id'
+          $ref: '#/components/schemas/deprecatedUnit21Id'
         business_data:
           $ref: '#/components/schemas/businessDataProperties'
         communication_data:
@@ -3910,6 +3910,10 @@ components:
       properties:
         options:
           $ref: '#/components/schemas/entityOptionsProperties'
+    unit21Id:
+      type: integer
+      description: 'A Unit21 internally-assigned unique identifier for an object within the Unit21 system. '
+      example: 1237466
     updateEntityResponse:
       title: Instrument create response
       properties:
