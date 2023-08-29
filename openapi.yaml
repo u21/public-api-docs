@@ -86,7 +86,9 @@ paths:
       summary: Create an entity
       operationId: create_entity
       description: |
-        > 🚧 > > The `unit21_id` and `previously_existed` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. Do not use these fields or expect them to be returned. If you do not use these fields, no action is required. [Click here for more information.](https://docs.unit21.ai/page/api-changes)
+        > 🚧 
+        > 
+        > The `unit21_id` and `previously_existed` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. Do not use these fields or expect them to be returned. If you do not use these fields, no action is required. [Click here for more information.](https://docs.unit21.ai/page/api-changes)
 
         Creates a new entity, sending entity data in the request body. 
 
