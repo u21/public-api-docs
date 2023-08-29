@@ -242,9 +242,13 @@ paths:
         - Entities API
       summary: Update entity
       description: |-
+        > 🚧 
+        > 
+        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` will fail, and `unit21_id` will no longer be returned in the response body. Please use `entity_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)    
+
         Updates an entity's information using the `entity_id` from your platform. 
 
-        Updating an entity has no required fields. You MAY send any  subset of the fields that the entities/create endpoint accepts.
+        Updating an entity has no required fields. You MAY send any subset of the fields that the entities/create endpoint accepts.
 
         [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities cannot be updated.
 
@@ -3910,17 +3914,13 @@ components:
       properties:
         options:
           $ref: '#/components/schemas/entityOptionsProperties'
-    unit21Id:
-      type: integer
-      description: 'A Unit21 internally-assigned unique identifier for an object within the Unit21 system. '
-      example: 1237466
     updateEntityResponse:
-      title: Instrument create response
+      title: Entity create response
       properties:
         entity_id:
           $ref: '#/components/schemas/entityId'
         unit21_id:
-          $ref: '#/components/schemas/unit21Id'
+          $ref: '#/components/schemas/deprecatedUnit21Id'
     linkInstrument:
       type: object
       description: Associate an instrument directly with an object, like an Entity or Case.
@@ -3974,6 +3974,10 @@ components:
             --form 'document_front=@/src/103031/images/document_front.jpg' \
             --form 'document_front={"media_type": "IMAGE_ID_CARD_FRONT", "source": "passport_app", "timestamp": 1572673229}'
             ```
+    unit21Id:
+      type: integer
+      description: 'A Unit21 internally-assigned unique identifier for an object within the Unit21 system. '
+      example: 1237466
     entity-unit21-Ids:
       properties:
         entity_ids:
