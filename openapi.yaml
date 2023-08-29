@@ -790,11 +790,15 @@ paths:
       summary: Create an event
       operationId: create_event
       description: |
+        > 🚧 
+        > 
+        > The `unit21_id`, `previously_existed`, and `ignored` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. These fields should be ignored. [More information.](https://docs.unit21.ai/page/api-changes)
+
         Creates a new event, sending event data in the request body. 
 
         Two objects are required: `general_data` and either `transaction_data` or `action_data`. `general_data` requires the fields: `event_id`, `event_type`, and `event_time`. `transaction_data` requires only the field `amount`.
 
-        If we receive a request to create an event with an `event_id` that already exists in our system,  we treat it as an [upsert](https://docs.unit21.ai/reference/should-i-update-or-upsert) and perform  an update on the existing event. It is not possible to update `general_data.event_id` once the event has been created. All other values can be overwritten. 
+        If we receive a request to create an event with an `event_id` that already exists in our system, we treat it as an [upsert](https://docs.unit21.ai/reference/should-i-update-or-upsert) and perform an update on the existing event. It is not possible to update `general_data.event_id` once the event has been created. All other values can be overwritten. 
 
         Follow the links for more information:
           - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
@@ -4504,21 +4508,17 @@ components:
               $ref: '#/components/schemas/mergeCustomData'
             upsert_on_conflict:
               $ref: '#/components/schemas/upsertOnConflict'
-    previouslyExisted:
-      type: boolean
-      description: During upserts, `true` when object already existed at the ID field specified in the POST.
     createEventResponse:
       title: Events/create response
       properties:
         event_id:
           $ref: '#/components/schemas/eventId'
+        ignored:
+          $ref: '#/components/schemas/deprecatedIgnored'
         previously_existed:
-          $ref: '#/components/schemas/previouslyExisted'
+          $ref: '#/components/schemas/deprecatedPreviouslyExisted'
         unit21_id:
-          type: integer
-          description: Field should be ignored. It is under deprecation.
-          example: 1237466
-          deprecated: true
+          $ref: '#/components/schemas/deprecatedUnit21Id'
     rtrEventResponse:
       title: Events/create response
       properties:
@@ -5337,6 +5337,9 @@ components:
           example: 42
         custom_data:
           $ref: '#/components/schemas/customDataProperties'
+    previouslyExisted:
+      type: boolean
+      description: During upserts, `true` when object already existed at the ID field specified in the POST.
     createAlertResponse:
       title: Create Alert response
       properties:
