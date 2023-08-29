@@ -592,7 +592,7 @@ paths:
 
         Recommended values for `instrument_type` include: account, crypto_address, digital_wallet, credit_card, debit_card, gift_card, voucher, check, laptop,  company_computer, smartphone.
 
-        If the `/instruments/create` API is called for an instrument that already exists in our system (i.e. has an existing `instrument_id`, it is treated it as an [upsert](https://docs.unit21.ai/reference/should-i-update-or-upsert) and an update on the existing instrument is performed. However, Unit21 selectively ignores upserts if the request is identical to a previous request. 
+        If the `/instruments/create` API is called for an instrument that already exists in our system (i.e. has an existing `instrument_id`), it is treated it as an [upsert](https://docs.unit21.ai/reference/should-i-update-or-upsert) and an update on the existing instrument is performed. However, Unit21 selectively ignores upserts if the request is identical to a previous request. 
 
         To turn a [placeholder](https://docs.unit21.ai/reference/placeholder-objects) instrument into an instrument in the Unit21 system, use this endpoint.
 
@@ -644,6 +644,9 @@ paths:
         - Instruments API
       summary: Get an instrument
       description: |-
+        > 🚧 
+        > 
+        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail, and `unit21_id` will no longer be returned in the response body. Please use `instrument_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)
         Returns all data objects belonging to a single instrument.
 
         [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) instruments are not listed.
@@ -688,13 +691,17 @@ paths:
         - Instruments API
       summary: Update instrument
       description: |-
-        Updates an instrument's information using the `instrument_id` from your platform. 
+        > 🚧 
+        > 
+        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail, and `unit21_id` will no longer be returned in the response body. Please use `instrument_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)    
 
-        Updating an instrument has no required fields. You MAY send any  subset of the fields that the `instruments/create` endpoint accepts.
-
-        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) instruments cannot be updated.
+        Updates an instrument's information using the `instrument_id` from your platform.
 
         This endpoint requires the `instrument_id` which is a unique ID created by your organization to identify the instrument. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
+
+        Updating an instrument has no required fields. You MAY send any subset of the fields that the `instruments/create` endpoint accepts.
+
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) instruments cannot be updated.
 
         Note that you can also update an instrument using an upsert through `/instruments/create`.
 
@@ -4141,7 +4148,7 @@ components:
       description: Top-level data about an instrument.
       properties:
         unit21_id:
-          $ref: '#/components/schemas/unit21Id'
+          $ref: '#/components/schemas/deprecatedUnit21Id'
         instrument_id:
           $ref: '#/components/schemas/instrumentId'
         instrument_type:
@@ -4233,7 +4240,7 @@ components:
         instrument_id:
           $ref: '#/components/schemas/instrumentId'
         unit21_id:
-          $ref: '#/components/schemas/unit21Id'
+          $ref: '#/components/schemas/deprecatedUnit21Id'
     instrument-unit21-Ids:
       properties:
         instrument_ids:
