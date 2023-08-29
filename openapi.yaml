@@ -88,7 +88,7 @@ paths:
       description: |
         > 🚧 
         > 
-        > The `unit21_id` and `previously_existed` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. These fields should be ignored. [More information.](https://docs.unit21.ai/page/api-changes)
+        > The `unit21_id`, `previously_existed`, and `ignored` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. These fields should be ignored. [More information.](https://docs.unit21.ai/page/api-changes)
 
         Creates a new entity, sending entity data in the request body. 
 
@@ -561,13 +561,15 @@ paths:
       summary: Create an instrument
       operationId: create_instrument
       description: |
+        > 🚧 
+        > 
+        > The `unit21_id`, `previously_existed`, and `ignored` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. These fields should be ignored. [More information.](https://docs.unit21.ai/page/api-changes)
+
         Creates a new instrument, sending instrument data in the request body.
 
-        Recommended values for `instrument_type` include: account, crypto_address,  digital_wallet, credit_card, debit_card, gift_card, voucher, check, laptop, company_computer, smartphone.
+        Recommended values for `instrument_type` include: account, crypto_address, digital_wallet, credit_card, debit_card, gift_card, voucher, check, laptop,  company_computer, smartphone.
 
-        If the `/instruments/create` API is called for an instrument that already exists in our system (i.e.  has an existing `instrument_id`, it is treated it as an  [upsert](https://docs.unit21.ai/reference/should-i-update-or-upsert) and an update on the existing  instrument is performed. The response to the request will then contain the entry `previously_existed: true`. 
-
-        Unit21 selectively ignores upserts if the request is identical to a previous request. The response to any  ignored upsert will contain the field `ignored: true`. 
+        If the `/instruments/create` API is called for an instrument that already exists in our system (i.e. has an existing `instrument_id`, it is treated it as an [upsert](https://docs.unit21.ai/reference/should-i-update-or-upsert) and an update on the existing instrument is performed. However, Unit21 selectively ignores upserts if the request is identical to a previous request. 
 
         To turn a [placeholder](https://docs.unit21.ai/reference/placeholder-objects) instrument into an instrument in the Unit21 system, use this endpoint.
 
@@ -4096,27 +4098,17 @@ components:
           $ref: '#/components/schemas/Tags'
         options:
           $ref: '#/components/schemas/Options'
-    Ignored:
-      type: boolean
-      example: true
-      description: OPTIONAL. During upserts, `true` if all fields are identical to already existing fields for that object
-    previouslyExisted:
-      type: boolean
-      description: During upserts, `true` when object already existed at the ID field specified in the POST.
     createInstrumentResponse:
       title: Instrument create response
       properties:
-        ignored:
-          $ref: '#/components/schemas/Ignored'
         instrument_id:
           $ref: '#/components/schemas/instrumentId'
+        ignored:
+          $ref: '#/components/schemas/deprecatedIgnored'
         previously_existed:
-          $ref: '#/components/schemas/previouslyExisted'
+          $ref: '#/components/schemas/deprecatedPreviouslyExisted'
         unit21_id:
-          type: integer
-          description: Field should be ignored. It is under deprecation.
-          example: 1237466
-          deprecated: true
+          $ref: '#/components/schemas/deprecatedUnit21Id'
     instrumentList:
       title: Instrument
       description: Top-level data about an instrument.
@@ -4512,6 +4504,9 @@ components:
               $ref: '#/components/schemas/mergeCustomData'
             upsert_on_conflict:
               $ref: '#/components/schemas/upsertOnConflict'
+    previouslyExisted:
+      type: boolean
+      description: During upserts, `true` when object already existed at the ID field specified in the POST.
     createEventResponse:
       title: Events/create response
       properties:
