@@ -956,6 +956,10 @@ paths:
         - Events API
       summary: Get an event
       description: |-
+        > 🚧 
+        > 
+        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail, and `unit21_id` will no longer be returned in the response body. Please use `event_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)
+
         Returns all data objects belonging to a single event.
 
         This endpoint requires the `events_id` which is a unique ID created by your organization to identify the event. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
@@ -998,6 +1002,10 @@ paths:
         - Events API
       summary: Update event
       description: |-
+        > 🚧 
+        > 
+        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail, and `unit21_id` will no longer be returned in the response body. Please use `event_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)
+
         Update an event using the `event_id` from your platform. 
 
         Updating an event has no required fields. You MAY send any  subset of the fields that the events/create endpoint accepts.
@@ -4716,7 +4724,7 @@ components:
       description: Top-level data about an event.
       properties:
         unit21_id:
-          $ref: '#/components/schemas/unit21Id'
+          $ref: '#/components/schemas/deprecatedUnit21Id'
         custom_data:
           $ref: '#/components/schemas/customDataProperties'
         digital_data:
@@ -4737,7 +4745,7 @@ components:
         event_id:
           $ref: '#/components/schemas/eventId'
         unit21_id:
-          $ref: '#/components/schemas/unit21Id'
+          $ref: '#/components/schemas/deprecatedUnit21Id'
     eventIds:
       properties:
         event_ids:
