@@ -322,7 +322,7 @@ paths:
       tags:
         - Entities API
       summary: Add instruments to entity
-      descriptio: |-
+      description: |-
         > 🚧 
         > 
         > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail. Please use `entity_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)    
