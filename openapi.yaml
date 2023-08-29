@@ -800,7 +800,7 @@ paths:
       description: |
         > 🚧 
         > 
-        > The `unit21_id`, `previously_existed`, and `ignored` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. These fields should be ignored. [More information.](https://docs.unit21.ai/page/api-changes)
+        > The `unit21_id` and `previously_existed` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. These fields should be ignored. [More information.](https://docs.unit21.ai/page/api-changes)
 
         Creates a new event, sending event data in the request body. 
 
@@ -4521,8 +4521,6 @@ components:
       properties:
         event_id:
           $ref: '#/components/schemas/eventId'
-        ignored:
-          $ref: '#/components/schemas/deprecatedIgnored'
         previously_existed:
           $ref: '#/components/schemas/deprecatedPreviouslyExisted'
         unit21_id:
