@@ -88,7 +88,7 @@ paths:
       description: |
         > 🚧 
         > 
-        > The `unit21_id` and `previously_existed` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. Do not use these fields or expect them to be returned. If you do not use these fields, no action is required. [Click here for more information.](https://docs.unit21.ai/page/api-changes)
+        > The `unit21_id` and `previously_existed` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. These fields should be ignored. [More information.](https://docs.unit21.ai/page/api-changes)
 
         Creates a new entity, sending entity data in the request body. 
 
@@ -3611,27 +3611,32 @@ components:
           $ref: '#/components/schemas/relationshipsDataProperties'
         options:
           $ref: '#/components/schemas/entityOptionsProperties'
-    Ignored:
+    deprecatedIgnored:
       type: boolean
+      description: Field should be ignored. It is under deprecation.
       example: true
-      description: OPTIONAL. During upserts, `true` if all fields are identical to already existing fields for that object
-    previouslyExisted:
+      deprecated: true
+    deprecatedPreviouslyExisted:
       type: boolean
-      description: During upserts, `true` when object already existed at the ID field specified in the POST.
+      description: Field should be ignored. It is under deprecation.
+      example: true
+      deprecated: true
+    deprecatedUnit21Id:
+      type: integer
+      description: Field should be ignored. It is under deprecation.
+      example: 1237466
+      deprecated: true
     createEntityResponse:
       title: Entity create response
       properties:
-        ignored:
-          $ref: '#/components/schemas/Ignored'
         entity_id:
           $ref: '#/components/schemas/entityId'
+        ignored:
+          $ref: '#/components/schemas/deprecatedIgnored'
         previously_existed:
-          $ref: '#/components/schemas/previouslyExisted'
+          $ref: '#/components/schemas/deprecatedPreviouslyExisted'
         unit21_id:
-          type: integer
-          description: Field should be ignored. It is under deprecation.
-          example: 1237466
-          deprecated: true
+          $ref: '#/components/schemas/deprecatedUnit21Id'
     errorCode:
       type: string
       description: Error message
@@ -4091,6 +4096,13 @@ components:
           $ref: '#/components/schemas/Tags'
         options:
           $ref: '#/components/schemas/Options'
+    Ignored:
+      type: boolean
+      example: true
+      description: OPTIONAL. During upserts, `true` if all fields are identical to already existing fields for that object
+    previouslyExisted:
+      type: boolean
+      description: During upserts, `true` when object already existed at the ID field specified in the POST.
     createInstrumentResponse:
       title: Instrument create response
       properties:
