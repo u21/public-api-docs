@@ -244,7 +244,7 @@ paths:
       description: |-
         > 🚧 
         > 
-        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` will fail, and `unit21_id` will no longer be returned in the response body. Please use `entity_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)    
+        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail, and `unit21_id` will no longer be returned in the response body. Please use `entity_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)    
 
         Updates an entity's information using the `entity_id` from your platform. 
 
@@ -322,18 +322,21 @@ paths:
       tags:
         - Entities API
       summary: Add instruments to entity
-      description: |-
-        Associate an entity with an array of instruments. > 🚧
-        >
-        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail. Please use `entity_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)
+      descriptio: |-
+        > 🚧 
+        > 
+        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail. Please use `entity_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)    
 
-        Specify the `instrument_id` of the instrument when associating instruments.
+        Associate an entity with an array of instruments.
+
+        Specify the `instrument_id` of the instrument when associating instruments. 
 
         [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities cannot be updated.
 
-        If we do not find any instruments with a corresponding `instrument_id` in our system, we will create a [placeholder](https://docs.unit21.ai/reference/placeholder-objects) for it.
+        If we do not find any instruments with a corresponding `instrument_id` in our  system, we will create a [placeholder](https://docs.unit21.ai/reference/placeholder-objects) for it. 
 
-        Instrument details can then be supplemented through the `/instruments/create` or `/instruments/update` endpoints.
+        Instrument details can then be supplemented  through the `/instruments/create` or `/instruments/update` endpoints.
+          
       operationId: add_instruments
       parameters:
         - $ref: '#/components/parameters/entity_id'
@@ -377,6 +380,9 @@ paths:
         - Entities API
       summary: Add media to an entity
       description: |-
+        > 🚧 
+        > 
+        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail. Please use `entity_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)  
         Adds rich media objects (images, videos, etc.) to an existing entity. 
 
         [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities cannot be updated.
@@ -472,6 +478,10 @@ paths:
         - Entities API
       summary: Delete entity media
       description: |-
+        > 🚧 
+        > 
+        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail. Please use `entity_id` instead. [More information.](https://docs.unit21.ai/page/api-changes)      
+
         Deletes all rich media objects (images, videos, etc.) belonging to an existing entity. 
 
         [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities cannot be updated.
