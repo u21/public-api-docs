@@ -882,29 +882,12 @@ paths:
     post:
       tags:
         - Events API
-      summary: Create an RTR event
+      summary: Run real-time rules on an event
       operationId: create_rtr_event
       description: |
-        Creates a new RTR event, sending event data in the request body. 
+        Runs real-time rules on a particular event, the details of which are sent in the request body. 
 
-        You **must** send this request to the RTR endpoint `https://rtr.{env}.unit21.com/evaluate`.  Please see the Sandbox RTR 1 endpoint in the dropbox as an example.
-
-        Two objects are required: `general_data` and either `transaction_data` or `action_data`. `general_data` requires the fields: `event_id`, `event_type`, and `event_time`. `transaction_data` requires only the field `amount`.
-
-        Unlike entities, events on our system are cannot be explicitly updated. However, they can be  overwritten in a naive upsert-overwrite fashion. 
-
-        If we receive a request to create an event for an `event_id` that already exists in our system,  we will simply overwrite that previous entry with the newly provided data if this transaction  is not already associated with other articles in our system. 
-
-        For instance, if a transaction is flagged in an alert and we receive a request to overwrite  the details of this transaction, we will respond with a **409 error code** indicating that this  event cannot be overwritten.
-
-        Updates to an event's `general_data.event_id` are not allowed.
-
-        Follow the links for more information:
-          - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)
-          - [Verification options](https://docs.unit21.ai/reference/identity-verification-options)
-          - [Custom data](https://docs.unit21.ai/reference/best-practices-for-custom-data)
-          - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)
-          - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)
+        To save the event that was evaluated, it must be sent to the event creation endpoint separately;  however, the same payload can be used to simplify implementation.
       requestBody:
         content:
           application/json:
