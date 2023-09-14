@@ -12,13 +12,13 @@ x-readme:
 servers:
   - url: https://sandbox1-api.unit21.com/v1
     description: Sandbox1 server for testing
-  - url: https://rtr.sandbox1-api.unit21.com/v1
+  - url: https://rtr.sandbox1.unit21.com
     description: Sandbox1 server for RTR testing
   - url: https://sandbox2-api.unit21.com/v1
     description: Sandbox2 server for testing
   - url: https://api.unit21.com/v1
     description: Production1 server
-  - url: https://rtr.api.unit21.com/v1
+  - url: https://rtr.prod1.unit21.com
     description: Production1 RTR server
   - url: https://api.prod2.unit21.com/v1
     description: Production2 server
