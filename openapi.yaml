@@ -530,8 +530,6 @@ paths:
 
         Either the `filters` or the list of `entity_ids` are required for the export. 
 
-        **Currently `entity_ids` should actually be `unit21_ids`.**
-
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_entities
       requestBody:
@@ -768,8 +766,6 @@ paths:
         The agent making the request will need to have the correct permissions for the export to ensure success.
 
         Either the `filters` or the list of `instrument IDs` are required for the export.
-
-        **Currently `instrument_ids` should actually be `unit21_ids`.**
 
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_instruments
@@ -1059,8 +1055,6 @@ paths:
 
         Either the `filters` or the list of `event IDs` are required for the export.
 
-        **Currently `event_ids` should actually be `unit21_ids`.**
-
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_events
       requestBody:
@@ -1113,8 +1107,6 @@ paths:
         Either the agent `ID` or `email` is required to begin the export.
 
         Either the `filters` or the list of `event IDs` are required for the export.
-
-        **Currently `event_ids` should actually be `unit21_ids`.**
 
         Custom data filters are not supported for bulk exports at this time.
       operationId: export_transactions
