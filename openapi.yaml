@@ -233,7 +233,12 @@ paths:
       tags:
         - Entities API
       summary: Update entity
+      deprecated: true
       description: |-
+        > ❗️ THIS ENDPOINT IS UNDER DEPRECATION.
+        >
+        > For new implementations, please use the [Create Entity](https://docs.unit21.ai/reference/create_entity) endpoint instead. The Create Entity endpoint allows upserts, supports successive updates, and is capable of batch requests.
+
         Updates an entity's information using the `entity_id` from your platform. 
 
         Updating an entity has no required fields. You MAY send any subset of the fields that the entities/create endpoint accepts.
