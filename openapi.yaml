@@ -3581,32 +3581,11 @@ components:
           $ref: '#/components/schemas/relationshipsDataProperties'
         options:
           $ref: '#/components/schemas/entityOptionsProperties'
-    deprecatedIgnored:
-      type: boolean
-      description: Field should be ignored. It is under deprecation.
-      example: true
-      deprecated: true
-    deprecatedPreviouslyExisted:
-      type: boolean
-      description: Field should be ignored. It is under deprecation.
-      example: true
-      deprecated: true
-    deprecatedUnit21Id:
-      type: integer
-      description: Field should be ignored. It is under deprecation.
-      example: 1237466
-      deprecated: true
     createEntityResponse:
       title: Entity create response
       properties:
         entity_id:
           $ref: '#/components/schemas/entityId'
-        ignored:
-          $ref: '#/components/schemas/deprecatedIgnored'
-        previously_existed:
-          $ref: '#/components/schemas/deprecatedPreviouslyExisted'
-        unit21_id:
-          $ref: '#/components/schemas/deprecatedUnit21Id'
     errorCode:
       type: string
       description: Error message
@@ -3750,8 +3729,6 @@ components:
       title: Entity
       description: Top-level data about an entity.
       properties:
-        unit21_id:
-          $ref: '#/components/schemas/deprecatedUnit21Id'
         business_data:
           $ref: '#/components/schemas/businessDataProperties'
         communication_data:
@@ -3875,8 +3852,6 @@ components:
       properties:
         entity_id:
           $ref: '#/components/schemas/entityId'
-        unit21_id:
-          $ref: '#/components/schemas/deprecatedUnit21Id'
     linkInstrument:
       type: object
       description: Associate an instrument directly with an object, like an Entity or Case.
@@ -4071,18 +4046,10 @@ components:
       properties:
         instrument_id:
           $ref: '#/components/schemas/instrumentId'
-        ignored:
-          $ref: '#/components/schemas/deprecatedIgnored'
-        previously_existed:
-          $ref: '#/components/schemas/deprecatedPreviouslyExisted'
-        unit21_id:
-          $ref: '#/components/schemas/deprecatedUnit21Id'
     instrumentList:
       title: Instrument
       description: Top-level data about an instrument.
       properties:
-        unit21_id:
-          $ref: '#/components/schemas/deprecatedUnit21Id'
         instrument_id:
           $ref: '#/components/schemas/instrumentId'
         instrument_type:
@@ -4173,8 +4140,6 @@ components:
       properties:
         instrument_id:
           $ref: '#/components/schemas/instrumentId'
-        unit21_id:
-          $ref: '#/components/schemas/deprecatedUnit21Id'
     instrument-unit21-Ids:
       properties:
         instrument_ids:
@@ -4477,10 +4442,6 @@ components:
       properties:
         event_id:
           $ref: '#/components/schemas/eventId'
-        previously_existed:
-          $ref: '#/components/schemas/deprecatedPreviouslyExisted'
-        unit21_id:
-          $ref: '#/components/schemas/deprecatedUnit21Id'
     rtrEventResponse:
       title: Events/create response
       properties:
@@ -4648,8 +4609,6 @@ components:
       title: Events
       description: Top-level data about an event.
       properties:
-        unit21_id:
-          $ref: '#/components/schemas/deprecatedUnit21Id'
         custom_data:
           $ref: '#/components/schemas/customDataProperties'
         digital_data:
@@ -4669,8 +4628,6 @@ components:
       properties:
         event_id:
           $ref: '#/components/schemas/eventId'
-        unit21_id:
-          $ref: '#/components/schemas/deprecatedUnit21Id'
     eventIds:
       properties:
         event_ids:
