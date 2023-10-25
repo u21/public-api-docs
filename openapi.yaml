@@ -86,10 +86,6 @@ paths:
       summary: Create an entity
       operationId: create_entity
       description: |
-        > 🚧 
-        > 
-        > The `unit21_id`, `previously_existed`, and `ignored` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. These fields should be ignored. [More information.](https://docs.unit21.ai/page/api-changes)
-
         Creates a new entity, sending entity data in the request body. 
 
         If the `/entities/create` API is called for an entity that already exists in our system, it is treated it as an [upsert](https://docs.unit21.ai/reference/should-i-update-or-upsert) and an update on the existing entity is performed. However, Unit21 selectively ignores upserts if the request is identical to a previous request. 
@@ -190,10 +186,6 @@ paths:
         - Entities API
       summary: Get an entity
       description: |-
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` will fail, and `unit21_id` will no longer be returned in the response body. `entity_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)
-
         Returns all data objects belonging to a single entity, including `general_data`, `document_data`, etc.
 
         [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities will not be listed.
@@ -242,10 +234,6 @@ paths:
         - Entities API
       summary: Update entity
       description: |-
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail, and `unit21_id` will no longer be returned in the response body. `entity_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)    
-
         Updates an entity's information using the `entity_id` from your platform. 
 
         Updating an entity has no required fields. You MAY send any subset of the fields that the entities/create endpoint accepts.
@@ -323,10 +311,6 @@ paths:
         - Entities API
       summary: Add instruments to entity
       description: |-
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail. `entity_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)    
-
         Associate an entity with an array of instruments.
 
         Specify the `instrument_id` of the instrument when associating instruments. 
@@ -380,10 +364,6 @@ paths:
         - Entities API
       summary: Add media to an entity
       description: |-
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail. `entity_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)  
-
         Adds rich media objects (images, videos, etc.) to an existing entity. 
 
         [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities cannot be updated.
@@ -479,10 +459,6 @@ paths:
         - Entities API
       summary: Delete entity media
       description: |-
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail. `entity_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)      
-
         Deletes all rich media objects (images, videos, etc.) belonging to an existing entity. 
 
         [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities cannot be updated.
@@ -580,10 +556,6 @@ paths:
       summary: Create an instrument
       operationId: create_instrument
       description: |
-        > 🚧 
-        > 
-        > The `unit21_id`, `previously_existed`, and `ignored` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. These fields should be ignored. [More information.](https://docs.unit21.ai/page/api-changes)
-
         Creates a new instrument, sending instrument data in the request body.
 
         Recommended values for `instrument_type` include: account, crypto_address, digital_wallet, credit_card, debit_card, gift_card, voucher, check, laptop,  company_computer, smartphone.
@@ -640,10 +612,6 @@ paths:
         - Instruments API
       summary: Get an instrument
       description: |-
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail, and `unit21_id` will no longer be returned in the response body. `instrument_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)
-
         Returns all data objects belonging to a single instrument.
 
         [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) instruments are not listed.
@@ -688,10 +656,6 @@ paths:
         - Instruments API
       summary: Update instrument
       description: |-
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail, and `unit21_id` will no longer be returned in the response body. `instrument_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)    
-
         Updates an instrument's information using the `instrument_id` from your platform.
 
         This endpoint requires the `instrument_id` which is a unique ID created by your organization to identify the instrument. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
@@ -815,10 +779,6 @@ paths:
       summary: Create an event
       operationId: create_event
       description: |
-        > 🚧 
-        > 
-        > The `unit21_id` and `previously_existed` fields are being deprecated and will no longer be returned in the response body for this endpoint after **September 30, 2023**. These fields should be ignored. [More information.](https://docs.unit21.ai/page/api-changes)
-
         Creates a new event, sending event data in the request body. 
 
         Two objects are required: `general_data` and either `transaction_data` or `action_data`. `general_data` requires the fields: `event_id`, `event_type`, and `event_time`. `transaction_data` requires only the field `amount`.
@@ -933,10 +893,6 @@ paths:
         - Events API
       summary: Get an event
       description: |-
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail, and `unit21_id` will no longer be returned in the response body. `event_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)
-
         Returns all data objects belonging to a single event.
 
         This endpoint requires the `events_id` which is a unique ID created by your organization to identify the event. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
@@ -979,10 +935,6 @@ paths:
         - Events API
       summary: Update event
       description: |-
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for this endpoint after **September 30, 2023**. Requests made using `unit21_id` in the path will fail, and `unit21_id` will no longer be returned in the response body. `event_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)
-
         Update an event using the `event_id` from your platform. 
 
         Updating an event has no required fields. You MAY send any  subset of the fields that the events/create endpoint accepts.
@@ -1299,10 +1251,6 @@ paths:
         - Alerts API
       summary: List alerts
       description: |
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for Entities, Events, and Instruments after **September 30, 2023**. Requests that use `unit21_id` for `associated_entities`, `associated_events`, and `associated_instruments` for this endpoint will fail. `entity_id`, `event_id` and `instrument_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)
-
         Returns an array of top-level information about alerts in your environment.
 
         Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
@@ -1385,7 +1333,7 @@ paths:
         - Alerts API
       summary: Create alerts
       operationId: create_alert
-      description: "> 🚧 \n> \n> The `unit21_id` field is being deprecated for Entities, Events, and Instruments after **September 30, 2023**. Requests that use `unit21_id` for `entities`, `events`, and `instruments` for this endpoint will fail. `entity_id`, `event_id` and `instrument_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)    \n\nCreates a new alert, sending alert data in the request body. \nTo create an Alert, you MUST include the following fields: `alert_id`, `alert_type`, `created_at`, `title`, and `status`. The other top-level fields are optional.\n\nIf we receive a request to create an alert for an `alert_id` that already exists in our system,  we will respond with a **409 error code** indicating that this alert cannot be created/updated. You must use the `/alert/update` endpoint to update an alert.\n\nYou can add the following objects to an alert:\n\n  | Field                    | Type     | Description                                                                                                           |\n  |--------------------------|----------|-----------------------------------------------------------------------------------------------------------------------|\n  | `rules`\t                 | String[] | Unique identifier of the rules/triggers/scenarios that triggered this alert                                           |\n  | `events`\t               | Object[] | Transactions affiliated with the alert. Each object must consist of a `event_id` and `event_type` field               |\n  | `entities`\t             | Object[] | Users or businesses affiliated with the alert. Each object must consist of an `entity_id` and `entity_type` field     |\n  | `instruments`\t           | String[] | Unique identifiers of any instruments affiliated with the alert                                                       |\n\n\nPlease note that if `verification_result_id` is included, it will link the entity that is associated  with the verification result with the alert.\n\nUpdates to an alert's `alert_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                             |\n  |--------------------------|----------|---------------------------------------------------------|\n  | `alert_id`\t             | String   | Unique identifier of the alert on your platform         |\n  | `unit21_id`\t             | String   | Internal ID of the alert within Unit21's system         |\n  | `previously_existed`\t   | Boolean  | If alert (with the same `alert_id`) already exists      |\n"
+      description: "Creates a new alert, sending alert data in the request body. \nTo create an Alert, you MUST include the following fields: `alert_id`, `alert_type`, `created_at`, `title`, and `status`. The other top-level fields are optional.\n\nIf we receive a request to create an alert for an `alert_id` that already exists in our system,  we will respond with a **409 error code** indicating that this alert cannot be created/updated. You must use the `/alert/update` endpoint to update an alert.\n\nYou can add the following objects to an alert:\n\n  | Field                    | Type     | Description                                                                                                           |\n  |--------------------------|----------|-----------------------------------------------------------------------------------------------------------------------|\n  | `rules`\t                 | String[] | Unique identifier of the rules/triggers/scenarios that triggered this alert                                           |\n  | `events`\t               | Object[] | Transactions affiliated with the alert. Each object must consist of a `event_id` and `event_type` field               |\n  | `entities`\t             | Object[] | Users or businesses affiliated with the alert. Each object must consist of an `entity_id` and `entity_type` field     |\n  | `instruments`\t           | String[] | Unique identifiers of any instruments affiliated with the alert                                                       |\n\n\nPlease note that if `verification_result_id` is included, it will link the entity that is associated  with the verification result with the alert.\n\nUpdates to an alert's `alert_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                             |\n  |--------------------------|----------|---------------------------------------------------------|\n  | `alert_id`\t             | String   | Unique identifier of the alert on your platform         |\n  | `unit21_id`\t             | String   | Internal ID of the alert within Unit21's system         |\n  | `previously_existed`\t   | Boolean  | If alert (with the same `alert_id`) already exists      |\n"
       requestBody:
         $ref: '#/components/requestBodies/createAlert'
       responses:
@@ -1651,10 +1599,6 @@ paths:
         - Cases API
       summary: List cases
       description: |
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for Entities, Events, and Instruments after **September 30, 2023**. Requests that use `unit21_id` for `associated_entities` and `associated_events` for this endpoint will fail. `entity_id` and `event_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)
-
         Returns an array of top-level information about cases in your environment.
 
         Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
@@ -1734,7 +1678,7 @@ paths:
       tags:
         - Cases API
       summary: Create a case
-      description: "> 🚧 \n> \n> The `unit21_id` field is being deprecated for Entities, Events, and Instruments after **September 30, 2023**. Requests that use `unit21_id` for `entity_ids` and `event_ids` for this endpoint will fail. `entity_id` and `event_id` should be used instead. [More information.](https://docs.unit21.ai/page/api-changes)        \n\nCreates a new case, sending case data in the request body. \nTo create a case, you MUST include the following fields: `case_id`, `title`, and `created_at`.  The other top-level fields are optional.\n\nIf we receive a request to create a case for an `case_id` that already exists in our system,  we will respond with a **409 error code** indicating that this case cannot be created/updated. You must use the `/case/update` endpoint to update a case.\n\nYou can add the following objects to a case:\n\n  | Field                    | Type     | Description                                                             |\n  |--------------------------|----------|-------------------------------------------------------------------------|\n  | `alerts`\t               | Array[]  | Alerts that are associated with this case. Consists of `alert_id`s      |\n  | `events`\t               | Array[]  | Transactions affiliated with the case. Consists of `event_id`s          |\n  | `entities`\t             | Array[]  | Entities affiliated with the case. Consists of `entity_id`s             |\n\nUpdates to a cases's `case_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                          |\n  |--------------------------|----------|------------------------------------------------------|\n  | `case_id`\t               | String   | \tUnique identifier of the case on your platform     |\n  | `previously_existed`\t   | Boolean  | \tIf case (with the same `case_id`) already exists   |\n"
+      description: "Creates a new case, sending case data in the request body. \nTo create a case, you MUST include the following fields: `case_id`, `title`, and `created_at`.  The other top-level fields are optional.\n\nIf we receive a request to create a case for an `case_id` that already exists in our system,  we will respond with a **409 error code** indicating that this case cannot be created/updated. You must use the `/case/update` endpoint to update a case.\n\nYou can add the following objects to a case:\n\n  | Field                    | Type     | Description                                                             |\n  |--------------------------|----------|-------------------------------------------------------------------------|\n  | `alerts`\t               | Array[]  | Alerts that are associated with this case. Consists of `alert_id`s      |\n  | `events`\t               | Array[]  | Transactions affiliated with the case. Consists of `event_id`s          |\n  | `entities`\t             | Array[]  | Entities affiliated with the case. Consists of `entity_id`s             |\n\nUpdates to a cases's `case_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                          |\n  |--------------------------|----------|------------------------------------------------------|\n  | `case_id`\t               | String   | \tUnique identifier of the case on your platform     |\n  | `previously_existed`\t   | Boolean  | \tIf case (with the same `case_id`) already exists   |\n"
       operationId: create_case
       requestBody:
         required: true
@@ -1992,10 +1936,6 @@ paths:
         - Sars API
       summary: List sars
       description: |-
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for Entities, Events, and Instruments after **September 30, 2023**. This endpoint will no longer return `unit21_id` for `entities` and  `events` in the response body. These fields should be ignored. [More information.](https://docs.unit21.ai/page/api-changes)
-
         Returns paginated list of of top-level information about paths/sars@list.yaml    
 
         Because the response is paginated, the request body has a `limit` and `offset` field. At least one must be filled.
@@ -2066,10 +2006,6 @@ paths:
         - Sars API
       summary: Get a sars
       description: |-
-        > 🚧 
-        > 
-        > The `unit21_id` field is being deprecated for Entities, Events, and Instruments after **September 30, 2023**. This endpoint will no longer return `unit21_id` for `entities` and  `events` in the response body. These fields should be ignored. [More information.](https://docs.unit21.ai/page/api-changes)
-
         Returns all data objects belonging to a single SAR.
 
         This endpoint requires the `unit21_id` which is a unique ID created by Unit21 when the sar is first created.
