@@ -660,7 +660,12 @@ paths:
       tags:
         - Instruments API
       summary: Update instrument
+      deprecated: true
       description: |-
+        > ❗️ THIS ENDPOINT IS UNDER DEPRECATION.
+        >
+        > For new implementations, please use the [Create Instrument](https://docs.unit21.ai/reference/create_instrument) endpoint instead. The Create Instrument endpoint allows upserts, supports successive updates, and is capable of batch requests.
+
         Updates an instrument's information using the `instrument_id` from your platform.
 
         This endpoint requires the `instrument_id` which is a unique ID created by your organization to identify the instrument. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
@@ -939,7 +944,12 @@ paths:
       tags:
         - Events API
       summary: Update event
+      deprecated: true
       description: |-
+        > ❗️ THIS ENDPOINT IS UNDER DEPRECATION.
+        >
+        > For new implementations, please use the [Create Event](https://docs.unit21.ai/reference/create_event) endpoint instead. The Create Event endpoint allows upserts, supports successive updates, and is capable of batch requests.
+
         Update an event using the `event_id` from your platform. 
 
         Updating an event has no required fields. You MAY send any  subset of the fields that the events/create endpoint accepts.
