@@ -5073,106 +5073,6 @@ components:
       description: Unique identifier of the alert on the customer's platform.
       maxLength: 128
       example: alertA-028eb01a-f8d3-42fb-b398-785b596ee4cb
-    alertList:
-      title: Alert
-      description: Top-level data about an alert.
-      properties:
-        unit21_id:
-          $ref: '#/components/schemas/unit21Id'
-        actions:
-          $ref: '#/components/schemas/actions'
-        checklist:
-          $ref: '#/components/schemas/checklist'
-        descendant_cases:
-          $ref: '#/components/schemas/descendantCases'
-        alert_id:
-          $ref: '#/components/schemas/alertId'
-        alert_type:
-          type: string
-          enum:
-            - chainlysis
-            - tm
-            - kyc
-            - manual
-            - car
-          description: Either transaction monitoring, `tm`, or know-your-customer `kyc`. Default is `tm`
-          example: tm
-        assigned_to:
-          type: string
-          description: Agent email assigned to work the alert
-          example: laura@unit21.ai
-        created_at:
-          $ref: '#/components/schemas/registeredAt'
-        custom_data:
-          $ref: '#/components/schemas/customDataProperties'
-        description:
-          type: string
-          description: Description of the alert
-          example: Flagged 2 transactions in last hour that were 3 standard deviations outside 3 month mean.
-        disposition:
-          $ref: '#/components/schemas/Disposition'
-        disposition_at:
-          type: string
-          description: Date the alert was dispositioned as epoch.
-          example: 1661630487
-        disposition_notes:
-          $ref: '#/components/schemas/dispositionNotes'
-        dispositioned_by:
-          type: string
-          description: Agent that disposed the alert
-          example: laura@unit21.ai
-        due_date:
-          type: string
-          description: Date the alert is due as epoch.
-          example: 1661630487
-        due_date_text:
-          type: string
-          description: Date the alert is due as text.
-          example: due 278 days ago
-        end_date:
-          type: string
-          description: Date the alert is closed as epoch.
-          example: 1661630487
-        rules:
-          type: array
-          description: List of rule objects.
-          items:
-            $ref: '#/components/schemas/ruleList'
-        sources:
-          type: array
-          description: Sources for the alerts.
-          items:
-            type: string
-            enum:
-              - INTERNAL
-              - EXTERNAL
-        entities:
-          type: array
-          description: List of entity objects.
-          items:
-            $ref: '#/components/schemas/entityList'
-        events:
-          type: array
-          description: List of event objects.
-          items:
-            $ref: '#/components/schemas/eventList'
-        instruments:
-          type: array
-          description: List of instrument objects.
-          items:
-            $ref: '#/components/schemas/instrumentList'
-        start_date:
-          type: string
-          description: Date the alert was first investigated as epoch.
-          example: 1661630487
-        status:
-          $ref: '#/components/schemas/investigationStatus'
-        tags:
-          $ref: '#/components/schemas/Tags'
-        title:
-          type: string
-          description: Title of the alert
-          example: Account deviation for user T18029
     listAlertResponse:
       type: object
       properties:
@@ -5180,7 +5080,88 @@ components:
           type: array
           description: List of alert objects.
           items:
-            $ref: '#/components/schemas/alertList'
+            properties:
+              unit21_id:
+                $ref: '#/components/schemas/unit21Id'
+              actions:
+                $ref: '#/components/schemas/actions'
+              checklist:
+                $ref: '#/components/schemas/checklist'
+              descendant_cases:
+                $ref: '#/components/schemas/descendantCases'
+              alert_id:
+                $ref: '#/components/schemas/alertId'
+              alert_type:
+                type: string
+                enum:
+                  - chainlysis
+                  - tm
+                  - kyc
+                  - manual
+                  - car
+                description: Either transaction monitoring, `tm`, or know-your-customer `kyc`. Default is `tm`
+                example: tm
+              assigned_to:
+                type: string
+                description: Agent email assigned to work the alert
+                example: laura@unit21.ai
+              created_at:
+                $ref: '#/components/schemas/registeredAt'
+              custom_data:
+                $ref: '#/components/schemas/customDataProperties'
+              description:
+                type: string
+                description: Description of the alert
+                example: Flagged 2 transactions in last hour that were 3 standard deviations outside 3 month mean.
+              disposition:
+                $ref: '#/components/schemas/Disposition'
+              disposition_at:
+                type: string
+                description: Date the alert was dispositioned as epoch.
+                example: 1661630487
+              disposition_notes:
+                $ref: '#/components/schemas/dispositionNotes'
+              dispositioned_by:
+                type: string
+                description: Agent that disposed the alert
+                example: laura@unit21.ai
+              due_date:
+                type: string
+                description: Date the alert is due as epoch.
+                example: 1661630487
+              due_date_text:
+                type: string
+                description: Date the alert is due as text.
+                example: due 278 days ago
+              end_date:
+                type: string
+                description: Date the alert is closed as epoch.
+                example: 1661630487
+              rules:
+                type: array
+                description: List of rule objects.
+                items:
+                  $ref: '#/components/schemas/ruleList'
+              sources:
+                type: array
+                description: Sources for the alerts.
+                items:
+                  type: string
+                  enum:
+                    - INTERNAL
+                    - EXTERNAL
+              start_date:
+                type: string
+                description: Date the alert was first investigated as epoch.
+                example: 1661630487
+              status:
+                $ref: '#/components/schemas/investigationStatus'
+              tags:
+                $ref: '#/components/schemas/Tags'
+              title:
+                type: string
+                description: Title of the alert
+                example: Account deviation for user T18029
         response_count:
           type: integer
           example: 4
