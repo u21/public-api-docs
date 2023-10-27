@@ -375,7 +375,7 @@ paths:
 
         This endpoint is useful for sending in rich media such as profile pictures, ID card scans, official documents etc.  that you want available for investigative and verification purposes.
 
-        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv), images (png, jpg, tiff, gif, raw, eps).
+        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv), images (png, jpg, tiff, gif, raw, eps). The max file size is 5 MB per file.
 
         The payload to this endpoint can either be a **form-data** or a **base64** encoded media file via the requests JSON body.
 
@@ -1000,6 +1000,82 @@ paths:
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+  /{org_name}/events/{event_id}/link-media:
+    put:
+      tags:
+        - Events API
+      summary: Add media to an event
+      description: |-
+        Adds rich media objects (images, videos, etc.) to an existing event. 
+
+        [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) events cannot be updated.
+
+        This endpoint is useful for sending in rich media such as check images, receipts, invoices, and other documents that you want available to investigative.
+
+        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv), images (png, jpg, tiff, gif, raw, eps). The max file size is 5 MB per file.
+
+        The payload to this endpoint can either be a **form-data** or a **base64** encoded media file via the requests JSON body.
+
+        **Form-data** sent to this endpoint must use the key `media_key` and the `value` as the media file.  If you wish to provide optional information, use the `media_key` and provide stringified JSON data as the value.  `media_type` is the only required field in each media file's supplementary form data. 
+
+        ```
+          --form 'check_front=@/src/103031/images/check_image_front.jpg' \
+          --form 'check_front={"media_type": "CHECK_IMAGE_FRONT", "source": "direct_deposit_capture", "timestamp": 1572673229}'
+        ```
+
+        **Base64** encoded media objects must include `media`, `name`, and `media-type` for each media object. The `name` must include the file extension such a `File.pdf`. Supplementary form data is sent through the optional `custom_data` object.
+
+        ```json
+          {
+            "media": "iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAYAAABNEqduAAAgAElEQVR4Aey9CbgmV1Xv...",
+            "name": "Check_Image_Front.png",
+            "media_type": "CHECK_IMAGE_FRONT",
+            "custom_data": {
+              "internal_notes": "Reviewed by Mitchell Jones on 31 June 2019",
+              "source": "direct_deposit_capture",
+              "timestamp": "2012-03-40 05:12:41.000Z"
+            }
+          }
+        ```
+      operationId: link_media_to_event
+      parameters:
+        - $ref: '#/components/parameters/event_id'
+        - $ref: '#/components/parameters/org_name'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/linkMediaJSON'
+                - $ref: '#/components/schemas/linkMediaForm'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example: {}
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
         '409':
           $ref: '#/components/responses/409'
         '423':
@@ -1819,7 +1895,7 @@ paths:
 
         This endpoint is useful for sending in rich media such as profile pictures, ID card scans, official documents etc.  that you want available for investigative and verification purposes.
 
-        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv), images (png, jpg, tiff, gif, raw, eps).
+        Supported file types are: txt, pdf, video (mp4, mov, wmv, avi, mkv), images (png, jpg, tiff, gif, raw, eps). The max file size is 5 MB per file.
 
         The payload to this endpoint can either be a **form-data** or a **base64** encoded media file via the requests JSON body.
 
