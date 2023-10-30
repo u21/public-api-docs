@@ -4085,6 +4085,7 @@ components:
       title: Create an instrument
       required:
         - instrument_id
+        - instrument_type
       properties:
         instrument_id:
           $ref: '#/components/schemas/instrumentId'
