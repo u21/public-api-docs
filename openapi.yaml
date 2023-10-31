@@ -4024,12 +4024,6 @@ components:
               type: string
               description: Status of the entities.
               example: active
-            tag_ids:
-              type: array
-              description: Numerical IDs of the tags.
-              items:
-                type: integer
-                example: 9
             rule_ids:
               type: array
               description: Numerical IDs of the rules.
@@ -4256,12 +4250,6 @@ components:
               type: string
               description: Status of the instruments.
               example: active
-            tag_ids:
-              type: array
-              description: Numerical IDs of the tags.
-              items:
-                type: integer
-                example: 9
             rule_ids:
               type: array
               description: Numerical IDs of the rules.
@@ -4745,12 +4733,6 @@ components:
               type: string
               description: Status of the event.
               example: active
-            tag_ids:
-              type: array
-              description: Numerical IDs of the tags.
-              items:
-                type: integer
-                example: 9
             start_date:
               type: string
               description: Event creation date start.
