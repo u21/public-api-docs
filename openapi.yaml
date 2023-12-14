@@ -7,8 +7,6 @@ info:
   contact:
     name: Unit21
     url: https://unit21.ai
-x-readme:
-  proxy-enabled: false
 servers:
   - url: https://sandbox1-api.unit21.com/v1
     description: Sandbox1 server for testing
@@ -63,6 +61,9 @@ tags:
   - name: Webhooks API
     description: |
       Whenever an event happens on the Unit21 platform, Unit21 can send a webhook about the event to whatever URL you configure. Such events include entity verification results, generated alerts, case re-openings and closings, etcetera.
+  - name: Queues API
+    description: |
+      Queues are the way you can organize Alerts, Cases and Filings in Unit21. They have associations to rules and teams. You can change the queue of Alerts, Cases and Filings using their Unit21 IDs.
   - name: Matchlists API
     description: |
       Matchlists comprise one of the following categories:
@@ -2767,6 +2768,79 @@ paths:
           content:
             application/json:
               example: {}
+  /queue/{unit21_id}:
+    get:
+      tags:
+        - Queues API
+      summary: Get a queue
+      description: Returns information on a specific queue
+      operationId: get_queue_by_unit21_id
+      parameters:
+        - $ref: '#/components/parameters/unit21_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getQueueResponse'
+        '400':
+          description: Bad Request. Your request is invalid.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/errorResponse'
+                  - $ref: '#/components/schemas/messageResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+  /queues:
+    post:
+      tags:
+        - Queues API
+      summary: List queues
+      description: 'Returns list of Alert, Case and Filing Queues with the following information: - Unit21 ID - Title - Description - Org ID - Type (Alert, Case, Filing) - Subtype (TM, KYC, CHAINALYSIS, MANUAL and CAR) - Access Type (Open, Restricted, Classified)'
+      operationId: list_queues
+      requestBody:
+        $ref: '#/components/requestBodies/list'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/listQueuesResponse'
+        '400':
+          '401':
+            $ref: ../../components/responses/401.yaml
+          '403':
+            $ref: ../../components/responses/403.yaml
+          '404':
+            $ref: ../../components/responses/404.yaml
+          '409':
+            $ref: ../../components/responses/409.yaml
+          '423':
+            $ref: ../../components/responses/423.yaml
+          '429':
+            $ref: ../../components/responses/429.yaml
+          '500':
+            $ref: ../../components/responses/500.yaml
+          '503':
+            $ref: ../../components/responses/503.yaml
+          $ref: '#/components/responses/400'
   /blacklists/list:
     post:
       tags:
@@ -5256,6 +5330,10 @@ components:
           $ref: '#/components/schemas/registeredAt'
         status:
           $ref: '#/components/schemas/investigationStatus'
+        queue_id:
+          type: string
+          description: unit21_id of the Alert Queue
+          example: 123456
         description:
           type: string
           description: Description of the alert
@@ -5414,6 +5492,10 @@ components:
           example: Flagged 2 transactions in last hour that were 3 standard deviations outside 3 month mean.
         status:
           $ref: '#/components/schemas/investigationStatus'
+        queue_id:
+          type: string
+          description: unit21_id of the Alert Queue
+          example: 123456
         disposition:
           $ref: '#/components/schemas/Disposition'
         disposition_notes:
@@ -5755,6 +5837,10 @@ components:
           example: suspected money laundering example
         status:
           $ref: '#/components/schemas/investigationStatus'
+        queue_id:
+          type: string
+          description: unit21_id of the Case Queue
+          example: 123456
         disposition:
           $ref: '#/components/schemas/Disposition'
         disposition_notes:
@@ -6597,6 +6683,85 @@ components:
       description: List of agent objects.
       items:
         $ref: '#/components/schemas/agentList'
+    queueType:
+      type: string
+      enum:
+        - Alerts
+        - Cases
+        - Filings
+      description: |
+        What type of article the Queue holds.
+      example: Alert
+    queueSubtype:
+      type: string
+      enum:
+        - TM
+        - KYC
+        - CHAINALYSIS
+        - CAR
+        - MANUAL
+      description: |
+        This denotes the subtype for Alert Queues.
+      example: TM
+    queueAccessType:
+      type: string
+      description: What type of access level the Queue has. Options are Open, Restricted and Classified.
+      example: Restricted
+    getQueueResponse:
+      title: Get Queue Response
+      properties:
+        unit21_id:
+          $ref: '#/components/schemas/unit21Id'
+        title:
+          type: string
+          description: Title of the queue
+          example: High Risk Queue
+        description:
+          type: string
+          description: Description of the queue
+          example: Must be triaged immediatly
+        org_id:
+          $ref: '#/components/schemas/orgId'
+        type:
+          $ref: '#/components/schemas/queueType'
+        subtype:
+          $ref: '#/components/schemas/queueSubtype'
+        access_type:
+          $ref: '#/components/schemas/queueAccessType'
+    listQueuesResponse:
+      type: object
+      properties:
+        queues:
+          type: array
+          description: List of queue objects.
+          items:
+            properties:
+              unit21_id:
+                $ref: '#/components/schemas/unit21Id'
+              title:
+                type: string
+                description: Title of the queue
+                example: High Risk Queue
+              description:
+                type: string
+                description: Description of the queue
+                example: Must be triaged immediatly
+              org_id:
+                $ref: '#/components/schemas/orgId'
+              type:
+                $ref: '#/components/schemas/queueType'
+              subtype:
+                $ref: '#/components/schemas/queueSubtype'
+              access_type:
+                $ref: '#/components/schemas/queueAccessType'
+        response_count:
+          type: integer
+          example: 5
+          description: Number of objects in the paginated response
+        total_count:
+          type: integer
+          example: 15
+          description: Total number of objects in the platform.
     blacklistList:
       title: Blacklist export
       description: Top-level data about a matchlist.
@@ -6999,3 +7164,5 @@ components:
       required: true
       description: Unique identifier of the datafile in the Unit21 system
       example: 45
+x-readme:
+  proxy-enabled: false
