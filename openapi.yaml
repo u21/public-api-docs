@@ -7,6 +7,8 @@ info:
   contact:
     name: Unit21
     url: https://unit21.ai
+x-readme:
+  proxy-enabled: false
 servers:
   - url: https://sandbox1-api.unit21.com/v1
     description: Sandbox1 server for testing
@@ -2768,7 +2770,7 @@ paths:
           content:
             application/json:
               example: {}
-  /queue/{unit21_id}:
+  /queues/{unit21_id}:
     get:
       tags:
         - Queues API
@@ -2824,23 +2826,23 @@ paths:
                 allOf:
                   - $ref: '#/components/schemas/listQueuesResponse'
         '400':
-          '401':
-            $ref: ../../components/responses/401.yaml
-          '403':
-            $ref: ../../components/responses/403.yaml
-          '404':
-            $ref: ../../components/responses/404.yaml
-          '409':
-            $ref: ../../components/responses/409.yaml
-          '423':
-            $ref: ../../components/responses/423.yaml
-          '429':
-            $ref: ../../components/responses/429.yaml
-          '500':
-            $ref: ../../components/responses/500.yaml
-          '503':
-            $ref: ../../components/responses/503.yaml
           $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '423':
+          $ref: '#/components/responses/423'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
   /blacklists/list:
     post:
       tags:
@@ -5332,7 +5334,7 @@ components:
           $ref: '#/components/schemas/investigationStatus'
         queue_id:
           type: string
-          description: unit21_id of the Alert Queue
+          description: The `unit21_id` of the Alert Queue
           example: 123456
         description:
           type: string
@@ -5494,7 +5496,7 @@ components:
           $ref: '#/components/schemas/investigationStatus'
         queue_id:
           type: string
-          description: unit21_id of the Alert Queue
+          description: The `unit21_id` of the Alert Queue
           example: 123456
         disposition:
           $ref: '#/components/schemas/Disposition'
@@ -5839,7 +5841,7 @@ components:
           $ref: '#/components/schemas/investigationStatus'
         queue_id:
           type: string
-          description: unit21_id of the Case Queue
+          description: The `unit21_id` of the Case Queue
           example: 123456
         disposition:
           $ref: '#/components/schemas/Disposition'
@@ -6705,7 +6707,12 @@ components:
       example: TM
     queueAccessType:
       type: string
-      description: What type of access level the Queue has. Options are Open, Restricted and Classified.
+      enum:
+        - Open
+        - Restricted
+        - Classified
+      description: |
+        What type of Agent access level the Queue enforces.
       example: Restricted
     getQueueResponse:
       title: Get Queue Response
@@ -7164,5 +7171,3 @@ components:
       required: true
       description: Unique identifier of the datafile in the Unit21 system
       example: 45
-x-readme:
-  proxy-enabled: false
