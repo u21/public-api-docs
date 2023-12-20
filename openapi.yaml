@@ -2808,7 +2808,7 @@ paths:
           $ref: '#/components/responses/500'
         '503':
           $ref: '#/components/responses/503'
-  /queues:
+  /queues/list:
     post:
       tags:
         - Queues API
