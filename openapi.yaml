@@ -7,8 +7,6 @@ info:
   contact:
     name: Unit21
     url: https://unit21.ai
-x-readme:
-  proxy-enabled: false
 servers:
   - url: https://sandbox1-api.unit21.com/v1
     description: Sandbox1 server for testing
@@ -1427,7 +1425,7 @@ paths:
         - Alerts API
       summary: Create alerts
       operationId: create_alert
-      description: "Creates a new alert, sending alert data in the request body. \nTo create an Alert, you MUST include the following fields: `alert_id`, `alert_type`, `created_at`, `title`, and `status`. The other top-level fields are optional.\n\nIf we receive a request to create an alert for an `alert_id` that already exists in our system,  we will respond with a **409 error code** indicating that this alert cannot be created/updated. You must use the `/alert/update` endpoint to update an alert.\n\nYou can add the following objects to an alert:\n\n  | Field                    | Type     | Description                                                                                                           |\n  |--------------------------|----------|-----------------------------------------------------------------------------------------------------------------------|\n  | `rules`\t                 | String[] | Unique identifier of the rules/triggers/scenarios that triggered this alert                                           |\n  | `events`\t               | Object[] | Transactions affiliated with the alert. Each object must consist of a `event_id` and `event_type` field               |\n  | `entities`\t             | Object[] | Users or businesses affiliated with the alert. Each object must consist of an `entity_id` and `entity_type` field     |\n  | `instruments`\t           | String[] | Unique identifiers of any instruments affiliated with the alert                                                       |\n\n\nPlease note that if `verification_result_id` is included, it will link the entity that is associated  with the verification result with the alert.\n\nUpdates to an alert's `alert_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                             |\n  |--------------------------|----------|---------------------------------------------------------|\n  | `alert_id`\t             | String   | Unique identifier of the alert on your platform         |\n  | `unit21_id`\t             | String   | Internal ID of the alert within Unit21's system         |\n  | `previously_existed`\t   | Boolean  | If alert (with the same `alert_id`) already exists      |\n"
+      description: "Creates a new alert, sending alert data in the request body. \nTo create an Alert, you MUST include the following fields: `alert_id`, `alert_type`, `created_at`, `title`, and `status`. The other top-level fields are optional.\n\nIf we receive a request to create an alert for an `alert_id` that already exists in our system,  we will respond with a **409 error code** indicating that this alert cannot be created/updated. You must use the `/alert/update` endpoint to update an alert.\n\nYou can add the following objects to an alert:\n\n  | Field                    | Type     | Description                                                                                                           |\n  |--------------------------|----------|-----------------------------------------------------------------------------------------------------------------------|\n  | `rules`\t                 | String[] | Unique identifier of the rules/triggers/scenarios that triggered this alert                                           |\n  | `events`\t               | Object[] | Transactions affiliated with the alert. Each object must consist of a `event_id` and `event_type` field               |\n  | `entities`\t             | Object[] | Users or businesses affiliated with the alert. Each object must consist of an `entity_id` and `entity_type` field     |\n  | `instruments`\t           | String[] | Unique identifiers of any instruments affiliated with the alert                                                       |\n  | `watchlist`\t             | Object   | Watchlist affiliated with the alert. Watchlist must be accompanied with one and only one entity matched against to    |                                                      |\n\n\nPlease note that if `verification_result_id` is included, it will link the entity that is associated  with the verification result with the alert.\n\nUpdates to an alert's `alert_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                             |\n  |--------------------------|----------|---------------------------------------------------------|\n  | `alert_id`\t             | String   | Unique identifier of the alert on your platform         |\n  | `unit21_id`\t             | String   | Internal ID of the alert within Unit21's system         |\n  | `previously_existed`\t   | Boolean  | If alert (with the same `alert_id`) already exists      |\n"
       requestBody:
         $ref: '#/components/requestBodies/createAlert'
       responses:
@@ -5305,6 +5303,50 @@ components:
           type: integer
           example: 204
           description: Total number of objects in the platform.
+    watchlistResult:
+      description: A list of watchlist results
+      type: array
+      items:
+        type: object
+        required:
+          - watchlist_name
+          - custom_data
+        properties:
+          watchlist_name:
+            type: string
+            description: Name of the watchlist
+            maxLength: 512
+            example: UN SDN
+          custom_data:
+            $ref: '#/components/schemas/customDataProperties'
+    watchlist:
+      title: Watchlist data
+      type: object
+      description: Watchlist from a chosen provider. Used when `alert_type` is `watchlist`.
+      required:
+        - watchlist_type
+        - watchlist_provider
+        - watchlist_result
+      properties:
+        watchlist_type:
+          type: string
+          enum:
+            - sanction
+            - pep
+            - adverse_media
+            - criminal
+            - aml
+            - high_risk_jurisdiction
+            - interpol
+            - internal
+            - other
+        watchlist_provider:
+          type: string
+          description: Provider of the watchlist
+          maxLength: 512
+          example: LexisNexus
+        watchlist_result:
+          $ref: '#/components/schemas/watchlistResult'
     createAlertRequest:
       title: Create an alert
       required:
@@ -5324,6 +5366,7 @@ components:
             - kyc
             - manual
             - car
+            - watchlist
         title:
           type: string
           description: Title of the alert
@@ -5381,6 +5424,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/instrumentId'
+        watchlist:
+          $ref: '#/components/schemas/watchlist'
         tags:
           $ref: '#/components/schemas/Tags'
         verification_result_id:
@@ -7171,3 +7216,5 @@ components:
       required: true
       description: Unique identifier of the datafile in the Unit21 system
       example: 45
+x-readme:
+  proxy-enabled: false
