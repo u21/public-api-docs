@@ -4360,7 +4360,7 @@ components:
           example: File export has started
     eventId:
       type: string
-      description: Unique identifier of the event on your platform
+      description: Unique identifier of the event on your platform. Note that the equivalent field is referred to in-app as 'Transaction ID' or 'Action ID'.
       example: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
       minLength: 1
       maxLength: 128
@@ -4393,7 +4393,7 @@ components:
             event_subtype:
               type: string
               description: |
-                Extra info about how your organization classifies the event. You MAY enter any value. Useful for granular categories, e.g. if you have two types of products and a transaction can be associated with either.
+                Extra info about how your organization classifies the event. You MAY enter any value. Useful for granular categories, e.g. if you have two types of products and a transaction can be associated with either. Note that the equivalent field is referred to in-app as 'Type'.
               maxLength: 128
               example: payment
             status:
@@ -4494,12 +4494,12 @@ components:
               example: af830da0919f9d3ebbc413040460708c4107e77c83c1d1a56c6bc76a48d
             usd_conversion_notes:
               type: string
-              description: Readable information associated with the exchange rate(s) used, e.g. when the exchange rate was pulled, from what source it was obtained
+              description: Readable information associated with the exchange rate(s) used, e.g. when the exchange rate was pulled, from what source it was obtained. Note that the equivalent field is referred to in-app as 'Conversion notes'.
               example: pulled from forex.com at 1572672226
             internal_fee:
               type: number
               description: |
-                The sum of all internal fees associated with the transaction, specified in USD. Internal fees are collected by your platform e.g. if users pay a fee to you for facilitating a transaction from user to user. All other field amounts should not include the value of these fees.
+                The sum of all internal fees associated with the transaction, specified in USD. Internal fees are collected by your platform e.g. if users pay a fee to you for facilitating a transaction from user to user. All other field amounts should not include the value of these fees. Note that the equivalent field is referred to in-app as 'Fee'.
               example: 5
             external_fee:
               type: number
@@ -4525,12 +4525,12 @@ components:
             action_type:
               type: string
               description: |
-                A keyword (of your choosing) that describes an action event, e.g. `LOGIN`, `SIGNUP`, `PASSWORD_RESET`.
+                A keyword (of your choosing) that describes an action event, e.g. `LOGIN`, `SIGNUP`, `PASSWORD_RESET`. Note that the equivalent field is referred to in-app as 'Type'.
               maxLength: 512
               example: LOGIN
             action_details:
               type: string
-              description: Extra information that provides more context about the event.
+              description: Extra information that provides more context about the event. Note that the equivalent field is referred to in-app as 'Description'.
               maxLength: 4096
               example: Through mobile app v0.8.8
             entity_id:
@@ -4655,7 +4655,7 @@ components:
         event_subtype:
           type: string
           description: |
-            Extra info about how your organization classifies the event. You MAY enter any value. Useful for granular categories, e.g. if you have two types of products and a transaction can be associated with either.
+            Extra info about how your organization classifies the event. You MAY enter any value. Useful for granular categories, e.g. if you have two types of products and a transaction can be associated with either. Note that the equivalent field is referred to in-app as 'Type'.
           maxLength: 128
           example: payment
         status:
@@ -4746,12 +4746,12 @@ components:
           example: af830da0919f9d3ebbc413040460708c4107e77c83c1d1a56c6bc76a48d
         usd_conversion_notes:
           type: string
-          description: Readable information associated with the exchange rate(s) used, e.g. when the exchange rate was pulled, from what source it was obtained
+          description: Readable information associated with the exchange rate(s) used, e.g. when the exchange rate was pulled, from what source it was obtained. Note that the equivalent field is referred to in-app as 'Conversion notes'.
           example: pulled from forex.com at 1572672226
         internal_fee:
           type: number
           description: |
-            The sum of all internal fees associated with the transaction, specified in USD. Internal fees are collected by your platform e.g. if users pay a fee to you for facilitating a transaction from user to user. All other field amounts should not include the value of these fees.
+            The sum of all internal fees associated with the transaction, specified in USD. Internal fees are collected by your platform e.g. if users pay a fee to you for facilitating a transaction from user to user. All other field amounts should not include the value of these fees. Note that the equivalent field is referred to in-app as 'Fee'.
           example: 5
         external_fee:
           type: number
