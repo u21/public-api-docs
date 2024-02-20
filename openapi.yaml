@@ -4973,12 +4973,6 @@ components:
               type: string
               description: Rule Creation end date.
               example: '2021-11-05 04:13:46'
-            rule_ids:
-              type: array
-              description: Numerical IDs of the rules.
-              items:
-                type: integer
-                example: 14
     listAlertRequest:
       type: object
       required:
@@ -5636,12 +5630,6 @@ components:
               items:
                 type: integer
                 example: 6
-            alert_ids:
-              type: array
-              description: Numerical ID of the alerts.
-              items:
-                type: integer
-                example: 45
             alert_types:
               type: array
               description: Sources for the alerts.
@@ -6045,12 +6033,6 @@ components:
               items:
                 type: integer
                 example: 6
-            case_ids:
-              type: array
-              description: Numerical ID of the cases.
-              items:
-                type: integer
-                example: 45
     sarListFilters:
       description: To filter your response to a subset of sars, use these fields.
       properties:
