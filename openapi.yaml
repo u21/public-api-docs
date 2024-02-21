@@ -7,8 +7,6 @@ info:
   contact:
     name: Unit21
     url: https://unit21.ai
-x-readme:
-  proxy-enabled: false
 servers:
   - url: https://sandbox1-api.unit21.com/v1
     description: Sandbox1 server for testing
@@ -4324,18 +4322,6 @@ components:
               example: payment
             status:
               $ref: '#/components/schemas/objectStatus'
-            parents:
-              description: The parent object consists of two fields─`event_id` for parent unique identifier  and `event_type`.
-              items:
-                type: object
-                properties:
-                  event_id:
-                    $ref: '#/components/schemas/eventId'
-                  event_type:
-                    $ref: '#/components/schemas/eventType'
-              example:
-                event_id: 123
-                event_type: transaction
             tags:
               $ref: '#/components/schemas/Tags'
     transactionData:
@@ -4586,18 +4572,6 @@ components:
           example: payment
         status:
           $ref: '#/components/schemas/objectStatus'
-        parents:
-          description: The parent object consists of two fields─`event_id` for parent unique identifier  and `event_type`.
-          items:
-            type: object
-            properties:
-              event_id:
-                $ref: '#/components/schemas/eventId'
-              event_type:
-                $ref: '#/components/schemas/eventType'
-          example:
-            event_id: 123
-            event_type: transaction
         tags:
           $ref: '#/components/schemas/Tags'
     transaction:
@@ -6999,3 +6973,5 @@ components:
       required: true
       description: Unique identifier of the datafile in the Unit21 system
       example: 45
+x-readme:
+  proxy-enabled: false
