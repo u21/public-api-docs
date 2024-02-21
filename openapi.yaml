@@ -7,6 +7,8 @@ info:
   contact:
     name: Unit21
     url: https://unit21.ai
+x-readme:
+  proxy-enabled: false
 servers:
   - url: https://sandbox1-api.unit21.com/v1
     description: Sandbox1 server for testing
@@ -61,9 +63,6 @@ tags:
   - name: Webhooks API
     description: |
       Whenever an event happens on the Unit21 platform, Unit21 can send a webhook about the event to whatever URL you configure. Such events include entity verification results, generated alerts, case re-openings and closings, etcetera.
-  - name: Queues API
-    description: |
-      Queues are the way you can organize Alerts, Cases and Filings in Unit21. They have associations to rules and teams. You can change the queue of Alerts, Cases and Filings using their Unit21 IDs.
   - name: Matchlists API
     description: |
       Matchlists comprise one of the following categories:
@@ -1425,7 +1424,7 @@ paths:
         - Alerts API
       summary: Create alerts
       operationId: create_alert
-      description: "Creates a new alert, sending alert data in the request body. \nTo create an Alert, you MUST include the following fields: `alert_id`, `alert_type`, `created_at`, `title`, and `status`. The other top-level fields are optional.\n\nIf we receive a request to create an alert for an `alert_id` that already exists in our system,  we will respond with a **409 error code** indicating that this alert cannot be created/updated. You must use the `/alert/update` endpoint to update an alert.\n\nYou can add the following objects to an alert:\n\n  | Field                    | Type     | Description                                                                                                           |\n  |--------------------------|----------|-----------------------------------------------------------------------------------------------------------------------|\n  | `rules`\t                 | String[] | Unique identifier of the rules/triggers/scenarios that triggered this alert                                           |\n  | `events`\t               | Object[] | Transactions affiliated with the alert. Each object must consist of a `event_id` and `event_type` field               |\n  | `entities`\t             | Object[] | Users or businesses affiliated with the alert. Each object must consist of an `entity_id` and `entity_type` field     |\n  | `instruments`\t           | String[] | Unique identifiers of any instruments affiliated with the alert                                                       |\n  | `watchlist`\t             | Object   | Watchlist affiliated with the alert. Watchlist must be accompanied with one and only one entity matched against to    |                                                      |\n\n\nPlease note that if `verification_result_id` is included, it will link the entity that is associated  with the verification result with the alert.\n\nUpdates to an alert's `alert_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                             |\n  |--------------------------|----------|---------------------------------------------------------|\n  | `alert_id`\t             | String   | Unique identifier of the alert on your platform         |\n  | `unit21_id`\t             | String   | Internal ID of the alert within Unit21's system         |\n  | `previously_existed`\t   | Boolean  | If alert (with the same `alert_id`) already exists      |\n"
+      description: "Creates a new alert, sending alert data in the request body. \nTo create an Alert, you MUST include the following fields: `alert_id`, `alert_type`, `created_at`, `title`, and `status`. The other top-level fields are optional.\n\nIf we receive a request to create an alert for an `alert_id` that already exists in our system,  we will respond with a **409 error code** indicating that this alert cannot be created/updated. You must use the `/alert/update` endpoint to update an alert.\n\nYou can add the following objects to an alert:\n\n  | Field                    | Type     | Description                                                                                                           |\n  |--------------------------|----------|-----------------------------------------------------------------------------------------------------------------------|\n  | `rules`\t                 | String[] | Unique identifier of the rules/triggers/scenarios that triggered this alert                                           |\n  | `events`\t               | Object[] | Transactions affiliated with the alert. Each object must consist of a `event_id` and `event_type` field               |\n  | `entities`\t             | Object[] | Users or businesses affiliated with the alert. Each object must consist of an `entity_id` and `entity_type` field     |\n  | `instruments`\t           | String[] | Unique identifiers of any instruments affiliated with the alert                                                       |\n\n\nPlease note that if `verification_result_id` is included, it will link the entity that is associated  with the verification result with the alert.\n\nUpdates to an alert's `alert_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                             |\n  |--------------------------|----------|---------------------------------------------------------|\n  | `alert_id`\t             | String   | Unique identifier of the alert on your platform         |\n  | `unit21_id`\t             | String   | Internal ID of the alert within Unit21's system         |\n  | `previously_existed`\t   | Boolean  | If alert (with the same `alert_id`) already exists      |\n"
       requestBody:
         $ref: '#/components/requestBodies/createAlert'
       responses:
@@ -2768,79 +2767,6 @@ paths:
           content:
             application/json:
               example: {}
-  /queues/{unit21_id}:
-    get:
-      tags:
-        - Queues API
-      summary: Get a queue
-      description: Returns information on a specific queue
-      operationId: get_queue_by_unit21_id
-      parameters:
-        - $ref: '#/components/parameters/unit21_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getQueueResponse'
-        '400':
-          description: Bad Request. Your request is invalid.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/errorResponse'
-                  - $ref: '#/components/schemas/messageResponse'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '409':
-          $ref: '#/components/responses/409'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-        '503':
-          $ref: '#/components/responses/503'
-  /queues/list:
-    post:
-      tags:
-        - Queues API
-      summary: List queues
-      description: 'Returns list of Alert, Case and Filing Queues with the following information: - Unit21 ID - Title - Description - Org ID - Type (Alert, Case, Filing) - Subtype (TM, KYC, CHAINALYSIS, MANUAL and CAR) - Access Type (Open, Restricted, Classified)'
-      operationId: list_queues
-      requestBody:
-        $ref: '#/components/requestBodies/list'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/listQueuesResponse'
-        '400':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '409':
-          $ref: '#/components/responses/409'
-        '423':
-          $ref: '#/components/responses/423'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-        '503':
-          $ref: '#/components/responses/503'
   /blacklists/list:
     post:
       tags:
@@ -4360,7 +4286,7 @@ components:
           example: File export has started
     eventId:
       type: string
-      description: Unique identifier of the event on your platform. Note that the equivalent field is referred to in-app as 'Transaction ID' or 'Action ID'.
+      description: Unique identifier of the event on your platform
       example: t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
       minLength: 1
       maxLength: 128
@@ -4393,7 +4319,7 @@ components:
             event_subtype:
               type: string
               description: |
-                Extra info about how your organization classifies the event. You MAY enter any value. Useful for granular categories, e.g. if you have two types of products and a transaction can be associated with either. Note that the equivalent field is referred to in-app as 'Type'.
+                Extra info about how your organization classifies the event. You MAY enter any value. Useful for granular categories, e.g. if you have two types of products and a transaction can be associated with either.
               maxLength: 128
               example: payment
             status:
@@ -4494,12 +4420,12 @@ components:
               example: af830da0919f9d3ebbc413040460708c4107e77c83c1d1a56c6bc76a48d
             usd_conversion_notes:
               type: string
-              description: Readable information associated with the exchange rate(s) used, e.g. when the exchange rate was pulled, from what source it was obtained. Note that the equivalent field is referred to in-app as 'Conversion notes'.
+              description: Readable information associated with the exchange rate(s) used, e.g. when the exchange rate was pulled, from what source it was obtained
               example: pulled from forex.com at 1572672226
             internal_fee:
               type: number
               description: |
-                The sum of all internal fees associated with the transaction, specified in USD. Internal fees are collected by your platform e.g. if users pay a fee to you for facilitating a transaction from user to user. All other field amounts should not include the value of these fees. Note that the equivalent field is referred to in-app as 'Fee'.
+                The sum of all internal fees associated with the transaction, specified in USD. Internal fees are collected by your platform e.g. if users pay a fee to you for facilitating a transaction from user to user. All other field amounts should not include the value of these fees.
               example: 5
             external_fee:
               type: number
@@ -4525,12 +4451,12 @@ components:
             action_type:
               type: string
               description: |
-                A keyword (of your choosing) that describes an action event, e.g. `LOGIN`, `SIGNUP`, `PASSWORD_RESET`. Note that the equivalent field is referred to in-app as 'Type'.
+                A keyword (of your choosing) that describes an action event, e.g. `LOGIN`, `SIGNUP`, `PASSWORD_RESET`.
               maxLength: 512
               example: LOGIN
             action_details:
               type: string
-              description: Extra information that provides more context about the event. Note that the equivalent field is referred to in-app as 'Description'.
+              description: Extra information that provides more context about the event.
               maxLength: 4096
               example: Through mobile app v0.8.8
             entity_id:
@@ -4655,7 +4581,7 @@ components:
         event_subtype:
           type: string
           description: |
-            Extra info about how your organization classifies the event. You MAY enter any value. Useful for granular categories, e.g. if you have two types of products and a transaction can be associated with either. Note that the equivalent field is referred to in-app as 'Type'.
+            Extra info about how your organization classifies the event. You MAY enter any value. Useful for granular categories, e.g. if you have two types of products and a transaction can be associated with either.
           maxLength: 128
           example: payment
         status:
@@ -4746,12 +4672,12 @@ components:
           example: af830da0919f9d3ebbc413040460708c4107e77c83c1d1a56c6bc76a48d
         usd_conversion_notes:
           type: string
-          description: Readable information associated with the exchange rate(s) used, e.g. when the exchange rate was pulled, from what source it was obtained. Note that the equivalent field is referred to in-app as 'Conversion notes'.
+          description: Readable information associated with the exchange rate(s) used, e.g. when the exchange rate was pulled, from what source it was obtained
           example: pulled from forex.com at 1572672226
         internal_fee:
           type: number
           description: |
-            The sum of all internal fees associated with the transaction, specified in USD. Internal fees are collected by your platform e.g. if users pay a fee to you for facilitating a transaction from user to user. All other field amounts should not include the value of these fees. Note that the equivalent field is referred to in-app as 'Fee'.
+            The sum of all internal fees associated with the transaction, specified in USD. Internal fees are collected by your platform e.g. if users pay a fee to you for facilitating a transaction from user to user. All other field amounts should not include the value of these fees.
           example: 5
         external_fee:
           type: number
@@ -4973,6 +4899,12 @@ components:
               type: string
               description: Rule Creation end date.
               example: '2021-11-05 04:13:46'
+            rule_ids:
+              type: array
+              description: Numerical IDs of the rules.
+              items:
+                type: integer
+                example: 14
     listAlertRequest:
       type: object
       required:
@@ -5297,50 +5229,6 @@ components:
           type: integer
           example: 204
           description: Total number of objects in the platform.
-    watchlistResult:
-      description: A list of watchlist results
-      type: array
-      items:
-        type: object
-        required:
-          - watchlist_name
-          - custom_data
-        properties:
-          watchlist_name:
-            type: string
-            description: Name of the watchlist
-            maxLength: 512
-            example: UN SDN
-          custom_data:
-            $ref: '#/components/schemas/customDataProperties'
-    watchlist:
-      title: Watchlist data
-      type: object
-      description: Watchlist from a chosen provider. Used when `alert_type` is `watchlist`.
-      required:
-        - watchlist_type
-        - watchlist_provider
-        - watchlist_result
-      properties:
-        watchlist_type:
-          type: string
-          enum:
-            - sanction
-            - pep
-            - adverse_media
-            - criminal
-            - aml
-            - high_risk_jurisdiction
-            - interpol
-            - internal
-            - other
-        watchlist_provider:
-          type: string
-          description: Provider of the watchlist
-          maxLength: 512
-          example: LexisNexus
-        watchlist_result:
-          $ref: '#/components/schemas/watchlistResult'
     createAlertRequest:
       title: Create an alert
       required:
@@ -5360,7 +5248,6 @@ components:
             - kyc
             - manual
             - car
-            - watchlist
         title:
           type: string
           description: Title of the alert
@@ -5369,10 +5256,6 @@ components:
           $ref: '#/components/schemas/registeredAt'
         status:
           $ref: '#/components/schemas/investigationStatus'
-        queue_id:
-          type: string
-          description: The `unit21_id` of the Alert Queue
-          example: 123456
         description:
           type: string
           description: Description of the alert
@@ -5418,8 +5301,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/instrumentId'
-        watchlist:
-          $ref: '#/components/schemas/watchlist'
         tags:
           $ref: '#/components/schemas/Tags'
         verification_result_id:
@@ -5533,10 +5414,6 @@ components:
           example: Flagged 2 transactions in last hour that were 3 standard deviations outside 3 month mean.
         status:
           $ref: '#/components/schemas/investigationStatus'
-        queue_id:
-          type: string
-          description: The `unit21_id` of the Alert Queue
-          example: 123456
         disposition:
           $ref: '#/components/schemas/Disposition'
         disposition_notes:
@@ -5630,6 +5507,12 @@ components:
               items:
                 type: integer
                 example: 6
+            alert_ids:
+              type: array
+              description: Numerical ID of the alerts.
+              items:
+                type: integer
+                example: 45
             alert_types:
               type: array
               description: Sources for the alerts.
@@ -5872,10 +5755,6 @@ components:
           example: suspected money laundering example
         status:
           $ref: '#/components/schemas/investigationStatus'
-        queue_id:
-          type: string
-          description: The `unit21_id` of the Case Queue
-          example: 123456
         disposition:
           $ref: '#/components/schemas/Disposition'
         disposition_notes:
@@ -6033,6 +5912,12 @@ components:
               items:
                 type: integer
                 example: 6
+            case_ids:
+              type: array
+              description: Numerical ID of the cases.
+              items:
+                type: integer
+                example: 45
     sarListFilters:
       description: To filter your response to a subset of sars, use these fields.
       properties:
@@ -6712,90 +6597,6 @@ components:
       description: List of agent objects.
       items:
         $ref: '#/components/schemas/agentList'
-    queueType:
-      type: string
-      enum:
-        - Alerts
-        - Cases
-        - Filings
-      description: |
-        What type of article the Queue holds.
-      example: Alert
-    queueSubtype:
-      type: string
-      enum:
-        - TM
-        - KYC
-        - CHAINALYSIS
-        - CAR
-        - MANUAL
-      description: |
-        This denotes the subtype for Alert Queues.
-      example: TM
-    queueAccessType:
-      type: string
-      enum:
-        - Open
-        - Restricted
-        - Classified
-      description: |
-        What type of Agent access level the Queue enforces.
-      example: Restricted
-    getQueueResponse:
-      title: Get Queue Response
-      properties:
-        unit21_id:
-          $ref: '#/components/schemas/unit21Id'
-        title:
-          type: string
-          description: Title of the queue
-          example: High Risk Queue
-        description:
-          type: string
-          description: Description of the queue
-          example: Must be triaged immediatly
-        org_id:
-          $ref: '#/components/schemas/orgId'
-        type:
-          $ref: '#/components/schemas/queueType'
-        subtype:
-          $ref: '#/components/schemas/queueSubtype'
-        access_type:
-          $ref: '#/components/schemas/queueAccessType'
-    listQueuesResponse:
-      type: object
-      properties:
-        queues:
-          type: array
-          description: List of queue objects.
-          items:
-            properties:
-              unit21_id:
-                $ref: '#/components/schemas/unit21Id'
-              title:
-                type: string
-                description: Title of the queue
-                example: High Risk Queue
-              description:
-                type: string
-                description: Description of the queue
-                example: Must be triaged immediatly
-              org_id:
-                $ref: '#/components/schemas/orgId'
-              type:
-                $ref: '#/components/schemas/queueType'
-              subtype:
-                $ref: '#/components/schemas/queueSubtype'
-              access_type:
-                $ref: '#/components/schemas/queueAccessType'
-        response_count:
-          type: integer
-          example: 5
-          description: Number of objects in the paginated response
-        total_count:
-          type: integer
-          example: 15
-          description: Total number of objects in the platform.
     blacklistList:
       title: Blacklist export
       description: Top-level data about a matchlist.
@@ -7198,5 +6999,3 @@ components:
       required: true
       description: Unique identifier of the datafile in the Unit21 system
       example: 45
-x-readme:
-  proxy-enabled: false
