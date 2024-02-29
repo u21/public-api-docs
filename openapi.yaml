@@ -382,7 +382,7 @@ paths:
         **Base64** encoded media objects must follow the format:
 
         ```json
-          {
+          [{
             "media": "iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAYAAABNEqduAAAgAElEQVR4Aey9CbgmV1Xv...",
             "name": "Drivers_License.png",
             "media_type": "IMAGE_DRIVERS_LICENSE_FRONT",
@@ -395,7 +395,7 @@ paths:
               "employees": ["John", "Anna", "Peter"],
               "socure_device_session_id": "12121212121212112"
             }
-          }
+          }]
         ```
 
         `media` and `name` are the only required fields for each media object. The `name` must include the file extension such a `File.pdf`. Supplementary form data is sent through the optional `custom_data` object.
@@ -411,7 +411,7 @@ paths:
           | IMAGE_PASSPORT_FRONT        |
           | IMAGE_ID_CARD_FRONT         |
           | IMAGE_ID_CARD_BACK          |
-          | IMAGE_FACE_IMAGE            | 
+          | IMAGE_FACE_IMAGE            |
       operationId: link_media_to_entity
       parameters:
         - $ref: '#/components/parameters/entity_id'
@@ -1028,7 +1028,7 @@ paths:
         **Base64** encoded media objects must include `media`, `name`, and `media-type` for each media object. The `name` must include the file extension such a `File.pdf`. Supplementary form data is sent through the optional `custom_data` object.
 
         ```json
-          {
+          [{
             "media": "iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAYAAABNEqduAAAgAElEQVR4Aey9CbgmV1Xv...",
             "name": "Check_Image_Front.png",
             "media_type": "CHECK_IMAGE_FRONT",
@@ -1037,7 +1037,7 @@ paths:
               "source": "direct_deposit_capture",
               "timestamp": "2012-03-40 05:12:41.000Z"
             }
-          }
+          }]
         ```
       operationId: link_media_to_event
       parameters:
@@ -1562,11 +1562,11 @@ paths:
         **Base64** encoded media objects must follow the format:
 
         ```json
-          {
+          [{
             "media": "iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAYAAABNEqduAAAgAElEQVR4Aey9CbgmV1Xv...",
             "name": "Drivers_License.png",
             "media_type": "IMAGE_DRIVERS_LICENSE_FRONT"
-          }
+          }]
         ```
             
         `media` and `name` are the only required fields for each media object. The `name`` must include the file extension such a `File.pdf`. Supplementary form data is sent through the optional `custom_data` object.
@@ -1901,11 +1901,11 @@ paths:
         **Base64** encoded media objects must follow the format:
 
         ```json
-          {
+          [{
             "media": "iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAYAAABNEqduAAAgAElEQVR4Aey9CbgmV1Xv...",
             "name": "Drivers_License.png",
             "media_type": "IMAGE_DRIVERS_LICENSE_FRONT"
-          }
+          }]
         ```
             
         `media` and `name` are the only required fields for each media object. The `name`` must include the file extension such a `File.pdf`. Supplementary form data is sent through the optional `custom_data` object.
