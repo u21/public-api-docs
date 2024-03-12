@@ -179,7 +179,12 @@ paths:
       tags:
         - Entities API
       summary: Get an entity
+      deprecated: true
       description: |-
+        > ❗️ THIS ENDPOINT IS UNDER DEPRECATION.
+        >
+        > For new implementations, please use our export feature. You can export data programatically via our Export API endpoint [Bulk Export Entities](https://docs.unit21.ai/reference/export_entities).
+
         Returns all data objects belonging to a single entity, including `general_data`, `document_data`, etc.
 
         [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) entities will not be listed.
@@ -609,7 +614,12 @@ paths:
       tags:
         - Instruments API
       summary: Get an instrument
+      deprecated: true
       description: |-
+        > ❗️ THIS ENDPOINT IS UNDER DEPRECATION.
+        >
+        > For new implementations, please use our export feature. You can export data programatically via our Export API endpoint [Bulk Export Instruments](https://docs.unit21.ai/reference/export_instruments).
+
         Returns all data objects belonging to a single instrument.
 
         [Placeholder](https://docs.unit21.ai/reference/placeholder-objects) instruments are not listed.
@@ -894,7 +904,12 @@ paths:
       tags:
         - Events API
       summary: Get an event
+      deprecated: true
       description: |-
+        > ❗️ THIS ENDPOINT IS UNDER DEPRECATION.
+        >
+        > For new implementations, please use our export feature. You can export data programatically via our Export API endpoint [Bulk Export Events](https://docs.unit21.ai/reference/export_events).
+
         Returns all data objects belonging to a single event.
 
         This endpoint requires the `events_id` which is a unique ID created by your organization to identify the event. The `org_name` is your Unit21 appointed organization name such as `google` or `acme`.
