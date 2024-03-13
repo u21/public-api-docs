@@ -4915,6 +4915,14 @@ components:
           $ref: '#/components/schemas/registeredAt'
         status:
           $ref: '#/components/schemas/investigationStatus'
+        alert_subtype:
+          type: string
+          enum:
+            - check_fraud
+            - adverse_media
+            - pep
+            - sanctions
+          description: The subtype of the alert, which should match the `alert_type`.  Eg. tm:check_fraud, watchlist:adverse_media, watchlist:pep, watchlist:sanctions
         queue_id:
           type: string
           description: The `unit21_id` of the Alert Queue
