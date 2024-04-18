@@ -10,14 +10,10 @@ info:
 servers:
   - url: https://sandbox1-api.unit21.com/v1
     description: Sandbox1 server for testing
-  - url: https://rtr.sandbox1.unit21.com
-    description: Sandbox1 server for RTR testing
   - url: https://sandbox2-api.unit21.com/v1
     description: Sandbox2 server for testing
   - url: https://api.unit21.com/v1
     description: Production1 server
-  - url: https://rtr.prod1.unit21.com
-    description: Production1 RTR server
   - url: https://api.prod2.unit21.com/v1
     description: Production2 server
 security:
@@ -181,9 +177,9 @@ paths:
       summary: Get an entity
       deprecated: true
       description: |-
-        > ❗️ THIS ENDPOINT IS UNDER DEPRECATION.
+        > ❗️ THIS ENDPOINT IS IN THE PROCESS OF BEING DEPRECATED.
         >
-        > For new implementations, please use our export feature. You can export data programatically via our Export API endpoint [Bulk Export Entities](https://docs.unit21.ai/reference/export_entities).
+        > For new implementations, please use our export feature. You can export data programatically via our Export API endpoint [Bulk Export Entities](https://docs.unit21.ai/reference/export_entities).  A deadline has not yet been determined, however this work is not expected to be complete for another 6 months (October 2024). Customers will be notified well before the deadline to make necessary changes. It is recommend that existing customers switch to the export feature at their earliest convenience.
 
         Returns all data objects belonging to a single entity, including `general_data`, `document_data`, etc.
 
@@ -616,9 +612,9 @@ paths:
       summary: Get an instrument
       deprecated: true
       description: |-
-        > ❗️ THIS ENDPOINT IS UNDER DEPRECATION.
+        > ❗️ THIS ENDPOINT IS IN THE PROCESS OF BEING DEPRECATED.
         >
-        > For new implementations, please use our export feature. You can export data programatically via our Export API endpoint [Bulk Export Instruments](https://docs.unit21.ai/reference/export_instruments).
+        > For new implementations, please use our export feature. You can export data programatically via our Export API endpoint [Bulk Export Instruments](https://docs.unit21.ai/reference/export_instruments). A deadline has not yet been determined, however this work is not expected to be complete for another 6 months (October 2024). Customers will be notified well before the deadline to make necessary changes. It is recommend that existing customers switch to the export feature at their earliest convenience.
 
         Returns all data objects belonging to a single instrument.
 
@@ -853,6 +849,11 @@ paths:
       summary: Run real-time rules on an event
       operationId: create_rtr_event
       description: |
+        ^ PLEASE NOTE THAT THE ABOVE PATH CONSTRUCTION IS NOT ALWAYS CORRECT, PLEASE USE:
+        https://rtr.sandbox1.unit21.com/v1/evaluate
+
+        https://rtr.prod1.unit21.com/v1/evaluate
+
         Runs real-time rules on a particular event, the details of which are sent in the request body. 
 
         To save the event that was evaluated, it must be sent to the event creation endpoint separately;  however, the same payload can be used to simplify implementation.
@@ -906,9 +907,9 @@ paths:
       summary: Get an event
       deprecated: true
       description: |-
-        > ❗️ THIS ENDPOINT IS UNDER DEPRECATION.
+        > ❗️ THIS ENDPOINT IS IN THE PROCESS OF BEING DEPRECATED.
         >
-        > For new implementations, please use our export feature. You can export data programatically via our Export API endpoint [Bulk Export Events](https://docs.unit21.ai/reference/export_events).
+        > For new implementations, please use our export feature. You can export data programatically via our Export API endpoint [Bulk Export Events](https://docs.unit21.ai/reference/export_events).  A deadline has not yet been determined, however this work is not expected to be complete for another 6 months (October 2024). Customers will be notified well before the deadline to make necessary changes. It is recommend that existing customers switch to the export feature at their earliest convenience.
 
         Returns all data objects belonging to a single event.
 
@@ -1036,8 +1037,8 @@ paths:
         **Form-data** sent to this endpoint must use the key `media_key` and the `value` as the media file.  If you wish to provide optional information, use the `media_key` and provide stringified JSON data as the value.  `media_type` is the only required field in each media file's supplementary form data. 
 
         ```
-          --form 'check_front=@/src/103031/images/check_image_front.jpg' \
-          --form 'check_front={"media_type": "CHECK_IMAGE_FRONT", "source": "direct_deposit_capture", "timestamp": 1572673229}'
+          --form 'check_front=@/src/103031/images/image_check_front.jpg' \
+          --form 'check_front={"media_type": "IMAGE_CHECK_FRONT", "source": "direct_deposit_capture", "timestamp": 1572673229}'
         ```
 
         **Base64** encoded media objects must include `media`, `name`, and `media-type` for each media object. The `name` must include the file extension such a `File.pdf`. Supplementary form data is sent through the optional `custom_data` object.
@@ -1045,8 +1046,8 @@ paths:
         ```json
           [{
             "media": "iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAYAAABNEqduAAAgAElEQVR4Aey9CbgmV1Xv...",
-            "name": "Check_Image_Front.png",
-            "media_type": "CHECK_IMAGE_FRONT",
+            "name": "Image_Check_Front.png",
+            "media_type": "IMAGE_CHECK_FRONT",
             "custom_data": {
               "internal_notes": "Reviewed by Mitchell Jones on 31 June 2019",
               "source": "direct_deposit_capture",
@@ -2728,7 +2729,7 @@ paths:
               example:
                 file_id: '166'
                 form_fields:
-                  AWSAccessKeyId: AKIA4GCWZN4AUYY52BAU
+                  AWSAccessKeyId: XXXXX
                   key: dev/org_unit21/1677016250000_foobar.json
                   policy: eyJleHBpcmF0aW9uIjogIjIwMjMtMDItMjFUMjM6NTA6NTBaIiwgImNvbmRpdGlvbnMiOiBbWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsIDAsIDMxNDU3MjgwMF0sIHsiYnVja2V0IjogIm11bHRpdGVuYW50LXVzLXdlc3QtMi1kZXYtdG0tdXBsb2FkcyJ9LCB7ImtleSI6ICJkZXYvb3JnX3VuaXQyMS8xNjc3MDE2MjUwMDAwX2Zvb2Jhci5qc29uIn1dfQ==
                   signature: b+tguqfylMCXytxtXMwAY7jLdPw=
@@ -3437,6 +3438,8 @@ components:
         - IMAGE_ID_CARD_FRONT
         - IMAGE_ID_CARD_BACK
         - IMAGE_FACE_IMAGE
+        - IMAGE_CHECK_FRONT
+        - IMAGE_CHECK_BACK
       description: |
         Type of media. The dropdown contains Unit21-recognized types but all types are accepted.
 
@@ -4919,10 +4922,9 @@ components:
           type: string
           enum:
             - check_fraud
-            - adverse_media
             - pep
             - sanctions
-          description: The subtype of the alert, which should match the `alert_type`.  Eg. tm:check_fraud, watchlist:adverse_media, watchlist:pep, watchlist:sanctions
+          description: The subtype of the alert, which should match the `alert_type`.  Eg. tm:check_fraud, watchlist:pep, watchlist:sanctions
         queue_id:
           type: string
           description: The `unit21_id` of the Alert Queue
@@ -5925,7 +5927,7 @@ components:
           type: string
           description: URL where the file can be downloaded
       example:
-        url: https://dashboard-file-exports.s3.amazonaws.com/20201105-200246_Intuit_BULK_ALERT.xlsx?AWSAccessKeyId=AKIA4GCWZN4AWKTTJM7N&Signature=0jfhY%2FvVGZMpAYrlhWEwhzLt1bw%3D&Expires=1656675423
+        url: https://dashboard-file-exports.s3.amazonaws.com/20201105-200246_Intuit_BULK_ALERT.xlsx?AWSAccessKeyId=XXXXX&Signature=0jfhY%2FvVGZMpAYrlhWEwhzLt1bw%3D&Expires=1656675423
     listExportNotReadyResponse:
       properties:
         message:
