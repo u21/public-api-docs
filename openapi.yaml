@@ -512,7 +512,7 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/entity-unit21-Ids'
+                - $ref: '#/components/schemas/entityIds'
                 - $ref: '#/components/schemas/entityExportFilters'
                 - $ref: '#/components/schemas/csv'
       responses:
@@ -747,7 +747,7 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/instrument-unit21-Ids'
+                - $ref: '#/components/schemas/instrumentIds'
                 - $ref: '#/components/schemas/instrumentExportFilters'
                 - $ref: '#/components/schemas/csv'
       responses:
@@ -1098,12 +1098,9 @@ paths:
     post:
       tags:
         - Events API
-      summary: Bulk export events
+      summary: Bulk export action events
       description: |
-        Initiates an email and dashboard export of events. The export will be as a CSV file.
-
-        Either the agent `ID` or `email` is required to begin the export.
-
+        Initiates an email and dashboard export of action events. The export will be exported as a CSV file.
         Either the `filters` or the list of `event IDs` are required for the export.
 
         Custom data filters are not supported for bulk exports at this time.
@@ -1153,10 +1150,7 @@ paths:
         - Events API
       summary: Bulk export transactions
       description: |
-        Initiates an email and dashboard export of events. The export will be as a CSV file.
-
-        Either the agent `ID` or `email` is required to begin the export.
-
+        Initiates an email and dashboard export of transactions. The export will be exported as a CSV file.
         Either the `filters` or the list of `event IDs` are required for the export.
 
         Custom data filters are not supported for bulk exports at this time.
@@ -1296,9 +1290,6 @@ paths:
       summary: Bulk export rules
       description: |
         Initiates an email and dashboard export of rules. The export will be as a CSV file.
-
-        Either the agent `ID` or `email` is required to begin the export.
-
         Either the `filters` or the list of `rule IDs` are required for the export.
 
         **Currently `rule_ids` should actually be `unit21_ids`.**
@@ -1643,9 +1634,6 @@ paths:
       summary: Bulk export alerts
       description: |
         Initiates an email and dashboard export of alerts. The export will be as a CSV file.
-
-        Either the agent `ID` or `email` is required to begin the export.
-
         Either the `filters` or the list of `alert IDs` are required for the export.
 
         **Currently `alert_ids` should actually be `unit21_ids`.**
@@ -2132,9 +2120,6 @@ paths:
       summary: Bulk export sars
       description: |
         Initiates an email and dashboard export of sars. The export will be as a CSV file.
-
-        Either the agent `ID` or `email` is required to begin the export.
-
         Either the `filters` or the list of `sar IDs` are required for the export.
 
         Custom data filters are not supported for bulk exports at this time.
@@ -3642,17 +3627,16 @@ components:
             --form 'document_front=@/src/103031/images/document_front.jpg' \
             --form 'document_front={"media_type": "IMAGE_ID_CARD_FRONT", "source": "passport_app", "timestamp": 1572673229}'
             ```
-    unit21Id:
-      type: integer
-      description: 'A Unit21 internally-assigned unique identifier for an object within the Unit21 system. '
-      example: 1237466
-    entity-unit21-Ids:
+    entityIds:
       properties:
         entity_ids:
           type: array
-          description: List of unit21 IDs.
+          description: List of unique entity IDs.
           items:
-            $ref: '#/components/schemas/unit21Id'
+            $ref: '#/components/schemas/entityId'
+          example:
+            - entityA
+            - entityB
     entityExportFilters:
       properties:
         filters:
@@ -3685,15 +3669,6 @@ components:
               type: string
               description: Entity creation date end.
               example: '2021-11-05 04:13:46'
-            entity_ids:
-              type: array
-              description: Numerical IDs of the entities.
-              items:
-                type: integer
-                example: 15453219
-              example:
-                - 3242342
-                - 3423432
             internal_entity_type:
               type: array
               description: Type of entity.
@@ -3872,13 +3847,6 @@ components:
       properties:
         instrument_id:
           $ref: '#/components/schemas/instrumentId'
-    instrument-unit21-Ids:
-      properties:
-        instrument_ids:
-          type: array
-          description: List of unit21 IDs.
-          items:
-            $ref: '#/components/schemas/unit21Id'
     instrumentExportFilters:
       properties:
         filters:
@@ -3913,13 +3881,13 @@ components:
               example: '2021-11-05 04:13:46'
             entity_ids:
               type: array
-              description: Numerical IDs of the entities.
+              description: List of unique entity IDs.
               items:
-                type: integer
-                example: 15453219
+                type: string
+                example: entityA
               example:
-                - 3242342
-                - 3423432
+                - entityA
+                - entityB
             instrument_type:
               type: string
               description: Type of instrument.
@@ -4336,10 +4304,10 @@ components:
           type: array
           description: Array of the unique identifiers of the event IDs.
           items:
-            type: integer
+            $ref: '#/components/schemas/eventId'
           example:
-            - 6565465
-            - 1363453
+            - t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
+            - t-9daaebad-478d-4ea3-bbf9-e6320d3f1ceb
     eventExportFilters:
       properties:
         filters:
@@ -4376,15 +4344,6 @@ components:
               type: string
               description: Currency used in the transaction.
               example: USD
-            entity_ids:
-              type: array
-              description: Numerical IDs of the entities.
-              items:
-                type: integer
-                example: 15453219
-              example:
-                - 3242342
-                - 3423432
     listRequest:
       type: object
       required:
@@ -4402,6 +4361,10 @@ components:
           description: Pagination offset. A value of 1 returns a response beginning with the first record. The offset is relative to the number of pages (not the total count of objects)
           minimum: 1
           default: 1
+    unit21Id:
+      type: integer
+      description: 'A Unit21 internally-assigned unique identifier for an object within the Unit21 system. '
+      example: 1237466
     ruleList:
       title: Rule
       description: Top-level data about an rule.
