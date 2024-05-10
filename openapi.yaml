@@ -3663,9 +3663,17 @@ components:
                 example: 371
             start_date:
               type: string
-              description: Entity creation date start.
+              description: Entity registered_at date start.
               example: '2019-11-05 04:13:46'
             end_date:
+              type: string
+              description: Entity registered_at date end.
+              example: '2021-11-05 04:13:46'
+            created_at_start_date:
+              type: string
+              description: Entity creation date start.
+              example: '2019-11-05 04:13:46'
+            created_at_end_date:
               type: string
               description: Entity creation date end.
               example: '2021-11-05 04:13:46'
