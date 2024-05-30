@@ -1111,7 +1111,7 @@ paths:
             schema:
               allOf:
                 - $ref: '#/components/schemas/eventIds'
-                - $ref: '#/components/schemas/eventExportFilters'
+                - $ref: '#/components/schemas/actionEventExportFilters'
                 - $ref: '#/components/schemas/csv'
       responses:
         '200':
@@ -1161,7 +1161,7 @@ paths:
             schema:
               allOf:
                 - $ref: '#/components/schemas/eventIds'
-                - $ref: '#/components/schemas/eventExportFilters'
+                - $ref: '#/components/schemas/txnEventExportFilters'
                 - $ref: '#/components/schemas/csv'
       responses:
         '200':
@@ -4316,7 +4316,7 @@ components:
           example:
             - t-9daaebad-478d-4ea3-bbf9-e6320d3f1cea
             - t-9daaebad-478d-4ea3-bbf9-e6320d3f1ceb
-    eventExportFilters:
+    actionEventExportFilters:
       properties:
         filters:
           type: object
@@ -4352,6 +4352,51 @@ components:
               type: string
               description: Currency used in the transaction.
               example: USD
+    txnEventExportFilters:
+      properties:
+        filters:
+          type: object
+          description: Filter to narrow down events in export
+          properties:
+            statuses:
+              type: array
+              description: Status for the events.
+              items:
+                type: string
+                example: new
+            status:
+              type: string
+              description: Status of the event.
+              example: active
+            start_date:
+              type: string
+              description: Event creation date start.
+              example: '2019-11-05 04:13:46'
+            end_date:
+              type: string
+              description: Event creation date end.
+              example: '2021-11-05 04:13:46'
+            minimum_amount:
+              type: integer
+              description: Minimum amount in the event transaction.
+              example: 1000
+            maximum_amount:
+              type: integer
+              description: Maximum amount in the event transaction.
+              example: 100000
+            currency:
+              type: string
+              description: Currency used in the transaction.
+              example: USD
+            entity_ids:
+              type: array
+              description: List of unique entity IDs.
+              items:
+                type: string
+                example: entityA
+              example:
+                - entityA
+                - entityB
     listRequest:
       type: object
       required:
@@ -5181,13 +5226,13 @@ components:
               example: '2021-11-05 04:13:46'
             entity_ids:
               type: array
-              description: Numerical IDs of the entities.
+              description: List of unique entity IDs.
               items:
-                type: integer
-                example: 15453219
+                type: string
+                example: entityA
               example:
-                - 3242342
-                - 3423432
+                - entityA
+                - entityB
             phrase:
               type: string
               description: ID or title of the alert.
@@ -5537,6 +5582,15 @@ components:
               items:
                 type: integer
                 example: 371
+            entity_ids:
+              type: array
+              description: List of unique entity IDs.
+              items:
+                type: string
+                example: entityA
+              example:
+                - entityA
+                - entityB
             start_date:
               type: string
               description: Case creation start date.
