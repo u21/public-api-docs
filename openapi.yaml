@@ -3059,6 +3059,7 @@ components:
       description: List of phone numbers associated with the entity in [E.164 format](https://en.wikipedia.org/wiki/E.164)─e.g. +12125551395 ( '[+][country code][area code][local phone number]' )
       items:
         type: string
+        maxLength: 128
         example: '+14159627132'
     communicationDataProperties:
       title: Communication data
@@ -3083,7 +3084,7 @@ components:
       title: Client fingerprint
       type: string
       description: A Unique address
-      maxLength: 128
+      maxLength: 1024
       example: 5454-ahfd-4531d-f4il
     digitalDataArrayProperties:
       title: Digital data
@@ -3108,11 +3109,12 @@ components:
     zipCode:
       type: string
       description: Associated ZIP code or postal code. For US addresses, can be either 5-digit ZIP Code (99999) or ZIP+4 Code (99999-9999) formats
+      maxLength: 128
       example: 07710-0001
     Country:
       type: string
       description: Country of primary residence such as "USA", "United States", "US", "The United States of America"
-      maxLength: 2
+      maxLength: 128
       example: US
     locationDataProperties:
       title: location data properties
@@ -3136,8 +3138,8 @@ components:
           example: 22a
         street_name:
           type: string
-          description: Street name of primary residence (max 128 characters)
-          maxLength: 128
+          description: Street name of primary residence (max 510 characters)
+          maxLength: 510
           example: California Ave
         city:
           $ref: '#/components/schemas/City'
