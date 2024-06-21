@@ -1765,7 +1765,7 @@ paths:
       tags:
         - Cases API
       summary: Create a case
-      description: "Creates a new case, sending case data in the request body. \nTo create a case, you MUST include the following fields: `case_id`, `title`, and `created_at`.  The other top-level fields are optional.\n\nIf we receive a request to create a case for an `case_id` that already exists in our system,  we will respond with a **409 error code** indicating that this case cannot be created/updated. You must use the `/case/update` endpoint to update a case.\n\nYou can add the following objects to a case:\n\n  | Field                    | Type     | Description                                                             |\n  |--------------------------|----------|-------------------------------------------------------------------------|\n  | `alerts`\t               | Array[]  | Alerts that are associated with this case. Consists of `alert_id`s      |\n  | `events`\t               | Array[]  | Transactions affiliated with the case. Consists of `event_id`s          |\n  | `entities`\t             | Array[]  | Entities affiliated with the case. Consists of `entity_id`s             |\n\nUpdates to a cases's `case_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                          |\n  |--------------------------|----------|------------------------------------------------------|\n  | `case_id`\t               | String   | \tUnique identifier of the case on your platform     |\n  | `previously_existed`\t   | Boolean  | \tIf case (with the same `case_id`) already exists   |\n"
+      description: "Creates a new case, sending case data in the request body. \nTo create a case, you MUST include the following fields: `case_id`, `title`, and `created_at`.  The other top-level fields are optional.\n\nIf we receive a request to create a case for an `case_id` that already exists in our system,  we will respond with a **409 error code** indicating that this case cannot be created/updated. You must use the `/case/update` endpoint to update a case.\n\nYou can add the following objects to a case:\n\n  | Field                    | Type     | Description                                                                                               |\n  |--------------------------|----------|-----------------------------------------------------------------------------------------------------------|\n  | `alerts`\t               | int[]    | Alerts that are associated with this case. Consists of `alert_id`s                                        |\n  | `events`\t               | Object[] | Transactions affiliated with the alert. Each object must consist of a `event_id` and `event_type` field   |\n  | `entities`\t             | String[] | Entities affiliated with the case. Consists of `entity_id`s                                               |\n\nUpdates to a cases's `case_id` are not allowed.\n\nFollow the links for more information:\n  - [Endpoint options](https://docs.unit21.ai/reference/endpoint-options)\n  - [Batch uploads](https://docs.unit21.ai/reference/batch-request-examples)\n  - [Modifying tags](https://docs.unit21.ai/reference/modifying-tags)\n\n\nThe response will consist of the following fields:\n\n  | Field                    | Type     | Description                                          |\n  |--------------------------|----------|------------------------------------------------------|\n  | `case_id`\t               | String   | \tUnique identifier of the case on your platform     |\n  | `previously_existed`\t   | Boolean  | \tIf case (with the same `case_id`) already exists   |\n"
       operationId: create_case
       requestBody:
         required: true
@@ -1774,8 +1774,6 @@ paths:
             schema:
               allOf:
                 - $ref: '#/components/schemas/Cases'
-                - $ref: '#/components/schemas/entities'
-                - $ref: '#/components/schemas/events'
       responses:
         '200':
           description: OK
@@ -4944,7 +4942,7 @@ components:
             - sanctions
           description: The subtype of the alert, which should match the `alert_type`.  Eg. tm:check_fraud, watchlist:pep, watchlist:sanctions
         queue_id:
-          type: string
+          type: integer
           description: The `unit21_id` of the Alert Queue
           example: 123456
         description:
@@ -5442,7 +5440,7 @@ components:
         status:
           $ref: '#/components/schemas/investigationStatus'
         queue_id:
-          type: string
+          type: integer
           description: The `unit21_id` of the Case Queue
           example: 123456
         disposition:
@@ -5453,8 +5451,28 @@ components:
           $ref: '#/components/schemas/registeredAt'
         tags:
           $ref: '#/components/schemas/Tags'
-    entities:
-      properties:
+        alerts:
+          description: Array of alerts, consisting of the alerts' `unit21_ids`
+          type: array
+          items:
+            type: integer
+          example:
+            - 65338
+            - 877264
+        events:
+          description: Array of events, consisting of `event_id` and `event_type`
+          type: array
+          items:
+            type: object
+            required:
+              - event_id
+              - event_type
+            properties:
+              event_id:
+                example: event-1063e4e3e1
+                type: string
+              event_type:
+                $ref: '#/components/schemas/eventType'
         entities:
           type: array
           description: List of unique entity IDs.
@@ -5463,16 +5481,6 @@ components:
           example:
             - entityA
             - entityB
-    events:
-      properties:
-        events:
-          type: array
-          description: Array of the unique identifiers of the event IDs.
-          items:
-            type: integer
-          example:
-            - 6565465
-            - 1363453
     createCaseResponse:
       title: Create case response
       properties:
