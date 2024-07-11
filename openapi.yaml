@@ -850,9 +850,9 @@ paths:
       operationId: create_rtr_event
       description: |
         ^ PLEASE NOTE THAT THE ABOVE PATH CONSTRUCTION IS NOT ALWAYS CORRECT, PLEASE USE:
-        https://rtr.sandbox1.unit21.com/v1/evaluate
+        https://rtr.sandbox1.unit21.com/evaluate
 
-        https://rtr.prod1.unit21.com/v1/evaluate
+        https://rtr.prod1.unit21.com/evaluate
 
         Runs real-time rules on a particular event, the details of which are sent in the request body. 
 
