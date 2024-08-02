@@ -521,7 +521,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/messageResponse'
+                $ref: '#/components/schemas/bulkExportResponse'
               example:
                 message: File export has started
         '400':
@@ -3697,6 +3697,17 @@ components:
           type: boolean
           description: Export as CSV file.
           example: true
+    bulkExportResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 'A Unit21 internally-assigned unique identifier for an object within the Unit21 system. '
+          example: 1237466
+        message:
+          type: string
+          description: Export success.
+          example: File export has started
     Options:
       properties:
         upsert_on_conflict:
@@ -3900,13 +3911,6 @@ components:
               type: string
               description: Type of instrument.
               example: wallet
-    bulkExportResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Export success.
-          example: File export has started
     eventId:
       type: string
       description: Unique identifier of the event on your platform. Note that the equivalent field is referred to in-app as 'Transaction ID' or 'Action ID'.
