@@ -3032,7 +3032,7 @@ components:
           example: 1572673227
     documentDataArrayProperties:
       title: Document data array
-      description: Array of document data objects.
+      description: Array of document data objects. Please note that the maximum number of documents that can be associated with an entity is 1,000.
       type: array
       items:
         $ref: '#/components/schemas/documentDataProperties'
@@ -3062,7 +3062,7 @@ components:
     communicationDataProperties:
       title: Communication data
       type: object
-      description: An entity's associated means of communication, like emails and phone numbers.
+      description: An entity's associated means of communication, like emails and phone numbers. Please note that the maximum number of email addresses and phone numbers that can be associated with an entity is 10,000.
       properties:
         email_addresses:
           type: array
@@ -3086,7 +3086,7 @@ components:
       example: 5454-ahfd-4531d-f4il
     digitalDataArrayProperties:
       title: Digital data
-      description: Associated digital properties - IP, device, browser, client info etc.
+      description: Associated digital properties - IP, device, browser, client info etc. Please note that the maximum number of IP addresses or client fingerprints that can be associated with an entity is 10,000.
       type: object
       properties:
         ip_addresses:
@@ -3149,7 +3149,7 @@ components:
           $ref: '#/components/schemas/Country'
     locationDataArrayProperties:
       title: Location data array
-      description: Array of location data objects.
+      description: Array of location data objects. Please note that the maximum number of addresses that can be associated with an entity is 1,000.
       type: array
       items:
         $ref: '#/components/schemas/locationDataProperties'
@@ -4090,7 +4090,7 @@ components:
       title: Digital data
       properties:
         digital_data:
-          description: Associated digital properties - IP, device, browser, client info etc.
+          description: Associated digital properties - IP, device, browser, client info etc. Please note that the maximum number of IP addresses or client fingerprints that can be associated with an entity is 10,000.
           type: object
           properties:
             ip_address:
