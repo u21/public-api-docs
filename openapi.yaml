@@ -5104,6 +5104,10 @@ components:
           example: Flagged 2 transactions in last hour that were 3 standard deviations outside 3 month mean.
         status:
           $ref: '#/components/schemas/investigationStatus'
+        rule_id:
+          type: string
+          description: The `unit21_id` of a non-Real Time Monitoring Rule, the alert will be routed to the defined `rule.alert_queue_id`
+          example: 123456
         queue_id:
           type: string
           description: The `unit21_id` of the Alert Queue
