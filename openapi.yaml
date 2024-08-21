@@ -4927,8 +4927,6 @@ components:
             - chainalysis
             - tm
             - kyc
-            - manual
-            - car
             - watchlist
         title:
           type: string
