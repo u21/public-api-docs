@@ -2991,7 +2991,7 @@ components:
         website:
           type: string
           description: The website or associated URL for the business
-          maxLength: 612
+          maxLength: 512
           example: www.google.com
     State:
       type: string
