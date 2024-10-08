@@ -3958,11 +3958,7 @@ components:
       properties:
         transaction_data:
           description: |
-            In addition to the required `amount` field, must include at least one of:
-            * `sender_entity_id`
-            * `sender_instrument_id`
-            * `receiver_entity_id`
-            * `receiver_instrument_id`
+            The only required field is `amount`.
           type: object
           required:
             - amount
